@@ -21,8 +21,6 @@ in {
 
   # Reset xHCI controller after resume to recover fingerprint reader
   powerManagement.resumeCommands = lib.mkIf isLaptop ''
-    # Wait for system to stabilize
-
     # Unbind the dead xHCI controller
     echo '0000:c1:00.4' > /sys/bus/pci/drivers/xhci_hcd/unbind 2>/dev/null || true
 
@@ -36,7 +34,6 @@ in {
     pam.services = {
       sudo.fprintAuth = lib.mkIf isLaptop true;
       hyprlock = {
-        #text = "auth include login";
         fprintAuth = lib.mkIf isLaptop true;
       };
       login = {
