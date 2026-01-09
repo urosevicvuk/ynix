@@ -19,11 +19,11 @@
     wireplumber = {
       enable = true;
       extraConfig = {
-        no-ucm = {
-          "monitor.alsa.properties" = {
-            "alsa.use-ucm" = false;
-          };
-        };
+        #no-ucm = {
+        #  "monitor.alsa.properties" = {
+        #    "alsa.use-ucm" = false;
+        #  };
+        #};
       };
     };
   };
