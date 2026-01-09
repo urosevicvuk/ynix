@@ -78,6 +78,12 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # QuickShell - QtQuick-based widget toolkit (for end-4 bar only)
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
@@ -122,6 +128,8 @@
                   system = final.system;
                   config.allowUnfree = true;
                 };
+                # Material Symbols font for QuickShell icons
+                material-symbols = prev.callPackage ./pkgs/material-symbols {};
               })
             ];
           }

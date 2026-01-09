@@ -28,6 +28,9 @@
     # GNOME keyring for password storage
     gnome.gnome-keyring.enable = true;
 
+    # Geolocation service (required for illogical-impulse/QuickShell QtPositioning)
+    geoclue2.enable = true;
+
     # Profile Sync Daemon - moves browser profiles to tmpfs
     psd = {
       enable = true;

@@ -4,14 +4,13 @@
   config,
   inputs,
   ...
-}:
-{
+}: {
   options.theme = lib.mkOption {
     type = lib.types.attrs;
     default = {
-      rounding = 10;
-      gaps-in = 6;
-      gaps-out = 8;
+      rounding = 18;
+      gaps-in = 5;
+      gaps-out = 5;
       active-opacity = 1;
       inactive-opacity = 1;
       blur = true;
@@ -86,16 +85,16 @@
     polarity = "dark";
     image =
       pkgs.runCommand "optimized-gruvbox-wallpaper.jpg"
-        {
-          buildInputs = [ pkgs.imagemagick ];
-        }
-        ''
-          ${pkgs.imagemagick}/bin/convert ${
-            pkgs.fetchurl {
-              url = "https://gruvbox-wallpapers.pages.dev/wallpapers/mix/wall.jpg";
-              sha256 = "sha256-AyRt1FpaQR1hp9ERP+MRk4M58I0mzVsE7x9TtnBCSiw=";
-            }
-          } -resize 2880x1920^ -gravity center -extent 2880x1920 -quality 92 $out
-        '';
+      {
+        buildInputs = [pkgs.imagemagick];
+      }
+      ''
+        ${pkgs.imagemagick}/bin/convert ${
+          pkgs.fetchurl {
+            url = "https://gruvbox-wallpapers.pages.dev/wallpapers/mix/wall.jpg";
+            sha256 = "sha256-AyRt1FpaQR1hp9ERP+MRk4M58I0mzVsE7x9TtnBCSiw=";
+          }
+        } -resize 2880x1920^ -gravity center -extent 2880x1920 -quality 92 $out
+      '';
   };
 }

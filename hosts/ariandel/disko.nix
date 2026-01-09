@@ -48,7 +48,7 @@
             # EFI System Partition (unencrypted, required for boot)
             # ─────────────────────────────────────────────────────────────────
             ESP = {
-              size = "1G";
+              size = "2G";
               type = "EF00";
               content = {
                 type = "filesystem";
@@ -118,7 +118,7 @@
             size = "100%FREE";
             content = {
               type = "btrfs";
-              extraArgs = [ "-f" ]; # Force format
+              extraArgs = ["-f"]; # Force format
 
               # BTRFS subvolumes for organization and independent snapshots
               subvolumes = {
@@ -128,9 +128,9 @@
                 "@" = {
                   mountpoint = "/";
                   mountOptions = [
-                    "compress=zstd"  # Transparent compression
-                    "noatime"        # Don't update access times (better perf)
-                    "commit=120"     # Reduce commit frequency for SSD
+                    "compress=zstd" # Transparent compression
+                    "noatime" # Don't update access times (better perf)
+                    "commit=120" # Reduce commit frequency for SSD
                   ];
                 };
 
