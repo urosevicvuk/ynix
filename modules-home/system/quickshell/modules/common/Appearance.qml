@@ -207,7 +207,7 @@ Singleton {
         property int large: 23
         property int verylarge: 30
         property int full: 9999
-        property int screenRounding: large
+        property int screenRounding: 10  // Hug corner rounding (options: verysmall(8), small(12), normal(17), large(23), or custom number)
         property int windowRounding: 18
     }
 
