@@ -28,7 +28,7 @@
     };
 
     stylix = {
-      url = "github:danth/stylix";
+      url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -70,6 +70,12 @@
     # Secure Boot
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Declarative disk partitioning
+    disko = {
+      url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -123,6 +129,7 @@
           inputs.home-manager.nixosModules.home-manager
           inputs.stylix.nixosModules.stylix
           inputs.lanzaboote.nixosModules.lanzaboote
+          inputs.disko.nixosModules.disko
           ./hosts/ariandel/configuration.nix
         ];
       };

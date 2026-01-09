@@ -1,43 +1,52 @@
 {
-  # Disko configuration for ariandel (Framework laptop)
-  # BTRFS + LUKS encryption + TPM2 auto-unlock + encrypted swap
+  # ═══════════════════════════════════════════════════════════════════════════
+  # DISKO CONFIGURATION - ariandel (Framework AMD Laptop)
+  # ═══════════════════════════════════════════════════════════════════════════
   #
-  # This config is NOT imported yet - it's here for review
+  # Storage Stack: LUKS → LVM → BTRFS
+  # Layout: EFI (1GB) + LUKS (encrypted) → [Swap 32GB + BTRFS root]
+  # Features: Full disk encryption, hibernate support, TPM2 auto-unlock
   #
-  # ═══════════════════════════════════════════════════════════════════════
-  # INSTALLATION PROCESS
-  # ═══════════════════════════════════════════════════════════════════════
+  # ═══════════════════════════════════════════════════════════════════════════
+  # INSTALLATION INSTRUCTIONS
+  # ═══════════════════════════════════════════════════════════════════════════
   #
-  # 1. BOOT FROM NIXOS INSTALLER
+  # 1. BOOT FROM NIXOS INSTALLER (make sure you have internet)
   #
-  # 2. CREATE ENCRYPTION PASSWORD FILE (temporary, for disko):
+  # 2. PREPARE ENCRYPTION PASSWORD:
   #    echo "your-strong-password" > /tmp/disk-password.txt
   #
-  # 3. RUN DISKO TO PARTITION AND FORMAT:
+  # 3. VERIFY DISK PATH (adjust device path below if needed):
+  #    lsblk
+  #
+  # 4. RUN DISKO (this will DESTROY all data on /dev/nvme0n1):
   #    sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko \
-  #      -- --mode disko /path/to/this/file
-  #    (You'll be prompted for the LUKS password during install)
+  #      -- --mode disko /home/vyke/code/ynix/hosts/ariandel/disko.nix
   #
-  # 4. INSTALL NIXOS:
-  #    After disko completes, install NixOS as normal
+  # 5. INSTALL NIXOS:
+  #    sudo nixos-install --flake /home/vyke/code/ynix#ariandel
   #
-  # 5. AFTER FIRST BOOT, ENROLL TPM2 (optional but recommended):
-  #    sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+7 /dev/nvme0n1p3
-  #    (This allows auto-unlock on normal boot while keeping password fallback)
+  # 6. REBOOT:
+  #    reboot
+  #    (You'll need to enter the LUKS password manually on first boot)
   #
-  # ═══════════════════════════════════════════════════════════════════════
+  # 7. AFTER FIRST BOOT - ENROLL TPM2 FOR AUTO-UNLOCK (optional but recommended):
+  #    sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+7 /dev/nvme0n1p2
+  #    (This enables auto-unlock on normal boots while keeping password fallback)
+  #
+  # ═══════════════════════════════════════════════════════════════════════════
 
   disko.devices = {
     disk = {
       main = {
         type = "disk";
-        device = "/dev/nvme0n1"; # Adjust this to your actual disk!
+        device = "/dev/nvme0n1";
         content = {
           type = "gpt";
           partitions = {
-            # ─────────────────────────────────────────────────────────────
-            # EFI System Partition (unencrypted - required for boot)
-            # ─────────────────────────────────────────────────────────────
+            # ─────────────────────────────────────────────────────────────────
+            # EFI System Partition (unencrypted, required for boot)
+            # ─────────────────────────────────────────────────────────────────
             ESP = {
               size = "1G";
               type = "EF00";
@@ -45,29 +54,31 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                mountOptions = [ "fmask=0077" "dmask=0077" ];
+                mountOptions = [
+                  "fmask=0077"
+                  "dmask=0077"
+                ];
               };
             };
 
-            # ─────────────────────────────────────────────────────────────
-            # LUKS Encrypted Partition
-            # Contains: BTRFS with all subvolumes + swap
-            # ─────────────────────────────────────────────────────────────
+            # ─────────────────────────────────────────────────────────────────
+            # LUKS Encrypted Partition (contains everything else)
+            # ─────────────────────────────────────────────────────────────────
             luks = {
               size = "100%";
               content = {
                 type = "luks";
-                name = "crypted"; # This will appear as /dev/mapper/crypted
+                name = "crypted";
 
-                # Password file for installation (create before running disko)
-                # After install, you can enroll TPM2 for auto-unlock
+                # Password file for initial installation
+                # After install, enroll TPM2 for auto-unlock
                 passwordFile = "/tmp/disk-password.txt";
 
                 settings = {
-                  allowDiscards = true; # Important for SSD performance
+                  allowDiscards = true; # Critical for SSD performance/longevity
                 };
 
-                # What's inside the encrypted volume:
+                # LVM inside LUKS
                 content = {
                   type = "lvm_pv";
                   vg = "pool";
@@ -80,62 +91,99 @@
     };
 
     # ═══════════════════════════════════════════════════════════════════════
-    # LVM Volume Group (inside LUKS)
+    # LVM Volume Group (inside LUKS encryption)
     # ═══════════════════════════════════════════════════════════════════════
     lvm_vg = {
       pool = {
         type = "lvm_vg";
         lvs = {
-          # ───────────────────────────────────────────────────────────────
+          # ───────────────────────────────────────────────────────────────────
           # Encrypted Swap (for hibernate support)
-          # ───────────────────────────────────────────────────────────────
+          # 32GB = 24GB RAM + 8GB buffer for safety
+          # ───────────────────────────────────────────────────────────────────
           swap = {
-            size = "24G"; # Match or exceed your RAM for hibernate
+            size = "32G";
             content = {
               type = "swap";
-              resumeDevice = true; # Enable hibernate
+              randomEncryption = false; # Don't random encrypt (needed for hibernate)
+              resumeDevice = true; # Enable hibernation
             };
           };
 
-          # ───────────────────────────────────────────────────────────────
-          # Root filesystem (BTRFS with subvolumes)
-          # ───────────────────────────────────────────────────────────────
+          # ───────────────────────────────────────────────────────────────────
+          # Root Filesystem (BTRFS with subvolumes)
+          # Uses all remaining space (~1.77TB)
+          # ───────────────────────────────────────────────────────────────────
           root = {
             size = "100%FREE";
             content = {
               type = "btrfs";
-              extraArgs = [ "-f" ]; # Force formatting
+              extraArgs = [ "-f" ]; # Force format
 
-              # BTRFS subvolumes for impermanence
+              # BTRFS subvolumes for organization and independent snapshots
               subvolumes = {
-                # Root subvolume - ephemeral, wiped on boot
+                # ─────────────────────────────────────────────────────────────
+                # Root subvolume (/)
+                # ─────────────────────────────────────────────────────────────
                 "@" = {
                   mountpoint = "/";
-                  mountOptions = [ "compress=zstd" "noatime" ];
+                  mountOptions = [
+                    "compress=zstd"  # Transparent compression
+                    "noatime"        # Don't update access times (better perf)
+                    "commit=120"     # Reduce commit frequency for SSD
+                  ];
                 };
 
-                # Nix store - persistent (obviously!)
+                # ─────────────────────────────────────────────────────────────
+                # Nix store (/nix)
+                # Separated so it can have different mount options
+                # ─────────────────────────────────────────────────────────────
                 "@nix" = {
                   mountpoint = "/nix";
-                  mountOptions = [ "compress=zstd" "noatime" ];
+                  mountOptions = [
+                    "compress=zstd"
+                    "noatime"
+                    "commit=120"
+                  ];
                 };
 
-                # Persistent data - survives reboots
-                "@persist" = {
-                  mountpoint = "/persist";
-                  mountOptions = [ "compress=zstd" "noatime" ];
-                };
-
-                # Home directory - persistent user data
+                # ─────────────────────────────────────────────────────────────
+                # Home directories (/home)
+                # Separated so root can be snapshotted without including home
+                # ─────────────────────────────────────────────────────────────
                 "@home" = {
                   mountpoint = "/home";
-                  mountOptions = [ "compress=zstd" "noatime" ];
+                  mountOptions = [
+                    "compress=zstd"
+                    "noatime"
+                    "commit=120"
+                  ];
                 };
 
-                # Logs - persistent
-                "@log" = {
+                # ─────────────────────────────────────────────────────────────
+                # System logs (/var/log)
+                # Separated to prevent logs from filling root
+                # ─────────────────────────────────────────────────────────────
+                "@var_log" = {
                   mountpoint = "/var/log";
-                  mountOptions = [ "compress=zstd" "noatime" ];
+                  mountOptions = [
+                    "compress=zstd"
+                    "noatime"
+                    "commit=120"
+                  ];
+                };
+
+                # ─────────────────────────────────────────────────────────────
+                # Snapshots directory (/.snapshots)
+                # For timeshift/snapper or manual snapshots
+                # ─────────────────────────────────────────────────────────────
+                "@snapshots" = {
+                  mountpoint = "/.snapshots";
+                  mountOptions = [
+                    "compress=zstd"
+                    "noatime"
+                    "commit=120"
+                  ];
                 };
               };
             };
@@ -145,31 +193,38 @@
     };
   };
 
-  # ═══════════════════════════════════════════════════════════════════════
-  # WHAT YOU GET
-  # ═══════════════════════════════════════════════════════════════════════
+  # ═══════════════════════════════════════════════════════════════════════════
+  # RESULTING DISK LAYOUT
+  # ═══════════════════════════════════════════════════════════════════════════
   #
-  # Disk layout:
-  # /dev/nvme0n1
-  # ├─ nvme0n1p1: EFI System Partition (1GB, unencrypted)
-  # └─ nvme0n1p2: LUKS encrypted container
+  # /dev/nvme0n1 (1.8TB SSD)
+  # ├─ nvme0n1p1: EFI System Partition (1GB, FAT32, unencrypted)
+  # │              → /boot
+  # │
+  # └─ nvme0n1p2: LUKS Container (~1.8TB, encrypted)
   #    └─ /dev/mapper/crypted (LVM Physical Volume)
   #       └─ pool (Volume Group)
-  #          ├─ swap (24GB, encrypted swap)
-  #          └─ root (remaining space, BTRFS)
-  #             ├─ @ (ephemeral root)
-  #             ├─ @nix (persistent)
-  #             ├─ @persist (persistent)
-  #             ├─ @home (persistent)
-  #             └─ @log (persistent)
+  #          ├─ swap (32GB) → encrypted swap for hibernate
+  #          │
+  #          └─ root (~1.77TB) → BTRFS
+  #             ├─ @          → /           (root filesystem)
+  #             ├─ @nix       → /nix        (Nix store)
+  #             ├─ @home      → /home       (user data)
+  #             ├─ @var_log   → /var/log    (system logs)
+  #             └─ @snapshots → /.snapshots (backups)
   #
-  # Security features:
-  # ✓ Full disk encryption (except /boot)
-  # ✓ Encrypted swap (safe for hibernate)
-  # ✓ TPM2 auto-unlock (after enrollment)
-  # ✓ Password fallback (if TPM fails)
-  # ✓ Secure Boot (via lanzaboote)
-  # ✓ Impermanence (ephemeral root)
+  # ═══════════════════════════════════════════════════════════════════════════
+  # FEATURES
+  # ═══════════════════════════════════════════════════════════════════════════
   #
-  # ═══════════════════════════════════════════════════════════════════════
+  # ✓ Full disk encryption (except /boot EFI partition)
+  # ✓ Encrypted swap for safe hibernation
+  # ✓ TPM2 auto-unlock (enroll after first boot)
+  # ✓ Password fallback (if TPM fails or Secure Boot disabled)
+  # ✓ BTRFS compression (transparent, saves ~30-40% space)
+  # ✓ Subvolume isolation (snapshot root without snapshotting home/nix)
+  # ✓ SSD-optimized (noatime, commit=120, allowDiscards)
+  # ✓ Framework AMD laptop optimizations
+  #
+  # ═══════════════════════════════════════════════════════════════════════════
 }
