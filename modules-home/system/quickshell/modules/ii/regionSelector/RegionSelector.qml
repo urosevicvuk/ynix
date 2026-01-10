@@ -74,11 +74,20 @@ Scope {
         GlobalStates.regionSelectorOpen = true
     }
 
+    function screenshotEdit() {
+        root.action = RegionSelection.SnipAction.Edit
+        root.selectionMode = RegionSelection.SelectionMode.RectCorners
+        GlobalStates.regionSelectorOpen = true
+    }
+
     IpcHandler {
         target: "region"
 
         function screenshot() {
             root.screenshot()
+        }
+        function screenshotEdit() {
+            root.screenshotEdit()
         }
         function search() {
             root.search()

@@ -8,7 +8,7 @@ in {
   wayland.windowManager.hyprland.settings = {
     bind = [
       #Basic things
-      "$mod, SPACE, exec, walker" # Walker Launcher
+      "$mod, W, exec, walker" # Walker Launcher
       "$shiftMod, SPACE, exec, hyprfocus-toggle" # Toggle HyprFocus
       "CTRL $shiftMod, SPACE, exec, hyprlock" # Lock
 
@@ -51,30 +51,29 @@ in {
       "$shiftMod CTRL, j, movecurrentworkspacetomonitor, d" # Move workspace to lower monitor
 
       # Screenshots (QuickShell region selector)
-      ",PRINT, exec, qs -i ipc call region screenshot" # Screenshot (QuickShell UI)
-      "SHIFT, PRINT, exec, qs -i ipc call region screenshotEdit" # Screenshot + edit (satty)
-      "CTRL, PRINT, exec, qs -i ipc call region screenshot" # Screenshot region
-      "CTRL SHIFT, PRINT, exec, qs -i ipc call region ocr" # OCR from region
-      "$mod SHIFT, S, exec, qs -i ipc call region screenshot" # Alt screenshot shortcut
+      ",PRINT, exec, qs -p $qsConfig ipc call region screenshot" # Screenshot (QuickShell UI)
+      "SHIFT, PRINT, exec, qs -p $qsConfig ipc call region screenshotEdit" # Screenshot + edit (satty)
+      "CTRL, PRINT, exec, qs -p $qsConfig ipc call region screenshot" # Screenshot region
+      "CTRL SHIFT, PRINT, exec, qs -p $qsConfig ipc call region ocr" # OCR from region
+      "$mod SHIFT, S, exec, qs -p $qsConfig ipc call region screenshot" # Alt screenshot shortcut
 
-      # Screen Recording (keep gpu-screen-recorder)
-      "ALT, PRINT, exec, record-monitor" # Record current monitor (start/stop)
-      "CTRL ALT, PRINT, exec, record-region" # Record region (start/stop)
+      # Screen Recording (QuickShell)
+      "ALT, PRINT, exec, qs -p $qsConfig ipc call region record" # Record region (QuickShell)
 
       # QuickShell controls
-      "$mod, SEMICOLON, exec, qs -i ipc call bar toggle" # Toggle bar visibility
-      "$mod, V, exec, cliphist list | fuzzel --dmenu | cliphist decode | wl-copy" # Clipboard history
-      "$mod, N, exec, qs -i ipc call sidebarRight toggle" # Right sidebar (notifications)
-      "$mod, O, exec, qs -i ipc call overview toggle" # Overview/workspace switcher
+      "$mod, SEMICOLON, exec, qs -p $qsConfig ipc call bar toggle" # Toggle bar visibility
+      "$mod, A, exec, qs -p $qsConfig ipc call sidebarLeft toggle" # Left sidebar (AI panel)
+      "$mod, C, exec, qs -p $qsConfig ipc call sidebarRight toggle" # Right sidebar (control panel)
+      "$mod, SPACE, exec, qs -p $qsConfig ipc call search toggle" # Launcher/overview
+      "$mod, V, exec, qs -p $qsConfig ipc call search clipboardToggle" # Clipboard history
 
       # Screen rotation
       "$mod, Prior, exec, hyprctl keyword monitor eDP-1,2880x1920@120,auto,1.5,transform,2" # Rotate 180° (PageUp)
       "$mod, Next, exec, hyprctl keyword monitor eDP-1,2880x1920@120,auto,1.5,transform,0" # Rotate back to normal (PageDown)
 
       # Framework function keys
-      "ALT, P, exec, qs -i ipc call idleInhibitor toggle" # F9: Toggle idle inhibitor
-      ",XF86AudioMedia, exec, qs -i ipc call sessionScreen toggle" # F12: Power menu (QuickShell)
-      "$mod SHIFT, L, exec, qs -i ipc call lockScreen lock" # Lock screen
+      ",XF86AudioMedia, exec, qs -p $qsConfig ipc call session toggle" # F12: Power menu (QuickShell)
+      "CTRL $shiftMod, SPACE, exec, qs -p $qsConfig ipc call lock activate" # Lock screen
 
       #Workspaces
       "$mod, 1, workspace, 1"
@@ -133,10 +132,8 @@ in {
       ",XF86AudioLowerVolume, exec, sound-down" # Sound Down
       "ALT,XF86AudioRaiseVolume, exec, mic-up" # Mic Volume Up
       "ALT,XF86AudioLowerVolume, exec, mic-down" # Mic Volume Down
-      ",XF86MonBrightnessUp, exec, qs -i ipc call brightness increment" # Brightness Up (QuickShell)
-      ",XF86MonBrightnessDown, exec, qs -i ipc call brightness decrement" # Brightness Down (QuickShell)
-      "ALT,XF86MonBrightnessUp, exec, qs -i ipc call nightLight toggle" # Night Light toggle
-      "ALT,XF86MonBrightnessDown, exec, qs -i ipc call nightLight toggle" # Night Light toggle
+      ",XF86MonBrightnessUp, exec, qs -p $qsConfig ipc call brightness increment" # Brightness Up (QuickShell)
+      ",XF86MonBrightnessDown, exec, qs -p $qsConfig ipc call brightness decrement" # Brightness Down (QuickShell)
     ];
   };
 }

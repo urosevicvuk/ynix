@@ -16,7 +16,7 @@ in {
       };
 
       auth.fingerprint.enabled = true;
-      #auth.pam.enabled = true;
+      auth.pam.enabled = true;
 
       # BACKGROUND
       background = {

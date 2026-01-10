@@ -52,6 +52,24 @@ Item { // Wrapper
         if (event.key === Qt.Key_Escape)
             return;
 
+        // CTRL+N - Navigate to next result
+        if (event.key === Qt.Key_N && (event.modifiers & Qt.ControlModifier)) {
+            if (appResults.count > 0) {
+                appResults.incrementCurrentIndex();
+                event.accepted = true;
+            }
+            return;
+        }
+
+        // CTRL+P - Navigate to previous result
+        if (event.key === Qt.Key_P && (event.modifiers & Qt.ControlModifier)) {
+            if (appResults.count > 0) {
+                appResults.decrementCurrentIndex();
+                event.accepted = true;
+            }
+            return;
+        }
+
         // Handle Backspace: focus and delete character if not focused
         if (event.key === Qt.Key_Backspace) {
             if (!searchBar.searchInput.activeFocus) {
