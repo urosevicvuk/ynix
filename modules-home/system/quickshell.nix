@@ -181,7 +181,7 @@ in {
       error_container = "#${colors.base01}";
       on_error_container = "#${colors.base08}";
 
-      background = "#000000"; # Background
+      background = "#${colors.base00}"; # Background
       on_background = "#${colors.base05}"; # Text on background
       surface = "#${colors.base01}"; # Surface
       on_surface = "#${colors.base05}"; # Text on surface

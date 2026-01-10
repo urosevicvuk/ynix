@@ -14,10 +14,10 @@ Item {
     RowLayout {
         id: rowLayout
         anchors.centerIn: parent
-        spacing: 4
+        spacing: 6
 
         StyledText {
-            font.pixelSize: Appearance.font.pixelSize.large
+            font.pixelSize: Appearance.font.pixelSize.small
             color: Appearance.colors.colOnLayer1
             text: DateTime.time
         }
@@ -33,7 +33,7 @@ Item {
             visible: root.showDate
             font.pixelSize: Appearance.font.pixelSize.small
             color: Appearance.colors.colOnLayer1
-            text: DateTime.longDate
+            text: Qt.locale().toString(DateTime.clock.date, "dddd, MMMM dd")
         }
     }
 

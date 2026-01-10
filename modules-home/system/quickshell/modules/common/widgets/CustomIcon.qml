@@ -17,7 +17,7 @@ Item {
         id: iconImage
         anchors.fill: parent
         source: {
-            const fullPathWhenSourceIsIconName = iconFolder + "/" + root.source;
+            const fullPathWhenSourceIsIconName = iconFolder + "/" + root.source + ".svg";
             if (iconFolder && fullPathWhenSourceIsIconName) {
                 return fullPathWhenSourceIsIconName
             }
