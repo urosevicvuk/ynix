@@ -8,7 +8,6 @@
     # Programs
     ../../modules-home/programs/btop.nix
     ../../modules-home/programs/direnv.nix
-    ../../modules-home/programs/discord.nix
     ../../modules-home/programs/editorconfig.nix
     ../../modules-home/programs/ghostty.nix
     ../../modules-home/programs/fetch
@@ -65,6 +64,8 @@
       (with pkgs; [
         # Apps
         obsidian
+        vesktop
+        slack
         vlc
         libreoffice-fresh
         qbittorrent
@@ -74,8 +75,8 @@
         # Dev
         pnpm
         nodejs
-        claude-code
         opencode
+        claude-code
         gh
         gnumake
         postman
