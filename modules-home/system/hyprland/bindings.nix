@@ -58,7 +58,7 @@ in {
       "$mod SHIFT, S, exec, qs -p $qsConfig ipc call region screenshot" # Alt screenshot shortcut
 
       # Screen Recording (QuickShell)
-      "ALT, PRINT, exec, qs -p $qsConfig ipc call region record" # Record region (QuickShell)
+      "ALT, PRINT, exec, qs -p $qsConfig ipc call region recordWithSound" # Record region with sound (QuickShell)
 
       # QuickShell controls
       "$mod, SEMICOLON, exec, qs -p $qsConfig ipc call bar toggle" # Toggle bar visibility

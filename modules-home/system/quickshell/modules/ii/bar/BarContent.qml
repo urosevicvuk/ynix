@@ -308,6 +308,19 @@ Item { // Bar content region
                             id: notificationUnreadCount
                         }
                     }
+                    Revealer {
+                        reveal: RecordingStatus.isRecording
+                        Layout.fillHeight: true
+                        Layout.rightMargin: reveal ? indicatorsRowLayout.realSpacing : 0
+                        Behavior on Layout.rightMargin {
+                            animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)
+                        }
+                        MaterialSymbol {
+                            text: "fiber_manual_record"
+                            iconSize: Appearance.font.pixelSize.larger
+                            color: "#ef4444"
+                        }
+                    }
                     MaterialSymbol {
                         text: Network.materialSymbol
                         iconSize: Appearance.font.pixelSize.larger
