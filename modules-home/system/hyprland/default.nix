@@ -188,7 +188,7 @@ in {
         "${pkgs.tailscale-systray}/bin/tailscale-systray"
 
         # Panel and utilities
-        "qs -c $qsConfig &"  # QuickShell (end-4 bar)
+        "qs -c $qsConfig &" # QuickShell (end-4 bar)
         "wl-paste --type text --watch cliphist store &"
         "wl-paste --type image --watch cliphist store &"
 
@@ -214,7 +214,7 @@ in {
         if isLaptop
         then [
           "eDP-1,2880x1920@120,0x0,${monitorScale}"
-          "DP-3,1920x1080@144,0x-1080,1"
+          "DP-2,1920x1080@144,0x-1080,1"
           ",preferred,auto,1"
         ]
         else [
