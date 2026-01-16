@@ -246,6 +246,7 @@ in {
         "WLR_NO_HARDWARE_CURSORS,1"
         "SDL_VIDEODRIVER,wayland,x11,windows"
         "CLUTTER_BACKEND,wayland"
+        "GDK_BACKEND,wayland"
         "GDK_SCALE,${monitorScale}"
       ];
 
