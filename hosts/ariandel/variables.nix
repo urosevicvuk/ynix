@@ -1,5 +1,8 @@
-{ config, lib, ... }:
 {
+  config,
+  lib,
+  ...
+}: {
   imports = [
     # Theme import
     ../../themes/gruvbox.nix
@@ -13,7 +16,7 @@
     terminal = "kitty"; # default terminal emulator - kitty || ghostty
 
     keyboardLayout = "us,rs,rs";
-    keyboardVariant = ",latin,";
+    keyboardVariant = ",latinyz,yz";
 
     location = "Belgrade";
     timeZone = "Europe/Belgrade";
@@ -36,7 +39,7 @@
   options = {
     var = lib.mkOption {
       type = lib.types.attrs;
-      default = { };
+      default = {};
     };
   };
 }

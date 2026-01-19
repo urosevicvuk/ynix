@@ -28,7 +28,7 @@
     };
 
     stylix = {
-      url = "github:danth/stylix";
+      url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -70,6 +70,18 @@
     # Secure Boot
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Declarative disk partitioning
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # QuickShell - QtQuick-based widget toolkit (for end-4 bar only)
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -116,6 +128,8 @@
                   system = final.system;
                   config.allowUnfree = true;
                 };
+                # Material Symbols font for QuickShell icons
+                material-symbols = prev.callPackage ./pkgs/material-symbols {};
               })
             ];
           }
@@ -123,6 +137,7 @@
           inputs.home-manager.nixosModules.home-manager
           inputs.stylix.nixosModules.stylix
           inputs.lanzaboote.nixosModules.lanzaboote
+          inputs.disko.nixosModules.disko
           ./hosts/ariandel/configuration.nix
         ];
       };

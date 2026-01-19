@@ -35,7 +35,7 @@ in {
     libsForQt5.qt5ct
     qt6Packages.qt6ct
     hyprpicker
-    hyprpanel
+    # hyprpanel  # Disabled - replaced by illogical-impulse (QuickShell)
     imv
     wlr-randr
     wl-clipboard
@@ -64,7 +64,7 @@ in {
     portalPackage = null;
 
     plugins = [
-      pkgs.hyprlandPlugins.hyprscrolling
+      #pkgs.hyprlandPlugins.hyprscrolling
     ];
 
     extraConfig = ''
@@ -188,9 +188,9 @@ in {
         "${pkgs.tailscale-systray}/bin/tailscale-systray"
 
         # Panel and utilities
-        "hyprpanel"
-        "${pkgs.writeShellScript "clipboard-clear" "clipman clear --all"}"
-        "wl-paste -t text --watch clipman store"
+        "qs -c $qsConfig &" # QuickShell (end-4 bar)
+        "wl-paste --type text --watch cliphist store &"
+        "wl-paste --type image --watch cliphist store &"
 
         # Workspace initialization - force create workspaces on correct monitors
         #"hyprctl dispatch focusmonitor DP-3"
@@ -214,7 +214,7 @@ in {
         if isLaptop
         then [
           "eDP-1,2880x1920@120,0x0,${monitorScale}"
-          "DP-3,1920x1080@144,0x-1080,1"
+          "DP-2,1920x1080@144,0x-1080,1"
           ",preferred,auto,1"
         ]
         else [
@@ -246,6 +246,7 @@ in {
         "WLR_NO_HARDWARE_CURSORS,1"
         "SDL_VIDEODRIVER,wayland,x11,windows"
         "CLUTTER_BACKEND,wayland"
+        "GDK_BACKEND,wayland"
         "GDK_SCALE,${monitorScale}"
       ];
 
@@ -259,14 +260,14 @@ in {
         gaps_in = gaps-in;
         gaps_out = gaps-out;
         border_size = border-size;
-        layout = "scrolling";
+        layout = "dwindle";
       };
 
-      "plugin:hyprscrolling" = {
-        fullscreen_on_one_column = true;
-        column_width = 0.499;
-        focus_fit_method = 0;
-      };
+      #"plugin:hyprscrolling" = {
+      #  fullscreen_on_one_column = true;
+      #  column_width = 0.499;
+      #  focus_fit_method = 0;
+      #};
 
       dwindle = {
         pseudotile = true;

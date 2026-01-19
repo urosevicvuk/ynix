@@ -8,7 +8,7 @@ in {
   wayland.windowManager.hyprland.settings = {
     bind = [
       #Basic things
-      "$mod, SPACE, exec, walker" # Walker Launcher
+      "$mod, W, exec, walker" # Walker Launcher
       "$shiftMod, SPACE, exec, hyprfocus-toggle" # Toggle HyprFocus
       "CTRL $shiftMod, SPACE, exec, hyprlock" # Lock
 
@@ -30,17 +30,17 @@ in {
       "$mod, I, exec, ${terminal} -e btop"
       "$mod, Y, exec, ${terminal} -e yazi"
 
-      "$mod, C, layoutmsg, togglefit" # Toggle Hyprscrolling fit method
+      #"$mod, C, layoutmsg, togglefit" # Toggle Hyprscrolling fit method
 
       # Hyprscrolling layout: move focus - custom layoutmsg for moving focus to edge columns
-      "$mod, H, layoutmsg, focus l" # Move focus left
-      "$mod, L, layoutmsg, focus r" # Move focus Right
+      "$mod, H, movefocus, l" # Move focus left
+      "$mod, L, movefocus, r" # Move focus Right
       "$mod, K, movefocus, u" # Move focus Up
       "$mod, J, movefocus, d" # Move focus Down
 
       # Hyprscrolling layout: move windows - custom layoutmsg for moving windows to edge columns
-      "$shiftMod, H, layoutmsg, movewindowto l" # Move window left
-      "$shiftMod, L, layoutmsg, movewindowto r" # Move window right
+      "$shiftMod, H, movewindow, l" # Move window left
+      "$shiftMod, L, movewindow, r" # Move window right
       "$shiftMod, K, movewindow, u" # Move window up
       "$shiftMod, J, movewindow, d" # Move window down
 
@@ -50,25 +50,30 @@ in {
       "$shiftMod CTRL, k, movecurrentworkspacetomonitor, u" # Move workspace to upper monitor
       "$shiftMod CTRL, j, movecurrentworkspacetomonitor, d" # Move workspace to lower monitor
 
-      # Screenshots
-      ",PRINT, exec, screenshot-monitor" # Screenshot current monitor (save + clipboard)
-      "SHIFT, PRINT, exec, screenshot-monitor-annotate" # Screenshot current monitor + annotate
-      "CTRL, PRINT, exec, screenshot-region" # Screenshot region (save + clipboard)
-      "CTRL SHIFT, PRINT, exec, screenshot-region-annotate" # Screenshot region + annotate
+      # Screenshots (QuickShell region selector)
+      ",PRINT, exec, qs -p $qsConfig ipc call region screenshot" # Screenshot (QuickShell UI)
+      "SHIFT, PRINT, exec, qs -p $qsConfig ipc call region screenshotEdit" # Screenshot + edit (satty)
+      "CTRL, PRINT, exec, qs -p $qsConfig ipc call region screenshot" # Screenshot region
+      "CTRL SHIFT, PRINT, exec, qs -p $qsConfig ipc call region ocr" # OCR from region
+      "$mod SHIFT, S, exec, qs -p $qsConfig ipc call region screenshot" # Alt screenshot shortcut
 
-      # Screen Recording
-      "ALT, PRINT, exec, record-monitor" # Record current monitor (start/stop)
-      "CTRL ALT, PRINT, exec, record-region" # Record region (start/stop)
+      # Screen Recording (QuickShell)
+      "ALT, PRINT, exec, qs -p $qsConfig ipc call region recordWithSound" # Record region with sound (QuickShell)
 
-      "$shiftMod, T, exec, hyprpanel-toggle" # Toggle hyprpanel
+      # QuickShell controls
+      "$mod, SEMICOLON, exec, qs -p $qsConfig ipc call bar toggle" # Toggle bar visibility
+      "$mod, A, exec, qs -p $qsConfig ipc call sidebarLeft toggle" # Left sidebar (AI panel)
+      "$mod, C, exec, qs -p $qsConfig ipc call sidebarRight toggle" # Right sidebar (control panel)
+      "$mod, SPACE, exec, qs -p $qsConfig ipc call search toggle" # Launcher/overview
+      "$mod, V, exec, qs -p $qsConfig ipc call search clipboardToggle" # Clipboard history
 
       # Screen rotation
       "$mod, Prior, exec, hyprctl keyword monitor eDP-1,2880x1920@120,auto,1.5,transform,2" # Rotate 180° (PageUp)
       "$mod, Next, exec, hyprctl keyword monitor eDP-1,2880x1920@120,auto,1.5,transform,0" # Rotate back to normal (PageDown)
 
       # Framework function keys
-      "ALT, P, exec, caffeine" # F9: Toggle caffeine
-      ",XF86AudioMedia, exec, powermenu" # F12: Power menu
+      ",XF86AudioMedia, exec, qs -p $qsConfig ipc call session toggle" # F12: Power menu (QuickShell)
+      "CTRL $shiftMod, SPACE, exec, qs -p $qsConfig ipc call lock activate" # Lock screen
 
       #Workspaces
       "$mod, 1, workspace, 1"
@@ -127,10 +132,8 @@ in {
       ",XF86AudioLowerVolume, exec, sound-down" # Sound Down
       "ALT,XF86AudioRaiseVolume, exec, mic-up" # Mic Volume Up
       "ALT,XF86AudioLowerVolume, exec, mic-down" # Mic Volume Down
-      ",XF86MonBrightnessUp, exec, brightness-up" # Brightness Up
-      ",XF86MonBrightnessDown, exec, brightness-down" # Brightness Down
-      "ALT,XF86MonBrightnessUp, exec, night-shift-on" # Night Shift On
-      "ALT,XF86MonBrightnessDown, exec, night-shift-off" # Night Shift Off
+      ",XF86MonBrightnessUp, exec, qs -p $qsConfig ipc call brightness increment" # Brightness Up (QuickShell)
+      ",XF86MonBrightnessDown, exec, qs -p $qsConfig ipc call brightness decrement" # Brightness Down (QuickShell)
     ];
   };
 }

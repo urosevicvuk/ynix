@@ -41,6 +41,7 @@
     # Host-specific configuration
     ./variables.nix
     ./hardware-configuration.nix
+    #./disko.nix
   ];
 
   # Framework AMD suspend/resume fixes
