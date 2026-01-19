@@ -1,17 +1,14 @@
-{ config, ... }:
-{
+{config, ...}: {
   imports = [
     # System modules
     ../../modules-nixos/system/nix.nix
     ../../modules-nixos/system/systemd.nix
-    ../../modules-nixos/system/secure-boot.nix
     ../../modules-nixos/system/users.nix
     ../../modules-nixos/system/utils.nix
     ../../modules-nixos/system/home-manager.nix
     ../../modules-nixos/system/locale.nix
     ../../modules-nixos/system/environment.nix
     ../../modules-nixos/system/security.nix
-    ../../modules-nixos/system/logind.nix
 
     # Hardware
     ../../modules-nixos/hardware/audio.nix

@@ -3,8 +3,7 @@
   config,
   inputs,
   ...
-}:
-{
+}: {
   imports = [
     # Programs
     ../../modules-home/programs/fetch
@@ -22,7 +21,6 @@
     ../../modules-home/programs/spicetify.nix
     ../../modules-home/programs/thunar.nix
     ../../modules-home/programs/walker.nix
-    ../../modules-home/programs/wofi.nix
     ../../modules-home/programs/zathura.nix
     ../../modules-home/programs/zen.nix
 
