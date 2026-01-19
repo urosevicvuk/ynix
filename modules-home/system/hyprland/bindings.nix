@@ -51,29 +51,29 @@ in {
       "$shiftMod CTRL, j, movecurrentworkspacetomonitor, d" # Move workspace to lower monitor
 
       # Screenshots (QuickShell region selector)
-      #",PRINT, exec, qs -p $qsConfig ipc call region screenshot" # Screenshot (QuickShell UI)
-      #"SHIFT, PRINT, exec, qs -p $qsConfig ipc call region screenshotEdit" # Screenshot + edit (satty)
-      #"CTRL, PRINT, exec, qs -p $qsConfig ipc call region screenshot" # Screenshot region
-      #"CTRL SHIFT, PRINT, exec, qs -p $qsConfig ipc call region ocr" # OCR from region
-      #"$mod SHIFT, S, exec, qs -p $qsConfig ipc call region screenshot" # Alt screenshot shortcut
+      ",PRINT, exec, qs -p $qsConfig ipc call region screenshot" # Screenshot (QuickShell UI)
+      "SHIFT, PRINT, exec, qs -p $qsConfig ipc call region screenshotEdit" # Screenshot + edit (satty)
+      "CTRL, PRINT, exec, qs -p $qsConfig ipc call region screenshot" # Screenshot region
+      "CTRL SHIFT, PRINT, exec, qs -p $qsConfig ipc call region ocr" # OCR from region
+      "$mod SHIFT, S, exec, qs -p $qsConfig ipc call region screenshot" # Alt screenshot shortcut
 
       # Screen Recording (QuickShell)
-      #"ALT, PRINT, exec, qs -p $qsConfig ipc call region recordWithSound" # Record region with sound (QuickShell)
+      "ALT, PRINT, exec, qs -p $qsConfig ipc call region recordWithSound" # Record region with sound (QuickShell)
 
       # QuickShell controls
-      "$mod, SPACE, exec, noctalia-shell ipc call launcher toggle" # Launcher/overview
-      #"$mod, SEMICOLON, exec, qs -p $qsConfig ipc call bar toggle" # Toggle bar visibility
-      #"$mod, A, exec, qs -p $qsConfig ipc call sidebarLeft toggle" # Left sidebar (AI panel)
-      #"$mod, C, exec, qs -p $qsConfig ipc call sidebarRight toggle" # Right sidebar (control panel)
-      #"$mod, V, exec, qs -p $qsConfig ipc call search clipboardToggle" # Clipboard history
+      "$mod, SEMICOLON, exec, qs -p $qsConfig ipc call bar toggle" # Toggle bar visibility
+      "$mod, A, exec, qs -p $qsConfig ipc call sidebarLeft toggle" # Left sidebar (AI panel)
+      "$mod, C, exec, qs -p $qsConfig ipc call sidebarRight toggle" # Right sidebar (control panel)
+      "$mod, SPACE, exec, qs -p $qsConfig ipc call search toggle" # Launcher/overview
+      "$mod, V, exec, qs -p $qsConfig ipc call search clipboardToggle" # Clipboard history
 
       # Screen rotation
       "$mod, Prior, exec, hyprctl keyword monitor eDP-1,2880x1920@120,auto,1.5,transform,2" # Rotate 180° (PageUp)
       "$mod, Next, exec, hyprctl keyword monitor eDP-1,2880x1920@120,auto,1.5,transform,0" # Rotate back to normal (PageDown)
 
       # Framework function keys
-      #",XF86AudioMedia, exec, qs -p $qsConfig ipc call session toggle" # F12: Power menu (QuickShell)
-      #"CTRL $shiftMod, SPACE, exec, qs -p $qsConfig ipc call lock activate" # Lock screen
+      ",XF86AudioMedia, exec, qs -p $qsConfig ipc call session toggle" # F12: Power menu (QuickShell)
+      "CTRL $shiftMod, SPACE, exec, qs -p $qsConfig ipc call lock activate" # Lock screen
 
       #Workspaces
       "$mod, 1, workspace, 1"
@@ -97,8 +97,16 @@ in {
       "$mod, 0, workspace, 10"
       "$mod SHIFT, 0, movetoworkspace, 10"
 
+      "$mod, backspace, workspace, 11"
+      "$mod SHIFT, backspace, movetoworkspace, 11"
+
       "$mod, TAB, togglespecialworkspace"
       "$shiftMod, TAB, movetoworkspace, special"
+
+      #"$mod, minus, workspace, name:alternative1"
+      #"$mod SHIFT, minus, movetoworkspace, name:alternative1"
+      #"$mod, equal, workspace, name:alternative2"
+      #"$mod SHIFT, equal, movetoworkspace, name:alternative2"
     ];
 
     binde = [
@@ -124,8 +132,8 @@ in {
       ",XF86AudioLowerVolume, exec, sound-down" # Sound Down
       "ALT,XF86AudioRaiseVolume, exec, mic-up" # Mic Volume Up
       "ALT,XF86AudioLowerVolume, exec, mic-down" # Mic Volume Down
-      ",XF86MonBrightnessUp, exec, noctalia-shell ipc call brightness increase" # Brightness Up (QuickShell)
-      ",XF86MonBrightnessDown, exec, noctalia-shell ipc call brightness decrease" # Brightness Down (QuickShell)
+      ",XF86MonBrightnessUp, exec, qs -p $qsConfig ipc call brightness increment" # Brightness Up (QuickShell)
+      ",XF86MonBrightnessDown, exec, qs -p $qsConfig ipc call brightness decrement" # Brightness Down (QuickShell)
     ];
   };
 }
