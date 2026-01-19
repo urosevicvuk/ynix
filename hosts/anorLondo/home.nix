@@ -31,7 +31,8 @@
     ../../modules-home/system/hypridle.nix
     ../../modules-home/system/hyprlock.nix
     # ../../modules-home/system/hyprpanel.nix  # Disabled - replaced by QuickShell
-    ../../modules-home/system/quickshell.nix
+    #../../modules-home/system/quickshell.nix
+    ../../modules-home/system/noctalia.nix
     ../../modules-home/system/hyprpaper.nix
     ../../modules-home/system/mime.nix
     ../../modules-home/system/udiskie.nix
