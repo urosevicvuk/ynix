@@ -9,7 +9,7 @@
   imports = [inputs.noctalia.homeModules.default];
 
   # Disable stylix for noctalia - it has its own fixed colors
-  stylix.targets.noctalia-shell.enable = false;
+  #stylix.targets.noctalia-shell.enable = false;
 
   home.packages = with pkgs; [
     # Required dependencies (from docs.noctalia.dev)
@@ -48,22 +48,6 @@
               icon = "snowflake";
               id = "ControlCenter";
               useDistroLogo = true;
-            }
-            {
-              compactMode = true;
-              diskPath = "/";
-              id = "SystemMonitor";
-              showCpuTemp = true;
-              showCpuUsage = true;
-              showDiskUsage = false;
-              showGpuTemp = false;
-              showLoadAverage = false;
-              showMemoryAsPercent = false;
-              showMemoryUsage = true;
-              showNetworkStats = false;
-              showSwapUsage = false;
-              useMonospaceFont = true;
-              usePrimaryColor = false;
             }
             {
               compactMode = false;
