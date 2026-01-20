@@ -188,7 +188,7 @@ in {
         "${pkgs.tailscale-systray}/bin/tailscale-systray"
 
         # Panel and utilities
-        "qs -c $qsConfig &" # QuickShell (end-4 bar)
+        "noctalia-shell &" # QuickShell
         "wl-paste --type text --watch cliphist store &"
         "wl-paste --type image --watch cliphist store &"
 

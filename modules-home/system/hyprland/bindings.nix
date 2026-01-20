@@ -50,22 +50,18 @@ in {
       "$shiftMod CTRL, k, movecurrentworkspacetomonitor, u" # Move workspace to upper monitor
       "$shiftMod CTRL, j, movecurrentworkspacetomonitor, d" # Move workspace to lower monitor
 
+      # s = settings
+      # c = control panel
+      # n = notifications
+
       # Screenshots (QuickShell region selector)
       #",PRINT, exec, qs -p $qsConfig ipc call region screenshot" # Screenshot (QuickShell UI)
-      #"SHIFT, PRINT, exec, qs -p $qsConfig ipc call region screenshotEdit" # Screenshot + edit (satty)
-      #"CTRL, PRINT, exec, qs -p $qsConfig ipc call region screenshot" # Screenshot region
-      #"CTRL SHIFT, PRINT, exec, qs -p $qsConfig ipc call region ocr" # OCR from region
-      #"$mod SHIFT, S, exec, qs -p $qsConfig ipc call region screenshot" # Alt screenshot shortcut
-
       # Screen Recording (QuickShell)
       #"ALT, PRINT, exec, qs -p $qsConfig ipc call region recordWithSound" # Record region with sound (QuickShell)
 
       # QuickShell controls
       "$mod, SPACE, exec, noctalia-shell ipc call launcher toggle" # Launcher/overview
       #"$mod, SEMICOLON, exec, qs -p $qsConfig ipc call bar toggle" # Toggle bar visibility
-      #"$mod, A, exec, qs -p $qsConfig ipc call sidebarLeft toggle" # Left sidebar (AI panel)
-      #"$mod, C, exec, qs -p $qsConfig ipc call sidebarRight toggle" # Right sidebar (control panel)
-      #"$mod, V, exec, qs -p $qsConfig ipc call search clipboardToggle" # Clipboard history
 
       # Screen rotation
       "$mod, Prior, exec, hyprctl keyword monitor eDP-1,2880x1920@120,auto,1.5,transform,2" # Rotate 180° (PageUp)
