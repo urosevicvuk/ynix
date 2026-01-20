@@ -8,6 +8,9 @@
 }: {
   imports = [inputs.noctalia.homeModules.default];
 
+  # Disable stylix for noctalia - it has its own fixed colors
+  stylix.targets.noctalia-shell.enable = false;
+
   home.packages = with pkgs; [
     # Required dependencies (from docs.noctalia.dev)
     inputs.quickshell.packages.${pkgs.system}.default # Core framework
@@ -63,22 +66,13 @@
               usePrimaryColor = false;
             }
             {
-              colorizeIcons = false;
-              hideMode = "hidden";
-              id = "ActiveWindow";
-              maxWidth = 200;
-              scrollingMode = "hover";
-              showIcon = true;
-              useFixedWidth = false;
-            }
-            {
               compactMode = false;
               compactShowAlbumArt = true;
               compactShowVisualizer = false;
               hideMode = "hidden";
               hideWhenIdle = false;
               id = "MediaMini";
-              maxWidth = 200;
+              maxWidth = 280;
               panelShowAlbumArt = true;
               panelShowVisualizer = true;
               scrollingMode = "hover";
@@ -88,6 +82,15 @@
               showVisualizer = false;
               useFixedWidth = false;
               visualizerType = "linear";
+            }
+            {
+              colorizeIcons = false;
+              hideMode = "hidden";
+              id = "ActiveWindow";
+              maxWidth = 280;
+              scrollingMode = "hover";
+              showIcon = true;
+              useFixedWidth = false;
             }
           ];
           center = [
@@ -120,19 +123,21 @@
             }
             {
               displayMode = "onhover";
-              id = "Bluetooth";
-            }
-            {
-              displayMode = "alwaysShow";
-              id = "Network";
-            }
-            {
-              displayMode = "onhover";
               id = "Volume";
               middleClickCommand = "pwvucontrol || pavucontrol";
             }
             {
-              id = "PowerProfile";
+              displayMode = "onhover";
+              id = "Bluetooth";
+            }
+            {
+              displayMode = "onhover";
+              id = "Network";
+            }
+            {
+              displayMode = "forceOpen";
+              id = "KeyboardLayout";
+              showIcon = false;
             }
             {
               displayMode = "alwaysShow";
@@ -143,13 +148,8 @@
               warningThreshold = 30;
             }
             {
-              displayMode = "forceOpen";
-              id = "KeyboardLayout";
-              showIcon = true;
-            }
-            {
               customFont = "";
-              formatHorizontal = "HH:mm ddd, MMM dd";
+              formatHorizontal = "HH:mm - dddd, MMM dd";
               formatVertical = "HH mm - dd MM";
               id = "Clock";
               tooltipFormat = "HH:mm ddd, MMM dd";
@@ -239,12 +239,12 @@
         ];
       };
       wallpaper = {
-        enabled = false;
+        enabled = true;
         overviewEnabled = false;
         directory = "/home/vyke/Pictures/Wallpapers";
         monitorDirectories = [];
         enableMultiMonitorDirectories = false;
-        recursiveSearch = false;
+        recursiveSearch = true;
         setWallpaperOnAllMonitors = true;
         fillMode = "crop";
         fillColor = "#000000";
@@ -275,7 +275,7 @@
         autoPasteClipboard = false;
         enableClipPreview = true;
         clipboardWrapText = true;
-        position = "center";
+        position = "top_center";
         pinnedApps = [];
         useApp2Unit = false;
         sortByMostUsed = true;
@@ -283,7 +283,7 @@
         customLaunchPrefixEnabled = false;
         customLaunchPrefix = "";
         viewMode = "list";
-        showCategories = true;
+        showCategories = false;
         iconMode = "tabler";
         showIconBackground = false;
         ignoreMouseInput = true;

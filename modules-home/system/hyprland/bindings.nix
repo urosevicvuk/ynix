@@ -51,8 +51,11 @@ in {
       "$shiftMod CTRL, j, movecurrentworkspacetomonitor, d" # Move workspace to lower monitor
 
       # s = settings
+      "$mod, s, exec, noctalia-shell ipc call settings toggle" # Launcher/overview
       # c = control panel
+      "$mod, c, exec, noctalia-shell ipc call controlCenter toggle" # Launcher/overview
       # n = notifications
+      "$mod, n, exec, noctalia-shell ipc call notifications toggleHistory" # Launcher/overview
 
       # Screenshots (QuickShell region selector)
       #",PRINT, exec, qs -p $qsConfig ipc call region screenshot" # Screenshot (QuickShell UI)
@@ -61,15 +64,14 @@ in {
 
       # QuickShell controls
       "$mod, SPACE, exec, noctalia-shell ipc call launcher toggle" # Launcher/overview
-      #"$mod, SEMICOLON, exec, qs -p $qsConfig ipc call bar toggle" # Toggle bar visibility
+      "$mod, SEMICOLON, exec, noctalia-shell ipc call bar toggle" # Toggle bar visibility
 
       # Screen rotation
       "$mod, Prior, exec, hyprctl keyword monitor eDP-1,2880x1920@120,auto,1.5,transform,2" # Rotate 180° (PageUp)
       "$mod, Next, exec, hyprctl keyword monitor eDP-1,2880x1920@120,auto,1.5,transform,0" # Rotate back to normal (PageDown)
 
       # Framework function keys
-      #",XF86AudioMedia, exec, qs -p $qsConfig ipc call session toggle" # F12: Power menu (QuickShell)
-      #"CTRL $shiftMod, SPACE, exec, qs -p $qsConfig ipc call lock activate" # Lock screen
+      ",XF86AudioMedia, exec, noctalia-shell ipc call sessionMenu toggle" # F12: Power menu (QuickShell)
 
       #Workspaces
       "$mod, 1, workspace, 1"
