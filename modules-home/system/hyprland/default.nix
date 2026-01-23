@@ -21,6 +21,15 @@
   inherit (config.var) terminal;
 
   isLaptop = device == "laptop";
+
+  # Shell/Bar selector
+  shellConfig = import ../shell-selector.nix;
+  useNoctalia = shellConfig.shellSystem == "noctalia";
+  qsConfig = "${config.home.homeDirectory}/code/ynix/modules-home/system/quickshell";
+  shellCommand =
+    if useNoctalia
+    then "noctalia-shell &"
+    else "qs -c ${qsConfig} &";
 in {
   imports = [
     ./animations.nix
@@ -188,7 +197,7 @@ in {
         "${pkgs.tailscale-systray}/bin/tailscale-systray"
 
         # Panel and utilities
-        "noctalia-shell &" # QuickShell
+        shellCommand
         "wl-paste --type text --watch cliphist store &"
         "wl-paste --type image --watch cliphist store &"
 

@@ -2,46 +2,55 @@
   pkgs,
   config,
   inputs,
+  lib,
   ...
-}: {
-  imports = [
-    # Programs
-    ../../modules-home/programs/fetch
-    ../../modules-home/programs/nvf
-    ../../modules-home/programs/shell
-    ../../modules-home/programs/btop.nix
-    ../../modules-home/programs/direnv.nix
-    ../../modules-home/programs/editorconfig.nix
-    ../../modules-home/programs/git.nix
-    ../../modules-home/programs/kitty.nix
-    ../../modules-home/programs/nextcloud.nix
-    ../../modules-home/programs/obs-studio.nix
-    ../../modules-home/programs/spicetify.nix
-    ../../modules-home/programs/thunar.nix
-    ../../modules-home/programs/walker.nix
-    ../../modules-home/programs/zathura.nix
-    ../../modules-home/programs/zen.nix
+}: let
+  shellConfig = import ../../modules-home/system/shell-selector.nix;
+  useNoctalia = shellConfig.shellSystem == "noctalia";
+in {
+  imports =
+    [
+      # Programs
+      ../../modules-home/programs/fetch
+      ../../modules-home/programs/nvf
+      ../../modules-home/programs/shell
+      ../../modules-home/programs/btop.nix
+      ../../modules-home/programs/direnv.nix
+      ../../modules-home/programs/editorconfig.nix
+      ../../modules-home/programs/git.nix
+      ../../modules-home/programs/kitty.nix
+      ../../modules-home/programs/nextcloud.nix
+      ../../modules-home/programs/obs-studio.nix
+      ../../modules-home/programs/spicetify.nix
+      ../../modules-home/programs/thunar.nix
+      ../../modules-home/programs/walker.nix
+      ../../modules-home/programs/zathura.nix
+      ../../modules-home/programs/zen.nix
 
-    # Scripts
-    ../../modules-home/scripts # All scripts
+      # Scripts
+      ../../modules-home/scripts # All scripts
 
-    # System
-    ../../modules-home/system/hyprland
-    ../../modules-home/system/clipman.nix
-    ../../modules-home/system/hypridle.nix
-    ../../modules-home/system/hyprlock.nix
-    # ../../modules-home/system/hyprpanel.nix  # Disabled - replaced by QuickShell
-    #../../modules-home/system/quickshell.nix
-    ../../modules-home/system/noctalia.nix
-    #../../modules-home/system/hyprpaper.nix
-    ../../modules-home/system/mime.nix
-    ../../modules-home/system/udiskie.nix
+      # System
+      ../../modules-home/system/hyprland
+      ../../modules-home/system/clipman.nix
+      ../../modules-home/system/hypridle.nix
+      ../../modules-home/system/hyprlock.nix
+      # ../../modules-home/system/hyprpanel.nix  # Disabled - replaced by QuickShell
+      #../../modules-home/system/hyprpaper.nix
+      ../../modules-home/system/mime.nix
+      ../../modules-home/system/udiskie.nix
 
-    # Secrets
-    ../../secrets/shared
+      # Secrets
+      ../../secrets/shared
 
-    ./variables.nix
-  ];
+      ./variables.nix
+    ]
+    ++ lib.optionals useNoctalia [
+      ../../modules-home/system/noctalia.nix
+    ]
+    ++ lib.optionals (!useNoctalia) [
+      ../../modules-home/system/quickshell.nix
+    ];
 
   #All the programs that are not importes as modules
   programs = {

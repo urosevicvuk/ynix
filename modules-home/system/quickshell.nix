@@ -153,41 +153,33 @@ in {
   # Don't copy config to ~/.config - run directly from nix repo source
   # This allows version control and editing without readonly issues
 
-  # Generate colors.json from stylix theme instead of Material You
-  # Must be flat structure with snake_case keys for MaterialThemeLoader.qml
   home.file.".local/state/quickshell/user/generated/colors.json".text = let
     colors = config.lib.stylix.colors;
   in
     builtins.toJSON {
       # Material Design 3 color scheme generated from stylix base16
-      # All accent colors use base0D (blue) for consistency
-      primary = "#${colors.base0D}"; # Accent (blue)
-      on_primary = "#${colors.base00}"; # Text on primary
-      primary_container = "#${colors.base01}"; # Darker primary
+      primary = "#${colors.base0D}";
+      on_primary = "#${colors.base00}";
+      primary_container = "#${colors.base01}";
       on_primary_container = "#${colors.base0D}";
-
-      secondary = "#${colors.base0D}"; # Secondary accent (blue - same as primary)
+      secondary = "#${colors.base0D}";
       on_secondary = "#${colors.base00}";
       secondary_container = "#${colors.base01}";
       on_secondary_container = "#${colors.base0D}";
-
-      tertiary = "#${colors.base0D}"; # Tertiary (blue - same as primary)
+      tertiary = "#${colors.base0D}";
       on_tertiary = "#${colors.base00}";
       tertiary_container = "#${colors.base01}";
       on_tertiary_container = "#${colors.base0D}";
-
-      error = "#${colors.base08}"; # Error (red)
+      error = "#${colors.base08}";
       on_error = "#${colors.base00}";
       error_container = "#${colors.base01}";
       on_error_container = "#${colors.base08}";
-
-      background = "#${colors.base00}"; # Background
-      on_background = "#${colors.base05}"; # Text on background
-      surface = "#${colors.base01}"; # Surface
-      on_surface = "#${colors.base05}"; # Text on surface
+      background = "#${colors.base00}";
+      on_background = "#${colors.base05}";
+      surface = "#${colors.base01}";
+      on_surface = "#${colors.base05}";
       surface_variant = "#${colors.base02}";
       on_surface_variant = "#${colors.base04}";
-
       outline = "#${colors.base03}";
       outline_variant = "#${colors.base02}";
       shadow = "#${colors.base00}";

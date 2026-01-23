@@ -4,13 +4,88 @@
   ...
 }: let
   terminal = config.var.terminal;
+
+  # Shell/Bar selector
+  shellConfig = import ../shell-selector.nix;
+  useNoctalia = shellConfig.shellSystem == "noctalia";
+  qsConfig = "${config.home.homeDirectory}/code/ynix/modules-home/system/quickshell";
+
+  # Shell-specific IPC commands - different endpoints for each shell
+  # Noctalia uses: noctalia-shell ipc call <target> <action>
+  # QuickShell uses: qs -p <config> ipc call <target> <action>
+
+  # Left sidebar: AI panel (QuickShell) / Settings (Noctalia)
+  leftSidebarToggle =
+    if useNoctalia
+    then "noctalia-shell ipc call settings toggle"
+    else "qs -p ${qsConfig} ipc call sidebarLeft toggle";
+
+  # Right sidebar: Control center / Notifications
+  rightSidebarToggle =
+    if useNoctalia
+    then "noctalia-shell ipc call controlCenter toggle"
+    else "qs -p ${qsConfig} ipc call sidebarRight toggle";
+
+  # Notifications (Noctalia only has this separate)
+  notificationsToggle =
+    if useNoctalia
+    then "noctalia-shell ipc call notifications toggleHistory"
+    else "qs -p ${qsConfig} ipc call sidebarRight toggle"; # Same as right sidebar in QS
+
+  # Launcher/Search
+  launcherToggle =
+    if useNoctalia
+    then "noctalia-shell ipc call launcher toggle"
+    else "qs -p ${qsConfig} ipc call search toggle";
+
+  # Clipboard history (QuickShell only)
+  clipboardToggle = "qs -p ${qsConfig} ipc call search clipboardToggle";
+
+  # Bar visibility
+  barToggle =
+    if useNoctalia
+    then "noctalia-shell ipc call bar toggle"
+    else "qs -p ${qsConfig} ipc call bar toggle";
+
+  # Session/Power menu
+  sessionMenuToggle =
+    if useNoctalia
+    then "noctalia-shell ipc call sessionMenu toggle"
+    else "qs -p ${qsConfig} ipc call session toggle";
+
+  # Lock screen
+  lockScreen =
+    if useNoctalia
+    then "hyprlock" # Noctalia uses system hyprlock
+    else "qs -p ${qsConfig} ipc call lock activate";
+
+  # Brightness controls
+  brightnessIncrease =
+    if useNoctalia
+    then "noctalia-shell ipc call brightness increase"
+    else "qs -p ${qsConfig} ipc call brightness increment";
+
+  brightnessDecrease =
+    if useNoctalia
+    then "noctalia-shell ipc call brightness decrease"
+    else "qs -p ${qsConfig} ipc call brightness decrement";
+
+  # Screenshots (QuickShell only - Noctalia doesn't have these)
+  screenshotRegion = "qs -p ${qsConfig} ipc call region screenshot";
+  screenshotEdit = "qs -p ${qsConfig} ipc call region screenshotEdit";
+  screenshotOCR = "qs -p ${qsConfig} ipc call region ocr";
+  screenRecord = "qs -p ${qsConfig} ipc call region recordWithSound";
+
+  # Wallpaper picker (QuickShell only)
+  wallpaperPickerToggle = "qs -p ${qsConfig} ipc call wallpaperSelector toggle";
+  wallpaperRandom = "qs -p ${qsConfig} ipc call wallpaperSelector random";
 in {
   wayland.windowManager.hyprland.settings = {
     bind = [
       #Basic things
       "$mod, W, exec, walker" # Walker Launcher
       "$shiftMod, SPACE, exec, hyprfocus-toggle" # Toggle HyprFocus
-      "CTRL $shiftMod, SPACE, exec, hyprlock" # Lock
+      "CTRL $shiftMod, SPACE, exec, ${lockScreen}" # Lock
 
       "$mod, Q, killactive," # Close window
       "$mod, T, togglefloating," # Toggle Floating
@@ -50,28 +125,34 @@ in {
       "$shiftMod CTRL, k, movecurrentworkspacetomonitor, u" # Move workspace to upper monitor
       "$shiftMod CTRL, j, movecurrentworkspacetomonitor, d" # Move workspace to lower monitor
 
-      # s = settings
-      "$mod, s, exec, noctalia-shell ipc call settings toggle" # Launcher/overview
-      # c = control panel
-      "$mod, c, exec, noctalia-shell ipc call controlCenter toggle" # Launcher/overview
-      # n = notifications
-      "$mod, n, exec, noctalia-shell ipc call notifications toggleHistory" # Launcher/overview
+      # Shell-specific controls
+      "$mod, A, exec, ${leftSidebarToggle}" # Left sidebar (AI panel in QS / Settings in Noctalia)
+      "$mod, C, exec, ${rightSidebarToggle}" # Right sidebar (Control/Notifications center)
+      "$mod, N, exec, ${notificationsToggle}" # Notifications (same as C in QuickShell)
+      "$mod, V, exec, ${clipboardToggle}" # Clipboard history (QuickShell only)
+      "$mod, SPACE, exec, ${launcherToggle}" # Launcher/Search
+      "$mod, SEMICOLON, exec, ${barToggle}" # Toggle bar visibility
 
-      # Screenshots (QuickShell region selector)
-      #",PRINT, exec, qs -p $qsConfig ipc call region screenshot" # Screenshot (QuickShell UI)
-      # Screen Recording (QuickShell)
-      #"ALT, PRINT, exec, qs -p $qsConfig ipc call region recordWithSound" # Record region with sound (QuickShell)
+      # Screenshots (QuickShell only)
+      ",PRINT, exec, ${screenshotRegion}" # Screenshot region
+      "SHIFT, PRINT, exec, ${screenshotEdit}" # Screenshot + edit
+      "CTRL, PRINT, exec, ${screenshotRegion}" # Screenshot region (alt)
+      "CTRL SHIFT, PRINT, exec, ${screenshotOCR}" # OCR from region
+      "$mod SHIFT, S, exec, ${screenshotRegion}" # Alt screenshot shortcut
 
-      # QuickShell controls
-      "$mod, SPACE, exec, noctalia-shell ipc call launcher toggle" # Launcher/overview
-      "$mod, SEMICOLON, exec, noctalia-shell ipc call bar toggle" # Toggle bar visibility
+      # Screen Recording (QuickShell only)
+      "ALT, PRINT, exec, ${screenRecord}" # Record region with sound
+
+      # Wallpaper picker (QuickShell only)
+      "$mod, U, exec, ${wallpaperPickerToggle}" # Toggle wallpaper picker
+      "$mod SHIFT, U, exec, ${wallpaperRandom}" # Random wallpaper from current folder
 
       # Screen rotation
       "$mod, Prior, exec, hyprctl keyword monitor eDP-1,2880x1920@120,auto,1.5,transform,2" # Rotate 180° (PageUp)
       "$mod, Next, exec, hyprctl keyword monitor eDP-1,2880x1920@120,auto,1.5,transform,0" # Rotate back to normal (PageDown)
 
       # Framework function keys
-      ",XF86AudioMedia, exec, noctalia-shell ipc call sessionMenu toggle" # F12: Power menu (QuickShell)
+      ",XF86AudioMedia, exec, ${sessionMenuToggle}" # F12: Power menu
 
       #Workspaces
       "$mod, 1, workspace, 1"
@@ -122,8 +203,8 @@ in {
       ",XF86AudioLowerVolume, exec, sound-down" # Sound Down
       "ALT,XF86AudioRaiseVolume, exec, mic-up" # Mic Volume Up
       "ALT,XF86AudioLowerVolume, exec, mic-down" # Mic Volume Down
-      ",XF86MonBrightnessUp, exec, noctalia-shell ipc call brightness increase" # Brightness Up (QuickShell)
-      ",XF86MonBrightnessDown, exec, noctalia-shell ipc call brightness decrease" # Brightness Down (QuickShell)
+      ",XF86MonBrightnessUp, exec, ${brightnessIncrease}" # Brightness Up
+      ",XF86MonBrightnessDown, exec, ${brightnessDecrease}" # Brightness Down
     ];
   };
 }
