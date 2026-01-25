@@ -18,6 +18,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware/master";
     };
@@ -130,8 +132,6 @@
                   system = final.system;
                   config.allowUnfree = true;
                 };
-                # Material Symbols font for QuickShell icons
-                material-symbols = prev.callPackage ./pkgs/material-symbols {};
               })
             ];
           }
@@ -140,6 +140,7 @@
           inputs.stylix.nixosModules.stylix
           inputs.lanzaboote.nixosModules.lanzaboote
           inputs.disko.nixosModules.disko
+          inputs.determinate.nixosModules.default
           ./hosts/ariandel/configuration.nix
         ];
       };
