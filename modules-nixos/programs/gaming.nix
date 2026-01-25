@@ -1,5 +1,8 @@
-{ pkgs, config, ... }:
 {
+  pkgs,
+  config,
+  ...
+}: {
   # Gaming programs and utilities
   programs = {
     steam = {
@@ -21,7 +24,7 @@
     protonup-qt
     protontricks
     prismlauncher
-    (wineWowPackages.stable.override { waylandSupport = true; })
+    (wineWowPackages.stable.override {waylandSupport = true;})
     winetricks
 
     # Emulators

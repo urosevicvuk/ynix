@@ -6,77 +6,48 @@
   terminal = config.var.terminal;
 
   # Shell/Bar selector
-  shellConfig = import ../shell-selector.nix;
-  useNoctalia = shellConfig.shellSystem == "noctalia";
+  # shellConfig = import ../shell-selector.nix;
+  # useNoctalia = shellConfig.shellSystem == "noctalia";
   qsConfig = "${config.home.homeDirectory}/code/ynix/modules-home/system/quickshell";
 
-  # Shell-specific IPC commands - different endpoints for each shell
-  # Noctalia uses: noctalia-shell ipc call <target> <action>
+  # Shell-specific IPC commands - QuickShell only now (Noctalia disabled)
   # QuickShell uses: qs -p <config> ipc call <target> <action>
 
-  # Left sidebar: AI panel (QuickShell) / Settings (Noctalia)
-  leftSidebarToggle =
-    if useNoctalia
-    then "noctalia-shell ipc call settings toggle"
-    else "qs -p ${qsConfig} ipc call sidebarLeft toggle";
+  # Left sidebar: AI panel
+  leftSidebarToggle = "qs -p ${qsConfig} ipc call sidebarLeft toggle";
 
   # Right sidebar: Control center / Notifications
-  rightSidebarToggle =
-    if useNoctalia
-    then "noctalia-shell ipc call controlCenter toggle"
-    else "qs -p ${qsConfig} ipc call sidebarRight toggle";
+  rightSidebarToggle = "qs -p ${qsConfig} ipc call sidebarRight toggle";
 
-  # Notifications (Noctalia only has this separate)
-  notificationsToggle =
-    if useNoctalia
-    then "noctalia-shell ipc call notifications toggleHistory"
-    else "qs -p ${qsConfig} ipc call sidebarRight toggle"; # Same as right sidebar in QS
+  # Notifications (same as right sidebar in QuickShell)
+  notificationsToggle = "qs -p ${qsConfig} ipc call sidebarRight toggle";
 
   # Launcher/Search
-  launcherToggle =
-    if useNoctalia
-    then "noctalia-shell ipc call launcher toggle"
-    else "qs -p ${qsConfig} ipc call search toggle";
+  launcherToggle = "qs -p ${qsConfig} ipc call search toggle";
 
-  # Clipboard history (QuickShell only)
+  # Clipboard history
   clipboardToggle = "qs -p ${qsConfig} ipc call search clipboardToggle";
 
   # Bar visibility
-  barToggle =
-    if useNoctalia
-    then "noctalia-shell ipc call bar toggle"
-    else "qs -p ${qsConfig} ipc call bar toggle";
+  barToggle = "qs -p ${qsConfig} ipc call bar toggle";
 
   # Session/Power menu
-  sessionMenuToggle =
-    if useNoctalia
-    then "noctalia-shell ipc call sessionMenu toggle"
-    else "qs -p ${qsConfig} ipc call session toggle";
+  sessionMenuToggle = "qs -p ${qsConfig} ipc call session toggle";
 
   # Lock screen
-  lockScreen =
-    if useNoctalia
-    then "hyprlock" # Noctalia uses system hyprlock
-    else "qs -p ${qsConfig} ipc call lock activate";
+  lockScreen = "qs -p ${qsConfig} ipc call lock activate";
 
   # Brightness controls
-  brightnessIncrease =
-    if useNoctalia
-    then "noctalia-shell ipc call brightness increase"
-    else "qs -p ${qsConfig} ipc call brightness increment";
+  brightnessIncrease = "qs -p ${qsConfig} ipc call brightness increment";
+  brightnessDecrease = "qs -p ${qsConfig} ipc call brightness decrement";
 
-  brightnessDecrease =
-    if useNoctalia
-    then "noctalia-shell ipc call brightness decrease"
-    else "qs -p ${qsConfig} ipc call brightness decrement";
-
-  # Screenshots (QuickShell only - Noctalia doesn't have these)
+  # Screenshots
   screenshotRegion = "qs -p ${qsConfig} ipc call region screenshot";
   screenshotEdit = "qs -p ${qsConfig} ipc call region screenshotEdit";
   screenshotOCR = "qs -p ${qsConfig} ipc call region ocr";
   screenRecord = "qs -p ${qsConfig} ipc call region recordWithSound";
 
-  # Wallpaper picker (QuickShell only)
+  # Wallpaper picker
   wallpaperPickerToggle = "qs -p ${qsConfig} ipc call wallpaperSelector toggle";
   wallpaperRandom = "qs -p ${qsConfig} ipc call wallpaperSelector random";
 in {

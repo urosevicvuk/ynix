@@ -2,7 +2,7 @@
   imports = [
     # System modules
     ../../modules-nixos/system/nix.nix
-    ../../modules-nixos/system/systemd.nix
+    ../../modules-nixos/system/boot.nix
     ../../modules-nixos/system/secure-boot.nix
     ../../modules-nixos/system/users.nix
     ../../modules-nixos/system/utils.nix
@@ -36,7 +36,6 @@
     # Network
     ../../modules-nixos/network/networking.nix
     ../../modules-nixos/network/tailscale.nix
-    ../../modules-nixos/network/firewall.nix
 
     # Host-specific configuration
     ./variables.nix

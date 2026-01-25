@@ -1,1 +1,1 @@
-{ imports = [ ./neofetch.nix ./nerdfetch.nix ]; }
+{imports = [./neofetch.nix ./nerdfetch.nix];}

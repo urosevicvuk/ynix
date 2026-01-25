@@ -1,27 +1,23 @@
-{ config, ... }:
-let
+{config, ...}: let
   animationSpeed = config.theme.animation-speed;
 
   animationDuration =
-    if animationSpeed == "slow" then
-      "4"
-    else if animationSpeed == "medium" then
-      "2.5"
-    else if animationSpeed == "fast" then
-      "1.5"
-    else
-      "0";
+    if animationSpeed == "slow"
+    then "4"
+    else if animationSpeed == "medium"
+    then "2.5"
+    else if animationSpeed == "fast"
+    then "1.5"
+    else "0";
   borderDuration =
-    if animationSpeed == "slow" then
-      "10"
-    else if animationSpeed == "medium" then
-      "6"
-    else if animationSpeed == "fast" then
-      "3"
-    else
-      "0";
-in
-{
+    if animationSpeed == "slow"
+    then "10"
+    else if animationSpeed == "medium"
+    then "6"
+    else if animationSpeed == "fast"
+    then "3"
+    else "0";
+in {
   wayland.windowManager.hyprland.settings = {
     animations = {
       enabled = animationSpeed != "none";

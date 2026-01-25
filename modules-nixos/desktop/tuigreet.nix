@@ -1,7 +1,6 @@
 # TUIGreet is a display manager.
 # Legacy, I'm now using SDDM
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   services.greetd = {
     enable = true;
     settings = {
@@ -12,7 +11,7 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [ tuigreet ];
+  environment.systemPackages = with pkgs; [tuigreet];
 
   # this is a life saver.
   # literally no documentation about this anywhere.
@@ -28,5 +27,4 @@
     TTYVHangup = true;
     TTYVTDisallocate = true;
   };
-
 }

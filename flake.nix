@@ -82,37 +82,38 @@
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Noctalia Shell - Wayland desktop shell built with QuickShell
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = inputs @ {
     nixpkgs,
     nixpkgs-stable,
     ...
-  }: {
+  }: let
+    # Centralized package sets - define once, use everywhere
+    forAllSystems = nixpkgs.lib.genAttrs ["x86_64-linux" "aarch64-linux"];
+
+    mkPkgsUnstable = system:
+      import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+
+    mkPkgsStable = system:
+      import nixpkgs-stable {
+        inherit system;
+        config.allowUnfree = true;
+      };
+  in {
     # NixOS configurations
     nixosConfigurations = {
       # anorLondo is the main desktop system
       anorLondo = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
+          pkgs-stable = mkPkgsStable "x86_64-linux";
+        };
         modules = [
-          {
-            _module.args = {inherit inputs;};
-
-            nixpkgs.overlays = [
-              (final: prev: {
-                stable = import nixpkgs-stable {
-                  system = final.system;
-                  config.allowUnfree = true;
-                };
-              })
-            ];
-          }
           inputs.home-manager.nixosModules.home-manager
           inputs.stylix.nixosModules.stylix
           inputs.lanzaboote.nixosModules.lanzaboote
@@ -122,19 +123,12 @@
 
       # ariandel is the laptop
       ariandel = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
+          pkgs-stable = mkPkgsStable "x86_64-linux";
+        };
         modules = [
-          {
-            _module.args = {inherit inputs;};
-
-            nixpkgs.overlays = [
-              (final: prev: {
-                stable = import nixpkgs-stable {
-                  system = final.system;
-                  config.allowUnfree = true;
-                };
-              })
-            ];
-          }
           inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
           inputs.home-manager.nixosModules.home-manager
           inputs.stylix.nixosModules.stylix
@@ -145,12 +139,14 @@
         ];
       };
 
-      # firelink is the server
-      firelink = nixpkgs.lib.nixosSystem {
+      # firelink is the server (stable base)
+      firelink = nixpkgs-stable.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
+          pkgs-unstable = mkPkgsUnstable "x86_64-linux";
+        };
         modules = [
-          {
-            _module.args = {inherit inputs;};
-          }
           inputs.home-manager.nixosModules.home-manager
           inputs.stylix.nixosModules.stylix
           # inputs.lanzaboote.nixosModules.lanzaboote  # Disabled for server
@@ -164,18 +160,12 @@
       # bonfire - All-in-one cluster node (K3s control plane + worker + Longhorn storage)
       # Template for bonfire01, bonfire02, bonfire03
       bonfire = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
+          pkgs-stable = mkPkgsStable "x86_64-linux";
+        };
         modules = [
-          {
-            _module.args = {inherit inputs;};
-            nixpkgs.overlays = [
-              (final: prev: {
-                stable = import nixpkgs-stable {
-                  system = final.system;
-                  config.allowUnfree = true;
-                };
-              })
-            ];
-          }
           inputs.home-manager.nixosModules.home-manager
           inputs.stylix.nixosModules.stylix
           inputs.sops-nix.nixosModules.sops
@@ -185,18 +175,12 @@
 
       # bonfire-keeper - Dedicated control plane node (future separated architecture)
       bonfire-keeper = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
+          pkgs-stable = mkPkgsStable "x86_64-linux";
+        };
         modules = [
-          {
-            _module.args = {inherit inputs;};
-            nixpkgs.overlays = [
-              (final: prev: {
-                stable = import nixpkgs-stable {
-                  system = final.system;
-                  config.allowUnfree = true;
-                };
-              })
-            ];
-          }
           inputs.home-manager.nixosModules.home-manager
           inputs.stylix.nixosModules.stylix
           inputs.sops-nix.nixosModules.sops
@@ -206,18 +190,12 @@
 
       # bonfire-ash - Dedicated worker node (future separated architecture)
       bonfire-ash = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
+          pkgs-stable = mkPkgsStable "x86_64-linux";
+        };
         modules = [
-          {
-            _module.args = {inherit inputs;};
-            nixpkgs.overlays = [
-              (final: prev: {
-                stable = import nixpkgs-stable {
-                  system = final.system;
-                  config.allowUnfree = true;
-                };
-              })
-            ];
-          }
           inputs.home-manager.nixosModules.home-manager
           inputs.stylix.nixosModules.stylix
           inputs.sops-nix.nixosModules.sops
@@ -227,18 +205,12 @@
 
       # bonfire-ember - Dedicated storage node (future Ceph deployment)
       bonfire-ember = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
+          pkgs-stable = mkPkgsStable "x86_64-linux";
+        };
         modules = [
-          {
-            _module.args = {inherit inputs;};
-            nixpkgs.overlays = [
-              (final: prev: {
-                stable = import nixpkgs-stable {
-                  system = final.system;
-                  config.allowUnfree = true;
-                };
-              })
-            ];
-          }
           inputs.home-manager.nixosModules.home-manager
           inputs.stylix.nixosModules.stylix
           inputs.sops-nix.nixosModules.sops

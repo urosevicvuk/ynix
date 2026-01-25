@@ -1,12 +1,11 @@
-{ ... }:
-{
+{...}: {
   # keyd - keyboard remapping daemon
   # Handles all keyboard remapping at system level
   services.keyd = {
     enable = true;
     keyboards = {
       default = {
-        ids = [ "*" ];
+        ids = ["*"];
         settings = {
           main = {
             # Caps Lock acts as Escape when tapped, Control when held

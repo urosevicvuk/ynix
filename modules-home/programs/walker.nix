@@ -1,6 +1,10 @@
-{ inputs, pkgs, config, ... }:
 {
-  imports = [ inputs.walker.homeManagerModules.default ];
+  inputs,
+  pkgs,
+  config,
+  ...
+}: {
+  imports = [inputs.walker.homeManagerModules.default];
 
   programs.walker = {
     enable = true;
@@ -13,10 +17,10 @@
       selection_wrap = true;
       click_to_close = true;
       exact_search_prefix = "'";
-      
+
       # Faster animations
-      animation_duration = 100;  # milliseconds (default is 250)
-      animation_type = "fade";   # fade instead of slide
+      animation_duration = 100; # milliseconds (default is 250)
+      animation_type = "fade"; # fade instead of slide
 
       shell = {
         anchor_top = true;
@@ -24,7 +28,7 @@
         anchor_left = true;
         anchor_right = true;
       };
-      
+
       dmenu = {
         anchor_top = true;
         width = 600;
@@ -39,11 +43,11 @@
       };
 
       keybinds = {
-        close = [ "Escape" ];
-        next = [ "Down" "ctrl n" ];
-        previous = [ "Up" "ctrl p" ];
-        toggle_exact = [ "ctrl e" ];
-        resume_last_query = [ "ctrl r" ];
+        close = ["Escape"];
+        next = ["Down" "ctrl n"];
+        previous = ["Up" "ctrl p"];
+        toggle_exact = ["ctrl e"];
+        resume_last_query = ["ctrl r"];
       };
 
       providers = {
@@ -51,34 +55,99 @@
           "desktopapplications"
           "websearch"
         ];
-        empty = [ "desktopapplications" ];
+        empty = ["desktopapplications"];
         max_results = 50;
 
         prefixes = [
-          { prefix = "/"; provider = "providerlist"; }
-          { prefix = "."; provider = "files"; }
-          { prefix = ":"; provider = "symbols"; }
-          { prefix = "="; provider = "calc"; }
-          { prefix = "@"; provider = "websearch"; }
-          { prefix = "$"; provider = "clipboard"; }
+          {
+            prefix = "/";
+            provider = "providerlist";
+          }
+          {
+            prefix = ".";
+            provider = "files";
+          }
+          {
+            prefix = ":";
+            provider = "symbols";
+          }
+          {
+            prefix = "=";
+            provider = "calc";
+          }
+          {
+            prefix = "@";
+            provider = "websearch";
+          }
+          {
+            prefix = "$";
+            provider = "clipboard";
+          }
         ];
 
         actions.desktopapplications = [
-          { action = "start"; default = true; bind = "Return"; }
-          { action = "start:keep"; label = "open+next"; bind = "shift Return"; after = "KeepOpen"; }
-          { action = "pin"; bind = "ctrl shift p"; after = "AsyncReload"; }
-          { action = "unpin"; bind = "ctrl shift p"; after = "AsyncReload"; }
-          { action = "pinup"; bind = "ctrl shift n"; after = "AsyncReload"; }
-          { action = "pindown"; bind = "ctrl m"; after = "AsyncReload"; }
+          {
+            action = "start";
+            default = true;
+            bind = "Return";
+          }
+          {
+            action = "start:keep";
+            label = "open+next";
+            bind = "shift Return";
+            after = "KeepOpen";
+          }
+          {
+            action = "pin";
+            bind = "ctrl shift p";
+            after = "AsyncReload";
+          }
+          {
+            action = "unpin";
+            bind = "ctrl shift p";
+            after = "AsyncReload";
+          }
+          {
+            action = "pinup";
+            bind = "ctrl shift n";
+            after = "AsyncReload";
+          }
+          {
+            action = "pindown";
+            bind = "ctrl m";
+            after = "AsyncReload";
+          }
         ];
 
         actions.clipboard = [
-          { action = "copy"; default = true; bind = "Return"; }
-          { action = "remove"; bind = "ctrl d"; after = "ClearReload"; }
-          { action = "remove_all"; global = true; bind = "ctrl shift d"; after = "ClearReload"; }
-          { action = "pause"; bind = "ctrl shift p"; }
-          { action = "unpause"; bind = "ctrl shift p"; }
-          { action = "edit"; bind = "ctrl o"; }
+          {
+            action = "copy";
+            default = true;
+            bind = "Return";
+          }
+          {
+            action = "remove";
+            bind = "ctrl d";
+            after = "ClearReload";
+          }
+          {
+            action = "remove_all";
+            global = true;
+            bind = "ctrl shift d";
+            after = "ClearReload";
+          }
+          {
+            action = "pause";
+            bind = "ctrl shift p";
+          }
+          {
+            action = "unpause";
+            bind = "ctrl shift p";
+          }
+          {
+            action = "edit";
+            bind = "ctrl o";
+          }
         ];
       };
     };
@@ -102,7 +171,7 @@
           border: ${toString config.theme.border-size}px solid #${config.lib.stylix.colors.base0D};
           opacity: 1.0;
         }
-        
+
         window {
           background: rgba(0, 0, 0, 0);
           opacity: 1.0;

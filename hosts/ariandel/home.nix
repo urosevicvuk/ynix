@@ -1,13 +1,16 @@
 {
   pkgs,
+  pkgs-stable,
   config,
   inputs,
   lib,
   ...
-}: let
-  shellConfig = import ../../modules-home/system/shell-selector.nix;
-  useNoctalia = shellConfig.shellSystem == "noctalia";
-in {
+}:
+# let
+#   shellConfig = import ../../modules-home/system/shell-selector.nix;
+#   useNoctalia = shellConfig.shellSystem == "noctalia";
+# in
+{
   imports =
     [
       # Programs
@@ -45,26 +48,16 @@ in {
       ../../secrets/shared
 
       ./variables.nix
-    ]
-    ++ lib.optionals useNoctalia [
-      ../../modules-home/system/noctalia.nix
-    ]
-    ++ lib.optionals (!useNoctalia) [
+
+      # QuickShell only (Noctalia disabled)
       ../../modules-home/system/quickshell.nix
     ];
-
-  #All the programs that are not importes as modules
-  programs = {
-  };
-  services = {
-  };
-
-  # Overlays
-  #nixpkgs.overlays = [
-  #  (final: prev: {
-
-  #  })
-  #];
+    # ++ lib.optionals useNoctalia [
+    #   ../../modules-home/system/noctalia.nix
+    # ]
+    # ++ lib.optionals (!useNoctalia) [
+    #   ../../modules-home/system/quickshell.nix
+    # ];
 
   home = {
     inherit (config.var) username;
@@ -132,7 +125,7 @@ in {
         cmatrix
         neo-cowsay
       ])
-      ++ (with pkgs.stable; [
+      ++ (with pkgs-stable; [
         # Stable packages (25.05)
       ]);
 

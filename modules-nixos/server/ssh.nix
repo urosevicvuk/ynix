@@ -1,13 +1,12 @@
-{ config, ... }:
-{
+{config, ...}: {
   services.openssh = {
     enable = true;
-    ports = [ 22 ];
+    ports = [22];
     openFirewall = true;
     settings = {
       PermitRootLogin = "no";
       PasswordAuthentication = false;
-      AllowUsers = [ config.var.username ];
+      AllowUsers = [config.var.username];
     };
   };
 

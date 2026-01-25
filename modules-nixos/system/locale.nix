@@ -1,12 +1,10 @@
-{ config, ... }:
-let
+{config, ...}: let
   inherit (config.var) timeZone;
   inherit (config.var) defaultLocale;
   inherit (config.var) extraLocale;
   inherit (config.var) keyboardLayout;
   inherit (config.var) keyboardVariant;
-in
-{
+in {
   # Time zone
   time = {
     inherit timeZone;

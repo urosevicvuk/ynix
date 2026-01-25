@@ -4,11 +4,9 @@
   lib,
   config,
   ...
-}:
-let
+}: let
   fetch = config.theme.fetch; # neofetch, nerdfetch, pfetch
-in
-{
+in {
   home.packages = with pkgs; [
     bat
     ripgrep
@@ -18,7 +16,7 @@ in
     trash-cli
   ];
 
-  home.sessionPath = [ "$HOME/go/bin" ];
+  home.sessionPath = ["$HOME/go/bin"];
 
   programs.zsh = {
     enable = true;
@@ -43,7 +41,7 @@ in
       size = 10000;
     };
 
-    profileExtra = lib.optionalString (config.home.sessionPath != [ ]) ''
+    profileExtra = lib.optionalString (config.home.sessionPath != []) ''
       export PATH="$PATH''${PATH:+:}${lib.concatStringsSep ":" config.home.sessionPath}"
     '';
 
@@ -119,14 +117,13 @@ in
 
         bindkey -e
         ${
-          if fetch == "neofetch" then
-            pkgs.neofetch + "/bin/neofetch"
-          else if fetch == "nerdfetch" then
-            "nerdfetch"
-          else if fetch == "pfetch" then
-            "echo; ${pkgs.pfetch}/bin/pfetch"
-          else
-            ""
+          if fetch == "neofetch"
+          then pkgs.neofetch + "/bin/neofetch"
+          else if fetch == "nerdfetch"
+          then "nerdfetch"
+          else if fetch == "pfetch"
+          then "echo; ${pkgs.pfetch}/bin/pfetch"
+          else ""
         }
 
         function tmux-sessionizer-widget() {

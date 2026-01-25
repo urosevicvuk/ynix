@@ -5,14 +5,12 @@
   lib,
   inputs,
   ...
-}:
-let
+}: let
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
   accent = "${config.lib.stylix.colors.base0D}";
   background = "${config.lib.stylix.colors.base00}";
-in
-{
-  imports = [ inputs.spicetify-nix.homeManagerModules.default ];
+in {
+  imports = [inputs.spicetify-nix.homeManagerModules.default];
 
   programs.spicetify = {
     enable = true;

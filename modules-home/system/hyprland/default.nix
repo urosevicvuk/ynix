@@ -22,14 +22,11 @@
 
   isLaptop = device == "laptop";
 
-  # Shell/Bar selector
-  shellConfig = import ../shell-selector.nix;
-  useNoctalia = shellConfig.shellSystem == "noctalia";
+  # Shell/Bar selector - QuickShell only (Noctalia disabled)
+  # shellConfig = import ../shell-selector.nix;
+  # useNoctalia = shellConfig.shellSystem == "noctalia";
   qsConfig = "${config.home.homeDirectory}/code/ynix/modules-home/system/quickshell";
-  shellCommand =
-    if useNoctalia
-    then "noctalia-shell &"
-    else "qs -c ${qsConfig} &";
+  shellCommand = "qs -c ${qsConfig} &";
 in {
   imports = [
     ./animations.nix

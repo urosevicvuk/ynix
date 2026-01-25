@@ -1,19 +1,18 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   # Desktop-related system services
   services = {
     # D-Bus message bus
-    dbus = {
-      enable = true;
-      implementation = "broker";
-      packages = with pkgs; [
-        gcr
-        gnome-settings-daemon
-      ];
-    };
+    #dbus = {
+    #  enable = true;
+    #  implementation = "broker";
+    #  packages = with pkgs; [
+    #    gcr
+    #    gnome-settings-daemon
+    #  ];
+    #};
 
     # Virtual filesystem support (USB drives, etc.)
-    gvfs.enable = true;
+    #gvfs.enable = true;
 
     # Battery/power management
     upower.enable = true;
@@ -32,17 +31,17 @@
     geoclue2.enable = true;
 
     # Profile Sync Daemon - moves browser profiles to tmpfs
-    psd = {
-      enable = true;
-      resyncTimer = "10m";
-    };
+    #psd = {
+    #  enable = true;
+    #  resyncTimer = "10m";
+    #};
   };
 
   programs = {
-    dconf.enable = true;
+    #dconf.enable = true;
 
     # GPU Screen Recorder - enables promptless recording (no polkit prompt)
-    gpu-screen-recorder.enable = true;
+    #gpu-screen-recorder.enable = true;
   };
 
   # Enable graphics support

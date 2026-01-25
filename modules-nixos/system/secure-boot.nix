@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   # Lanzaboote - Secure Boot for NixOS
   # https://github.com/nix-community/lanzaboote
   #
@@ -8,7 +11,7 @@
 
   boot.lanzaboote = {
     enable = true;
-    pkiBundle = "/var/lib/sbctl";  # IMPORTANT: Must match where sbctl stores keys!
+    pkiBundle = "/var/lib/sbctl"; # IMPORTANT: Must match where sbctl stores keys!
   };
 
   # Disable systemd-boot since lanzaboote handles it

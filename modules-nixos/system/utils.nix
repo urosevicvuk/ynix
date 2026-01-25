@@ -1,9 +1,7 @@
-{ config, ... }:
-let
+{config, ...}: let
   inherit (config.var) configDirectory;
   inherit (config.var) autoUpgrade;
-in
-{
+in {
   # System auto-upgrade configuration
   system.autoUpgrade = {
     enable = autoUpgrade;

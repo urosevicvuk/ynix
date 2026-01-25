@@ -1,14 +1,16 @@
-{ config, inputs, ... }:
-let
-  autoGarbageCollector = config.var.autoGarbageCollector;
-in
 {
+  config,
+  inputs,
+  ...
+}: let
+  autoGarbageCollector = config.var.autoGarbageCollector;
+in {
   nixpkgs.config = {
     allowUnfree = true;
     allowBroken = true;
   };
   nix = {
-    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+    nixPath = ["nixpkgs=${inputs.nixpkgs}"];
     channel.enable = false;
     extraOptions = ''
       warn-dirty = false

@@ -1,10 +1,9 @@
-{ config, ... }:
-let
+{config, ...}: let
   domain = "hadi.diy";
   mkVirtualHost = name: port: {
     useACMEHost = domain;
     forceSSL = true;
-    locations."/" = { proxyPass = "http://127.0.0.1:${toString port}"; };
+    locations."/" = {proxyPass = "http://127.0.0.1:${toString port}";};
   };
 in {
   nixarr = {
@@ -27,7 +26,7 @@ in {
     };
     transmission = {
       enable = true;
-      extraSettings = { trash-original-torrent-files = true; };
+      extraSettings = {trash-original-torrent-files = true;};
       vpn.enable = true;
     };
     recyclarr = {

@@ -3,12 +3,10 @@
   pkgs,
   lib,
   ...
-}:
-{
+}: {
   services.hypridle = {
     enable = true;
     settings = {
-
       general = {
         ignore_dbus_inhibit = false;
         lock_cmd = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";

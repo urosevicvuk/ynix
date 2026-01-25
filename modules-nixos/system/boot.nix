@@ -3,14 +3,12 @@
   config,
   lib,
   ...
-}:
-let
+}: let
   inherit (config.var) device;
-in
-{
+in {
   boot = {
-    initrd.kernelModules = [ "amdgpu" ];
-    supportedFilesystems = [ "ntfs" ];
+    initrd.kernelModules = ["amdgpu"];
+    supportedFilesystems = ["ntfs"];
     bootspec.enable = true;
     loader = {
       efi.canTouchEfiVariables = true;
@@ -24,7 +22,7 @@ in
       grub = lib.mkIf (device == "desktop") {
         enable = true;
         # GRUB disabled in favor of systemd-boot
-        devices = [ "nodev" ];
+        devices = ["nodev"];
         efiSupport = true;
         useOSProber = device == "desktop";
       };
