@@ -50,10 +50,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-minecraft = {
-      url = "github:Infinidoge/nix-minecraft";
-    };
-
     elephant = {
       url = "github:abenz1267/elephant";
     };
@@ -153,12 +149,10 @@
         modules = [
           {
             _module.args = {inherit inputs;};
-            nixpkgs.overlays = [inputs.nix-minecraft.overlay];
           }
           inputs.home-manager.nixosModules.home-manager
           inputs.stylix.nixosModules.stylix
           # inputs.lanzaboote.nixosModules.lanzaboote  # Disabled for server
-          inputs.nix-minecraft.nixosModules.minecraft-servers
           inputs.sops-nix.nixosModules.sops
           # inputs.nixarr.nixosModules.default  # Enable when nixarr input is added and configured
           # inputs.search-nixos-api.nixosModules.search-nixos-api  # Enable when search-nixos-api input is added

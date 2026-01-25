@@ -19,6 +19,7 @@
     ../../modules-nixos/network/networking.nix
     ../../modules-nixos/network/tailscale.nix
     ../../modules-nixos/network/firewall.nix
+    ../../modules-nixos/network/ddns.nix
 
     # Server
     ../../modules-nixos/server/ssh.nix

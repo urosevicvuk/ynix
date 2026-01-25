@@ -12,7 +12,7 @@
       # Cloudflare tokens
       "cloudflare-dns-token" = {
         sopsFile = ./cloudflare.yaml;
-        key = "dns_token";
+        key = "dns_token_env"; # For ACME (needs CLOUDFLARE_DNS_API_TOKEN=xxx format)
         owner = "acme";
         mode = "0400";
       };
@@ -20,6 +20,18 @@
       "cloudflare-tunnel-token" = {
         sopsFile = ./cloudflare.yaml;
         key = "tunnel_token";
+        mode = "0400";
+      };
+
+      "cloudflare-ddns-token" = {
+        sopsFile = ./cloudflare.yaml;
+        key = "dns_token";
+        mode = "0400";
+      };
+
+      "cloudflare-zone-id" = {
+        sopsFile = ./cloudflare.yaml;
+        key = "zone_id";
         mode = "0400";
       };
 

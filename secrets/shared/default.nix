@@ -5,10 +5,8 @@
   pkgs,
   inputs,
   ...
-}:
-
-{
-  imports = [ inputs.sops-nix.homeManagerModules.sops ];
+}: {
+  imports = [inputs.sops-nix.homeManagerModules.sops];
 
   # Declaratively manage .sops.yaml (home-manager)
   home.file."${config.var.configDirectory}/.sops.yaml".text = ''
@@ -39,7 +37,7 @@
   ];
 
   # Automatically generate age key from SSH key for manual sops editing
-  home.activation.setupSopsAge = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.setupSopsAge = config.lib.dag.entryAfter ["writeBoundary"] ''
     if [ -f /home/${config.var.username}/.ssh/id_ed25519 ]; then
       $DRY_RUN_CMD mkdir -p $VERBOSE_ARG /home/${config.var.username}/.config/sops/age
       $DRY_RUN_CMD ${pkgs.ssh-to-age}/bin/ssh-to-age -private-key -i /home/${config.var.username}/.ssh/id_ed25519 > /home/${config.var.username}/.config/sops/age/keys.txt
@@ -49,7 +47,7 @@
 
   # Home-manager sops configuration (user-level secrets)
   sops = {
-    age.sshKeyPaths = [ "/home/${config.var.username}/.ssh/id_ed25519" ];
+    age.sshKeyPaths = ["/home/${config.var.username}/.ssh/id_ed25519"];
     defaultSopsFormat = "yaml";
 
     secrets = {
@@ -59,23 +57,6 @@
         key = "api_key";
         mode = "0400";
       };
-
-      # SSH keys - DISABLED: Manage SSH keys manually instead of via sops
-      # This prevents the chicken-and-egg problem where sops needs SSH keys to decrypt,
-      # but SSH keys are managed by sops
-      # "ssh-private" = {
-      #   sopsFile = ./ssh-keys.yaml;
-      #   key = "private";
-      #   path = "/home/${config.var.username}/.ssh/id_ed25519";
-      #   mode = "0600";
-      # };
-
-      # "ssh-public" = {
-      #   sopsFile = ./ssh-keys.yaml;
-      #   key = "public";
-      #   path = "/home/${config.var.username}/.ssh/id_ed25519.pub";
-      #   mode = "0644";
-      # };
     };
   };
 }
