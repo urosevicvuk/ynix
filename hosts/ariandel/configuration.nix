@@ -3,9 +3,9 @@
     # System modules
     ../../modules-nixos/system/nix.nix
     ../../modules-nixos/system/boot.nix
-    ../../modules-nixos/system/secure-boot.nix
-    ../../modules-nixos/system/users.nix
+    #../../modules-nixos/system/secure-boot.nix
     ../../modules-nixos/system/utils.nix
+    ../../modules-nixos/system/users.nix
     ../../modules-nixos/system/home-manager.nix
     ../../modules-nixos/system/locale.nix
     ../../modules-nixos/system/environment.nix
@@ -54,7 +54,7 @@
     ## This should fix the xHCI USB controller resume issue (and thus the fingerprint reader)
     ## Also fixes MT7925 WiFi 5GHz dropping to 0 while connected
     ## Reference: Framework Community reports of suspend hangs
-    "pcie_aspm=off"
+    #"pcie_aspm=off"
 
     ## Fix xHCI controller dying on resume (Framework AMD 7040 bug)
     ## XHCI_RESET_ON_RESUME quirk forces controller reset after every resume

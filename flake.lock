@@ -556,11 +556,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769450270,
-        "narHash": "sha256-pdVm/zJazDUAasTyHFX/Pbrlk9Upjxi0yzgn7GjGe4g=",
+        "lastModified": 1769544286,
+        "narHash": "sha256-tJzEPNC6fMCzF4W8h2YdnvjlI4TpRV/yJg9cTnbwkfc=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "a10c1e8f5ad2589414407f4851c221cb66270257",
+        "rev": "d505dc46dc9831d1db4e7d6e323b2c42d5eba3e6",
         "type": "github"
       },
       "original": {
@@ -922,6 +922,26 @@
         "type": "github"
       }
     },
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1769544917,
+        "narHash": "sha256-ZdGVVm/fzSV/LuxdT29rpo0sgj0jvar+c3LaOe8Wekg=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "rev": "491222594c69ae5bc0a414b80e50b7da276fe686",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "type": "github"
+      }
+    },
     "nur": {
       "inputs": {
         "flake-parts": [
@@ -1065,6 +1085,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_8",
         "nixpkgs-stable": "nixpkgs-stable",
+        "noctalia": "noctalia",
         "nvf": "nvf",
         "quickshell": "quickshell",
         "sops-nix": "sops-nix",

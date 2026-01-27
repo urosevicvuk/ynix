@@ -15,20 +15,20 @@ in {
   # This is a hardware/firmware bug that kernel parameters can't fix
   # Solution: Stop fprintd before suspend, then reset the USB controller after resume
 
-  powerManagement.powerDownCommands = lib.mkIf isLaptop ''
-    ${pkgs.systemd}/bin/systemctl stop fprintd.service 2>/dev/null || true
-  '';
+  #powerManagement.powerDownCommands = lib.mkIf isLaptop ''
+  #  ${pkgs.systemd}/bin/systemctl stop fprintd.service 2>/dev/null || true
+  #'';
 
-  # Reset xHCI controller after resume to recover fingerprint reader
-  powerManagement.resumeCommands = lib.mkIf isLaptop ''
-    # Unbind the dead xHCI controller
-    echo '0000:c1:00.4' > /sys/bus/pci/drivers/xhci_hcd/unbind 2>/dev/null || true
+  ## Reset xHCI controller after resume to recover fingerprint reader
+  #powerManagement.resumeCommands = lib.mkIf isLaptop ''
+  #  # Unbind the dead xHCI controller
+  #  echo '0000:c1:00.4' > /sys/bus/pci/drivers/xhci_hcd/unbind 2>/dev/null || true
 
-    # Rebind to reset it
-    echo '0000:c1:00.4' > /sys/bus/pci/drivers/xhci_hcd/bind 2>/dev/null || true
+  #  # Rebind to reset it
+  #  echo '0000:c1:00.4' > /sys/bus/pci/drivers/xhci_hcd/bind 2>/dev/null || true
 
-    # fprintd will auto-start when needed
-  '';
+  #  # fprintd will auto-start when needed
+  #'';
 
   security = {
     pam.services = {

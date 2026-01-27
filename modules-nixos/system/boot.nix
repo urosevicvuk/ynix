@@ -12,14 +12,14 @@ in {
     bootspec.enable = true;
     loader = {
       efi.canTouchEfiVariables = true;
-      systemd-boot = lib.mkIf (device != "desktop") {
-        enable = true;
-        consoleMode = "auto";
-        configurationLimit = 10;
-        # Windows dual-boot works automatically via EFI boot entries
-        # No need for OS Prober - systemd-boot will list all EFI boot entries
-      };
-      grub = lib.mkIf (device == "desktop") {
+      #systemd-boot = lib.mkIf (device != "desktop") {
+      #  enable = true;
+      #  consoleMode = "auto";
+      #  configurationLimit = 10;
+      #  # Windows dual-boot works automatically via EFI boot entries
+      #  # No need for OS Prober - systemd-boot will list all EFI boot entries
+      #};
+      grub = {
         enable = true;
         # GRUB disabled in favor of systemd-boot
         devices = ["nodev"];

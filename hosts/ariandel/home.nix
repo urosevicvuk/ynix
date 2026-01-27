@@ -43,13 +43,13 @@
 
     ./variables.nix
 
-    # QuickShell only (Noctalia disabled)
-    ../../modules-home/system/quickshell.nix
+    # Noctalia Shell (switched back from QuickShell)
+    ../../modules-home/system/noctalia.nix
   ];
 
   home = {
     inherit (config.var) username;
-    homeDirectory = "/home/" + config.var.username;
+    homeDirectory = lib.mkForce ("/home/" + config.var.username);
 
     packages =
       (with pkgs; [
@@ -62,10 +62,7 @@
         qbittorrent
         wireshark
 
-        # Dev
-        pnpm
-        nodejs
-        opencode
+        # Dev pnpm nodejs opencode
         claude-code
         gh
         gnumake

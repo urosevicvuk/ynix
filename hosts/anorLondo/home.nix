@@ -5,12 +5,7 @@
   inputs,
   lib,
   ...
-}:
-# let
-#   shellConfig = import ../../modules-home/system/shell-selector.nix;
-#   useNoctalia = shellConfig.shellSystem == "noctalia";
-# in
-{
+}: {
   imports = [
     # Programs
     ../../modules-home/programs/fetch
@@ -47,8 +42,8 @@
 
     ./variables.nix
 
-    # QuickShell only (Noctalia disabled)
-    ../../modules-home/system/quickshell.nix
+    # Noctalia Shell
+    ../../modules-home/system/noctalia.nix
   ];
 
   home = {

@@ -22,11 +22,7 @@
 
   isLaptop = device == "laptop";
 
-  # Shell/Bar selector - QuickShell only (Noctalia disabled)
-  # shellConfig = import ../shell-selector.nix;
-  # useNoctalia = shellConfig.shellSystem == "noctalia";
-  qsConfig = "${config.home.homeDirectory}/code/ynix/modules-home/system/quickshell";
-  shellCommand = "qs -c ${qsConfig} &";
+
 in {
   imports = [
     ./animations.nix
@@ -194,7 +190,7 @@ in {
         "${pkgs.tailscale-systray}/bin/tailscale-systray"
 
         # Panel and utilities
-        shellCommand
+        "noctalia-shell &"
         "wl-paste --type text --watch cliphist store &"
         "wl-paste --type image --watch cliphist store &"
 
