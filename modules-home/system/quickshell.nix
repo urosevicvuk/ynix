@@ -9,8 +9,6 @@
 }: let
   # Python environment for wallpaper analysis (Material You colors)
   pythonEnv = pkgs.python3.withPackages (ps: [
-    ps.build
-    ps.cffi
     ps.click
     ps."dbus-python"
     ps."kde-material-you-colors"
@@ -18,18 +16,12 @@
     ps.loguru
     ps."material-color-utilities"
     ps.materialyoucolor
-    ps.numpy
     ps.pillow
     ps.psutil
     ps.pycairo
     ps.pygobject3
     ps.pywayland
     ps.setproctitle
-    ps."setuptools-scm"
-    ps.tqdm
-    ps.wheel
-    ps."pyproject-hooks"
-    ps.opencv4
   ]);
 
   # QuickShell with Qt dependencies and proper wrapping
@@ -80,7 +72,6 @@ in {
     material-symbols
 
     # Core utilities required by end-4 bar
-    cava
     lxqt.pavucontrol-qt
     libdbusmenu-gtk3
     playerctl
@@ -94,21 +85,14 @@ in {
     # GUI applications
     foot
     fuzzel
-    matugen
-    mpvpaper
     swappy
     wf-recorder
     hyprshot
-    wlogout
 
     # System utilities
-    tesseract
     slurp
     upower
-    wtype
-    ydotool
     swww
-    translate-shell
     imagemagick
     libnotify
     grim
@@ -116,12 +100,6 @@ in {
     # Wayland/Hyprland
     hyprsunset
     wl-clipboard
-
-    # Development libraries
-    libsoup_3
-    libportal-gtk4
-    gobject-introspection
-    sassc
 
     # Themes and icons (for the bar UI)
     adw-gtk3

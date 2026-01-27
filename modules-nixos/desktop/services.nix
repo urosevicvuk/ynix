@@ -1,18 +1,18 @@
 {pkgs, ...}: {
   # Desktop-related system services
   services = {
-    # D-Bus message bus
-    #dbus = {
-    #  enable = true;
-    #  implementation = "broker";
-    #  packages = with pkgs; [
-    #    gcr
-    #    gnome-settings-daemon
-    #  ];
-    #};
+    #D-Bus message bus
+    dbus = {
+      enable = true;
+      implementation = "broker";
+      packages = with pkgs; [
+        gcr
+        gnome-settings-daemon
+      ];
+    };
 
     # Virtual filesystem support (USB drives, etc.)
-    #gvfs.enable = true;
+    gvfs.enable = true;
 
     # Battery/power management
     upower.enable = true;
@@ -30,11 +30,11 @@
     # Geolocation service (required for illogical-impulse/QuickShell QtPositioning)
     geoclue2.enable = true;
 
-    # Profile Sync Daemon - moves browser profiles to tmpfs
-    #psd = {
-    #  enable = true;
-    #  resyncTimer = "10m";
-    #};
+    #Profile Sync Daemon - moves browser profiles to tmpfs
+    psd = {
+      enable = true;
+      resyncTimer = "10m";
+    };
   };
 
   programs = {

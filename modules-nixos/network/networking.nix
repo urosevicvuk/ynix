@@ -15,11 +15,11 @@ in {
       enable = true;
       wifi = {
         # Disable power saving - this causes disconnects
-        #powersave = false;
+        powersave = false;
         ## Reduce background scanning
-        #scanRandMacAddress = false;
+        scanRandMacAddress = false;
         ## Disable MAC randomization completely
-        #macAddress = "preserve";
+        macAddress = "preserve";
       };
     };
   };
@@ -27,12 +27,12 @@ in {
   #systemd.services.NetworkManager-wait-online.enable = false;
 
   # Disable WiFi power management at system level
-  #boot.extraModprobeConfig = ''
-  #  options mt7925e disable_aspm=1
-  #'';
+  boot.extraModprobeConfig = ''
+    options mt7925e disable_aspm=1
+  '';
 
   ## Keep WiFi active
-  #powerManagement.enable = true;
+  powerManagement.enable = true;
   #services.udev.extraRules = ''
   #  # Disable power management for WiFi
   #  ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlp*", RUN+="${pkgs.iw}/bin/iw dev $name set power_save off"
