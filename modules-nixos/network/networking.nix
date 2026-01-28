@@ -26,15 +26,27 @@ in {
 
   #systemd.services.NetworkManager-wait-online.enable = false;
 
-  # Disable WiFi power management at system level
-  boot.extraModprobeConfig = ''
-    options mt7925e disable_aspm=1
-  '';
-
   ## Keep WiFi active
-  powerManagement.enable = true;
-  #services.udev.extraRules = ''
-  #  # Disable power management for WiFi
-  #  ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlp*", RUN+="${pkgs.iw}/bin/iw dev $name set power_save off"
-  #'';
+  #powerManagement.enable = false;
+
+  # Bounce WiFi after suspend — MT7925 resumes in a broken state where it
+  # appears connected but can't pass traffic. Toggling radio off/on forces
+  # a clean reconnect.
+  systemd.services.wifi-resume-fix = {
+    description = "Restart WiFi after suspend";
+    after = ["suspend.target" "hibernate.target" "suspend-then-hibernate.target"];
+    wantedBy = ["suspend.target" "hibernate.target" "suspend-then-hibernate.target"];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.networkmanager}/bin/nmcli radio wifi off";
+      ExecStartPost = [
+        "${pkgs.coreutils}/bin/sleep 2"
+        "${pkgs.networkmanager}/bin/nmcli radio wifi on"
+      ];
+    };
+  };
+  #  services.udev.extraRules = ''
+  #    # Disable power management for WiFi
+  #    ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlp*", RUN+="${pkgs.iw}/bin/iw dev $name set power_save off"
+  #  '';
 }

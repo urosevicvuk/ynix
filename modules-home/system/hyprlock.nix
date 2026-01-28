@@ -32,7 +32,7 @@ in {
         {
           # Day-Month-Date
           monitor = "";
-          text = ''cmd[update:100] echo -e "$(date +"%A, %B %d")"'';
+          text = "$DAY, $MONTH $DATE";
           color = foreground;
           font_size = 28;
           font_family = font + " Bold";
@@ -43,7 +43,7 @@ in {
         # Time
         {
           monitor = "";
-          text = ''cmd[update:100] echo "<span>$(date +"%I:%M")</span>"'';
+          text = "$TIME12";
           color = foreground;
           font_size = 160;
           font_family = "steelfish outline regular";

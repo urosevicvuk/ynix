@@ -12,15 +12,17 @@
   #stylix.targets.noctalia-shell.enable = false;
 
   home.packages = with pkgs; [
-    # Required dependencies (from docs.noctalia.dev)
-    inputs.quickshell.packages.${pkgs.system}.default # Core framework
     brightnessctl # Brightness control
     git # Plugin system and updates
+    evolution # For adding Google calendar to EDS
   ];
 
   programs.noctalia-shell = lib.mkForce {
     enable = true;
-    package = inputs.noctalia.packages.${pkgs.system}.default;
+    systemd.enable = true;
+    package = inputs.noctalia.packages.${pkgs.system}.default.override {
+      calendarSupport = true;
+    };
     settings = {
       settingsVersion = 41;
       bar = {

@@ -12,29 +12,29 @@
     };
 
     # Virtual filesystem support (USB drives, etc.)
-    gvfs.enable = true;
+    #gvfs.enable = true;
 
-    # Battery/power management
+    # Battery status reporting (needed by Noctalia battery widget)
     upower.enable = true;
-    power-profiles-daemon.enable = true;
 
     # Disk management
-    udisks2.enable = true;
+    #udisks2.enable = true;
 
     # Input device configuration (touchpad, etc.)
     libinput.enable = true;
 
     # GNOME keyring for password storage
     gnome.gnome-keyring.enable = true;
+    gnome.evolution-data-server.enable = true;
 
     # Geolocation service (required for illogical-impulse/QuickShell QtPositioning)
-    geoclue2.enable = true;
+    #geoclue2.enable = true;
 
     #Profile Sync Daemon - moves browser profiles to tmpfs
-    psd = {
-      enable = true;
-      resyncTimer = "10m";
-    };
+    #psd = {
+    #  enable = true;
+    #  resyncTimer = "10m";
+    #};
   };
 
   programs = {

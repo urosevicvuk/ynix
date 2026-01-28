@@ -68,7 +68,7 @@
     #"nvme_core.default_ps_max_latency_us=25000"
   ];
 
-  hardware.enableRedistributableFirmware = true;
+  #hardware.enableRedistributableFirmware = true;
 
   hardware.framework.enableKmod = true;
 

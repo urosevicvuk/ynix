@@ -21,8 +21,6 @@
   inherit (config.var) terminal;
 
   isLaptop = device == "laptop";
-
-
 in {
   imports = [
     ./animations.nix
@@ -56,7 +54,7 @@ in {
     enable = true;
     xwayland.enable = true;
     systemd = {
-      enable = false;
+      enable = true;
       variables = [
         "--all"
       ]; # https://wiki.hyprland.org/Nix/Hyprland-on-Home-Manager/#programs-dont-work-in-systemd-services-but-do-on-the-terminal
@@ -70,104 +68,102 @@ in {
     ];
 
     extraConfig = ''
-      # Laptop-specific gestures
-      ${
+            # Laptop-specific gestures
+            ${
         if isLaptop
         then ''
           gesture = 3, horizontal, workspace
         ''
         else ""
       }
+      #windowrule {
+      #    match:tag = modal
+      #    float = true
+      #    pin = true
+      #    center = true
+      #}
 
-      # Window rules - commented out until we find correct syntax for Hyprland 0.52
-      # windowrule {
-      #     match:tag = modal
-      #     float = true
-      #     pin = true
-      #     center = true
-      # }
+      #windowrule {
+      #    match:title = ^(Media viewer)$
+      #    float = true
+      #}
 
-      # windowrule {
-      #     match:title = ^(Media viewer)$
-      #     float = true
-      # }
+      #windowrule {
+      #    match:title = ^(.*Bitwarden Password Manager.*)$
+      #    float = true
+      #}
 
-      # windowrule {
-      #     match:title = ^(.*Bitwarden Password Manager.*)$
-      #     float = true
-      # }
+      #windowrule {
+      #    match:class = ^(org.gnome.Calculator)$
+      #    float = true
+      #    size = 360 490
+      #}
 
-      # windowrule {
-      #     match:class = ^(org.gnome.Calculator)$
-      #     float = true
-      #     size = 360 490
-      # }
+      #windowrule {
+      #    match:title = ^(Picture-in-Picture)$
+      #    float = true
+      #    pin = true
+      #}
 
-      # windowrule {
-      #     match:title = ^(Picture-in-Picture)$
-      #     float = true
-      #     pin = true
-      # }
+      #windowrule {
+      #    match:class = ^(mpv|.+exe|celluloid)$
+      #    idleinhibit = focus
+      #}
 
-      # windowrule {
-      #     match:class = ^(mpv|.+exe|celluloid)$
-      #     idleinhibit = focus
-      # }
+      #windowrule {
+      #    match:class = ^(zen)$
+      #    match:title = ^(.*YouTube.*)$
+      #    idleinhibit = focus
+      #}
 
-      # windowrule {
-      #     match:class = ^(zen)$
-      #     match:title = ^(.*YouTube.*)$
-      #     idleinhibit = focus
-      # }
+      #windowrule {
+      #    match:class = ^(zen)$
+      #    idleinhibit = fullscreen
+      #}
 
-      # windowrule {
-      #     match:class = ^(zen)$
-      #     idleinhibit = fullscreen
-      # }
+      #windowrule {
+      #    match:class = ^(gcr-prompter)$
+      #    dimaround = true
+      #}
 
-      # windowrule {
-      #     match:class = ^(gcr-prompter)$
-      #     dimaround = true
-      # }
+      #windowrule {
+      #    match:class = ^(xdg-desktop-portal-gtk)$
+      #    dimaround = true
+      #}
 
-      # windowrule {
-      #     match:class = ^(xdg-desktop-portal-gtk)$
-      #     dimaround = true
-      # }
+      #windowrule {
+      #    match:class = ^(polkit-gnome-authentication-agent-1)$
+      #    dimaround = true
+      #}
 
-      # windowrule {
-      #     match:class = ^(polkit-gnome-authentication-agent-1)$
-      #     dimaround = true
-      # }
+      #windowrule {
+      #    match:class = ^(zen)$
+      #    match:title = ^(File Upload)$
+      #    dimaround = true
+      #}
 
-      # windowrule {
-      #     match:class = ^(zen)$
-      #     match:title = ^(File Upload)$
-      #     dimaround = true
-      # }
+      #windowrule {
+      #    match:class = ^(.*jetbrains.*)$
+      #    match:title = ^(Confirm Exit|Open Project|win424|win201|splash)$
+      #    center = true
+      #}
 
-      # windowrule {
-      #     match:class = ^(.*jetbrains.*)$
-      #     match:title = ^(Confirm Exit|Open Project|win424|win201|splash)$
-      #     center = true
-      # }
+      #windowrule {
+      #    match:class = ^(.*jetbrains.*)$
+      #    match:title = ^(splash)$
+      #    size = 640 400
+      #}
 
-      # windowrule {
-      #     match:class = ^(.*jetbrains.*)$
-      #     match:title = ^(splash)$
-      #     size = 640 400
-      # }
 
-      # Layer rules
-      # layerrule {
-      #     match:namespace = launcher
-      #     noanim = true
-      # }
+      #Layer rules
 
-      # layerrule {
-      #     match:namespace = ^ags-.*
-      #     noanim = true
-      # }
+      layerrule {
+        name = noctalia
+        match:namespace = noctalia-background-.*$
+        ignore_alpha = 0.5
+        blur = true
+        blur_popups = true
+      }
     '';
 
     settings = {
@@ -176,9 +172,9 @@ in {
 
       exec-once = [
         # System services first
-        "dbus-update-activation-environment --systemd --all"
-        "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "systemctl --user start graphical-session.target"
+        #"dbus-update-activation-environment --systemd --all"
+        #"systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        #"systemctl --user start graphical-session.target"
         "systemctl --user start hyprpolkitagent"
 
         # System tools
@@ -190,7 +186,6 @@ in {
         "${pkgs.tailscale-systray}/bin/tailscale-systray"
 
         # Panel and utilities
-        "noctalia-shell &"
         "wl-paste --type text --watch cliphist store &"
         "wl-paste --type image --watch cliphist store &"
 
@@ -316,6 +311,7 @@ in {
       workspace =
         if isLaptop
         then [
+          "name:special, persistent:true"
           "1, default:true, persistent:true"
           "2, persistent:true"
           "3, persistent:true"
@@ -326,23 +322,19 @@ in {
           "8, persistent:true"
           "9, persistent:true"
           "10, persistent:true"
-          "11, monitor:DP-3, persistent:true"
-          "name:special, persistent:true"
         ]
         else [
-          "special:special, monitor:DP-2"
-          "1, monitor:DP-2, default:true"
-          "2, monitor:DP-2, persistent:true"
-          "3, monitor:DP-2, persistent:true"
-          "4, monitor:DP-2, persistent:true"
-          "5, monitor:DP-2, persistent:true"
-          "6, monitor:DP-2, persistent:true"
-          "7, monitor:DP-2, persistent:true"
-          "8, monitor:DP-2, persistent:true"
-          "9, monitor:DP-2, persistent:true"
-          "10, monitor:DP-2, persistent:true"
-          "name:alternative1, monitor:DP-3, default:true, persistent:true, layoutopt:orientation:top"
-          "name:alternative2, monitor:DP-3, persistent:true, layoutopt:orientation:top"
+          "name:special"
+          "1, default:true, persistent:true"
+          "2, persistent:true"
+          "3, persistent:true"
+          "4, persistent:true"
+          "5, persistent:true"
+          "6, persistent:true"
+          "7, persistent:true"
+          "8, persistent:true"
+          "9, persistent:true"
+          "10, persistent:true"
         ];
 
       input = {
