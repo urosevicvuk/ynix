@@ -11,6 +11,7 @@
     ../../modules-home/programs/btop.nix
     ../../modules-home/programs/direnv.nix
     ../../modules-home/programs/editorconfig.nix
+    ../../modules-home/programs/discord.nix
     ../../modules-home/programs/ghostty.nix
     ../../modules-home/programs/fetch
     ../../modules-home/programs/git.nix
@@ -55,7 +56,6 @@
       (with pkgs; [
         # Apps
         obsidian
-        vesktop
         slack
         vlc
         libreoffice-fresh

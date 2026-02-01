@@ -52,6 +52,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixcord.url = "github:kaylorben/nixcord";
+
     elephant = {
       url = "github:abenz1267/elephant";
     };
