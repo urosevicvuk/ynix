@@ -19,7 +19,7 @@ in {
       "$mod, grave, exec, quickmenu" # Quickmenu
 
       # GUI Apps
-      "$mod, B, exec, zen" # Zen Browser
+      "$mod, Z, exec, zen" # Zen Browser
       "$mod, E, exec, ${pkgs.xfce.thunar}/bin/thunar" # Thunar
       "$mod, P, exec, ${pkgs.bitwarden-desktop}/bin/bitwarden" # Bitwarden
 
@@ -50,18 +50,27 @@ in {
       "$shiftMod CTRL, k, movecurrentworkspacetomonitor, u" # Move workspace to upper monitor
       "$shiftMod CTRL, j, movecurrentworkspacetomonitor, d" # Move workspace to lower monitor
 
-      # s = settings
+      # esc = control panel
+      "$mod, Escape, exec, noctalia-shell ipc call controlCenter toggle" # Launcher/overview
+      "$mod, Delete, exec, noctalia-shell ipc call sessionMenu toggle" # F12: Power menu (QuickShell)
+
       "$mod, s, exec, noctalia-shell ipc call settings toggle" # Launcher/overview
-      # c = control panel
-      "$mod, c, exec, noctalia-shell ipc call controlCenter toggle" # Launcher/overview
-      # n = notifications
+      "$mod, Backspace, exec, noctalia-shell ipc call plugin togglePanel notes-scratchpad " # Launcher/overview
+
+      "$mod, c, exec, noctalia-shell ipc call plugin:weekly-calendar togglePanel" # Calendar
+      "$mod, v, exec, noctalia-shell ipc call volume togglePanel" # Volume
+      "$mod, b, exec, noctalia-shell ipc call battery togglePanel" # Battery
       "$mod, n, exec, noctalia-shell ipc call notifications toggleHistory" # Launcher/overview
+      "$mod, m, exec, noctalia-shell ipc call media toggle" # Launcher/overview
 
       # Screenshots
       ",PRINT, exec, screenshot-region" # Region screenshot to clipboard
       "SHIFT, PRINT, exec, screenshot-screen" # Fullscreen screenshot to clipboard
       "CTRL, PRINT, exec, screenshot-region-annotate" # Region screenshot with annotation
       "CTRL SHIFT, PRINT, exec, screenshot-screen-annotate" # Fullscreen screenshot with annotation
+
+      # Screen recording
+      "ALT, PRINT, exec, noctalia-shell ipc call plugin:screen-recorder toggle" # Region screenshot to clipboard
 
       # QuickShell controls
       "$mod, SPACE, exec, noctalia-shell ipc call launcher toggle" # Launcher/overview
@@ -72,7 +81,6 @@ in {
       "$mod, Next, exec, hyprctl keyword monitor eDP-1,2880x1920@120,auto,1.5,transform,0" # Rotate back to normal (PageDown)
 
       # Framework function keys
-      ",XF86AudioMedia, exec, noctalia-shell ipc call sessionMenu toggle" # F12: Power menu (QuickShell)
 
       #Workspaces
       "$mod, 1, workspace, 1"
