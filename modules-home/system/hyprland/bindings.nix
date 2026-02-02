@@ -57,10 +57,11 @@ in {
       # n = notifications
       "$mod, n, exec, noctalia-shell ipc call notifications toggleHistory" # Launcher/overview
 
-      # Screenshots (QuickShell region selector)
-      #",PRINT, exec, qs -p $qsConfig ipc call region screenshot" # Screenshot (QuickShell UI)
-      # Screen Recording (QuickShell)
-      #"ALT, PRINT, exec, qs -p $qsConfig ipc call region recordWithSound" # Record region with sound (QuickShell)
+      # Screenshots
+      ",PRINT, exec, screenshot-region" # Region screenshot to clipboard
+      "SHIFT, PRINT, exec, screenshot-screen" # Fullscreen screenshot to clipboard
+      "CTRL, PRINT, exec, screenshot-region-annotate" # Region screenshot with annotation
+      "CTRL SHIFT, PRINT, exec, screenshot-screen-annotate" # Fullscreen screenshot with annotation
 
       # QuickShell controls
       "$mod, SPACE, exec, noctalia-shell ipc call launcher toggle" # Launcher/overview

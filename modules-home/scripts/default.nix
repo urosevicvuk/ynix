@@ -13,5 +13,6 @@
     ./status-icons.nix
     ./docker-status.nix
     ./network.nix
+    ./screenshot.nix
   ];
 }
