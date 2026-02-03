@@ -2,16 +2,14 @@
   pkgs,
   config,
   ...
-}:
-let
+}: let
   terminal = config.var.terminal;
-in
-{
+in {
   wayland.windowManager.hyprland.settings = {
     bind = [
       #Basic things
       "$mod, W, exec, noctalia-shell ipc call launcher toggle" # Noctalia Launcher
-      "$shiftMod, SPACE, exec, hyprfocus-toggle" # Toggle HyprFocus
+      "$shiftMod, SPACE, exec, noctalia-shell ipc call bar toggle" # Toggle HyprFocus
       "CTRL $shiftMod, SPACE, exec, noctalia-shell ipc call lockScreen lock" # Lock
 
       "$mod, Q, killactive," # Close window

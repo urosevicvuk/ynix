@@ -1,8 +1,8 @@
-# AI-powered completion - Supermaven
-{ ... }:
+# AI assistance - Supermaven, OpenCode, Avante, 99
 {
-  programs.nvf.settings.vim.assistant = {
-    supermaven-nvim = {
+  programs.nvf.settings.vim = {
+    # Supermaven - AI completion
+    assistant.supermaven-nvim = {
       enable = true;
       setupOpts = {
         keymaps = {
@@ -10,7 +10,6 @@
           accept_word = "<M-Tab>";
           clear_suggestion = "<M-c>";
         };
-        # Keep inline completion enabled for ghost text!
         disable_inline_completion = false;
         log_level = "info";
       };
