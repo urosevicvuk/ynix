@@ -8,7 +8,7 @@
   font = config.stylix.fonts.serif.name;
 in {
   programs.hyprlock = {
-    enable = true;
+    enable = false; # Disabled - using noctalia lock screen instead
     settings = {
       general = {
         hide_cursor = true;

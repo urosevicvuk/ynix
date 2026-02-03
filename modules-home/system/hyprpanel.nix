@@ -75,7 +75,7 @@ in {
   '';
 
   programs.hyprpanel = {
-    enable = true;
+    enable = false; # Disabled - using noctalia bar instead
 
     settings = lib.mkForce {
       scalingPriority = "hyprland";

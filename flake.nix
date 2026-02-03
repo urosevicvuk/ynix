@@ -45,6 +45,7 @@
 
     nvf = {
       url = "github:notashelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     spicetify-nix = {
@@ -52,19 +53,25 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixcord.url = "github:kaylorben/nixcord";
+    nixcord = {
+      url = "github:kaylorben/nixcord";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     elephant = {
       url = "github:abenz1267/elephant";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     walker = {
       url = "github:abenz1267/walker";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.elephant.follows = "elephant";
     };
 
     affinity-nix = {
       url = "github:mrshmllow/affinity-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Secure Boot

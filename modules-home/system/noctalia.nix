@@ -130,7 +130,7 @@
             }
             {
               customFont = "";
-              formatHorizontal = "HH:mm - dddd, MMMM dd";
+              formatHorizontal = "dddd, MMMM dd - HH:mm";
               formatVertical = "HH mm - dd MM";
               id = "Clock";
               tooltipFormat = "HH:mm ddd, MMM dd";

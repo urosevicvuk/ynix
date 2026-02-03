@@ -14,7 +14,7 @@ in {
       extraGroups = [
         "networkmanager"
         "wheel"
-        "inputs"
+        "input"
         "libvirtd"
         "kvm"
       ];

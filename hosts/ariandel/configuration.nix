@@ -41,6 +41,7 @@
     ./variables.nix
     ./hardware-configuration.nix
     #./disko.nix
+    ./fixes.nix
   ];
 
   # Framework AMD suspend/resume fixes
@@ -67,6 +68,20 @@
     ## Reference: Framework AMD suspend best practices
     #"nvme_core.default_ps_max_latency_us=25000"
   ];
+
+  # Prevent immediate resume caused by USB wake events (s2idle)
+  #systemd.services.disable-xhc1-wakeup = {
+  #  description = "Disable XHC1 wakeups";
+  #  wantedBy = [ "multi-user.target" ];
+  #  serviceConfig.Type = "oneshot";
+  #  script = ''
+  #    if [ -e /proc/acpi/wakeup ]; then
+  #      if awk '$1=="XHC1" && $3=="*enabled"{exit 0} END{exit 1}' /proc/acpi/wakeup; then
+  #        echo XHC1 > /proc/acpi/wakeup
+  #      fi
+  #    fi
+  #  '';
+  #};
 
   #hardware.enableRedistributableFirmware = true;
 

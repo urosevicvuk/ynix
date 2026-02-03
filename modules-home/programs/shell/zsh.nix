@@ -13,7 +13,6 @@ in {
     tldr
     sesh
     rmtrash
-    trash-cli
   ];
 
   home.sessionPath = ["$HOME/go/bin"];
@@ -49,7 +48,6 @@ in {
       ts = "tmux-sessionizer";
       nhs = "nh os switch";
       nvimf = "nvim $(fzf)";
-      hpr = "hyprpanel -q | hyprpanel & disown";
       vim = "nvim";
       vi = "nvim";
       v = "nvim";

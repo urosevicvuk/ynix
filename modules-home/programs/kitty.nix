@@ -3,11 +3,7 @@
   programs.kitty = {
     enable = true;
 
-    enableGitIntegration = true;
     shellIntegration.enableZshIntegration = true;
-
-    keybindings = {
-    };
 
     settings = {
       scrollback_lines = 10000;
@@ -15,8 +11,7 @@
       initial_window_height = 600;
       update_check_interval = 0;
       enable_audio_bell = false;
-      confirm_os_window_close = "0";
-      remember_window_size = "no";
+      confirm_os_window_close = 0;
       disable_ligatures = "never";
       url_style = "curly";
       copy_on_select = "clipboard";
@@ -26,10 +21,7 @@
       cursor_trail_decay = "0.1 0.4";
       window_padding_width = 6;
       open_url_with = "default";
-      allow_remote_control = "yes";
-      listen_on = "unix:/tmp/mykitty";
-
-      touch_scroll_multiplier = 10.0;
+      touch_scroll_multiplier = 3.0;
     };
   };
 }

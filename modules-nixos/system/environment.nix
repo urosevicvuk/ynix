@@ -13,9 +13,7 @@ in {
       PASSWORD_STORE_DIR = "$HOME/.local/share/password-store";
       EDITOR = "nvim";
       TERMINAL = config.var.terminal;
-      TERM = config.var.terminal;
-      BROWSER = "zen-beta";
-      PULSE_LATENCY_MSEC = 60;
+      BROWSER = "zen";
     };
 
     # Essential system packages

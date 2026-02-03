@@ -7,7 +7,6 @@
 in {
   nixpkgs.config = {
     allowUnfree = true;
-    allowBroken = true;
   };
   nix = {
     nixPath = ["nixpkgs=${inputs.nixpkgs}"];

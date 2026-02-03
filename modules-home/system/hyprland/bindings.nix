@@ -2,15 +2,17 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   terminal = config.var.terminal;
-in {
+in
+{
   wayland.windowManager.hyprland.settings = {
     bind = [
       #Basic things
-      "$mod, W, exec, walker" # Walker Launcher
+      "$mod, W, exec, noctalia-shell ipc call launcher toggle" # Noctalia Launcher
       "$shiftMod, SPACE, exec, hyprfocus-toggle" # Toggle HyprFocus
-      "CTRL $shiftMod, SPACE, exec, hyprlock" # Lock
+      "CTRL $shiftMod, SPACE, exec, noctalia-shell ipc call lockScreen lock" # Lock
 
       "$mod, Q, killactive," # Close window
       "$mod, T, togglefloating," # Toggle Floating
@@ -63,11 +65,11 @@ in {
       "$mod, n, exec, noctalia-shell ipc call notifications toggleHistory" # Launcher/overview
       "$mod, m, exec, noctalia-shell ipc call media toggle" # Launcher/overview
 
-      # Screenshots
-      ",PRINT, exec, screenshot-region" # Region screenshot to clipboard
-      "SHIFT, PRINT, exec, screenshot-screen" # Fullscreen screenshot to clipboard
-      "CTRL, PRINT, exec, screenshot-region-annotate" # Region screenshot with annotation
-      "CTRL SHIFT, PRINT, exec, screenshot-screen-annotate" # Fullscreen screenshot with annotation
+      # Screenshots (hyprshot)
+      ",PRINT, exec, hyprshot -m region --freeze --clipboard-only" # Region screenshot with freeze to clipboard
+      "SHIFT, PRINT, exec, hyprshot -m output --clipboard-only" # Fullscreen screenshot to clipboard
+      "CTRL, PRINT, exec, hyprshot -m region --freeze --raw | ${pkgs.satty}/bin/satty -f -" # Region screenshot with annotation
+      "CTRL SHIFT, PRINT, exec, hyprshot -m output --raw | ${pkgs.satty}/bin/satty -f -" # Fullscreen screenshot with annotation
 
       # Screen recording
       "ALT, PRINT, exec, noctalia-shell ipc call plugin:screen-recorder toggle" # Region screenshot to clipboard

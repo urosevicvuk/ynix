@@ -9,9 +9,9 @@
     settings = {
       general = {
         ignore_dbus_inhibit = false;
-        lock_cmd = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
-        before_sleep_cmd = "loginctl lock-session";
-        after_sleep_cmd = "hyprctl dispatch dpms on";
+        lock_cmd = "noctalia-shell ipc call lockScreen lock";
+        before_sleep_cmd = "noctalia-shell ipc call lockScreen lock";
+        #after_sleep_cmd = "hyprctl dispatch dpms on";
       };
 
       listener = [
@@ -32,13 +32,13 @@
         # Lock screen after 10 minutes
         {
           timeout = 600;
-          on-timeout = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
+          on-timeout = "noctalia-shell ipc call lockScreen lock";
         }
 
-        # Suspend after 11 minutes
+        # Lock and suspend after 11 minutes
         {
           timeout = 660;
-          on-timeout = "systemctl suspend";
+          on-timeout = "noctalia-shell ipc call sessionMenu lockAndSuspend";
         }
       ];
     };

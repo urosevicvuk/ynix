@@ -26,7 +26,6 @@ in {
     ./animations.nix
     ./bindings.nix
     ./polkitagent.nix
-    #./hyprspace.nix
   ];
 
   home.packages = with pkgs; [
@@ -35,7 +34,6 @@ in {
     libsForQt5.qt5ct
     qt6Packages.qt6ct
     hyprpicker
-    # hyprpanel  # Disabled - replaced by illogical-impulse (QuickShell)
     imv
     wlr-randr
     wl-clipboard
@@ -44,10 +42,8 @@ in {
     libva
     dconf
     wayland-utils
-    wayland-protocols
     glib
-    direnv
-    meson
+    hyprshot
   ];
 
   wayland.windowManager.hyprland = {
@@ -76,86 +72,6 @@ in {
         ''
         else ""
       }
-      #windowrule {
-      #    match:tag = modal
-      #    float = true
-      #    pin = true
-      #    center = true
-      #}
-
-      #windowrule {
-      #    match:title = ^(Media viewer)$
-      #    float = true
-      #}
-
-      #windowrule {
-      #    match:title = ^(.*Bitwarden Password Manager.*)$
-      #    float = true
-      #}
-
-      #windowrule {
-      #    match:class = ^(org.gnome.Calculator)$
-      #    float = true
-      #    size = 360 490
-      #}
-
-      #windowrule {
-      #    match:title = ^(Picture-in-Picture)$
-      #    float = true
-      #    pin = true
-      #}
-
-      #windowrule {
-      #    match:class = ^(mpv|.+exe|celluloid)$
-      #    idleinhibit = focus
-      #}
-
-      #windowrule {
-      #    match:class = ^(zen)$
-      #    match:title = ^(.*YouTube.*)$
-      #    idleinhibit = focus
-      #}
-
-      #windowrule {
-      #    match:class = ^(zen)$
-      #    idleinhibit = fullscreen
-      #}
-
-      #windowrule {
-      #    match:class = ^(gcr-prompter)$
-      #    dimaround = true
-      #}
-
-      #windowrule {
-      #    match:class = ^(xdg-desktop-portal-gtk)$
-      #    dimaround = true
-      #}
-
-      #windowrule {
-      #    match:class = ^(polkit-gnome-authentication-agent-1)$
-      #    dimaround = true
-      #}
-
-      #windowrule {
-      #    match:class = ^(zen)$
-      #    match:title = ^(File Upload)$
-      #    dimaround = true
-      #}
-
-      #windowrule {
-      #    match:class = ^(.*jetbrains.*)$
-      #    match:title = ^(Confirm Exit|Open Project|win424|win201|splash)$
-      #    center = true
-      #}
-
-      #windowrule {
-      #    match:class = ^(.*jetbrains.*)$
-      #    match:title = ^(splash)$
-      #    size = 640 400
-      #}
-
-
-      #Layer rules
 
       layerrule {
         name = noctalia
@@ -177,17 +93,14 @@ in {
         #"systemctl --user start graphical-session.target"
         "systemctl --user start hyprpolkitagent"
 
-        # System tools
-        "systemctl --user enable --now hyprpaper.service"
+        # System tools (hyprpaper disabled - noctalia handles wallpapers)
         "systemctl --user enable --now hypridle.service"
         "systemctl --user enable --now nextcloud-client.service"
-        "systemctl --user enable --now elephant.service"
-        "systemctl --user enable --now walker.service"
+        #"systemctl --user enable --now elephant.service"
+        # walker disabled - using noctalia launcher instead
         "${pkgs.tailscale-systray}/bin/tailscale-systray"
 
-        # Panel and utilities
-        "wl-paste --type text --watch cliphist store &"
-        "wl-paste --type image --watch cliphist store &"
+        # Clipboard handled by noctalia (wl-paste commands in noctalia config)
 
         # Workspace initialization - force create workspaces on correct monitors
         #"hyprctl dispatch focusmonitor DP-3"
@@ -216,40 +129,36 @@ in {
         ]
         else [
           "DP-2, 1920x1080@144, 0x0, 1"
-          "DP-3, prefered, auto, 1, transform, 1"
-          "HDMI-A-1, prefered, auto, 1, mirror, DP-2"
-          ",prefered,auto,1"
+          "DP-3, preferred, auto, 1, transform, 1"
+          "HDMI-A-1, preferred, auto, 1, mirror, DP-2"
+          ",preferred,auto,1"
         ];
 
       env = [
         "XDG_CURRENT_DESKTOP,Hyprland"
-        "MOZ_ENABLE_WAYLAND,1"
-        "ANKI_WAYLAND,1"
-        "DISABLE_QT5_COMPAT,0"
-        "NIXOS_OZONE_WL,1"
         "XDG_SESSION_TYPE,wayland"
         "XDG_SESSION_DESKTOP,Hyprland"
+        "MOZ_ENABLE_WAYLAND,1"
+        "ANKI_WAYLAND,1"
+        "NIXOS_OZONE_WL,1"
         "QT_AUTO_SCREEN_SCALE_FACTOR,1"
         "QT_QPA_PLATFORM=wayland,xcb"
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
-        "ELECTRON_OZONE_PLATFORM_HINT,auto"
-        "__GL_GSYNC_ALLOWED,0"
-        "__GL_VRR_ALLOWED,0"
         "DISABLE_QT5_COMPAT,0"
-        "DIRENV_LOG_FORMAT,"
-        "WLR_DRM_NO_ATOMIC,0"
-        "WLR_BACKEND,vulkan"
-        "WLR_RENDERER,vulkan"
-        "WLR_NO_HARDWARE_CURSORS,1"
+        "ELECTRON_OZONE_PLATFORM_HINT,auto"
         "SDL_VIDEODRIVER,wayland,x11,windows"
         "CLUTTER_BACKEND,wayland"
         "GDK_BACKEND,wayland"
         "GDK_SCALE,${monitorScale}"
+        "DIRENV_LOG_FORMAT,"
       ];
 
       cursor = {
-        no_hardware_cursors = true;
-        default_monitor = "DP-2";
+        no_hardware_cursors = false;
+        default_monitor =
+          if isLaptop
+          then "eDP-1"
+          else "DP-2";
       };
 
       general = {

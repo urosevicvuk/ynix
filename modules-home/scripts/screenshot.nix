@@ -14,39 +14,51 @@
     pkgs.writeShellScriptBin "screenshot-region"
     # bash
     ''
-      mkdir -p ${screenshotDir}
-      tmp=$(mktemp /tmp/screenshot-XXXXXX.png)
-      trap "rm -f $tmp" EXIT
+        mkdir -p ${screenshotDir}
+        tmp=$(mktemp /tmp/screenshot-XXXXXX.png)
+        trap "rm -f $tmp" EXIT
 
-      focused=$(hyprctl monitors -j | ${pkgs.jq}/bin/jq -r '.[] | select(.focused) | .name')
-      ${pkgs.grim}/bin/grim -o "$focused" "$tmp"
+        read -r focused mon_x mon_y scale < <(hyprctl monitors -j | ${pkgs.jq}/bin/jq -r '.[] | select(.focused) | "\(.name) \(.x) \(.y) \(.scale)"')
+        ${pkgs.grim}/bin/grim -o "$focused" "$tmp"
 
-      region=$(${pkgs.slurp}/bin/slurp -f '%x,%y %wx%h') || exit 1
-      IFS=', x' read -r x y w h <<< "$region"
-      crop="''${w}x''${h}+''${x}+''${y}"
+      region=$(${pkgs.slurp}/bin/slurp -o "$focused" -b '#ffffff33' -c '#ffffff' -f '%x,%y %wx%h') || exit 1
+        IFS=', x' read -r x y w h <<< "$region"
+        rel_x=$((x - mon_x))
+        rel_y=$((y - mon_y))
+        px_x=$(awk -v v="$rel_x" -v s="$scale" 'BEGIN { printf "%.0f", v * s }')
+        px_y=$(awk -v v="$rel_y" -v s="$scale" 'BEGIN { printf "%.0f", v * s }')
+        px_w=$(awk -v v="$w" -v s="$scale" 'BEGIN { printf "%.0f", v * s }')
+        px_h=$(awk -v v="$h" -v s="$scale" 'BEGIN { printf "%.0f", v * s }')
+        crop="''${px_w}x''${px_h}+''${px_x}+''${px_y}"
 
-      ${pkgs.imagemagick}/bin/magick "$tmp" -crop "$crop" +repage png:- | ${pkgs.wl-clipboard}/bin/wl-copy
+        ${pkgs.imagemagick}/bin/magick "$tmp" -crop "$crop" +repage png:- | ${pkgs.wl-clipboard}/bin/wl-copy
     '';
 
   screenshot-region-annotate =
     pkgs.writeShellScriptBin "screenshot-region-annotate"
     # bash
     ''
-      mkdir -p ${screenshotDir}
-      tmp=$(mktemp /tmp/screenshot-XXXXXX.png)
-      trap "rm -f $tmp" EXIT
+        mkdir -p ${screenshotDir}
+        tmp=$(mktemp /tmp/screenshot-XXXXXX.png)
+        trap "rm -f $tmp" EXIT
 
-      focused=$(hyprctl monitors -j | ${pkgs.jq}/bin/jq -r '.[] | select(.focused) | .name')
-      ${pkgs.grim}/bin/grim -o "$focused" "$tmp"
+        read -r focused mon_x mon_y scale < <(hyprctl monitors -j | ${pkgs.jq}/bin/jq -r '.[] | select(.focused) | "\(.name) \(.x) \(.y) \(.scale)"')
+        ${pkgs.grim}/bin/grim -o "$focused" "$tmp"
 
-      region=$(${pkgs.slurp}/bin/slurp -f '%x,%y %wx%h') || exit 1
-      IFS=', x' read -r x y w h <<< "$region"
-      crop="''${w}x''${h}+''${x}+''${y}"
+      region=$(${pkgs.slurp}/bin/slurp -o "$focused" -b '#ffffff33' -c '#ffffff' -f '%x,%y %wx%h') || exit 1
+        IFS=', x' read -r x y w h <<< "$region"
+        rel_x=$((x - mon_x))
+        rel_y=$((y - mon_y))
+        px_x=$(awk -v v="$rel_x" -v s="$scale" 'BEGIN { printf "%.0f", v * s }')
+        px_y=$(awk -v v="$rel_y" -v s="$scale" 'BEGIN { printf "%.0f", v * s }')
+        px_w=$(awk -v v="$w" -v s="$scale" 'BEGIN { printf "%.0f", v * s }')
+        px_h=$(awk -v v="$h" -v s="$scale" 'BEGIN { printf "%.0f", v * s }')
+        crop="''${px_w}x''${px_h}+''${px_x}+''${px_y}"
 
-      ${pkgs.imagemagick}/bin/magick "$tmp" -crop "$crop" +repage png:- | \
-        ${pkgs.satty}/bin/satty -f - \
-          --output-filename "${screenshotDir}/$(date +%Y-%m-%d_%H-%M-%S).png" \
-          --copy-command "${pkgs.wl-clipboard}/bin/wl-copy"
+        ${pkgs.imagemagick}/bin/magick "$tmp" -crop "$crop" +repage png:- | \
+          ${pkgs.satty}/bin/satty -f - \
+            --output-filename "${screenshotDir}/$(date +%Y-%m-%d_%H-%M-%S).png" \
+            --copy-command "${pkgs.wl-clipboard}/bin/wl-copy"
     '';
 
   screenshot-screen =

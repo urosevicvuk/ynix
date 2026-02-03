@@ -1,14 +1,7 @@
 # Hyprpaper is used to set the wallpaper on the system
+# Disabled - using noctalia wallpaper management instead
 {lib, ...}: {
-  # The wallpaper is set by stylix
   services.hyprpaper = {
-    enable = true;
-    settings = {
-      ipc = "on";
-      splash = false;
-      splash_offset = 2;
-    };
+    enable = lib.mkForce false;
   };
-  systemd.user.services.hyprpaper.Unit.After =
-    lib.mkForce "graphical-session.target";
 }

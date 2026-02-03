@@ -7,8 +7,8 @@
   imports = [inputs.walker.homeManagerModules.default];
 
   programs.walker = {
-    enable = true;
-    runAsService = true;
+    enable = false; # Disabled - using noctalia launcher instead
+    runAsService = false;
 
     config = {
       theme = "gruvbox";

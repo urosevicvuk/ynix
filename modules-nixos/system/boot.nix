@@ -21,7 +21,6 @@ in {
       #};
       grub = {
         enable = true;
-        # GRUB disabled in favor of systemd-boot
         devices = ["nodev"];
         efiSupport = true;
         useOSProber = true;

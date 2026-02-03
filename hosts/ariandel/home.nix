@@ -64,6 +64,7 @@
 
         # Dev pnpm nodejs opencode
         claude-code
+        opencode
         gh
         gnumake
         postman
