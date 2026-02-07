@@ -44,6 +44,8 @@
     ./fixes.nix
   ];
 
+  hardware.enableRedistributableFirmware = true;
+
   hardware.framework.enableKmod = true;
 
   home-manager.users."${config.var.username}" = import ./home.nix;
