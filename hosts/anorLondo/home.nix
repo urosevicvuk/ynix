@@ -13,6 +13,7 @@
     ../../modules-home/programs/shell
     ../../modules-home/programs/btop.nix
     ../../modules-home/programs/direnv.nix
+    ../../modules-home/programs/discord.nix
     ../../modules-home/programs/editorconfig.nix
     ../../modules-home/programs/git.nix
     ../../modules-home/programs/kitty.nix
@@ -55,7 +56,6 @@
         # Apps
         obsidian
         vlc
-        vesktop
         libreoffice-fresh
         figma-linux
         pinta
@@ -76,7 +76,7 @@
         vscode
         rstudioWrapper
         jetbrains.goland
-        jetbrains.idea-ultimate
+        jetbrains.idea
         jetbrains.datagrip
         jetbrains.webstorm
         android-studio
