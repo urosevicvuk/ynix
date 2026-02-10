@@ -220,7 +220,6 @@ in {
       workspace =
         if isLaptop
         then [
-          "name:special, persistent:true"
           "1, default:true, persistent:true"
           "2, persistent:true"
           "3, persistent:true"
@@ -233,7 +232,6 @@ in {
           "10, persistent:true"
         ]
         else [
-          "name:special"
           "1, default:true, persistent:true"
           "2, persistent:true"
           "3, persistent:true"

@@ -24,7 +24,7 @@
       calendarSupport = true;
     };
     settings = {
-      settingsVersion = 46;
+      settingsVersion = 49;
       bar = {
         barType = "simple";
         position = "top";
@@ -33,6 +33,7 @@
         showOutline = false;
         showCapsule = true;
         capsuleOpacity = 1;
+        capsuleColorKey = "none";
         backgroundOpacity = 1;
         useSeparateOpacity = false;
         floating = false;
@@ -57,26 +58,6 @@
               useDistroLogo = true;
             }
             {
-              compactMode = false;
-              compactShowAlbumArt = true;
-              compactShowVisualizer = false;
-              hideMode = "hidden";
-              hideWhenIdle = false;
-              id = "MediaMini";
-              maxWidth = 280;
-              panelShowAlbumArt = true;
-              panelShowVisualizer = true;
-              scrollingMode = "hover";
-              showAlbumArt = true;
-              showArtistFirst = true;
-              showProgressRing = true;
-              showVisualizer = false;
-              useFixedWidth = false;
-              visualizerType = "wave";
-            }
-          ];
-          center = [
-            {
               characterCount = 2;
               colorizeIcons = false;
               emptyColor = "secondary";
@@ -89,6 +70,7 @@
               id = "Workspace";
               labelMode = "index";
               occupiedColor = "secondary";
+              pillSize = 0.6;
               reverseScroll = false;
               showApplications = false;
               showBadge = true;
@@ -96,9 +78,21 @@
               unfocusedIconsOpacity = 1;
             }
           ];
+          center = [
+            {
+              clockColor = "none";
+              customFont = "";
+              formatHorizontal = "dddd, MMMM dd - HH:mm";
+              formatVertical = "HH mm - dd MM";
+              id = "Clock";
+              tooltipFormat = "HH:mm ddd, MMM dd";
+              useCustomFont = false;
+            }
+          ];
           right = [
             {
               blacklist = [];
+              chevronColor = "none";
               colorizeIcons = false;
               drawerEnabled = true;
               hidePassive = false;
@@ -107,39 +101,36 @@
             }
             {
               displayMode = "onhover";
+              iconColor = "none";
               id = "Bluetooth";
+              textColor = "none";
             }
             {
               displayMode = "onhover";
+              iconColor = "none";
               id = "Network";
+              textColor = "none";
             }
             {
               displayMode = "forceOpen";
+              iconColor = "none";
               id = "KeyboardLayout";
               showIcon = false;
+              textColor = "none";
             }
             {
               deviceNativePath = "__default__";
-              displayMode = "alwaysShow";
+              displayMode = "graphic";
               hideIfIdle = false;
               hideIfNotDetected = true;
               id = "Battery";
               showNoctaliaPerformance = true;
               showPowerProfiles = true;
-              warningThreshold = 20;
-            }
-            {
-              customFont = "";
-              formatHorizontal = "dddd, MMMM dd - HH:mm";
-              formatVertical = "HH mm - dd MM";
-              id = "Clock";
-              tooltipFormat = "HH:mm ddd, MMM dd";
-              useCustomFont = false;
-              usePrimaryColor = false;
             }
             {
               hideWhenZero = false;
               hideWhenZeroUnread = false;
+              iconColor = "none";
               id = "NotificationHistory";
               showUnreadBadge = true;
               unreadBadgeColor = "primary";
@@ -161,6 +152,7 @@
         animationSpeed = 1;
         animationDisabled = false;
         compactLockScreen = false;
+        lockScreenAnimations = false;
         lockOnSuspend = true;
         showSessionButtonsOnLockScreen = true;
         showHibernateOnLockScreen = true;
@@ -176,6 +168,17 @@
         lockScreenCountdownDuration = 10000;
         autoStartAuth = true;
         allowPasswordWithFprintd = false;
+        clockStyle = "custom";
+        clockFormat = "hh\\nmm";
+        lockScreenMonitors = [];
+        keybinds = {
+          keyUp = "Up";
+          keyDown = "Down";
+          keyLeft = "Left";
+          keyRight = "Right";
+          keyEnter = "Return";
+          keyEscape = "Esc";
+        };
       };
       ui = {
         fontDefault = "SF Pro nerd font";
@@ -278,6 +281,7 @@
         enableWindowsSearch = true;
         ignoreMouseInput = true;
         screenshotAnnotationTool = "";
+        overviewLayer = false;
       };
       controlCenter = {
         position = "close_to_bar_button";
@@ -356,13 +360,16 @@
         swapCriticalThreshold = 90;
         diskWarningThreshold = 80;
         diskCriticalThreshold = 90;
-        cpuPollingInterval = 3000;
-        tempPollingInterval = 3000;
+        diskAvailWarningThreshold = 20;
+        diskAvailCriticalThreshold = 10;
+        batteryWarningThreshold = 20;
+        batteryCriticalThreshold = 5;
+        cpuPollingInterval = 1000;
         gpuPollingInterval = 3000;
         enableDgpuMonitoring = false;
-        memPollingInterval = 3000;
+        memPollingInterval = 1000;
         diskPollingInterval = 30000;
-        networkPollingInterval = 3000;
+        networkPollingInterval = 1000;
         loadAvgPollingInterval = 3000;
         useCustomColors = false;
         warningColor = "";
@@ -450,7 +457,6 @@
         lowUrgencyDuration = 3;
         normalUrgencyDuration = 5;
         criticalUrgencyDuration = 7;
-        enableKeyboardLayoutToast = false;
         saveToHistory = {
           low = true;
           normal = true;
@@ -466,6 +472,8 @@
           excludedApps = "discord,firefox,chrome,chromium,edge";
         };
         enableMediaToast = false;
+        enableKeyboardLayoutToast = false;
+        enableBatteryToast = true;
       };
       osd = {
         enabled = true;
@@ -502,7 +510,7 @@
         schedulingMode = "off";
         manualSunrise = "06:30";
         manualSunset = "18:30";
-        generationMethod = "tonal-spot";
+        generationMethod = "content";
         monitorForColors = "";
       };
       templates = {
@@ -528,6 +536,9 @@
         performanceModeDisabled = "";
         startup = "";
         session = "";
+      };
+      plugins = {
+        autoUpdate = false;
       };
       desktopWidgets = {
         enabled = false;
