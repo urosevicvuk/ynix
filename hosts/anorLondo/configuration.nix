@@ -32,6 +32,10 @@
     # Services
     ../../modules-nixos/services/docker.nix
 
+    # Cluster (K3s for learning)
+    ../../modules-nixos/cluster/k3s.nix
+    ../../modules-nixos/cluster/storage.nix
+
     # Network
     ../../modules-nixos/network/networking.nix
     ../../modules-nixos/network/tailscale.nix

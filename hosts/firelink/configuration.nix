@@ -15,6 +15,10 @@
     # Services
     ../../modules-nixos/services/docker.nix
 
+    # Cluster (Phase 5: Enable when migrating services to K8s)
+    # ../../modules-nixos/cluster/k3s.nix
+    # ../../modules-nixos/cluster/storage.nix
+
     # Network
     ../../modules-nixos/network/networking.nix
     ../../modules-nixos/network/tailscale.nix
