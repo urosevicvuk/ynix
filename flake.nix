@@ -18,6 +18,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    home-manager-stable = {
+      url = "github:nix-community/home-manager/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
     nixos-hardware = {
@@ -93,10 +98,10 @@
     };
 
     # Noctalia Shell - Wayland desktop shell built with QuickShell
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #noctalia = {
+    #  url = "github:noctalia-dev/noctalia-shell";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
   };
 
   outputs = inputs @ {
@@ -154,20 +159,17 @@
         ];
       };
 
-      # firelink is the server (stable base)
-      firelink = nixpkgs-stable.lib.nixosSystem {
+      # firelink is the server
+      firelink = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
           inherit inputs;
-          pkgs-unstable = mkPkgsUnstable "x86_64-linux";
+          pkgs-stable = mkPkgsStable "x86_64-linux";
         };
         modules = [
           inputs.home-manager.nixosModules.home-manager
           inputs.stylix.nixosModules.stylix
-          # inputs.lanzaboote.nixosModules.lanzaboote  # Disabled for server
           inputs.sops-nix.nixosModules.sops
-          # inputs.nixarr.nixosModules.default  # Enable when nixarr input is added and configured
-          # inputs.search-nixos-api.nixosModules.search-nixos-api  # Enable when search-nixos-api input is added
           ./hosts/firelink/configuration.nix
         ];
       };

@@ -5,26 +5,25 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   inherit (config.var) hostname;
   # Extra TLS SANs for remote access (e.g., Tailscale IP)
   # Add your Tailscale IP here when deploying to firelink
   extraSans = [
     # "100.x.x.x"  # Tailscale IP for remote kubectl access
   ];
-  allSans = [ hostname ] ++ extraSans;
+  allSans = [hostname] ++ extraSans;
   sanFlags = lib.concatMapStrings (san: " --tls-san=${san}") allSans;
-in
-{
+in {
   services.k3s = {
     enable = true;
     role = "server";
-    extraFlags = toString [
-      "--disable=traefik" # Install ourselves via Helm to learn
-      "--disable=servicelb" # Use NodePorts instead
-      "--write-kubeconfig-mode=644" # Allow non-root kubeconfig access
-    ] + sanFlags;
+    extraFlags =
+      toString [
+        "--disable=traefik" # Install ourselves via Helm to learn
+        "--write-kubeconfig-mode=644" # Allow non-root kubeconfig access
+      ]
+      + sanFlags;
   };
 
   # K3s API and kubelet ports

@@ -10,12 +10,13 @@
 
     secrets = {
       # Cloudflare tokens
-      "cloudflare-dns-token" = {
-        sopsFile = ./cloudflare.yaml;
-        key = "dns_token_env"; # For ACME (needs CLOUDFLARE_DNS_API_TOKEN=xxx format)
-        owner = "acme";
-        mode = "0400";
-      };
+      # Disabled - nginx/ACME is not enabled on firelink
+      # "cloudflare-dns-token" = {
+      #   sopsFile = ./cloudflare.yaml;
+      #   key = "dns_token_env"; # For ACME (needs CLOUDFLARE_DNS_API_TOKEN=xxx format)
+      #   owner = "acme";
+      #   mode = "0400";
+      # };
 
       "cloudflare-tunnel-token" = {
         sopsFile = ./cloudflare.yaml;
@@ -35,13 +36,13 @@
         mode = "0400";
       };
 
-      # Nextcloud
-      "nextcloud-admin-password" = {
-        sopsFile = ./nextcloud.yaml;
-        key = "admin_password";
-        owner = "nextcloud";
-        mode = "0400";
-      };
+      # Nextcloud - Disabled because nextcloud service is not enabled
+      # "nextcloud-admin-password" = {
+      #   sopsFile = ./nextcloud.yaml;
+      #   key = "admin_password";
+      #   owner = "nextcloud";
+      #   mode = "0400";
+      # };
 
       # Disabled - placeholders only, uncomment when you add real values:
       # "hoarder-env" = {

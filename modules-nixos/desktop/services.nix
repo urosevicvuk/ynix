@@ -7,7 +7,7 @@
       implementation = "broker";
       packages = with pkgs; [
         gcr
-        gnome-settings-daemon
+        #gnome-settings-daemon
       ];
     };
 
@@ -24,8 +24,8 @@
     libinput.enable = true;
 
     # GNOME keyring for password storage
-    gnome.gnome-keyring.enable = true;
-    gnome.evolution-data-server.enable = true;
+    #gnome.gnome-keyring.enable = true;
+    #gnome.evolution-data-server.enable = true;
 
     # Geolocation service (required for illogical-impulse/QuickShell QtPositioning)
     #geoclue2.enable = true;
