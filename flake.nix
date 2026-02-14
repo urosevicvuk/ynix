@@ -91,17 +91,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # QuickShell - QtQuick-based widget toolkit (for end-4 bar only)
-    quickshell = {
-      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Noctalia Shell - Wayland desktop shell built with QuickShell
-    #noctalia = {
-    #  url = "github:noctalia-dev/noctalia-shell";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
   };
 
   outputs = inputs @ {

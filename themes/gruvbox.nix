@@ -13,7 +13,7 @@
       gaps-out = 8;
       active-opacity = 1;
       inactive-opacity = 1;
-      blur = true;
+      blur = false;
       border-size = 2;
       animation-speed = "fast"; # "fast" | "medium" | "slow"
       fetch = "none"; # "nerdfetch" | "neofetch" | "pfetch" | "none"

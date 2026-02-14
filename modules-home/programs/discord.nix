@@ -5,6 +5,7 @@
   stylix.targets.nixcord.enable = false;
 
   programs.nixcord = {
+    vesktop.enable = true;
     enable = true;
     config = {
       useQuickCss = true;
