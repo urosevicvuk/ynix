@@ -12,8 +12,8 @@
     settings = {
       # Font configuration
       # Force JetBrainsMono Nerd Font and prevent Stylix from adding emoji fallback
-      font-family = lib.mkForce "JetBrainsMono Nerd Font Propo";
-      font-size = lib.mkForce 13;
+      #font-family = lib.mkForce "JetBrainsMono Nerd Font Propo";
+      #font-size = lib.mkForce 13;
 
       # Window appearance
       window-padding-x = 6;
@@ -24,15 +24,8 @@
       shell-integration = "detect";
       shell-integration-features = "cursor,sudo,title,ssh-env,ssh-terminfo";
 
-      # Quick terminal (dropdown Quake-style terminal)
-      # Summon with super+grave keybind
-      quick-terminal-position = "center";
-      quick-terminal-size = "50%";
-      quick-terminal-autohide = true;
-
       # Keybindings
       keybind = [
-        "ctrl+t=toggle_quick_terminal"
         "ctrl+shift+equal=increase_font_size:1"
         "ctrl+shift+minus=decrease_font_size:1"
         "ctrl+shift+0=reset_font_size"
