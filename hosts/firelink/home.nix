@@ -1,20 +1,12 @@
 {
   pkgs,
   config,
-  inputs,
   ...
-}:
-{
+}: {
   imports = [
-    # Programs
-    ../../modules-home/programs/nvf
-    ../../modules-home/programs/shell
-    ../../modules-home/programs/fetch
-    ../../modules-home/programs/git.nix
-
-    # Secrets (home-manager level only)
+    ../../modules-home/core
+    ../../modules-home/nvim
     ../../secrets/shared
-
     ./variables.nix
   ];
 
@@ -23,28 +15,20 @@
     homeDirectory = "/home/" + config.var.username;
 
     packages = with pkgs; [
-      # Dev
-      go
-      nodejs
-      python3
       jq
       just
-      pnpm
       wireguard-tools
-      duckdb
 
       # Utils
       nh
       zip
       unzip
       optipng
-      pfetch
-      btop
       fastfetch
+      btop
       tailscale
 
       claude-code
-
     ];
 
     # Don't touch this

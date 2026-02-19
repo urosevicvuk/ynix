@@ -1,15 +1,12 @@
 {
   pkgs,
   config,
-  inputs,
   ...
-}:
-{
+}: {
   imports = [
-    ../../modules-home/programs/shell
-    ../../modules-home/programs/git.nix
-    ../../modules-home/programs/nvf
-    ../../secrets/shared
+    ../../../modules-home/core
+    ../../../modules-home/nvim
+    ../../../secrets/shared
     ./variables.nix
   ];
 
@@ -17,21 +14,15 @@
     inherit (config.var) username;
     homeDirectory = "/home/" + config.var.username;
 
-    # Control plane management tools
     packages = with pkgs; [
-      # System utilities
       htop
       curl
       wget
-
-      # Kubernetes management
       kubectl
       kubernetes-helm
       k9s
       kubectx
       stern
-
-      # Cluster administration
       etcdctl
     ];
 

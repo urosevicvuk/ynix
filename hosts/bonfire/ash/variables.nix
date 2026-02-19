@@ -1,7 +1,7 @@
 { config, lib, ... }:
 {
   imports = [
-    ../../themes/gruvbox.nix
+    ../../../themes/gruvbox.nix
   ];
 
   config.var = {
@@ -33,9 +33,6 @@
     # Display settings
     monitorScale = "1";
     inputSensitivity = "-0.5";
-
-    # Theme
-    theme = import ../../themes/var/gruvbox.nix;
 
     # Cluster configuration (worker node)
     cluster = {
