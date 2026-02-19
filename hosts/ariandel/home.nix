@@ -2,7 +2,6 @@
   pkgs,
   pkgs-stable,
   config,
-  inputs,
   lib,
   ...
 }: {
@@ -18,7 +17,6 @@
     ../../modules-home/programs/kitty.nix
     ../../modules-home/programs/nextcloud.nix
     ../../modules-home/programs/nvf
-    ../../modules-home/programs/obs-studio.nix
     ../../modules-home/programs/shell
     ../../modules-home/programs/spicetify.nix
     ../../modules-home/programs/thunar.nix
@@ -30,12 +28,8 @@
     ../../modules-home/scripts # All scripts
 
     # System
-    ../../modules-home/system/clipman.nix
     ../../modules-home/system/hypridle.nix
     ../../modules-home/system/hyprland
-    ../../modules-home/system/hyprlock.nix
-    # ../../modules-home/system/hyprpanel.nix  # Disabled - replaced by QuickShell
-    ../../modules-home/system/hyprpaper.nix
     ../../modules-home/system/mime.nix
     ../../modules-home/system/udiskie.nix
 
@@ -58,26 +52,18 @@
         obsidian
         slack
         vlc
-        libreoffice-fresh
         qbittorrent
-        wireshark
 
         # Dev pnpm nodejs opencode
         claude-code
         opencode
         gh
-        gnumake
-        postman
         bruno
         code-cursor
         zed-editor
         vscode
-        rstudioWrapper
-        jetbrains.goland
         jetbrains.idea
         jetbrains.datagrip
-        jetbrains.webstorm
-        android-studio
 
         # Utils
         nh
@@ -96,13 +82,6 @@
         powertop
         figlet
         radeontop
-
-        # TUI system managers
-        bluetuith # Bluetooth manager
-        wiremix # PipeWire audio mixer
-
-        # Virtualization
-        freerdp
 
         # Just cool
         peaclock
