@@ -2,7 +2,7 @@
   imports = [
     ../../modules-nixos/core
     ../../modules-nixos/desktop
-    ../../modules-nixos/hardware/secure-boot.nix
+    #../../modules-nixos/hardware/secure-boot.nix
     ../../modules-nixos/hardware/framework.nix
     ./variables.nix
     ./hardware-configuration.nix
