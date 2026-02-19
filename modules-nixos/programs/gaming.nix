@@ -19,13 +19,13 @@
 
   # Home-manager gaming packages
   home-manager.users.${config.var.username}.home.packages = with pkgs; [
-    lutris
-    protonup-ng
-    protonup-qt
-    protontricks
-    prismlauncher
-    (wineWowPackages.stable.override {waylandSupport = true;})
-    winetricks
+    #lutris
+    #protonup-ng
+    #protonup-qt
+    #protontricks
+    #prismlauncher
+    #(wineWowPackages.stable.override {waylandSupport = true;})
+    #winetricks
 
     # Emulators
     # shadps4

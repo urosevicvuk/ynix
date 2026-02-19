@@ -14,7 +14,7 @@
   home.packages = with pkgs; [
     brightnessctl # Brightness control
     git # Plugin system and updates
-    evolution # For adding Google calendar to EDS
+    #evolution # For adding Google calendar to EDS
   ];
 
   programs.noctalia-shell = lib.mkForce {
