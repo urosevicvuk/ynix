@@ -34,9 +34,6 @@
     monitorScale = "1";
     inputSensitivity = "-0.5";
 
-    # Theme
-    theme = import ../../themes/var/gruvbox.nix;
-
     # Cluster configuration (all-in-one node)
     cluster = {
       enabled = true;

@@ -1,20 +1,12 @@
 {
   pkgs,
   config,
-  inputs,
   ...
-}:
-{
+}: {
   imports = [
-    # Essential programs
-    ../../modules-home/programs/shell
-    ../../modules-home/programs/git.nix
-    ../../modules-home/programs/nvf
-
-    # Secrets
+    ../../modules-home/core
+    ../../modules-home/nvim
     ../../secrets/shared
-
-    # Host variables
     ./variables.nix
   ];
 
@@ -22,24 +14,16 @@
     inherit (config.var) username;
     homeDirectory = "/home/" + config.var.username;
 
-    # Minimal server packages
     packages = with pkgs; [
-      # System utilities
       htop
       btop
       curl
       wget
       rsync
-
-      # Container tools
       docker-compose
       kubectl
       kubernetes-helm
       k9s
-
-      # Monitoring
-      prometheus
-      grafana
     ];
 
     stateVersion = "24.05";

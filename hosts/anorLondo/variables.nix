@@ -32,9 +32,7 @@
     monitorScale = "1";
     inputSensitivity = "-0.5";
 
-    # Choose your theme variables here
-    theme = import ../../themes/var/gruvbox.nix;
-  };
+};
 
   options = {
     var = lib.mkOption {
