@@ -6,17 +6,17 @@
   inherit (config.var) hostname;
 in {
   networking = {
-    wireless.iwd = {
-      enable = true;
-      settings = {
-        Network = {
-          EnableIPv6 = true;
-        };
-        Settings = {
-          AutoConnect = true;
-        };
-      };
-    };
+    #wireless.iwd = {
+    #  enable = true;
+    #  settings = {
+    #    Network = {
+    #      EnableIPv6 = true;
+    #    };
+    #    Settings = {
+    #      AutoConnect = true;
+    #    };
+    #  };
+    #};
 
     firewall = {
       enable = true;
@@ -27,14 +27,14 @@ in {
 
     networkmanager = {
       enable = true;
-      wifi = {
-        backend = "iwd";
-        powersave = false;
-        scanRandMacAddress = false;
-        macAddress = "preserve";
-      };
+      #  wifi = {
+      #    backend = "iwd";
+      #    powersave = false;
+      #    scanRandMacAddress = false;
+      #    macAddress = "preserve";
+      #  };
     };
   };
 
-  #systemd.services.NetworkManager-wait-online.enable = false;
+  systemd.services.NetworkManager-wait-online.enable = false;
 }
