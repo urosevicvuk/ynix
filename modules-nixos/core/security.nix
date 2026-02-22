@@ -11,12 +11,12 @@ in {
   services.fprintd.enable = isLaptop;
 
   security = {
-    pam.services = {
-      sudo.fprintAuth = lib.mkIf isLaptop true;
-      login.fprintAuth = lib.mkIf isLaptop true;
-      noctalia-shell.fprintAuth = lib.mkIf isLaptop true;
-      polkit-1.fprintAuth = lib.mkIf isLaptop true;
-    };
+    #pam.services = {
+    #  sudo.fprintAuth = lib.mkIf isLaptop true;
+    #  login.fprintAuth = lib.mkIf isLaptop true;
+    #  noctalia-shell.fprintAuth = lib.mkIf isLaptop true;
+    #  polkit-1.fprintAuth = lib.mkIf isLaptop true;
+    #};
 
     # Sudo configuration
     sudo = {

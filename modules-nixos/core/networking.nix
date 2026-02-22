@@ -31,6 +31,7 @@ in {
       #  };
     };
   };
+  users.users.${config.var.username}.extraGroups = ["networkmanager"];
 
   systemd.services.NetworkManager-wait-online.enable = false;
 }
