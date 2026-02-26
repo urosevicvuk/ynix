@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home.packages = [
     (pkgs.writeShellScriptBin "tmux-sessionizer" ''
       #!/usr/bin/env bash
@@ -349,4 +348,3 @@
     '')
   ];
 }
-

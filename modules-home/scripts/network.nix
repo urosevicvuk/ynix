@@ -3,9 +3,7 @@
 #- Script for toggling WiFi on/off.
 #-
 #- - `wifi-toggle` - Toggle WiFi on/off.
-
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   wifi-toggle = pkgs.writeShellScriptBin "wifi-toggle" ''
     status=$(${pkgs.networkmanager}/bin/nmcli radio wifi)
 
@@ -15,8 +13,6 @@ let
       ${pkgs.networkmanager}/bin/nmcli radio wifi on
     fi
   '';
-
-in
-{
-  home.packages = [ wifi-toggle ];
+in {
+  home.packages = [wifi-toggle];
 }
