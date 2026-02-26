@@ -12,6 +12,7 @@
     ../../modules-home/programs/btop.nix
     ../../modules-home/programs/discord.nix
     ../../modules-home/programs/obs-studio.nix
+    ../../modules-home/programs/opencode.nix
     ../../modules-home/programs/spicetify.nix
     ../../modules-home/programs/zen.nix
     ../../modules-home/programs/zathura.nix
@@ -41,7 +42,6 @@
 
         # Dev
         claude-code
-        opencode
         gh
         bruno
         vscode
