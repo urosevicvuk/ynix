@@ -30,6 +30,7 @@
         # Apps
         obsidian
         slack
+        signal-desktop
         vlc
         qbittorrent
 

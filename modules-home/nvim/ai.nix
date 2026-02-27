@@ -6,8 +6,8 @@
       enable = true;
       setupOpts = {
         keymaps = {
-          accept_suggestion = "<Tab>";
-          accept_word = "<M-Tab>";
+          accept_suggestion = "<S-Tab>";
+          accept_word = "<Tab>";
           clear_suggestion = "<M-c>";
         };
         disable_inline_completion = false;
