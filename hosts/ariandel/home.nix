@@ -9,10 +9,10 @@
     ../../modules-home/core
     ../../modules-home/desktop
     ../../modules-home/programs/btop.nix
+    ../../modules-home/programs/browsers.nix
     ../../modules-home/programs/discord.nix
     ../../modules-home/programs/opencode.nix
     ../../modules-home/programs/spicetify.nix
-    ../../modules-home/programs/zen.nix
     ../../modules-home/programs/zathura.nix
     ../../modules-home/programs/nextcloud.nix
     ../../modules-home/nvim
