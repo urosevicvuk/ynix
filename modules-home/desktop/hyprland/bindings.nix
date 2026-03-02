@@ -63,6 +63,9 @@ in {
       "$mod, n, exec, noctalia-shell ipc call notifications toggleHistory" # Launcher/overview
       "$mod, m, exec, noctalia-shell ipc call media toggle" # Launcher/overview
 
+      "$mod ALT, b, exec, noctalia-shell ipc call bluetooth togglePanel" # Blutooth
+      "$mod ALT, n, exec, noctalia-shell ipc call network togglePanel" # Network
+
       # Screenshots (hyprshot)
       ",PRINT, exec, hyprshot -m region --freeze --clipboard-only" # Region screenshot with freeze to clipboard
       "SHIFT, PRINT, exec, hyprshot -m output --clipboard-only" # Fullscreen screenshot to clipboard

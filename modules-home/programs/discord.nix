@@ -5,8 +5,11 @@
   stylix.targets.nixcord.enable = false;
 
   programs.nixcord = {
-    vesktop.enable = true;
     enable = true;
+
+    discord.vencord.enable = true;
+
+    vesktop.enable = true;
     config = {
       useQuickCss = true;
       frameless = true;
