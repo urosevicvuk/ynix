@@ -16,10 +16,8 @@
 
   programs.noctalia-shell = lib.mkForce {
     enable = true;
-    systemd.enable = true;
-    package = inputs.noctalia.packages.${pkgs.system}.default.override {
-      calendarSupport = true;
-    };
+    package = inputs.noctalia.packages.${pkgs.system}.default;
+
     settings = {
       settingsVersion = 54;
       bar = {
@@ -581,7 +579,7 @@
         autoUpdate = false;
       };
       idle = {
-        enabled = true;
+        enabled = false;
         screenOffTimeout = 300;
         lockTimeout = 600;
         suspendTimeout = 660;

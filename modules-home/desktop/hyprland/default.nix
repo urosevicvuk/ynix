@@ -82,6 +82,7 @@ in {
         "systemctl --user enable --now hypridle.service"
         "systemctl --user enable --now nextcloud-client.service"
         "${pkgs.tailscale-systray}/bin/tailscale-systray"
+        "noctalia-shell"
 
         "[workspace 1 silent] zen"
         "[workspace 4 silent] ${terminal}"
