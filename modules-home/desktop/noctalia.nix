@@ -19,6 +19,27 @@
     enable = true;
     package = inputs.noctalia.packages.${pkgs.system}.default;
 
+    colors = let
+      c = config.lib.stylix.colors.withHashtag;
+    in {
+      mPrimary = c.base0D;
+      mOnPrimary = c.base00;
+      mSecondary = c.base04;
+      mOnSecondary = c.base00;
+      mTertiary = c.base0C;
+      mOnTertiary = c.base00;
+      mError = c.base08;
+      mOnError = c.base00;
+      mSurface = c.base00;
+      mOnSurface = c.base05;
+      mSurfaceVariant = c.base01;
+      mOnSurfaceVariant = c.base04;
+      mOutline = c.base03;
+      mShadow = c.base00;
+      mHover = c.base0C;
+      mOnHover = c.base00;
+    };
+
     settings = {
       settingsVersion = 54;
       bar = {
