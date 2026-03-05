@@ -83,6 +83,7 @@
       svelte.enable = true;
       bash.enable = true;
       nix.enable = true;
+      yaml.enable = true;
       markdown = {
         enable = true;
         extensions.render-markdown-nvim.enable = true;

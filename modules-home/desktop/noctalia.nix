@@ -12,6 +12,7 @@
     brightnessctl # Brightness control
     git # Plugin system and updates
     #evolution # For adding Google calendar to EDS
+    kdePackages.qttools
   ];
 
   programs.noctalia-shell = lib.mkForce {
