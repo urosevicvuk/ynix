@@ -45,9 +45,6 @@ in {
     '';
 
     shellAliases = {
-      ts = "tmux-sessionizer";
-      nhs = "nh os switch";
-      nvimf = "nvim $(fzf)";
       vim = "nvim";
       vi = "nvim";
       v = "nvim";
@@ -65,7 +62,6 @@ in {
       rm = "${pkgs.rmtrash}/bin/rmtrash";
       rmdir = "${pkgs.rmtrash}/bin/rmdirtrash";
       quantum = "pw-metadata -n settings 0 clock.force-quantum";
-      win = "/home/vyke/win/win.sh";
 
       obsidian-no-gpu = "env ELECTRON_OZONE_PLATFORM_HINT=auto obsidian --ozone-platform=x11";
       wireguard-import = "nmcli connection import type wireguard file";
@@ -75,16 +71,6 @@ in {
       tmp = "nvim /tmp/$(date | sed 's/ //g;s/\\.//g').md";
 
       nix-shell = "nix-shell --command zsh";
-
-      # Modern CLI tool replacements
-      find = "fd";
-      du = "dust";
-      df = "duf";
-      ps = "procs";
-      top = "btm";
-      dig = "dog";
-      ping = "gping";
-      curl = "xh";
 
       # git
       g = "lazygit";
