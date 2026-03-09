@@ -1,9 +1,12 @@
 {
   pkgs,
   config,
+  inputs,
   ...
 }: let
   terminal = config.var.terminal;
+  zen = inputs.zen-browser.packages."${pkgs.system}".default;
+  #helium = inputs.zen-browser.packages."${pkgs.system}".default;
 in {
   wayland.windowManager.hyprland.settings = {
     bind = [
@@ -15,13 +18,6 @@ in {
       "$mod, Q, killactive," # Close window
       "$mod, T, togglefloating," # Toggle Floating
       "$mod, F, fullscreen" # Toggle Fullscreen
-
-      "$mod, grave, exec, quickmenu" # Quickmenu
-
-      # GUI Apps
-      "$mod, Z, exec, zen" # Zen Browser
-      "$mod, E, exec, ${pkgs.xfce.thunar}/bin/thunar" # Thunar
-      "$mod, P, exec, ${pkgs.bitwarden-desktop}/bin/bitwarden" # Bitwarden
 
       # CLI Apps
       "$mod, RETURN, exec, ${terminal}" # Terminal
