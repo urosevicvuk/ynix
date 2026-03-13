@@ -1,87 +1,68 @@
 {
   pkgs,
   config,
-  inputs,
   ...
 }: let
-  terminal = config.var.terminal;
-  zen = inputs.zen-browser.packages."${pkgs.system}".default;
-  #helium = inputs.zen-browser.packages."${pkgs.system}".default;
+  inherit (config.var) terminal;
 in {
   wayland.windowManager.hyprland.settings = {
     bind = [
       #Basic things
-      "$mod, W, exec, noctalia-shell ipc call launcher toggle" # Noctalia Launcher
-      "$shiftMod, SPACE, exec, noctalia-shell ipc call bar toggle" # Toggle HyprFocus
-      "CTRL $shiftMod, SPACE, exec, noctalia-shell ipc call lockScreen lock" # Lock
+      "$mod, SPACE, exec, noctalia-shell ipc call launcher toggle"
+      "$shiftMod, SPACE, exec, noctalia-shell ipc call bar toggle"
+      "CTRL $shiftMod, SPACE, exec, noctalia-shell ipc call lockScreen lock"
 
-      "$mod, Q, killactive," # Close window
-      "$mod, T, togglefloating," # Toggle Floating
-      "$mod, F, fullscreen" # Toggle Fullscreen
+      "$mod, Q, killactive,"
+      "$mod, T, togglefloating,"
+      "$mod, F, fullscreen"
 
       # CLI Apps
-      "$mod, RETURN, exec, ${terminal}" # Terminal
+      "$mod, RETURN, exec, ${terminal}"
       "$mod, G, exec, ${terminal} -e lazygit"
       "$mod, D, exec, ${terminal} -e lazydocker"
       "$mod, I, exec, ${terminal} -e btop"
       "$mod, Y, exec, ${terminal} -e yazi"
 
-      #"$mod, C, layoutmsg, togglefit" # Toggle Hyprscrolling fit method
+      "$mod, H, movefocus, l"
+      "$mod, L, movefocus, r"
+      "$mod, K, movefocus, u"
+      "$mod, J, movefocus, d"
 
-      # Hyprscrolling layout: move focus - custom layoutmsg for moving focus to edge columns
-      "$mod, H, movefocus, l" # Move focus left
-      "$mod, L, movefocus, r" # Move focus Right
-      "$mod, K, movefocus, u" # Move focus Up
-      "$mod, J, movefocus, d" # Move focus Down
+      "$shiftMod, H, movewindow, l"
+      "$shiftMod, L, movewindow, r"
+      "$shiftMod, K, movewindow, u"
+      "$shiftMod, J, movewindow, d"
 
-      # Hyprscrolling layout: move windows - custom layoutmsg for moving windows to edge columns
-      "$shiftMod, H, movewindow, l" # Move window left
-      "$shiftMod, L, movewindow, r" # Move window right
-      "$shiftMod, K, movewindow, u" # Move window up
-      "$shiftMod, J, movewindow, d" # Move window down
+      "$shiftMod CTRL, h, movecurrentworkspacetomonitor, l"
+      "$shiftMod CTRL, l, movecurrentworkspacetomonitor, r"
+      "$shiftMod CTRL, k, movecurrentworkspacetomonitor, u"
+      "$shiftMod CTRL, j, movecurrentworkspacetomonitor, d"
 
-      # Move current workspace to different monitor
-      "$shiftMod CTRL, h, movecurrentworkspacetomonitor, l" # Move workspace to left monitor
-      "$shiftMod CTRL, l, movecurrentworkspacetomonitor, r" # Move workspace to right monitor
-      "$shiftMod CTRL, k, movecurrentworkspacetomonitor, u" # Move workspace to upper monitor
-      "$shiftMod CTRL, j, movecurrentworkspacetomonitor, d" # Move workspace to lower monitor
+      "$mod, Escape, exec, noctalia-shell ipc call controlCenter toggle"
+      "$mod, Delete, exec, noctalia-shell ipc call sessionMenu toggle"
 
-      # esc = control panel
-      "$mod, Escape, exec, noctalia-shell ipc call controlCenter toggle" # Launcher/overview
-      "$mod, Delete, exec, noctalia-shell ipc call sessionMenu toggle" # F12: Power menu (QuickShell)
+      "$mod, s, exec, noctalia-shell ipc call settings toggle"
+      "$mod, Backspace, exec, noctalia-shell ipc call plugin togglePanel notes-scratchpad "
 
-      "$mod, s, exec, noctalia-shell ipc call settings toggle" # Launcher/overview
-      "$mod, Backspace, exec, noctalia-shell ipc call plugin togglePanel notes-scratchpad " # Launcher/overview
+      "$mod, c, exec, noctalia-shell ipc call plugin:weekly-calendar togglePanel"
+      "$mod, v, exec, noctalia-shell ipc call volume togglePanel"
+      "$mod, b, exec, noctalia-shell ipc call battery togglePanel"
+      "$mod, n, exec, noctalia-shell ipc call notifications toggleHistory"
+      "$mod, m, exec, noctalia-shell ipc call media toggle"
 
-      "$mod, c, exec, noctalia-shell ipc call plugin:weekly-calendar togglePanel" # Calendar
-      "$mod, v, exec, noctalia-shell ipc call volume togglePanel" # Volume
-      "$mod, b, exec, noctalia-shell ipc call battery togglePanel" # Battery
-      "$mod, n, exec, noctalia-shell ipc call notifications toggleHistory" # Launcher/overview
-      "$mod, m, exec, noctalia-shell ipc call media toggle" # Launcher/overview
+      "$mod ALT, b, exec, noctalia-shell ipc call bluetooth togglePanel"
+      "$mod ALT, n, exec, noctalia-shell ipc call network togglePanel"
 
-      "$mod ALT, b, exec, noctalia-shell ipc call bluetooth togglePanel" # Blutooth
-      "$mod ALT, n, exec, noctalia-shell ipc call network togglePanel" # Network
+      ",PRINT, exec, hyprshot -m region --freeze --clipboard-only"
+      "SHIFT, PRINT, exec, hyprshot -m output --clipboard-only"
+      "CTRL, PRINT, exec, hyprshot -m region --freeze --raw | ${pkgs.satty}/bin/satty -f -"
+      "CTRL SHIFT, PRINT, exec, hyprshot -m output --raw | ${pkgs.satty}/bin/satty -f -"
 
-      # Screenshots (hyprshot)
-      ",PRINT, exec, hyprshot -m region --freeze --clipboard-only" # Region screenshot with freeze to clipboard
-      "SHIFT, PRINT, exec, hyprshot -m output --clipboard-only" # Fullscreen screenshot to clipboard
-      "CTRL, PRINT, exec, hyprshot -m region --freeze --raw | ${pkgs.satty}/bin/satty -f -" # Region screenshot with annotation
-      "CTRL SHIFT, PRINT, exec, hyprshot -m output --raw | ${pkgs.satty}/bin/satty -f -" # Fullscreen screenshot with annotation
+      "ALT, PRINT, exec, noctalia-shell ipc call plugin:screen-recorder toggle"
 
-      # Screen recording
-      "ALT, PRINT, exec, noctalia-shell ipc call plugin:screen-recorder toggle" # Region screenshot to clipboard
+      "$mod, Prior, exec, hyprctl keyword monitor eDP-1,2880x1920@120,auto,1.5,transform,2"
+      "$mod, Next, exec, hyprctl keyword monitor eDP-1,2880x1920@120,auto,1.5,transform,0"
 
-      # QuickShell controls
-      "$mod, SPACE, exec, noctalia-shell ipc call launcher toggle" # Launcher/overview
-      "$mod, SEMICOLON, exec, noctalia-shell ipc call bar toggle" # Toggle bar visibility
-
-      # Screen rotation
-      "$mod, Prior, exec, hyprctl keyword monitor eDP-1,2880x1920@120,auto,1.5,transform,2" # Rotate 180° (PageUp)
-      "$mod, Next, exec, hyprctl keyword monitor eDP-1,2880x1920@120,auto,1.5,transform,0" # Rotate back to normal (PageDown)
-
-      # Framework function keys
-
-      #Workspaces
       "$mod, 1, workspace, 1"
       "$mod SHIFT, 1, movetoworkspace, 1"
       "$mod, 2, workspace, 2"
@@ -108,30 +89,30 @@ in {
     ];
 
     binde = [
-      "$shiftMod, period, layoutmsg, colresize +0.1" # Resize window smaller horizontally
-      "$shiftMod, comma, layoutmsg, colresize -0.1" # Resize window larger horizontally
+      "$shiftMod, period, layoutmsg, colresize +0.1"
+      "$shiftMod, comma, layoutmsg, colresize -0.1"
     ];
 
     bindm = [
-      "$mod,mouse:272, movewindow" # Move Window (mouse)
-      "$mod,R, resizewindow" # Resize Window (mouse)
+      "$mod,mouse:272, movewindow"
+      "$mod,R, resizewindow"
     ];
 
     bindl = [
-      ",XF86AudioMute, exec, sound-toggle" # Toggle Mute
-      "ALT,XF86AudioMute, exec, mic-toggle" # Toggle Mic Mute
-      ",XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause" # Play/Pause Song
-      ",XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next" # Next Song
-      ",XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous" # Previous Song
+      ",XF86AudioMute, exec, sound-toggle"
+      "ALT,XF86AudioMute, exec, mic-toggle"
+      ",XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause"
+      ",XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
+      ",XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous"
     ];
 
     bindle = [
-      ",XF86AudioRaiseVolume, exec, sound-up" # Sound Up
-      ",XF86AudioLowerVolume, exec, sound-down" # Sound Down
-      "ALT,XF86AudioRaiseVolume, exec, mic-up" # Mic Volume Up
-      "ALT,XF86AudioLowerVolume, exec, mic-down" # Mic Volume Down
-      ",XF86MonBrightnessUp, exec, noctalia-shell ipc call brightness increase" # Brightness Up (QuickShell)
-      ",XF86MonBrightnessDown, exec, noctalia-shell ipc call brightness decrease" # Brightness Down (QuickShell)
+      ",XF86AudioRaiseVolume, exec, sound-up"
+      ",XF86AudioLowerVolume, exec, sound-down"
+      "ALT,XF86AudioRaiseVolume, exec, mic-up"
+      "ALT,XF86AudioLowerVolume, exec, mic-down"
+      ",XF86MonBrightnessUp, exec, noctalia-shell ipc call brightness increase"
+      ",XF86MonBrightnessDown, exec, noctalia-shell ipc call brightness decrease"
     ];
   };
 }

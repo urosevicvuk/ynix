@@ -8,6 +8,7 @@
     enable = true;
 
     discord.vencord.enable = true;
+    discord.openASAR.enable = false;
 
     vesktop.enable = true;
     config = {

@@ -2,7 +2,7 @@
   imports = [
     ./hyprland
     ./noctalia.nix
-    ./hypridle.nix
+    #./hypridle.nix
     ./mime.nix
     ./udiskie.nix
     ./thunar.nix

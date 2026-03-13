@@ -3,33 +3,7 @@
   pkgs,
   config,
   ...
-}:
-#let
-#  Config = pkgs.writeShellScriptBin "Config" ''
-#    SESSION="Nixy Config"
-#
-#    tmux has-session -t "$SESSION" 2>/dev/null
-#
-#    if [ $? == 0 ]; then
-#      tmux attach -t "$SESSION"
-#      exit 0
-#    fi
-#
-#    tmux new-session -d -s "$SESSION"
-#    tmux send-keys -t "$SESSION" "sleep 0.2 && clear && cd ~/.config/nixos/ && vim" C-m
-#
-#    tmux new-window -t "$SESSION" -n "nixy"
-#    tmux send-keys -t "$SESSION":1 "sleep 0.2 && clear && cd ~/.config/nixos/ && nixy loop" C-m
-#
-#    tmux new-window -t "$SESSION" -n "lazygit"
-#    tmux send-keys -t "$SESSION":2 "sleep 0.2 && clear && cd ~/.config/nixos/ && lazygit" C-m
-#
-#    tmux select-window -t "$SESSION":0
-#    tmux select-pane -t 0
-#    tmux attach -t "$SESSION"
-#  '';
-#in
-{
+}: {
   programs.tmux = {
     enable = true;
     mouse = true;
@@ -75,9 +49,7 @@
     plugins = with pkgs.tmuxPlugins; [
       vim-tmux-navigator
       sensible
-      gruvbox
       tmux-which-key
-      yank
       {
         plugin = gruvbox;
         extraConfig = ''
@@ -110,6 +82,5 @@
       }
     ];
   };
-  #home.packages = [Config];
   home.packages = [];
 }

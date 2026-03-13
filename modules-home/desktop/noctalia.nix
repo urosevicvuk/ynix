@@ -41,7 +41,7 @@
     };
 
     settings = {
-      settingsVersion = 54;
+      settingsVersion = 57;
       bar = {
         barType = "simple";
         position = "top";
@@ -85,6 +85,7 @@
               enableScrollWheel = true;
               focusedColor = "primary";
               followFocusedScreen = false;
+              fontWeight = "bold";
               groupedBorderOpacity = 1;
               hideUnoccupied = false;
               iconScale = 0.8;
@@ -111,6 +112,25 @@
           ];
           right = [
             {
+              defaultSettings = {
+                refreshInterval = 5000;
+              };
+              id = "plugin:mini-docker";
+            }
+            {
+              defaultSettings = {
+                compactMode = false;
+                defaultPeerAction = "copy-ip";
+                hideDisconnected = false;
+                pingCount = 5;
+                refreshInterval = 5000;
+                showIpAddress = true;
+                showPeerCount = true;
+                terminalCommand = "";
+              };
+              id = "plugin:tailscale";
+            }
+            {
               blacklist = [];
               chevronColor = "none";
               colorizeIcons = false;
@@ -118,6 +138,15 @@
               hidePassive = false;
               id = "Tray";
               pinned = [];
+            }
+            {
+              iconColor = "none";
+              id = "KeepAwake";
+              textColor = "none";
+            }
+            {
+              defaultSettings = {};
+              id = "plugin:kde-connect";
             }
             {
               displayMode = "onhover";
@@ -160,6 +189,12 @@
         mouseWheelAction = "none";
         reverseScroll = false;
         mouseWheelWrap = true;
+        middleClickAction = "none";
+        middleClickFollowMouse = false;
+        middleClickCommand = "";
+        rightClickAction = "controlCenter";
+        rightClickFollowMouse = true;
+        rightClickCommand = "";
         screenOverrides = [];
       };
       general = {
@@ -174,13 +209,14 @@
         screenRadiusRatio = 1;
         animationSpeed = 1;
         animationDisabled = false;
-        compactLockScreen = false;
-        lockScreenAnimations = false;
+        compactLockScreen = true;
+        lockScreenAnimations = true;
         lockOnSuspend = true;
         showSessionButtonsOnLockScreen = true;
         showHibernateOnLockScreen = true;
         enableLockScreenMediaControls = false;
         enableShadows = false;
+        enableBlurBehind = true;
         shadowDirection = "bottom_right";
         shadowOffsetX = 2;
         shadowOffsetY = 3;
@@ -199,8 +235,8 @@
         lockScreenBlur = 0;
         lockScreenTint = 0;
         keybinds = {
-          keyUp = ["Up"];
-          keyDown = ["Down"];
+          keyUp = ["Up" "Ctrl+P"];
+          keyDown = ["Down" "Ctrl+N"];
           keyLeft = ["Left"];
           keyRight = ["Right"];
           keyEnter = ["Return"];
@@ -370,11 +406,11 @@
             id = "brightness-card";
           }
           {
-            enabled = false;
+            enabled = true;
             id = "weather-card";
           }
           {
-            enabled = false;
+            enabled = true;
             id = "media-sysmon-card";
           }
         ];
@@ -402,8 +438,12 @@
         criticalColor = "";
         externalMonitor = "resources || missioncenter || jdsystemmonitor || corestats || system-monitoring-center || gnome-system-monitor || plasma-systemmonitor || mate-system-monitor || ukui-system-monitor || deepin-system-monitor || pantheon-system-monitor";
       };
+      noctaliaPerformance = {
+        disableWallpaper = true;
+        disableDesktopWidgets = true;
+      };
       dock = {
-        enabled = false;
+        enabled = true;
         position = "bottom";
         displayMode = "auto_hide";
         dockType = "floating";
@@ -419,16 +459,16 @@
         launcherIconColor = "none";
         pinnedStatic = true;
         inactiveIndicators = true;
-        groupApps = false;
+        groupApps = true;
         groupContextMenuMode = "extended";
-        groupClickAction = "cycle";
+        groupClickAction = "list";
         groupIndicatorStyle = "dots";
         deadOpacity = 0.6;
         animationSpeed = 1;
         sitOnFrame = false;
-        showDockIndicator = false;
+        showDockIndicator = true;
         indicatorThickness = 3;
-        indicatorColor = "primary";
+        indicatorColor = "secondary";
         indicatorOpacity = 0.6;
       };
       network = {
@@ -441,6 +481,7 @@
         bluetoothDetailsViewMode = "grid";
         bluetoothHideUnnamedDevices = false;
         disableDiscoverability = false;
+        bluetoothAutoConnect = true;
       };
       sessionMenu = {
         enableCountdown = true;
@@ -449,7 +490,7 @@
         showHeader = true;
         showKeybinds = true;
         largeButtonsStyle = true;
-        largeButtonsLayout = "single-row";
+        largeButtonsLayout = "grid";
         powerOptions = [
           {
             action = "lock";
@@ -497,7 +538,14 @@
             action = "rebootToUefi";
             command = "";
             countdownEnabled = true;
-            enabled = true;
+            enabled = false;
+            keybind = "";
+          }
+          {
+            action = "userspaceReboot";
+            command = "";
+            countdownEnabled = true;
+            enabled = false;
             keybind = "";
           }
         ];
@@ -550,7 +598,7 @@
       audio = {
         volumeStep = 5;
         volumeOverdrive = false;
-        cavaFrameRate = 30;
+        spectrumFrameRate = 30;
         visualizerType = "linear";
         mprisBlacklist = [];
         preferredPlayer = "";
@@ -601,7 +649,7 @@
         autoUpdate = false;
       };
       idle = {
-        enabled = false;
+        enabled = true;
         screenOffTimeout = 300;
         lockTimeout = 600;
         suspendTimeout = 660;

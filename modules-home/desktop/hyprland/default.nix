@@ -25,7 +25,6 @@ in {
   imports = [
     ./animations.nix
     ./bindings.nix
-    ./polkitagent.nix
   ];
 
   home.packages = with pkgs; [
@@ -44,6 +43,7 @@ in {
     wayland-utils
     glib
     hyprshot
+    hyprpolkitagent
   ];
 
   wayland.windowManager.hyprland = {

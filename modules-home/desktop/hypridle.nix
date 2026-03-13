@@ -5,7 +5,7 @@
   ...
 }: {
   services.hypridle = {
-    enable = true;
+    enable = false;
     settings = {
       general = {
         ignore_dbus_inhibit = true;
@@ -15,29 +15,23 @@
       };
 
       listener = [
-        # Dim screen after 4 minutes
+        # Dim screen after 5 minutes
         {
-          timeout = 240;
+          timeout = 300;
           on-timeout = "${pkgs.brightnessctl}/bin/brightnessctl -s set 10%";
           on-resume = "${pkgs.brightnessctl}/bin/brightnessctl -r";
         }
 
-        # Turn off screen after 5 minutes
+        # Turn off screen after 6 minutes
         {
-          timeout = 300;
+          timeout = 360;
           on-timeout = "hyprctl dispatch dpms off";
           on-resume = "hyprctl dispatch dpms on";
         }
 
-        # Lock screen after 10 minutes
+        # Lock and suspend after 10 minutes
         {
           timeout = 600;
-          on-timeout = "noctalia-shell ipc call lockScreen lock";
-        }
-
-        # Lock and suspend after 11 minutes
-        {
-          timeout = 660;
           on-timeout = "noctalia-shell ipc call sessionMenu lockAndSuspend";
         }
       ];
