@@ -43,6 +43,7 @@
         zed-editor
         vscode
         jetbrains.idea
+        jetbrains.goland
         jetbrains.datagrip
 
         # Utils
