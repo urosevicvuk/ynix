@@ -57,19 +57,12 @@ in {
     portalPackage = null;
 
     extraConfig = ''
-            ${
+      ${
         if isLaptop
         then ''
           gesture = 3, horizontal, workspace
         ''
         else ""
-      }
-
-      layerrule {
-        name = noctalia
-        match:namespace = noctalia-background-.*$
-        ignore_alpha = 0.5
-        blur_popups = true
       }
     '';
 
@@ -111,6 +104,8 @@ in {
         "XDG_SESSION_TYPE,wayland"
         "XDG_SESSION_DESKTOP,Hyprland"
         "MOZ_ENABLE_WAYLAND,1"
+        "MOZ_DISABLE_RDD_SANDBOX,1"
+        "LIBVA_DRIVER_NAME,radeonsi"
         "ANKI_WAYLAND,1"
         "NIXOS_OZONE_WL,1"
         "QT_AUTO_SCREEN_SCALE_FACTOR,1"
@@ -151,7 +146,7 @@ in {
         inactive_opacity = inactive-opacity;
         rounding = rounding;
         shadow = {
-          enabled = true;
+          enabled = false;
           range = 20;
           render_power = 3;
         };
@@ -168,6 +163,7 @@ in {
 
       misc = {
         vfr = true;
+        vrr = 1;
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
         disable_autoreload = true;
