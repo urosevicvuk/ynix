@@ -5,6 +5,11 @@
   ...
 }: {
   programs.nvf.settings.vim = {
+    utility.direnv.enable = true;
+
+    # Override gopls to use PATH-relative binary (picked up from direnv)
+    #lsp.servers.gopls.cmd = lib.mkForce ["gopls"];
+
     # LSP
     lsp = {
       enable = true;
@@ -59,7 +64,7 @@
     languages = {
       enableFormat = true;
       enableTreesitter = true;
-      enableExtraDiagnostics = true;
+      #enableExtraDiagnostics = true;
       enableDAP = true;
 
       go.enable = true;
@@ -111,6 +116,7 @@
         };
       };
     };
+
     snippets.luasnip.enable = true;
 
     # Diagnostics
@@ -131,7 +137,6 @@
           end
         '';
       };
-      nvim-lint.enable = true;
     };
 
     # Formatting
@@ -160,24 +165,6 @@
         lua = ["stylua"];
       };
     };
-
-    # Todo-comments
-    startPlugins = with pkgs.vimPlugins; [todo-comments-nvim];
-
-    luaConfigRC.todo-comments = ''
-      require("todo-comments").setup({
-        signs = true,
-        keywords = {
-          FIX = { icon = " ", color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
-          TODO = { icon = " ", color = "info" },
-          HACK = { icon = " ", color = "warning" },
-          WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
-          PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-          NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
-          TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
-        },
-      })
-    '';
 
     keymaps = [
       # LSP hover and actions

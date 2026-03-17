@@ -1,6 +1,5 @@
 # Editor enhancements - motion, text objects, undo
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.nvf.settings.vim = {
     # Flash.nvim - Quick motion
     utility.motion.flash-nvim.enable = true;
@@ -16,10 +15,22 @@
 
     keymaps = [
       # Flash motion
-      { key = "s"; mode = "n"; silent = true; action = "<cmd>lua require('flash').jump()<cr>"; desc = "Flash"; }
+      {
+        key = "s";
+        mode = "n";
+        silent = true;
+        action = "<cmd>lua require('flash').jump()<cr>";
+        desc = "Flash";
+      }
 
       # Undotree
-      { key = "<leader>u"; mode = "n"; silent = true; action = "<cmd>UndotreeToggle<CR>"; desc = "Toggle Undotree"; }
+      {
+        key = "<leader>u";
+        mode = "n";
+        silent = true;
+        action = "<cmd>UndotreeToggle<CR>";
+        desc = "Toggle Undotree";
+      }
     ];
   };
 }

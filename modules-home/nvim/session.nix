@@ -1,12 +1,11 @@
 # Session and project management
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.nvf.settings.vim = {
     # Project detection
     projects.project-nvim.enable = true;
 
     # Session persistence
-    startPlugins = with pkgs.vimPlugins; [ persistence-nvim ];
+    startPlugins = with pkgs.vimPlugins; [persistence-nvim];
 
     luaConfigRC.persistence = ''
       require("persistence").setup({
@@ -16,9 +15,27 @@
     '';
 
     keymaps = [
-      { key = "<leader>sr"; mode = "n"; silent = true; action = "<cmd>lua require('persistence').load()<cr>"; desc = "Restore Session"; }
-      { key = "<leader>sl"; mode = "n"; silent = true; action = "<cmd>lua require('persistence').load({ last = true })<cr>"; desc = "Restore Last Session"; }
-      { key = "<leader>sd"; mode = "n"; silent = true; action = "<cmd>lua require('persistence').stop()<cr>"; desc = "Don't Save Current Session"; }
+      {
+        key = "<leader>sr";
+        mode = "n";
+        silent = true;
+        action = "<cmd>lua require('persistence').load()<cr>";
+        desc = "Restore Session";
+      }
+      {
+        key = "<leader>sl";
+        mode = "n";
+        silent = true;
+        action = "<cmd>lua require('persistence').load({ last = true })<cr>";
+        desc = "Restore Last Session";
+      }
+      {
+        key = "<leader>sd";
+        mode = "n";
+        silent = true;
+        action = "<cmd>lua require('persistence').stop()<cr>";
+        desc = "Don't Save Current Session";
+      }
     ];
   };
 }

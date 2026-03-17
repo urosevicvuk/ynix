@@ -1,6 +1,9 @@
 # UI - theme, statusline, visuals, mini, snacks
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   programs.nvf.settings.vim = {
     # Theme
     theme = {
