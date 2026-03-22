@@ -14,7 +14,6 @@
     ../../modules-home/programs/opencode.nix
     ../../modules-home/programs/spicetify.nix
     ../../modules-home/programs/zathura.nix
-    ../../modules-home/programs/nextcloud.nix
     ../../modules-home/nvim
     ../../modules-home/scripts
     ../../secrets/shared
@@ -33,6 +32,8 @@
         signal-desktop
         vlc
         qbittorrent
+        opencloud-desktop
+        kdePackages.qtstyleplugin-kvantum
 
         # Dev
         claude-code
