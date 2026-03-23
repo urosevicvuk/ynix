@@ -213,7 +213,7 @@
       sanity_check
 
       # if TS_SEARCH_PATHS is not set use default (customized for your setup)
-      [[ -n "$TS_SEARCH_PATHS" ]] || TS_SEARCH_PATHS=(~/code)
+      [[ -n "$TS_SEARCH_PATHS" ]] || TS_SEARCH_PATHS=("$HOME/code" "$HOME/uni")
 
       # Add any extra search paths to the TS_SEARCH_PATHS array
       # e.g : EXTRA_SEARCH_PATHS=("$HOME/extra1:4" "$HOME/extra2")

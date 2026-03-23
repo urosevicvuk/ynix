@@ -46,12 +46,26 @@ in {
       "result"
       "result-*"
     ];
+    includes = [
+      {
+        condition = "gitdir:~/uni/";
+        contents = {
+          user = {
+            name = "vurosevic6422rn";
+            email = "vurosevic6422rn@raf.rs";
+            signingkey = "~/.ssh/id_ed25519_uni.pub";
+          };
+          core.sshCommand = "ssh -i ~/.ssh/id_ed25519_uni";
+        };
+      }
+    ];
     settings = {
       user = {
         name = username;
         email = email;
         signingkey = "~/.ssh/id_ed25519.pub";
       };
+
       init.defaultBranch = "master";
       pull.rebase = "false";
       push.autoSetupRemote = true;
@@ -69,6 +83,7 @@ in {
         auto = true;
         strategy = "incremental";
       };
+
       gc.autoDetach = true;
 
       alias = {
