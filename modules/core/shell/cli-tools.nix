@@ -1,0 +1,39 @@
+{
+  flake.modules.homeManager.core = [
+    (
+      { pkgs, ... }:
+      {
+        home.packages = with pkgs; [
+          fd
+          sd
+          dust
+          duf
+          procs
+          bottom
+          xh
+          oha
+          jq
+          fx
+          yq-go
+          tig
+          gitleaks
+          gh-dash
+          dive
+          ctop
+          bandwhich
+          gping
+          dog
+          trippy
+          yazi
+          just
+          watchexec
+          tokei
+          cheat
+          hyperfine
+          fastfetch
+          nvtopPackages.amd
+        ];
+      }
+    )
+  ];
+}
