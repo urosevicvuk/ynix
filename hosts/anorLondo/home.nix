@@ -16,6 +16,7 @@
     ../../modules-home/programs/opencode.nix
     ../../modules-home/programs/spicetify.nix
     ../../modules-home/programs/zathura.nix
+    ../../modules-home/nvim
     ../../modules-home/scripts
     ../../secrets/shared
     ./variables.nix
@@ -29,10 +30,11 @@
       (with pkgs; [
         # Apps
         obsidian
+        slack
+        signal-desktop
         vlc
         libreoffice-fresh
         figma-linux
-        pinta
         qbittorrent
 
         # Affinity
@@ -40,9 +42,12 @@
 
         # Dev
         claude-code
+        opencode
         gh
         bruno
         vscode
+        code-cursor
+        zed-editor
         jetbrains.goland
         jetbrains.idea
         jetbrains.datagrip

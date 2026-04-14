@@ -3,7 +3,6 @@
     ../../modules-nixos/core
     ../../modules-nixos/desktop
     ../../modules-nixos/hardware/peripherals.nix
-    ../../modules-nixos/cluster
     ./variables.nix
     ./hardware-configuration.nix
   ];
