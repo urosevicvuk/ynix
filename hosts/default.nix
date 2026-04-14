@@ -37,8 +37,8 @@ in {
       configPath = ./ariandel/configuration.nix;
       extraModules = [
         inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
-        inputs.lanzaboote.nixosModules.lanzaboote
-        inputs.disko.nixosModules.disko
+        #inputs.lanzaboote.nixosModules.lanzaboote
+        #inputs.disko.nixosModules.disko
         inputs.determinate.nixosModules.default
       ];
     };
@@ -48,22 +48,5 @@ in {
       configPath = ./firelink/configuration.nix;
       extraModules = [];
     };
-
-    #bonfire = mkHost {
-    #  configPath = ./bonfire/configuration.nix;
-    #  extraModules = [inputs.sops-nix.nixosModules.sops];
-    #};
-    #bonfire-keeper = mkHost {
-    #  configPath = ./bonfire/keeper/configuration.nix;
-    #  extraModules = [inputs.sops-nix.nixosModules.sops];
-    #};
-    #bonfire-ash = mkHost {
-    #  configPath = ./bonfire/ash/configuration.nix;
-    #  extraModules = [inputs.sops-nix.nixosModules.sops];
-    #};
-    #bonfire-ember = mkHost {
-    #  configPath = ./bonfire/ember/configuration.nix;
-    #  extraModules = [inputs.sops-nix.nixosModules.sops];
-    #};
   };
 }
