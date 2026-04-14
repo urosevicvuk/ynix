@@ -1,7 +1,7 @@
 {
   imports = [
     ./hyprland.nix
-    ./sddm.nix
+    ./tuigreet.nix
     ./fonts.nix
     ./xdg.nix
     ./services.nix
