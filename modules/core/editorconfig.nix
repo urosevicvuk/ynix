@@ -1,8 +1,5 @@
 {
-  flake.modules.homeManager.core = [
-    (
-      { ... }:
-      {
+  flake.homeManagerModules.core = { ... }: {
         editorconfig = {
           enable = true;
           settings = {
@@ -14,7 +11,5 @@
             "*.{c,js,ts,json,yaml,html,css}".indent_size = 2;
           };
         };
-      }
-    )
-  ];
+  };
 }

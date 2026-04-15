@@ -1,9 +1,7 @@
 # greetd + tuigreet display manager
 { ... }:
 {
-  flake.modules.nixos.desktop = [
-    (
-      { pkgs, ... }:
+  flake.nixosModules.desktop = { pkgs, ... }:
       let
         sessionDir = "${pkgs.hyprland}/share/wayland-sessions";
       in
@@ -19,7 +17,5 @@
         };
 
         security.pam.services.greetd.fprintAuth = false;
-      }
-    )
-  ];
+  };
 }

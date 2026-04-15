@@ -1,8 +1,5 @@
 {
-  flake.modules.nixos.core = [
-    (
-      { ... }:
-      {
+  flake.nixosModules.core = { ... }: {
         security.sudo = {
           wheelNeedsPassword = true;
           extraRules = [
@@ -30,7 +27,5 @@
             }
           ];
         };
-      }
-    )
-  ];
+  };
 }

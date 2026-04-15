@@ -1,8 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.scripts = [
-    (
-      { pkgs, ... }:
+  flake.homeManagerModules.scripts = { pkgs, ... }:
       let
         increments = "5";
 
@@ -37,7 +35,5 @@
           mic-toggle
           mic-set
         ];
-      }
-    )
-  ];
+  };
 }

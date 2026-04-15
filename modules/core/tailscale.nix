@@ -1,8 +1,5 @@
 {
-  flake.modules.nixos.core = [
-    (
-      { ... }:
-      {
+  flake.nixosModules.core = { ... }: {
         services.tailscale = {
           enable = true;
           openFirewall = true;
@@ -19,7 +16,5 @@
             "100.65.172.104" = [ "firelink" ];
           };
         };
-      }
-    )
-  ];
+  };
 }

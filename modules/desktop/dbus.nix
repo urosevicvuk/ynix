@@ -1,8 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.desktop = [
-    (
-      { pkgs, ... }:
+  flake.nixosModules.desktop = { pkgs, ... }:
       {
         services = {
           dbus = {
@@ -15,7 +13,5 @@
           libinput.enable = true;
           gnome.gnome-keyring.enable = true;
         };
-      }
-    )
-  ];
+  };
 }

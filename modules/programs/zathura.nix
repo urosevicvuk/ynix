@@ -1,10 +1,7 @@
 # Zathura - PDF viewer
 { ... }:
 {
-  flake.modules.homeManager.programs = [
-    (
-      { ... }:
-      {
+  flake.homeManagerModules.programs = { ... }: {
         programs.zathura = {
           enable = true;
 
@@ -16,7 +13,5 @@
             scroll-step = 120;
           };
         };
-      }
-    )
-  ];
+  };
 }

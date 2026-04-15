@@ -12,10 +12,7 @@ let
     ;
 in
 {
-  flake.modules.homeManager.desktop = [
-    (
-      { pkgs, ... }:
-      {
+  flake.homeManagerModules.desktop = { pkgs, ... }: {
         home.packages = with pkgs; [
           qt5.qtwayland
           qt6.qtwayland
@@ -165,7 +162,5 @@ in
             };
           };
         };
-      }
-    )
-  ];
+  };
 }

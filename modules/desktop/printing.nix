@@ -1,8 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.desktop = [
-    (
-      { ... }:
+  flake.nixosModules.desktop = { ... }:
       {
         services.printing.enable = true;
 
@@ -11,7 +9,5 @@
           nssmdns4 = true;
           openFirewall = true;
         };
-      }
-    )
-  ];
+  };
 }

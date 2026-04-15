@@ -1,8 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.desktop = [
-    (
-      { ... }:
+  flake.nixosModules.desktop = { ... }:
       {
         services.pulseaudio.enable = false;
 
@@ -14,7 +12,5 @@
           jack.enable = true;
           wireplumber.enable = true;
         };
-      }
-    )
-  ];
+  };
 }

@@ -1,8 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.desktop = [
-    (
-      { pkgs, ... }:
+  flake.nixosModules.desktop = { pkgs, ... }:
       {
         fonts = {
           packages = with pkgs; [
@@ -32,7 +30,5 @@
 
           enableDefaultPackages = false;
         };
-      }
-    )
-  ];
+  };
 }

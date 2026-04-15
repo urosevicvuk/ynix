@@ -1,8 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.desktop = [
-    (
-      { lib, ... }:
+  flake.homeManagerModules.desktop = { lib, ... }:
       with lib;
       let
         defaultApps = {
@@ -97,7 +95,5 @@
             defaultApplications = associations;
           };
         };
-      }
-    )
-  ];
+  };
 }

@@ -23,8 +23,7 @@ let
       "0";
 in
 {
-  flake.modules.homeManager.desktop = [
-    (
+  flake.homeManagerModules.desktop =
       { ... }:
       {
         wayland.windowManager.hyprland.settings = {
@@ -53,7 +52,5 @@ in
             ];
           };
         };
-      }
-    )
-  ];
+  };
 }

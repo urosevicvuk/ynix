@@ -1,8 +1,5 @@
 {
-  flake.modules.homeManager.core = [
-    (
-      { ... }:
-      {
+  flake.homeManagerModules.core = { ... }: {
         programs.direnv = {
           enable = true;
           silent = true;
@@ -13,7 +10,5 @@
           '';
           nix-direnv.enable = true;
         };
-      }
-    )
-  ];
+  };
 }

@@ -1,13 +1,8 @@
 {
-  flake.modules.homeManager.core = [
-    (
-      { ... }:
-      {
+  flake.homeManagerModules.core = { ... }: {
         programs.nix-index = {
           enable = true;
           enableZshIntegration = true;
         };
-      }
-    )
-  ];
+  };
 }

@@ -1,9 +1,7 @@
 # UI - theme, statusline, visuals, mini, snacks
 { ... }:
 {
-  flake.modules.homeManager.nvim = [
-    (
-      {
+  flake.homeManagerModules.nvim = {
         lib,
         pkgs,
         ...
@@ -93,7 +91,5 @@
             vim.g.highlightedyank_highlight_duration = 200
           '';
         };
-      }
-    )
-  ];
+  };
 }

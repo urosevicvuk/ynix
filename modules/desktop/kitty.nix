@@ -1,10 +1,7 @@
 # Kitty is a fast, featureful, GPU based terminal emulator
 { ... }:
 {
-  flake.modules.homeManager.desktop = [
-    (
-      { ... }:
-      {
+  flake.homeManagerModules.desktop = { ... }: {
         programs.kitty = {
           enable = true;
 
@@ -29,7 +26,5 @@
             touch_scroll_multiplier = 3.0;
           };
         };
-      }
-    )
-  ];
+  };
 }

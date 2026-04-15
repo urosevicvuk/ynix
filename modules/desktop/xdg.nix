@@ -1,8 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.desktop = [
-    (
-      { pkgs, ... }:
+  flake.nixosModules.desktop = { pkgs, ... }:
       {
         xdg.portal = {
           enable = true;
@@ -17,7 +15,5 @@
 
           extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
         };
-      }
-    )
-  ];
+  };
 }

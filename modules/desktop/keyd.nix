@@ -1,8 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.desktop = [
-    (
-      { ... }:
+  flake.nixosModules.desktop = { ... }:
       {
         services.keyd = {
           enable = true;
@@ -30,7 +28,5 @@
             };
           };
         };
-      }
-    )
-  ];
+  };
 }

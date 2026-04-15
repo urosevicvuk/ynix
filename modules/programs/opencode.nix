@@ -1,10 +1,7 @@
 # OpenCode AI assistant with custom agents
 { ... }:
 {
-  flake.modules.homeManager.programs = [
-    (
-      { pkgs, ... }:
-      {
+  flake.homeManagerModules.programs = { pkgs, ... }: {
         home.packages = [ pkgs.opencode ];
 
         home.file.".config/opencode/agents/reviewer.md".text = ''
@@ -181,7 +178,5 @@
 
           Conversational but precise. Skip filler phrases like "that's an interesting problem" or "great question." Get to substance immediately. Be helpful and exploratory, like talking to a senior colleague over coffee.
         '';
-      }
-    )
-  ];
+  };
 }

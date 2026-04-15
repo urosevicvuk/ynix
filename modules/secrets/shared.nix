@@ -1,11 +1,8 @@
 { inputs, ... }:
 {
-  flake.modules.homeManager.core = [
-    (
-      {
+  flake.homeManagerModules.core = {
         config,
         pkgs,
-        inputs,
         ...
       }:
       {
@@ -58,7 +55,5 @@
             };
           };
         };
-      }
-    )
-  ];
+  };
 }

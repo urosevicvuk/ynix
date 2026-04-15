@@ -1,10 +1,7 @@
 # Storage prerequisites for Longhorn distributed storage
 { ... }:
 {
-  flake.modules.nixos.cluster = [
-    (
-      { pkgs, ... }:
-      {
+  flake.nixosModules.cluster = { pkgs, ... }: {
         services.openiscsi = {
           enable = true;
           name = "iqn.2024-01.org.nixos:initiator";
@@ -26,7 +23,5 @@
         systemd.tmpfiles.rules = [
           "L+ /usr/sbin/iscsiadm - - - - /run/current-system/sw/bin/iscsiadm"
         ];
-      }
-    )
-  ];
+  };
 }

@@ -1,9 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.desktop = [
-    (
-      { pkgs, ... }:
-      {
+  flake.homeManagerModules.desktop = { pkgs, ... }: {
         wayland.windowManager.hyprland.settings = {
           bind = [
             # Basic things
@@ -115,7 +112,5 @@
             ",XF86MonBrightnessDown, exec, noctalia-shell ipc call brightness decrease"
           ];
         };
-      }
-    )
-  ];
+  };
 }

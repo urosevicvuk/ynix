@@ -1,8 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.cluster = [
-    (
-      {
+  flake.nixosModules.cluster = {
         config,
         pkgs,
         ...
@@ -35,7 +33,5 @@
         ];
 
         environment.sessionVariables.KUBECONFIG = "/etc/rancher/k3s/k3s.yaml";
-      }
-    )
-  ];
+  };
 }

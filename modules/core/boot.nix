@@ -1,8 +1,5 @@
 {
-  flake.modules.nixos.core = [
-    (
-      { pkgs, ... }:
-      {
+  flake.nixosModules.core = { pkgs, ... }: {
         boot = {
           initrd.kernelModules = [ "amdgpu" ];
           bootspec.enable = true;
@@ -18,7 +15,5 @@
           kernelPackages = pkgs.linuxPackages_latest;
         };
         powerManagement.cpuFreqGovernor = "schedutil";
-      }
-    )
-  ];
+  };
 }

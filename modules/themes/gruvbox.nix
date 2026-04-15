@@ -1,12 +1,9 @@
 { inputs, ... }:
 {
-  flake.modules.nixos.core = [
-    (
-      {
+  flake.nixosModules.core = {
         lib,
         pkgs,
         config,
-        inputs,
         ...
       }:
       {
@@ -101,7 +98,5 @@
                 } -resize 2880x1920^ -gravity center -extent 2880x1920 -quality 92 $out
               '';
         };
-      }
-    )
-  ];
+  };
 }

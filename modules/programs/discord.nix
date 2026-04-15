@@ -1,10 +1,7 @@
 # Discord via nixcord
 { inputs, ... }:
 {
-  flake.modules.homeManager.programs = [
-    (
-      { inputs, ... }:
-      {
+  flake.homeManagerModules.programs = { ... }: {
         imports = [ inputs.nixcord.homeModules.nixcord ];
 
         stylix.targets.nixcord.enable = false;
@@ -24,7 +21,5 @@
             ];
           };
         };
-      }
-    )
-  ];
+  };
 }

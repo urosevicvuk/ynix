@@ -1,8 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.programs = [
-    (
-      {
+  flake.homeManagerModules.programs = {
         pkgs,
         lib,
         ...
@@ -16,7 +14,5 @@
             color_theme = lib.mkForce "gruvbox_dark_v2";
           };
         };
-      }
-    )
-  ];
+  };
 }

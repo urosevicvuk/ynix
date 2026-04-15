@@ -1,9 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.services = [
-    (
-      { ... }:
-      {
+  flake.nixosModules.services = { ... }: {
         programs = {
           steam = {
             enable = true;
@@ -24,7 +21,5 @@
         };
 
         hardware.steam-hardware.enable = true;
-      }
-    )
-  ];
+  };
 }

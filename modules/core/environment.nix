@@ -1,8 +1,5 @@
 {
-  flake.modules.nixos.core = [
-    (
-      { pkgs, ... }:
-      {
+  flake.nixosModules.core = { pkgs, ... }: {
         environment = {
           variables = {
             XDG_DATA_HOME = "$HOME/.local/share";
@@ -35,7 +32,5 @@
           info.enable = false;
           nixos.enable = false;
         };
-      }
-    )
-  ];
+  };
 }

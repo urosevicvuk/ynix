@@ -1,9 +1,6 @@
 { inputs, ... }:
 {
-  flake.modules.nixos.core = [
-    (
-      { ... }:
-      {
+  flake.nixosModules.core = { ... }: {
         nixpkgs.config.allowUnfree = true;
         nix = {
           nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
@@ -49,7 +46,5 @@
           ];
           allowReboot = false;
         };
-      }
-    )
-  ];
+  };
 }

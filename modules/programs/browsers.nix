@@ -1,11 +1,8 @@
 # Zen and Helium browsers
 { inputs, ... }:
 {
-  flake.modules.homeManager.programs = [
-    (
-      {
+  flake.homeManagerModules.programs = {
         pkgs,
-        inputs,
         ...
       }:
       {
@@ -13,7 +10,5 @@
           inputs.helium-browser.packages.${pkgs.system}.default
           inputs.zen-browser.packages.${pkgs.system}.default
         ];
-      }
-    )
-  ];
+  };
 }

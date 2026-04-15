@@ -1,7 +1,5 @@
 {
-  flake.modules.homeManager.core = [
-    (
-      {
+  flake.homeManagerModules.core = {
         config,
         lib,
         ...
@@ -34,7 +32,5 @@
             "--no-bold"
           ];
         };
-      }
-    )
-  ];
+  };
 }

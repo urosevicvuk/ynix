@@ -1,8 +1,5 @@
 {
-  flake.modules.homeManager.core = [
-    (
-      { pkgs, ... }:
-      {
+  flake.homeManagerModules.core = { pkgs, ... }: {
         home.packages = with pkgs; [
           fd
           sd
@@ -33,7 +30,5 @@
           fastfetch
           nvtopPackages.amd
         ];
-      }
-    )
-  ];
+  };
 }

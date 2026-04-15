@@ -1,8 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.desktop = [
-    (
-      { pkgs, ... }:
+  flake.nixosModules.desktop = { pkgs, ... }:
       {
         hardware.graphics = {
           enable = true;
@@ -14,7 +12,5 @@
             libvdpau-va-gl
           ];
         };
-      }
-    )
-  ];
+  };
 }

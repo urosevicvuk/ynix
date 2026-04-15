@@ -2,9 +2,7 @@ let
   theme = import ../../themes/_theme-data.nix;
 in
 {
-  flake.modules.homeManager.core = [
-    (
-      {
+  flake.homeManagerModules.core = {
         pkgs,
         lib,
         config,
@@ -167,7 +165,5 @@ in
             }
           '';
         };
-      }
-    )
-  ];
+  };
 }

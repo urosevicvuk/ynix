@@ -1,16 +1,11 @@
 # Udiskie - automatic mounting of removable storage devices
 { ... }:
 {
-  flake.modules.homeManager.desktop = [
-    (
-      { ... }:
-      {
+  flake.homeManagerModules.desktop = { ... }: {
         services.udiskie = {
           enable = true;
           notify = true;
           automount = true;
         };
-      }
-    )
-  ];
+  };
 }

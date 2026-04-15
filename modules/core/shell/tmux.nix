@@ -1,8 +1,5 @@
 {
-  flake.modules.homeManager.core = [
-    (
-      { pkgs, ... }:
-      {
+  flake.homeManagerModules.core = { pkgs, ... }: {
         programs.tmux = {
           enable = true;
           mouse = true;
@@ -65,7 +62,5 @@
           ];
         };
         home.packages = [ ];
-      }
-    )
-  ];
+  };
 }

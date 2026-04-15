@@ -1,9 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.programs = [
-    (
-      { pkgs, ... }:
-      {
+  flake.homeManagerModules.programs = { pkgs, ... }: {
         programs.obs-studio = {
           enable = true;
           plugins = with pkgs.obs-studio-plugins; [
@@ -24,7 +21,5 @@
           allow_token_by_default=1
           restore_token=ask
         '';
-      }
-    )
-  ];
+  };
 }

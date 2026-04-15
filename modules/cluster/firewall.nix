@@ -1,10 +1,7 @@
 # Server firewall configuration
 { ... }:
 {
-  flake.modules.nixos.cluster = [
-    (
-      { lib, ... }:
-      {
+  flake.nixosModules.cluster = { lib, ... }: {
         networking.firewall = {
           enable = true;
 
@@ -16,7 +13,5 @@
           allowPing = lib.mkForce true;
           logRefusedConnections = false;
         };
-      }
-    )
-  ];
+  };
 }

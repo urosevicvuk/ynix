@@ -1,10 +1,7 @@
 # nvf - Neovim configuration: options, globals, and general keymaps
 { inputs, ... }:
 {
-  flake.modules.homeManager.nvim = [
-    (
-      { inputs, ... }:
-      {
+  flake.homeManagerModules.nvim = { ... }: {
         imports = [ inputs.nvf.homeManagerModules.default ];
 
         programs.nvf.enable = true;
@@ -312,7 +309,5 @@
             }
           ];
         };
-      }
-    )
-  ];
+  };
 }

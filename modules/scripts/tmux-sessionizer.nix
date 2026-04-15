@@ -1,9 +1,6 @@
 { ... }:
 {
-  flake.modules.homeManager.scripts = [
-    (
-      { pkgs, ... }:
-      {
+  flake.homeManagerModules.scripts = { pkgs, ... }: {
         home.packages = [
           (pkgs.writeShellScriptBin "tmux-sessionizer" ''
             #!/usr/bin/env bash
@@ -310,7 +307,5 @@
             switch_to "$selected_name"
           '')
         ];
-      }
-    )
-  ];
+  };
 }

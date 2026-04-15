@@ -1,12 +1,9 @@
 # Spicetify - Spotify client customizer
 { inputs, ... }:
 {
-  flake.modules.homeManager.programs = [
-    (
-      {
+  flake.homeManagerModules.programs = {
         pkgs,
         config,
-        inputs,
         ...
       }:
       let
@@ -38,7 +35,5 @@
             keyboardShortcut
           ];
         };
-      }
-    )
-  ];
+  };
 }

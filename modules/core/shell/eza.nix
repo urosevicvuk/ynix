@@ -1,8 +1,5 @@
 {
-  flake.modules.homeManager.core = [
-    (
-      { ... }:
-      {
+  flake.homeManagerModules.core = { ... }: {
         programs.eza = {
           enable = true;
           icons = "auto";
@@ -13,7 +10,5 @@
             "--icons=always"
           ];
         };
-      }
-    )
-  ];
+  };
 }

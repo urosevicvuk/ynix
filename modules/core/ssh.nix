@@ -1,8 +1,5 @@
 {
-  flake.modules.nixos.core = [
-    (
-      { ... }:
-      {
+  flake.nixosModules.core = { ... }: {
         services.openssh = {
           enable = true;
           ports = [ 22 ];
@@ -16,7 +13,5 @@
         users.users.vyke.openssh.authorizedKeys.keys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINQpgKiftVTzqkfu6zbRpvZFtWZH/HBQSj6DhuVvVRul vuk23urosevic@gmail.com"
         ];
-      }
-    )
-  ];
+  };
 }

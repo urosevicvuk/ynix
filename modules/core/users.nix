@@ -1,8 +1,5 @@
 {
-  flake.modules.nixos.core = [
-    (
-      { pkgs, ... }:
-      {
+  flake.nixosModules.core = { pkgs, ... }: {
         programs.zsh.enable = true;
         users = {
           defaultUserShell = pkgs.zsh;
@@ -18,7 +15,5 @@
             ];
           };
         };
-      }
-    )
-  ];
+  };
 }

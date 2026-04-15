@@ -1,8 +1,6 @@
 { ... }:
 {
-  flake.modules.nixos.desktop = [
-    (
-      { pkgs, ... }:
+  flake.nixosModules.desktop = { pkgs, ... }:
       {
         environment.systemPackages = with pkgs; [ blueman ];
 
@@ -14,7 +12,5 @@
 
         services.blueman.enable = true;
         hardware.xpadneo.enable = false;
-      }
-    )
-  ];
+  };
 }
