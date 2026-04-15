@@ -1,6 +1,6 @@
 # Development tool packages shared across all dev hosts
 {
-  flake.homeModules.dev = { pkgs, ... }: {
+  flake.homeModules.dev = {pkgs, ...}: {
     home.packages = with pkgs; [
       claude-code
       gh
