@@ -9,7 +9,7 @@
     ];
   };
 
-  flake.nixosModules.firelink = { pkgs, ... }: {
+  flake.nixosModules.firelink = {pkgs, ...}: {
     imports = [
       self.nixosModules.core
       self.nixosModules.cluster
@@ -23,7 +23,7 @@
 
     # Inline docker (not using services group on server)
     virtualisation.docker.enable = true;
-    users.users.vyke.extraGroups = [ "docker" ];
+    users.users.vyke.extraGroups = ["docker"];
     environment.systemPackages = with pkgs; [
       lazydocker
       docker-compose
@@ -31,7 +31,7 @@
 
     # System-level sops secrets
     sops = {
-      age.sshKeyPaths = [ "/home/vyke/.ssh/id_ed25519" ];
+      age.sshKeyPaths = ["/home/vyke/.ssh/id_ed25519"];
       defaultSopsFormat = "yaml";
 
       secrets = {
@@ -57,7 +57,7 @@
 
     # Explicitly add nvim to firelink (server has core + cluster, no programs group)
     home-manager.users.vyke = {
-      imports = [ self.homeManagerModules.nvim ];
+      imports = [self.homeManagerModules.nvim];
       home.stateVersion = "24.05";
 
       home.packages = with pkgs; [

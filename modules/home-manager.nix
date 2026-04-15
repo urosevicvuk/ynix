@@ -2,21 +2,19 @@
   config,
   inputs,
   ...
-}:
-let
+}: let
   hm = config.flake.homeManagerModules;
   username = "vyke";
-in
-{
+in {
   flake.nixosModules = {
-    core = { ... }: {
-      imports = [ inputs.home-manager.nixosModules.home-manager ];
+    core = {...}: {
+      imports = [inputs.home-manager.nixosModules.home-manager];
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
         backupFileExtension = "hm-backup";
         users.${username} = {
-          imports = [ hm.core ];
+          imports = [hm.core];
           home = {
             inherit username;
             homeDirectory = "/home/${username}";
@@ -25,11 +23,11 @@ in
         };
       };
     };
-    desktop = { ... }: {
-      home-manager.users.${username}.imports = [ hm.desktop ];
+    desktop = {...}: {
+      home-manager.users.${username}.imports = [hm.desktop];
     };
-    programs = { ... }: {
-      home-manager.users.${username}.imports = [ hm.programs hm.nvim hm.scripts ];
+    programs = {...}: {
+      home-manager.users.${username}.imports = [hm.programs hm.nvim hm.scripts];
     };
   };
 }

@@ -1,25 +1,24 @@
 # Discord via nixcord
-{ inputs, ... }:
-{
-  flake.homeManagerModules.programs = { ... }: {
-        imports = [ inputs.nixcord.homeModules.nixcord ];
+{inputs, ...}: {
+  flake.homeManagerModules.programs = {...}: {
+    imports = [inputs.nixcord.homeModules.nixcord];
 
-        stylix.targets.nixcord.enable = false;
+    stylix.targets.nixcord.enable = false;
 
-        programs.nixcord = {
-          enable = true;
+    programs.nixcord = {
+      enable = true;
 
-          discord.vencord.enable = true;
-          discord.openASAR.enable = false;
+      discord.vencord.enable = true;
+      discord.openASAR.enable = false;
 
-          vesktop.enable = true;
-          config = {
-            useQuickCss = true;
-            frameless = true;
-            themeLinks = [
-              "https://raw.githubusercontent.com/shvedes/discord-gruvbox/refs/heads/main/gruvbox-dark.theme.css"
-            ];
-          };
-        };
+      vesktop.enable = true;
+      config = {
+        useQuickCss = true;
+        frameless = true;
+        themeLinks = [
+          "https://raw.githubusercontent.com/shvedes/discord-gruvbox/refs/heads/main/gruvbox-dark.theme.css"
+        ];
+      };
+    };
   };
 }

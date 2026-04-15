@@ -1,12 +1,11 @@
 # Hardware peripherals support - gaming mice, RGB controllers, Logitech devices
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   services = {
     ratbagd.enable = true;
     hardware.openrgb.enable = true;
 
     udev = {
-      packages = [ pkgs.solaar ];
+      packages = [pkgs.solaar];
       extraRules = ''
         SUBSYSTEM=="hidraw", ATTRS{idVendor}=="046d", MODE="0664", GROUP="input"
         SUBSYSTEM=="hidraw", KERNELS=="*046D*", MODE="0664", GROUP="input"

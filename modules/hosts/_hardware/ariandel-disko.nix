@@ -118,7 +118,7 @@
             size = "100%FREE";
             content = {
               type = "btrfs";
-              extraArgs = [ "-f" ]; # Force format
+              extraArgs = ["-f"]; # Force format
 
               # BTRFS subvolumes for organization and independent snapshots
               subvolumes = {

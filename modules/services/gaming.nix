@@ -1,25 +1,24 @@
-{ ... }:
-{
-  flake.nixosModules.gaming = { ... }: {
-        programs = {
-          steam = {
-            enable = true;
-            remotePlay.openFirewall = true;
-            dedicatedServer.openFirewall = true;
-          };
-          gamescope.enable = true;
-          gamemode = {
-            enable = true;
-            settings = {
-              gpu = {
-                apply_gpu_optimisations = "accept-responsibility";
-                gpu_device = 0;
-                amd_performance_level = "high";
-              };
-            };
+{...}: {
+  flake.nixosModules.gaming = {...}: {
+    programs = {
+      steam = {
+        enable = true;
+        remotePlay.openFirewall = true;
+        dedicatedServer.openFirewall = true;
+      };
+      gamescope.enable = true;
+      gamemode = {
+        enable = true;
+        settings = {
+          gpu = {
+            apply_gpu_optimisations = "accept-responsibility";
+            gpu_device = 0;
+            amd_performance_level = "high";
           };
         };
+      };
+    };
 
-        hardware.steam-hardware.enable = true;
+    hardware.steam-hardware.enable = true;
   };
 }

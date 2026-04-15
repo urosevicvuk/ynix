@@ -1,7 +1,6 @@
 # Preferences - shared option definitions for all hosts
-{ lib, ... }:
-{
-  flake.nixosModules.base = { lib, ... }: {
+{lib, ...}: {
+  flake.nixosModules.base = {lib, ...}: {
     options.preferences = {
       username = lib.mkOption {
         type = lib.types.str;

@@ -1,13 +1,16 @@
-{ ... }:
-{
-  flake.nixosModules.docker = { pkgs, config, ... }: {
-        virtualisation.docker.enable = true;
+{...}: {
+  flake.nixosModules.docker = {
+    pkgs,
+    config,
+    ...
+  }: {
+    virtualisation.docker.enable = true;
 
-        users.users.${config.preferences.username}.extraGroups = [ "docker" ];
+    users.users.${config.preferences.username}.extraGroups = ["docker"];
 
-        environment.systemPackages = with pkgs; [
-          lazydocker
-          docker-compose
-        ];
+    environment.systemPackages = with pkgs; [
+      lazydocker
+      docker-compose
+    ];
   };
 }

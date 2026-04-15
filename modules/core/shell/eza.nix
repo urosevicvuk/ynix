@@ -1,14 +1,14 @@
 {
-  flake.homeManagerModules.base = { ... }: {
-        programs.eza = {
-          enable = true;
-          icons = "auto";
-          extraOptions = [
-            "--group-directories-first"
-            "--no-quotes"
-            "--git-ignore"
-            "--icons=always"
-          ];
-        };
+  flake.homeManagerModules.base = {...}: {
+    programs.eza = {
+      enable = true;
+      icons = "auto";
+      extraOptions = [
+        "--group-directories-first"
+        "--no-quotes"
+        "--git-ignore"
+        "--icons=always"
+      ];
+    };
   };
 }

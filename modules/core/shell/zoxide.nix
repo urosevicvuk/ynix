@@ -1,8 +1,8 @@
 {
-  flake.homeManagerModules.base = { ... }: {
-        programs.zoxide = {
-          enable = true;
-          enableZshIntegration = true;
-        };
+  flake.homeManagerModules.base = {...}: {
+    programs.zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+    };
   };
 }
