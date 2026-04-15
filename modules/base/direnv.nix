@@ -1,5 +1,5 @@
 {
-  flake.homeManagerModules.base = {...}: {
+  flake.homeModules.base = {...}: {
     programs.direnv = {
       enable = true;
       silent = true;

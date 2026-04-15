@@ -1,5 +1,5 @@
 {...}: {
-  flake.homeManagerModules.desktop = {lib, ...}:
+  flake.homeModules.desktop = {lib, ...}:
     with lib; let
       defaultApps = {
         browser = ["zen-beta.desktop"];

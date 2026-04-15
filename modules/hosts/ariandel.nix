@@ -15,9 +15,16 @@
     ...
   }: {
     imports = [
-      self.nixosModules.core
+      self.nixosModules.base
       self.nixosModules.desktop
-      self.nixosModules.programs
+      self.nixosModules.dev
+      self.nixosModules.docker
+      self.nixosModules.discord
+      self.nixosModules.spicetify
+      self.nixosModules.browsers
+      self.nixosModules.btop
+      self.nixosModules.obs
+      self.nixosModules.zathura
 
       inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
       inputs.determinate.nixosModules.default
@@ -34,54 +41,15 @@
 
     services.fprintd.enable = true;
 
-    programs.nh.flake = "/home/vyke/code/ynix";
-    environment.variables.NH_FLAKE = "/home/vyke/code/ynix";
-
     home-manager.users.vyke = {
       home.stateVersion = "24.05";
       home.file.".face.icon".source = ./_assets/ariandel-profile.png;
 
       home.packages = with pkgs; [
-        obsidian
-        slack
-        signal-desktop
-        vlc
-        qbittorrent
-        opencloud-desktop
-        kdePackages.qtstyleplugin-kvantum
-
-        claude-code
-        opencode
-        gh
-        bruno
-        code-cursor
-        zed-editor
-        vscode
-        jetbrains.idea
-        jetbrains.goland
-        jetbrains.datagrip
-
-        nh
-        nix-init
-        ntfs3g
-        p7zip
-        ffmpeg
-        optipng
-        bluez
-        curtail
-        moreutils
-        vulkan-tools
-
         acpi
         powertop
         figlet
         radeontop
-
-        peaclock
-        cbonsai
-        pipes
-        cmatrix
-        neo-cowsay
       ];
 
       wayland.windowManager.hyprland.settings = {

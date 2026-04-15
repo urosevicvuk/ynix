@@ -1,18 +1,24 @@
 {
   self,
+  config,
   inputs,
   ...
-}: {
+}:
+let
+  hm = config.flake.homeModules;
+in
+{
   flake.nixosConfigurations.firelink = inputs.nixpkgs.lib.nixosSystem {
     modules = [
       self.nixosModules.firelink
     ];
   };
 
-  flake.nixosModules.firelink = {pkgs, ...}: {
+  flake.nixosModules.firelink = {config, pkgs, lib, ...}: {
     imports = [
-      self.nixosModules.core
+      self.nixosModules.base
       self.nixosModules.cluster
+      self.nixosModules.docker
 
       inputs.sops-nix.nixosModules.sops
       ./_hardware/firelink.nix
@@ -20,14 +26,6 @@
 
     networking.hostName = "firelink";
     system.stateVersion = "24.05";
-
-    # Inline docker (not using services group on server)
-    virtualisation.docker.enable = true;
-    users.users.vyke.extraGroups = ["docker"];
-    environment.systemPackages = with pkgs; [
-      lazydocker
-      docker-compose
-    ];
 
     # System-level sops secrets
     sops = {
@@ -55,23 +53,16 @@
       };
     };
 
-    # Explicitly add nvim to firelink (server has core + cluster, no programs group)
-    home-manager.users.vyke = {
-      imports = [self.homeManagerModules.nvim];
+    # Explicitly add dev HM modules to firelink (server has base + cluster, no desktop/dev nixos groups)
+    home-manager.users.${config.preferences.username} = {
+      imports = [hm.dev];
       home.stateVersion = "24.05";
 
       home.packages = with pkgs; [
         jq
         just
-        wireguard-tools
-        nh
-        zip
-        unzip
-        optipng
         fastfetch
-        btop
         tailscale
-        claude-code
       ];
     };
   };

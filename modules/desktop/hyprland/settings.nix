@@ -11,7 +11,7 @@
     blur
     ;
 in {
-  flake.homeManagerModules.desktop = {pkgs, ...}: {
+  flake.homeModules.desktop = {pkgs, ...}: {
     home.packages = with pkgs; [
       qt5.qtwayland
       qt6.qtwayland

@@ -1,7 +1,7 @@
 let
   theme = import ../../themes/_theme-data.nix;
 in {
-  flake.homeManagerModules.base = {
+  flake.homeModules.base = {
     pkgs,
     lib,
     config,

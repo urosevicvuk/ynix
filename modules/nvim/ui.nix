@@ -1,6 +1,6 @@
 # UI - theme, statusline, visuals, mini, snacks
 {...}: {
-  flake.homeManagerModules.dev = {
+  flake.homeModules.nvim = {
     lib,
     pkgs,
     ...

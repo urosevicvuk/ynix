@@ -1,5 +1,5 @@
 {...}: {
-  flake.homeManagerModules.desktop = {pkgs, ...}: let
+  flake.homeModules.desktop = {pkgs, ...}: let
     increments = "5";
 
     sound-change = pkgs.writeShellScriptBin "sound-change" ''

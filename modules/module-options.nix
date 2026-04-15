@@ -1,7 +1,7 @@
 {lib, ...}: {
-  options.flake.homeManagerModules = lib.mkOption {
+  options.flake.homeModules = lib.mkOption {
     type = lib.types.attrsOf lib.types.deferredModule;
     default = {};
-    description = "Home Manager module groups composed by feature modules";
+    description = "Internal Home Manager module groups (base, desktop, dev) wired into nixosModules";
   };
 }

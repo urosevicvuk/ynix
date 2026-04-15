@@ -1,6 +1,6 @@
 # Coding - LSP, treesitter, languages, completion, diagnostics, formatting
 {...}: {
-  flake.homeManagerModules.dev = {lib, ...}: {
+  flake.homeModules.nvim = {lib, ...}: {
     programs.nvf.settings.vim = {
       utility.direnv.enable = true;
 

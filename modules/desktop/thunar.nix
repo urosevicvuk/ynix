@@ -1,6 +1,6 @@
 # Thunar file manager
 {...}: {
-  flake.homeManagerModules.desktop = {pkgs, ...}: {
+  flake.homeModules.desktop = {pkgs, ...}: {
     home.packages = with pkgs; [
       xfconf
       thunar

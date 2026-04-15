@@ -1,5 +1,5 @@
 {
-  flake.homeManagerModules.base = {...}: {
+  flake.homeModules.base = {...}: {
     editorconfig = {
       enable = true;
       settings = {

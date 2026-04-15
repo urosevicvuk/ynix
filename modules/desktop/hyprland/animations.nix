@@ -19,7 +19,7 @@
     then "3"
     else "0";
 in {
-  flake.homeManagerModules.desktop = {...}: {
+  flake.homeModules.desktop = {...}: {
     wayland.windowManager.hyprland.settings = {
       animations = {
         enabled = animationSpeed != "none";

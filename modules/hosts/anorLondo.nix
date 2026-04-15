@@ -15,10 +15,18 @@
     ...
   }: {
     imports = [
-      self.nixosModules.core
+      self.nixosModules.base
       self.nixosModules.desktop
-      self.nixosModules.programs
-      self.nixosModules.services
+      self.nixosModules.dev
+      self.nixosModules.gaming
+      self.nixosModules.docker
+      self.nixosModules.filesharing
+      self.nixosModules.discord
+      self.nixosModules.spicetify
+      self.nixosModules.browsers
+      self.nixosModules.btop
+      self.nixosModules.obs
+      self.nixosModules.zathura
 
       inputs.sops-nix.nixosModules.sops
       ./_hardware/anorLondo.nix
@@ -32,55 +40,12 @@
     boot.supportedFilesystems = ["ntfs"];
     boot.loader.grub.useOSProber = true;
 
-    programs.nh.flake = "/home/vyke/code/ynix";
-    environment.variables.NH_FLAKE = "/home/vyke/code/ynix";
-
     home-manager.users.vyke = {
       home.stateVersion = "24.05";
       home.file.".face.icon".source = ./_assets/anorLondo-profile.png;
 
       home.packages = with pkgs; [
-        obsidian
-        slack
-        signal-desktop
-        vlc
-        libreoffice-fresh
-        figma-linux
-        qbittorrent
-
         inputs.affinity-nix.packages.x86_64-linux.v3
-
-        claude-code
-        opencode
-        gh
-        bruno
-        vscode
-        code-cursor
-        zed-editor
-        jetbrains.goland
-        jetbrains.idea
-        jetbrains.datagrip
-        jetbrains.webstorm
-
-        nh
-        nix-init
-        ntfs3g
-        p7zip
-        ffmpeg
-        optipng
-        bluez
-        curtail
-        moreutils
-        vulkan-tools
-        bluetuith
-        wiremix
-        freerdp
-
-        peaclock
-        cbonsai
-        pipes
-        cmatrix
-        neo-cowsay
       ];
 
       wayland.windowManager.hyprland.settings = {
