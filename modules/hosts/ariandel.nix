@@ -16,7 +16,6 @@
     imports = [
       self.nixosModules.base
       self.nixosModules.desktop
-      self.nixosModules.dev
       self.nixosModules.docker
       self.nixosModules.discord
       self.nixosModules.spicetify

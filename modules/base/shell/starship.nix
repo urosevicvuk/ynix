@@ -32,7 +32,7 @@
           style = "";
         };
         git_branch = {
-          symbol = "[](${background-alt}) ";
+          symbol = "[](${background-alt}) ";
           style = "fg:${accent} bg:${background-alt}";
           format = "on [$symbol$branch]($style)[](${background-alt}) ";
         };
