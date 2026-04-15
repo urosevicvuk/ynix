@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.homeManagerModules.scripts = { pkgs, ... }:
+  flake.homeManagerModules.desktop = { pkgs, ... }:
       let
         increments = "5";
 

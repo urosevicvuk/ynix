@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.core = { ... }: {
+  flake.nixosModules.base = { config, ... }: {
         networking = {
           wireless.iwd = {
             enable = true;
@@ -22,7 +22,7 @@
             };
           };
         };
-        users.users.vyke.extraGroups = [ "networkmanager" ];
+        users.users.${config.preferences.username}.extraGroups = [ "networkmanager" ];
         systemd.services.NetworkManager-wait-online.enable = false;
   };
 }

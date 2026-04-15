@@ -1,10 +1,10 @@
 {
-  flake.nixosModules.core = { ... }: {
+  flake.nixosModules.base = { config, ... }: {
         security.sudo = {
           wheelNeedsPassword = true;
           extraRules = [
             {
-              users = [ "vyke" ];
+              users = [ config.preferences.username ];
               commands = [
                 {
                   command = "/run/current-system/sw/bin/nixos-rebuild";
@@ -13,10 +13,10 @@
               ];
             }
             {
-              users = [ "vyke" ];
+              users = [ config.preferences.username ];
               commands = [
                 {
-                  command = "/etc/profiles/per-user/vyke/bin/tailscale";
+                  command = "/etc/profiles/per-user/${config.preferences.username}/bin/tailscale";
                   options = [ "NOPASSWD" ];
                 }
                 {

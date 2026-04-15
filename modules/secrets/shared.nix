@@ -1,5 +1,5 @@
 {inputs, ...}: {
-  flake.homeManagerModules.core = {
+  flake.homeManagerModules.base = {
     config,
     pkgs,
     ...

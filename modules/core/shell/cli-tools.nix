@@ -1,5 +1,5 @@
 {
-  flake.homeManagerModules.core = { pkgs, ... }: {
+  flake.homeManagerModules.base = { pkgs, ... }: {
         home.packages = with pkgs; [
           fd
           sd

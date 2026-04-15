@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  flake.nixosModules.core = { ... }: {
+  flake.nixosModules.base = { config, ... }: {
         nixpkgs.config.allowUnfree = true;
         nix = {
           nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
@@ -33,12 +33,12 @@
         };
         programs.nh = {
           enable = true;
-          flake = "/home/vyke/code/ynix";
+          flake = config.preferences.configDirectory;
         };
         system.autoUpgrade = {
           enable = false;
           dates = "04:00";
-          flake = "/home/vyke/code/ynix";
+          flake = config.preferences.configDirectory;
           flags = [
             "--update-input"
             "nixpkgs"

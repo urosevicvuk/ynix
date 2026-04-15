@@ -1,7 +1,7 @@
 # Navigation - file explorer, fuzzy finder, marks, buffers
 { ... }:
 {
-  flake.homeManagerModules.nvim = { pkgs, ... }: {
+  flake.homeManagerModules.dev = { pkgs, ... }: {
         programs.nvf.settings.vim = {
           utility.yazi-nvim = {
             enable = true;

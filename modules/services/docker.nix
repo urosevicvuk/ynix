@@ -1,9 +1,9 @@
 { ... }:
 {
-  flake.nixosModules.services = { pkgs, ... }: {
+  flake.nixosModules.docker = { pkgs, config, ... }: {
         virtualisation.docker.enable = true;
 
-        users.users.vyke.extraGroups = [ "docker" ];
+        users.users.${config.preferences.username}.extraGroups = [ "docker" ];
 
         environment.systemPackages = with pkgs; [
           lazydocker

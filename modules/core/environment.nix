@@ -1,9 +1,9 @@
 {
-  flake.nixosModules.core = { pkgs, ... }: {
+  flake.nixosModules.base = { pkgs, config, ... }: {
         environment = {
           variables = {
             XDG_DATA_HOME = "$HOME/.local/share";
-            NH_FLAKE = "/home/vyke/code/ynix";
+            NH_FLAKE = config.preferences.configDirectory;
             PASSWORD_STORE_DIR = "$HOME/.local/share/password-store";
             EDITOR = "nvim";
             TERMINAL = "kitty";

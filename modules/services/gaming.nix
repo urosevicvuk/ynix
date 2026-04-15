@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.nixosModules.services = { ... }: {
+  flake.nixosModules.gaming = { ... }: {
         programs = {
           steam = {
             enable = true;

@@ -1,7 +1,7 @@
 # Git integration
 { ... }:
 {
-  flake.homeManagerModules.nvim = { pkgs, ... }: {
+  flake.homeManagerModules.dev = { pkgs, ... }: {
         programs.nvf.settings.vim = {
           terminal.toggleterm = {
             enable = true;

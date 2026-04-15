@@ -1,7 +1,7 @@
 # Session and project management
 { ... }:
 {
-  flake.homeManagerModules.nvim = { pkgs, ... }: {
+  flake.homeManagerModules.dev = { pkgs, ... }: {
         programs.nvf.settings.vim = {
           projects.project-nvim.enable = true;
 

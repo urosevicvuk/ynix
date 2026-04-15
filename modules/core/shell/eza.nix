@@ -1,5 +1,5 @@
 {
-  flake.homeManagerModules.core = { ... }: {
+  flake.homeManagerModules.base = { ... }: {
         programs.eza = {
           enable = true;
           icons = "auto";

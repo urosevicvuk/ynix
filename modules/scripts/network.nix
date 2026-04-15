@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.homeManagerModules.scripts = { pkgs, ... }:
+  flake.homeManagerModules.desktop = { pkgs, ... }:
       let
         wifi-toggle = pkgs.writeShellScriptBin "wifi-toggle" ''
           status=$(${pkgs.networkmanager}/bin/nmcli radio wifi)

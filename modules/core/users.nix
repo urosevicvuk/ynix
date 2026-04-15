@@ -1,11 +1,11 @@
 {
-  flake.nixosModules.core = { pkgs, ... }: {
+  flake.nixosModules.base = { pkgs, config, ... }: {
         programs.zsh.enable = true;
         users = {
           defaultUserShell = pkgs.zsh;
-          users.vyke = {
+          users.${config.preferences.username} = {
             isNormalUser = true;
-            description = "vyke account";
+            description = "${config.preferences.username} account";
             extraGroups = [
               "networkmanager"
               "wheel"

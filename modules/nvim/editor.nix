@@ -1,7 +1,7 @@
 # Editor enhancements - motion, text objects, undo
 { ... }:
 {
-  flake.homeManagerModules.nvim = { pkgs, ... }: {
+  flake.homeManagerModules.dev = { pkgs, ... }: {
         programs.nvf.settings.vim = {
           utility.motion.flash-nvim.enable = true;
 
