@@ -1,5 +1,5 @@
 {inputs, ...}: {
-  flake.homeModules.base = {
+  flake.homeModules.sops = {
     config,
     pkgs,
     ...

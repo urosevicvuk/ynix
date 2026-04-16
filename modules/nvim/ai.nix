@@ -1,6 +1,6 @@
 # AI assistance - Supermaven
 {...}: {
-  flake.homeModules.dev = {...}: {
+  flake.homeModules.nvim = {...}: {
     programs.nvf.settings.vim = {
       assistant.supermaven-nvim = {
         enable = true;

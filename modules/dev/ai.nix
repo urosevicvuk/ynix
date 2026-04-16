@@ -1,8 +1,10 @@
 # OpenCode AI assistant with custom agents
-{ ... }:
-{
-  flake.homeModules.dev = { pkgs, ... }: {
-    home.packages = [ pkgs.opencode ];
+{...}: {
+  flake.homeModules.ai = {pkgs, ...}: {
+    home.packages = with pkgs; [
+      opencode
+      claude-code
+    ];
 
     home.file.".config/opencode/agents/reviewer.md".text = ''
       ---
