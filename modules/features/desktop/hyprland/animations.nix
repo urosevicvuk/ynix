@@ -1,25 +1,23 @@
-{...}: let
-  theme = import ../../themes/_theme-data.nix;
-  animationSpeed = theme.animation-speed;
-
-  animationDuration =
-    if animationSpeed == "slow"
-    then "4"
-    else if animationSpeed == "medium"
-    then "2.5"
-    else if animationSpeed == "fast"
-    then "1.5"
-    else "0";
-  borderDuration =
-    if animationSpeed == "slow"
-    then "10"
-    else if animationSpeed == "medium"
-    then "6"
-    else if animationSpeed == "fast"
-    then "3"
-    else "0";
-in {
-  flake.homeModules.desktop = {...}: {
+{...}: {
+  flake.homeModules.desktop = { themeData, ... }: let
+    animationSpeed = themeData.animation-speed;
+    animationDuration =
+      if animationSpeed == "slow"
+      then "4"
+      else if animationSpeed == "medium"
+      then "2.5"
+      else if animationSpeed == "fast"
+      then "1.5"
+      else "0";
+    borderDuration =
+      if animationSpeed == "slow"
+      then "10"
+      else if animationSpeed == "medium"
+      then "6"
+      else if animationSpeed == "fast"
+      then "3"
+      else "0";
+  in {
     wayland.windowManager.hyprland.settings = {
       animations = {
         enabled = animationSpeed != "none";

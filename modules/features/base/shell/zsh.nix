@@ -1,13 +1,12 @@
-let
-  theme = import ../../themes/_theme-data.nix;
-in {
+{...}: {
   flake.homeModules.base = {
     pkgs,
     lib,
     config,
+    themeData,
     ...
   }: let
-    fetch = theme.fetch;
+    fetch = themeData.fetch;
   in {
     home.packages = with pkgs; [
       bat

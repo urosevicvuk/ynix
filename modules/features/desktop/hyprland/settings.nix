@@ -1,17 +1,7 @@
-{...}: let
-  theme = import ../../themes/_theme-data.nix;
-  inherit
-    (theme)
-    border-size
-    gaps-in
-    gaps-out
-    active-opacity
-    inactive-opacity
-    rounding
-    blur
-    ;
-in {
-  flake.homeModules.desktop = {pkgs, ...}: {
+{...}: {
+  flake.homeModules.desktop = { pkgs, themeData, ... }: let
+    inherit (themeData) border-size gaps-in gaps-out active-opacity inactive-opacity rounding blur;
+  in {
     home.packages = with pkgs; [
       qt5.qtwayland
       qt6.qtwayland
