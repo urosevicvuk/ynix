@@ -21,8 +21,6 @@
       gping
       dog
       trippy
-      yazi
-      just
       watchexec
       tokei
       cheat

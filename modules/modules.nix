@@ -49,7 +49,7 @@ in {
         };
       };
 
-      # Bundles — compose auto-wired atomics into logical groups.
+      # Groups — compose auto-wired atomics into logical groups.
 
       core = group [
         self.nixosModules.zen
@@ -62,19 +62,19 @@ in {
         self.nixosModules.dev-utils
         self.nixosModules.ai
         self.nixosModules.jetbrains
-        self.nixosModules.docker # system-level: no homeModule, real nixosModule from dev/docker.nix
+        self.nixosModules.docker
       ];
 
       gaming = group [
-        self.nixosModules.steam # system-level
-        self.nixosModules.gamemode # system-level
+        self.nixosModules.steam
+        self.nixosModules.gamemode
       ];
 
       creative = group [
         self.nixosModules.affinity
-        self.nixosModules."davinci-resolve"
+        self.nixosModules.davinciResolve
         self.nixosModules.figma
-        self.nixosModules."obs-studio"
+        self.nixosModules.obsStudio
       ];
 
       work = group [

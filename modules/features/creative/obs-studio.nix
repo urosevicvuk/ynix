@@ -1,6 +1,6 @@
 # Creative software — design, video, streaming
 {inputs, ...}: {
-  flake.homeModules.obs-studio = {pkgs, ...}: {
+  flake.homeModules.obsStudio = {pkgs, ...}: {
     programs.obs-studio = {
       enable = true;
       plugins = with pkgs.obs-studio-plugins; [
