@@ -6,6 +6,7 @@
       claude-code
     ];
 
+    # Defining custom agents
     home.file.".config/opencode/agents/reviewer.md".text = ''
       ---
       description: Adversarial code reviewer. Finds bugs, security issues, and deviations from conventions. Read-only - never modifies code.
