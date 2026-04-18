@@ -1,6 +1,6 @@
 # Server firewall configuration
 {...}: {
-  flake.nixosModules.cluster = {lib, ...}: {
+  flake.nixosModules.clusterFirewall = {lib, ...}: {
     networking.firewall = {
       enable = true;
 

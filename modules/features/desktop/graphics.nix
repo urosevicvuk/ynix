@@ -1,5 +1,5 @@
 {...}: {
-  flake.nixosModules.desktop = {pkgs, ...}: {
+  flake.nixosModules.graphics = {pkgs, ...}: {
     environment.systemPackages = with pkgs; [vulkan-tools];
 
     hardware.graphics = {

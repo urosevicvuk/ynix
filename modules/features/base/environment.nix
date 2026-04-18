@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.base = {
+  flake.nixosModules.environment = {
     pkgs,
     config,
     ...
@@ -25,6 +25,15 @@
         nixfmt
         sops
         age
+        nix-init
+        ntfs3g
+        p7zip
+        ffmpeg
+        optipng
+        zip
+        unzip
+        moreutils
+        wireguard-tools
       ];
       pathsToLink = ["/share/zsh"];
     };

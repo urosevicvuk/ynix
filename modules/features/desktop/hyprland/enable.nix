@@ -1,5 +1,5 @@
 {...}: {
-  flake.nixosModules.desktop = {pkgs, ...}: {
+  flake.nixosModules.hyprland = {pkgs, ...}: {
     programs.hyprland = {
       enable = true;
       withUWSM = true;

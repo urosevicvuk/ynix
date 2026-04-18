@@ -1,5 +1,5 @@
 {...}: {
-  flake.nixosModules.desktop = {pkgs, ...}: {
+  flake.nixosModules.dbus = {pkgs, ...}: {
     services = {
       dbus = {
         enable = true;

@@ -1,5 +1,5 @@
 {...}: {
-  flake.nixosModules.cluster = {
+  flake.nixosModules.k3s = {
     config,
     pkgs,
     ...

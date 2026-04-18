@@ -1,5 +1,5 @@
 {...}: {
-  flake.nixosModules.desktop = {pkgs, ...}: {
+  flake.nixosModules.bluetooth = {pkgs, ...}: {
     environment.systemPackages = with pkgs; [blueman bluetuith];
 
     hardware.bluetooth = {

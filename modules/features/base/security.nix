@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.base = {config, ...}: {
+  flake.nixosModules.security = {config, ...}: {
     security.sudo = {
       wheelNeedsPassword = true;
       extraRules = [

@@ -1,5 +1,5 @@
 {...}: {
-  flake.homeModules.desktop = {pkgs, ...}: {
+  flake.homeModules.hyprland = {pkgs, ...}: {
     wayland.windowManager.hyprland.settings = {
       bind = [
         # Basic things

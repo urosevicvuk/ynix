@@ -1,5 +1,9 @@
 {...}: {
-  flake.homeModules.desktop = { pkgs, themeData, ... }: let
+  flake.homeModules.hyprland = {
+    pkgs,
+    themeData,
+    ...
+  }: let
     inherit (themeData) border-size gaps-in gaps-out active-opacity inactive-opacity rounding blur;
   in {
     home.packages = with pkgs; [

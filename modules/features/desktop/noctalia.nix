@@ -1,6 +1,10 @@
 # Noctalia Shell - Wayland desktop shell built with QuickShell
-{inputs, ...}: {
-  flake.homeModules.desktop = {
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.homeModules.noctalia = {
     pkgs,
     config,
     lib,
@@ -661,5 +665,9 @@
         };
       };
     };
+  };
+
+  flake.nixosModules.noctalia = {...}: {
+    home-manager.sharedModules = [self.homeModules.noctalia];
   };
 }

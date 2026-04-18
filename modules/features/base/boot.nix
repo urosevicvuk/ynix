@@ -1,5 +1,9 @@
 {
-  flake.nixosModules.base = {pkgs, ...}: {
+  flake.nixosModules.boot = {
+    pkgs,
+    lib,
+    ...
+  }: {
     boot = {
       initrd.kernelModules = ["amdgpu"];
       bootspec.enable = true;

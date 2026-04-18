@@ -1,6 +1,6 @@
 # greetd + tuigreet display manager
 {...}: {
-  flake.nixosModules.desktop = {pkgs, ...}: let
+  flake.nixosModules.tuigreet = {pkgs, ...}: let
     sessionDir = "${pkgs.hyprland}/share/wayland-sessions";
   in {
     services.greetd = {

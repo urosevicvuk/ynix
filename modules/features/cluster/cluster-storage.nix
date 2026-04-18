@@ -1,6 +1,6 @@
 # Storage prerequisites for Longhorn distributed storage
 {...}: {
-  flake.nixosModules.cluster = {pkgs, ...}: {
+  flake.nixosModules.clusterStorage = {pkgs, ...}: {
     services.openiscsi = {
       enable = true;
       name = "iqn.2024-01.org.nixos:initiator";

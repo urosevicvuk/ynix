@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.base = {config, ...}: {
+  flake.nixosModules.networking = {config, ...}: {
     networking = {
       wireless.iwd = {
         enable = true;

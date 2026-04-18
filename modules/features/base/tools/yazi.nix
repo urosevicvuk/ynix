@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.base = {pkgs, ...}: {
+  flake.nixosModules.yazi = {pkgs, ...}: {
     # TODO: add stylix support config for this shit
 
     programs.yazi = {

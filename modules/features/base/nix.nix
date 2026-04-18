@@ -1,5 +1,5 @@
 {inputs, ...}: {
-  flake.nixosModules.base = {config, ...}: {
+  flake.nixosModules.nix = {config, ...}: {
     nixpkgs.config.allowUnfree = true;
     nix = {
       nixPath = ["nixpkgs=${inputs.nixpkgs}"];

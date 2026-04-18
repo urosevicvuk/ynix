@@ -1,5 +1,5 @@
 {...}: {
-  flake.nixosModules.desktop = {pkgs, ...}: {
+  flake.nixosModules.fonts = {pkgs, ...}: {
     fonts = {
       packages = with pkgs; [
         roboto

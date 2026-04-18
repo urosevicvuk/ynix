@@ -1,6 +1,6 @@
 # File sharing — KDE Connect + LocalSend
-{ ... }: {
-  flake.nixosModules.desktop = { ... }: {
+{...}: {
+  flake.nixosModules.filesharing = {...}: {
     programs = {
       kdeconnect.enable = true;
       localsend.enable = true;

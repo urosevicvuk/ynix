@@ -1,5 +1,5 @@
 {...}: {
-  flake.homeModules.desktop = { themeData, ... }: let
+  flake.homeModules.hyprland = {themeData, ...}: let
     animationSpeed = themeData.animation-speed;
     animationDuration =
       if animationSpeed == "slow"

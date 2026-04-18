@@ -14,6 +14,9 @@
     ...
   }: {
     imports = [
+      self.nixosModules.preferences
+      self.nixosModules.stylix
+      #self.nixosModules.sops
       self.nixosModules.base
       self.nixosModules.desktop
       self.nixosModules.dev
@@ -22,8 +25,6 @@
       self.nixosModules.core
       self.nixosModules.creative
       self.nixosModules.work
-
-      inputs.sops-nix.nixosModules.sops
     ];
 
     networking.hostName = "anorLondo";

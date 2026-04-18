@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.base = {config, ...}: {
+  flake.nixosModules.ssh = {config, ...}: {
     services.openssh = {
       enable = true;
       ports = [22];

@@ -13,18 +13,19 @@
     ...
   }: {
     imports = [
+      self.nixosModules.preferences
+      self.nixosModules.stylix
+      #self.nixosModules.sops
       self.nixosModules.base
       self.nixosModules.core
       self.nixosModules.desktop
       self.nixosModules.dev
       self.nixosModules.nvim
       #self.nixosModules.creative
-
       self.nixosModules.work
 
       inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
       inputs.determinate.nixosModules.default
-      inputs.sops-nix.nixosModules.sops
     ];
 
     networking.hostName = "ariandel";

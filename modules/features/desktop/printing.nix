@@ -1,5 +1,5 @@
 {...}: {
-  flake.nixosModules.desktop = {...}: {
+  flake.nixosModules.printing = {...}: {
     services.printing.enable = true;
 
     services.avahi = {

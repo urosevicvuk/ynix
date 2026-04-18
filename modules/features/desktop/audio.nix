@@ -1,5 +1,5 @@
 {...}: {
-  flake.nixosModules.desktop = {pkgs, ...}: {
+  flake.nixosModules.audio = {pkgs, ...}: {
     environment.systemPackages = with pkgs; [wiremix];
 
     services.pulseaudio.enable = false;

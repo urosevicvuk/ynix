@@ -1,5 +1,5 @@
-{...}: {
-  flake.homeModules.base = {
+{self, ...}: {
+  flake.homeModules.zsh = {
     pkgs,
     lib,
     config,
@@ -79,11 +79,11 @@
         gaa = "git add .";
         gcm = "git commit -m";
       };
+      #${lib.optionalString (config.sops or null != null && config.sops.secrets ? anthropic-api-key) ''
+      #  export ANTHROPIC_API_KEY="$(cat ${config.sops.secrets.anthropic-api-key.path})"
+      #''}
       initContent = ''
 
-        ${lib.optionalString (config.sops or null != null && config.sops.secrets ? anthropic-api-key) ''
-          export ANTHROPIC_API_KEY="$(cat ${config.sops.secrets.anthropic-api-key.path})"
-        ''}
 
         bindkey -e
         ${
@@ -160,5 +160,9 @@
         }
       '';
     };
+  };
+
+  flake.nixosModules.zsh = {...}: {
+    home-manager.sharedModules = [self.homeModules.zsh];
   };
 }
