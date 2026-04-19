@@ -14,9 +14,6 @@
     ...
   }: {
     imports = [
-      self.nixosModules.preferences
-      self.nixosModules.stylix
-      #self.nixosModules.sops
       self.nixosModules.base
       self.nixosModules.desktop
       self.nixosModules.dev
@@ -25,10 +22,13 @@
       self.nixosModules.core
       self.nixosModules.creative
       self.nixosModules.work
+
+      self.nixosModules.stylix
+      self.nixosModules.sops
     ];
 
     networking.hostName = "anorLondo";
-    system.stateVersion = "24.05";
+    system.stateVersion = "26.05";
 
     hardware.enableAllFirmware = true;
     boot.supportedFilesystems = ["ntfs"];

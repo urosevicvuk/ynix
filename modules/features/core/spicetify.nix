@@ -7,14 +7,13 @@
 {
   flake.homeModules.spotify =
     {
-      config,
       pkgs,
       ...
     }:
     let
       spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
-      accent = "${config.lib.stylix.colors.base0D}";
-      background = "${config.lib.stylix.colors.base00}";
+      accent = self.theme.base0D;
+      background = self.theme.base00;
     in
     {
       imports = [ inputs.spicetify-nix.homeManagerModules.default ];

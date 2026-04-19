@@ -13,25 +13,24 @@
     ...
   }: {
     imports = [
-      self.nixosModules.preferences
-      self.nixosModules.stylix
-      #self.nixosModules.sops
       self.nixosModules.base
       self.nixosModules.core
       self.nixosModules.desktop
       self.nixosModules.dev
       self.nixosModules.nvim
-      #self.nixosModules.creative
-      self.nixosModules.work
+
+      self.nixosModules.stylix
+      self.nixosModules.sops
 
       inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
       inputs.determinate.nixosModules.default
     ];
 
     networking.hostName = "ariandel";
-    system.stateVersion = "24.05";
+    system.stateVersion = "26.05";
 
     hardware.enableRedistributableFirmware = true;
+    hardware.enableAllFirmware = true;
     hardware.framework.enableKmod = true;
 
     services.fprintd.enable = true;

@@ -5,14 +5,13 @@
 {
   flake.homeModules.git =
     {
-      config,
       lib,
       pkgs,
       ...
     }:
     let
-      accent = "#${config.lib.stylix.colors.base0D}";
-      muted = "#${config.lib.stylix.colors.base03}";
+      accent = self.theme.base0D;
+      muted = self.theme.base03;
     in
     {
       home.file.".ssh/allowed_signers".text =

@@ -4,27 +4,18 @@
 }:
 {
   flake.homeModules.fzf =
-    {
-      config,
-      lib,
-      ...
-    }:
-    let
-      accent = "#" + config.lib.stylix.colors.base0D;
-      foreground = "#" + config.lib.stylix.colors.base05;
-      muted = "#" + config.lib.stylix.colors.base03;
-    in
+    { lib, ... }:
     {
       programs.fzf = {
         enable = true;
         enableZshIntegration = true;
         colors = lib.mkForce {
-          "fg+" = accent;
+          "fg+" = self.theme.base0D;
           "bg+" = "-1";
-          "fg" = foreground;
+          "fg" = self.theme.base05;
           "bg" = "-1";
-          "prompt" = muted;
-          "pointer" = accent;
+          "prompt" = self.theme.base03;
+          "pointer" = self.theme.base0D;
         };
         defaultOptions = [
           "--margin=1"

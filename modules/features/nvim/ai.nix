@@ -1,6 +1,6 @@
 # AI assistance - Supermaven
 {...}: {
-  flake.homeModules.nvim = {...}: {
+  flake.homeModules.nvim = {pkgs, ...}: {
     programs.nvf.settings.vim = {
       assistant.supermaven-nvim = {
         enable = true;
@@ -14,6 +14,7 @@
           log_level = "info";
         };
       };
+      startPlugins = with pkgs.vimPlugins; [opencode-nvim];
     };
   };
 }

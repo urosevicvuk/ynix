@@ -13,13 +13,11 @@
     ...
   }: {
     imports = [
-      self.nixosModules.preferences
-      #self.nixosModules.sops
       self.nixosModules.base
       self.nixosModules.nvim
       self.nixosModules.cluster
 
-      inputs.sops-nix.nixosModules.sops
+      self.nixosModules.sops
     ];
 
     networking.hostName = "firelink";

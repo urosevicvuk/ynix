@@ -27,11 +27,8 @@
       useGlobalPkgs = true;
       useUserPackages = true;
       backupFileExtension = "hm-backup";
-      extraSpecialArgs = {
-        themeData = config.theme;
-      };
       users.${config.preferences.username} = {
-        home.stateVersion = "24.05";
+        home.stateVersion = "26.05";
         home.username = config.preferences.username;
         home.homeDirectory = "/home/${config.preferences.username}";
         programs.home-manager.enable = true;
