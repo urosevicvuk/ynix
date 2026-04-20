@@ -29,7 +29,7 @@
           set -gq allow-passthrough on
           bind-key x kill-pane
           set -g detach-on-destroy off
-          bind-key ` run-shell "tmux neww tmux-sessionizer"
+          bind-key ` run-shell "tv sesh"
           set-option -g @continuum-restore 'on'
           set -g automatic-rename on
         '';

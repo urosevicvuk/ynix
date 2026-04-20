@@ -31,22 +31,14 @@
       ];
 
       shellAliases = {
-        g = "git";
-        k = "kubectl";
-        t = "talosctl";
         #rm = lib.getExe pkgs.rmtrash;
         #rmdir = lib.getExe pkgs.rmtrash;
       };
     };
 
     home.packages = with pkgs; [
-      bat
-      television
-      ripgrep
-      tldr
       rmtrash
       trash-cli
-      jq
     ];
   };
 }
