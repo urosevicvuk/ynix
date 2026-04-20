@@ -1,5 +1,9 @@
-{
-  flake.nixosModules.yazi = {pkgs, ...}: {
+{self, ...}: {
+  flake.nixosModules.yazi = {...}: {
+    home-manager.sharedModules = [self.homeModules.yazi];
+  };
+
+  flake.homeModules.yazi = {pkgs, ...}: {
     # TODO: add stylix support config for this shit
 
     programs.yazi = {

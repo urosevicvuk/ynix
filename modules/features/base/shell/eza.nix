@@ -1,4 +1,8 @@
 {self, ...}: {
+  flake.nixosModules.eza = {...}: {
+    home-manager.sharedModules = [self.homeModules.eza];
+  };
+
   flake.homeModules.eza = {...}: {
     programs.eza = {
       enable = true;
@@ -10,9 +14,5 @@
         "--icons=always"
       ];
     };
-  };
-
-  flake.nixosModules.eza = {...}: {
-    home-manager.sharedModules = [self.homeModules.eza];
   };
 }

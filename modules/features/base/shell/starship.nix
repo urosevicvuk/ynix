@@ -1,4 +1,8 @@
 {self, ...}: {
+  flake.nixosModules.starship = {...}: {
+    home-manager.sharedModules = [self.homeModules.starship];
+  };
+
   flake.homeModules.starship = {lib, ...}: let
     accent = self.theme.base0D;
     background-alt = self.theme.base01;
@@ -46,9 +50,5 @@
         };
       };
     };
-  };
-
-  flake.nixosModules.starship = {...}: {
-    home-manager.sharedModules = [self.homeModules.starship];
   };
 }

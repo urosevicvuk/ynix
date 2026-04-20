@@ -1,21 +1,13 @@
 # Work / office software
-{
-  self,
-  ...
-}:
-{
-  flake.homeModules.office =
-    { pkgs, ... }:
-    {
-      home.packages = with pkgs; [
-        libreoffice-fresh
-        slack
-      ];
-    };
+{self, ...}: {
+  flake.nixosModules.office = {...}: {
+    home-manager.sharedModules = [self.homeModules.office];
+  };
 
-  flake.nixosModules.office =
-    { ... }:
-    {
-      home-manager.sharedModules = [ self.homeModules.office ];
-    };
+  flake.homeModules.office = {pkgs, ...}: {
+    home.packages = with pkgs; [
+      libreoffice-fresh
+      slack
+    ];
+  };
 }

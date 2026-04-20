@@ -3,6 +3,12 @@
   inputs,
   ...
 }: {
+  flake.nixosModules.sops = {config, ...}: {
+    imports = [inputs.sops-nix.nixosModules.sops];
+
+    home-manager.sharedModules = [self.homeModules.sops];
+  };
+
   flake.homeModules.sops = {
     config,
     pkgs,

@@ -1,8 +1,4 @@
-{
-  self,
-  inputs,
-  ...
-}: {
+{self, ...}: {
   flake.nixosModules.core = {pkgs, ...}: {
     imports = [
       self.nixosModules.zen

@@ -25,6 +25,7 @@
 
       self.nixosModules.stylix
       self.nixosModules.sops
+      inputs.determinate.nixosModules.default
     ];
 
     networking.hostName = "anorLondo";

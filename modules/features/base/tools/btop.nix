@@ -1,5 +1,9 @@
 # btop system monitor
 {self, ...}: {
+  flake.nixosModules.btop = {...}: {
+    home-manager.sharedModules = [self.homeModules.btop];
+  };
+
   flake.homeModules.btop = {
     pkgs,
     lib,
@@ -13,9 +17,5 @@
         color_theme = lib.mkForce "gruvbox_dark_v2";
       };
     };
-  };
-
-  flake.nixosModules.btop = {...}: {
-    home-manager.sharedModules = [self.homeModules.btop];
   };
 }

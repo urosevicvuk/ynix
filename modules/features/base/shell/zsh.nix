@@ -1,4 +1,8 @@
 {self, ...}: {
+  flake.nixosModules.zsh = {...}: {
+    home-manager.sharedModules = [self.homeModules.zsh];
+  };
+
   flake.homeModules.zsh = {
     pkgs,
     lib,
@@ -173,9 +177,5 @@
         }
       '';
     };
-  };
-
-  flake.nixosModules.zsh = {...}: {
-    home-manager.sharedModules = [self.homeModules.zsh];
   };
 }

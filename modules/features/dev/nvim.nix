@@ -4,6 +4,10 @@
   self,
   ...
 }: {
+  flake.nixosModules.nvim = {...}: {
+    home-manager.sharedModules = [self.homeModules.nvim];
+  };
+
   flake.homeModules.nvim = {
     lib,
     pkgs,
@@ -43,9 +47,6 @@
         mapleader = " ";
         navic_silence = true;
         suda_smart_edit = 1;
-        neovide_scale_factor = 0.7;
-        neovide_cursor_animation_length = 0.1;
-        neovide_cursor_short_animation_length = 0;
         # Git blame
         gitblame_enabled = false;
         gitblame_message_template = "<author> • <date> • <summary>";
@@ -53,26 +54,26 @@
         gitblame_display_virtual_text = true;
       };
 
-      binds.whichKey = {
-        enable = true;
-        register = {
-          "<leader>b" = "+buffer";
-          "<leader>c" = "+code";
-          "<leader>d" = "+debug";
-          "<leader>f" = "+find/file";
-          "<leader>g" = "+git";
-          "<leader>m" = "+marks";
-          "<leader>o" = "+opencode";
-          "<leader>q" = "+quit";
-          "<leader>r" = "+refactor";
-          "<leader>s" = "+session";
-          "<leader>t" = "+test";
-          "<leader>u" = "+ui/toggle";
-          "<leader>w" = "+window";
-          "<leader>x" = "+trouble/diagnostics";
-          "<leader>9" = "+99 AI";
-        };
-      };
+      #binds.whichKey = {
+      #  enable = true;
+      #  register = {
+      #    "<leader>b" = "+buffer";
+      #    "<leader>c" = "+code";
+      #    "<leader>d" = "+debug";
+      #    "<leader>f" = "+find/file";
+      #    "<leader>g" = "+git";
+      #    "<leader>m" = "+marks";
+      #    "<leader>o" = "+opencode";
+      #    "<leader>q" = "+quit";
+      #    "<leader>r" = "+refactor";
+      #    "<leader>s" = "+session";
+      #    "<leader>t" = "+test";
+      #    "<leader>u" = "+ui/toggle";
+      #    "<leader>w" = "+window";
+      #    "<leader>x" = "+trouble/diagnostics";
+      #    "<leader>9" = "+99 AI";
+      #  };
+      #};
 
       # === UI ===
       theme = {
@@ -202,23 +203,13 @@
         enableDAP = true;
 
         go.enable = true;
-        java.enable = true;
-        kotlin.enable = true;
         rust = {
           enable = true;
           extensions.crates-nvim.enable = true;
         };
-        astro.enable = true;
-        ts = {
-          enable = true;
-          extensions.ts-error-translator.enable = true;
-        };
         sql.enable = true;
         python.enable = true;
         clang.enable = true;
-        css.enable = true;
-        tailwind.enable = true;
-        svelte.enable = true;
         bash.enable = true;
         nix.enable = true;
         yaml.enable = true;
@@ -258,53 +249,53 @@
 
       snippets.luasnip.enable = true;
 
-      diagnostics = {
-        enable = true;
-        config = {
-          signs.text = {
-            "vim.diagnostic.severity.Error" = " ";
-            "vim.diagnostic.severity.Warn" = " ";
-            "vim.diagnostic.severity.Hint" = " ";
-            "vim.diagnostic.severity.Info" = " ";
-          };
-          underline = true;
-          update_in_insert = true;
-          virtual_text.format = lib.generators.mkLuaInline ''
-            function(diagnostic)
-              return string.format("%s", diagnostic.message)
-            end
-          '';
-        };
-      };
+      #diagnostics = {
+      #  enable = true;
+      #  config = {
+      #    signs.text = {
+      #      "vim.diagnostic.severity.Error" = " ";
+      #      "vim.diagnostic.severity.Warn" = " ";
+      #      "vim.diagnostic.severity.Hint" = " ";
+      #      "vim.diagnostic.severity.Info" = " ";
+      #    };
+      #    underline = true;
+      #    update_in_insert = true;
+      #    virtual_text.format = lib.generators.mkLuaInline ''
+      #      function(diagnostic)
+      #        return string.format("%s", diagnostic.message)
+      #      end
+      #    '';
+      #  };
+      #};
 
-      formatter.conform-nvim = {
-        enable = true;
-        setupOpts.formatters_by_ft = {
-          nix = ["nixfmt"];
-          c = ["clang-format"];
-          cpp = ["clang-format"];
-          go = [
-            "goimports"
-            "gofmt"
-          ];
-          rust = ["rustfmt"];
-          python = ["black"];
-          javascript = ["prettier"];
-          typescript = ["prettier"];
-          javascriptreact = ["prettier"];
-          typescriptreact = ["prettier"];
-          json = ["prettier"];
-          jsonc = ["prettier"];
-          yaml = ["prettier"];
-          markdown = ["prettier"];
-          html = ["prettier"];
-          css = ["prettier"];
-          scss = ["prettier"];
-          sh = ["shfmt"];
-          bash = ["shfmt"];
-          lua = ["stylua"];
-        };
-      };
+      #formatter.conform-nvim = {
+      #  enable = true;
+      #    #setupOpts.formatters_by_ft = {
+      #    #nix = ["nixfmt"];
+      #    #c = ["clang-format"];
+      #    #cpp = ["clang-format"];
+      #    #go = [
+      #    #  "goimports"
+      #    #  "gofmt"
+      #    #];
+      #    #rust = ["rustfmt"];
+      #    #python = ["black"];
+      #    #javascript = ["prettier"];
+      #    #typescript = ["prettier"];
+      #    #javascriptreact = ["prettier"];
+      #    #typescriptreact = ["prettier"];
+      #    #json = ["prettier"];
+      #    #jsonc = ["prettier"];
+      #    #yaml = ["prettier"];
+      #    #markdown = ["prettier"];
+      #    #html = ["prettier"];
+      #    #css = ["prettier"];
+      #    #scss = ["prettier"];
+      #    #sh = ["shfmt"];
+      #    #bash = ["shfmt"];
+      #    #lua = ["stylua"];
+      #  };
+      #};
 
       # === AI ===
       assistant.supermaven-nvim = {
@@ -324,20 +315,19 @@
       projects.project-nvim.enable = true;
 
       # === Git ===
-      terminal.toggleterm = {
-        enable = true;
-        lazygit = {
-          enable = true;
-          mappings.open = "<leader>gl";
-        };
-      };
+      #terminal.toggleterm = {
+      #  enable = true;
+      #  lazygit = {
+      #    enable = true;
+      #    mappings.open = "<leader>gl";
+      #  };
+      #};
 
       # === Navigation ===
       utility.yazi-nvim = {
         enable = true;
         mappings = {
-          openYazi = "<leader>-";
-          openYaziDir = "<leader>=";
+          openYaziDir = "<leader>-";
         };
       };
       utility.oil-nvim.enable = true;
@@ -358,7 +348,7 @@
 
       # === Plugins ===
       startPlugins = with pkgs.vimPlugins; [
-        nvim-surround
+        #nvim-surround
         undotree
         vim-highlightedyank
         opencode-nvim
@@ -368,9 +358,9 @@
       ];
 
       # === Lua config ===
-      luaConfigRC.nvim-surround = ''
-        require("nvim-surround").setup({})
-      '';
+      #luaConfigRC.nvim-surround = ''
+      #  require("nvim-surround").setup({})
+      #'';
 
       luaConfigRC.rainbow-delimiters-config = ''
         local rainbow_delimiters = require('rainbow-delimiters')
@@ -1100,9 +1090,5 @@
         }
       ];
     };
-  };
-
-  flake.nixosModules.nvim = {...}: {
-    home-manager.sharedModules = [self.homeModules.nvim];
   };
 }

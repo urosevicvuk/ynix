@@ -1,4 +1,8 @@
 {self, ...}: {
+  flake.nixosModules.git = {...}: {
+    home-manager.sharedModules = [self.homeModules.git];
+  };
+
   flake.homeModules.git = {
     lib,
     pkgs,
@@ -127,9 +131,5 @@
         };
       };
     };
-  };
-
-  flake.nixosModules.git = {...}: {
-    home-manager.sharedModules = [self.homeModules.git];
   };
 }

@@ -1,5 +1,9 @@
 # OpenCode AI assistant with custom agents
 {self, ...}: {
+  flake.nixosModules.ai = {...}: {
+    home-manager.sharedModules = [self.homeModules.ai];
+  };
+
   flake.homeModules.ai = {pkgs, ...}: {
     home.packages = with pkgs; [
       opencode
@@ -182,9 +186,5 @@
 
       Conversational but precise. Skip filler phrases like "that's an interesting problem" or "great question." Get to substance immediately. Be helpful and exploratory, like talking to a senior colleague over coffee.
     '';
-  };
-
-  flake.nixosModules.ai = {...}: {
-    home-manager.sharedModules = [self.homeModules.ai];
   };
 }

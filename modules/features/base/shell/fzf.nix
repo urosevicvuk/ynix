@@ -1,4 +1,8 @@
 {self, ...}: {
+  flake.nixosModules.fzf = {...}: {
+    home-manager.sharedModules = [self.homeModules.fzf];
+  };
+
   flake.homeModules.fzf = {lib, ...}: {
     programs.fzf = {
       enable = true;
@@ -20,10 +24,7 @@
         "-i"
         "--no-bold"
       ];
+      tmux.enableShellIntegration = true;
     };
-  };
-
-  flake.nixosModules.fzf = {...}: {
-    home-manager.sharedModules = [self.homeModules.fzf];
   };
 }

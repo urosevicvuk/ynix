@@ -1,28 +1,20 @@
 # Development tool packages shared across all dev hosts
-{
-  self,
-  ...
-}:
-{
-  flake.homeModules.dev-utils =
-    { pkgs, ... }:
-    {
-      home.packages = with pkgs; [
-        gh
+{self, ...}: {
+  flake.nixosModules.dev-utils = {...}: {
+    home-manager.sharedModules = [self.homeModules.dev-utils];
+  };
 
-        #goat for api testing
-        bruno
+  flake.homeModules.dev-utils = {pkgs, ...}: {
+    home.packages = with pkgs; [
+      gh
 
-        #some obscure editors i don't really use
-        zed-editor
-        code-cursor
-        vscode
-      ];
-    };
+      #goat for api testing
+      bruno
 
-  flake.nixosModules.dev-utils =
-    { ... }:
-    {
-      home-manager.sharedModules = [ self.homeModules.dev-utils ];
-    };
+      #some obscure editors i don't really use
+      zed-editor
+      code-cursor
+      vscode
+    ];
+  };
 }

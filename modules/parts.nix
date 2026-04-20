@@ -1,7 +1,6 @@
-{ inputs, ... }:
-{
+{inputs, ...}: {
   # Import home-manager flake-parts module - this provides the native flake.homeModules namespace
-  imports = [ inputs.home-manager.flakeModules.home-manager ];
+  imports = [inputs.home-manager.flakeModules.home-manager];
 
   # Systems declaration (moved from flake.nix)
   systems = [

@@ -2,19 +2,14 @@
   self,
   inputs,
   ...
-}:
-{
-  flake.homeModules.helium =
-    { pkgs, ... }:
-    {
-      home.packages = [
-        inputs.helium-browser.packages.${pkgs.system}.default
-      ];
-    };
+}: {
+  flake.nixosModules.helium = {...}: {
+    home-manager.sharedModules = [self.homeModules.helium];
+  };
 
-  flake.nixosModules.helium =
-    { ... }:
-    {
-      home-manager.sharedModules = [ self.homeModules.helium ];
-    };
+  flake.homeModules.helium = {pkgs, ...}: {
+    home.packages = [
+      inputs.helium-browser.packages.${pkgs.system}.default
+    ];
+  };
 }

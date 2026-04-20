@@ -1,4 +1,8 @@
 {self, ...}: {
+  flake.nixosModules.direnv = {...}: {
+    home-manager.sharedModules = [self.homeModules.direnv];
+  };
+
   flake.homeModules.direnv = {...}: {
     programs.direnv = {
       enable = true;
@@ -9,9 +13,5 @@
       '';
       nix-direnv.enable = true;
     };
-  };
-
-  flake.nixosModules.direnv = {...}: {
-    home-manager.sharedModules = [self.homeModules.direnv];
   };
 }
