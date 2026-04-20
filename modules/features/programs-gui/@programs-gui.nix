@@ -1,8 +1,8 @@
 {self, ...}: {
-  flake.nixosModules.core = {pkgs, ...}: {
+  flake.nixosModules.programs-gui = {pkgs, ...}: {
     imports = [
-      self.nixosModules.zen
-      self.nixosModules.helium
+      self.nixosModules.browsers
+
       self.nixosModules.discord
       self.nixosModules.spicetify
       self.nixosModules.obsidian
