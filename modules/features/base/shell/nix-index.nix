@@ -1,20 +1,11 @@
-{
-  self,
-  ...
-}:
-{
-  flake.homeModules.nixIndex =
-    { ... }:
-    {
-      programs.nix-index = {
-        enable = true;
-        enableZshIntegration = true;
-      };
+{self, ...}: {
+  flake.homeModules.nixIndex = {...}: {
+    programs.nix-index = {
+      enable = true;
     };
+  };
 
-  flake.nixosModules.nixIndex =
-    { ... }:
-    {
-      home-manager.sharedModules = [ self.homeModules.nixIndex ];
-    };
+  flake.nixosModules.nixIndex = {...}: {
+    home-manager.sharedModules = [self.homeModules.nixIndex];
+  };
 }

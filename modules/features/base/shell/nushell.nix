@@ -45,6 +45,7 @@
       ripgrep
       tldr
       rmtrash
+      trash-cli
       jq
     ];
   };
