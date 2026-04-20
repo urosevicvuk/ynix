@@ -4,11 +4,18 @@
   };
 
   flake.homeModules.jj = {pkgs, ...}: {
-    # TODO: set up basic config after some use, this is just a starting point
-    # also learn to use this, looks really fucking nice
-    home.packages = with pkgs; [
-      jujutsu
-      jjui
-    ];
+    programs = {
+      jujutsu = {
+        enable = true;
+        ediff = true;
+        settings = {
+          # here we would add more settings and configure it properly
+          # TODO: when I decide to use this, I will add more settings
+        };
+      };
+      jjui = {
+        enable = true;
+      };
+    };
   };
 }

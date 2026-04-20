@@ -6,6 +6,8 @@
   flake.homeModules.television = {lib, ...}: {
     programs.television = {
       enable = true;
+      enableNushellIntegration = true;
+      enableZshIntegration = true;
       settings = {
         ui = {
           use_nerd_font_icons = true;

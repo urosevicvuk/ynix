@@ -1,15 +1,18 @@
 {self, ...}: {
   flake.nixosModules.shell = {...}: {
     imports = [
-      self.nixosModules.zsh
-      self.nixosModules.starship
-      self.nixosModules.tmux
-      self.nixosModules.nushell
+      self.nixosModules.atuin
+      self.nixosModules.bat
+      self.nixosModules.carapace
       self.nixosModules.eza
       self.nixosModules.fzf
-      self.nixosModules.zoxide
-      self.nixosModules.nixIndex
+      self.nixosModules.nushell
+      self.nixosModules.sesh
+      self.nixosModules.starship
       self.nixosModules.television
+      self.nixosModules.tmux
+      self.nixosModules.zoxide
+      self.nixosModules.zsh
     ];
   };
 }

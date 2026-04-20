@@ -34,8 +34,8 @@
         g = "git";
         k = "kubectl";
         t = "talosctl";
-        rm = lib.getExe pkgs.rmtrash;
-        rmdir = lib.getExe pkgs.rmtrash;
+        #rm = lib.getExe pkgs.rmtrash;
+        #rmdir = lib.getExe pkgs.rmtrash;
       };
     };
 

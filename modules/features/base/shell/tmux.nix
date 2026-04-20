@@ -16,6 +16,8 @@
         prefix = "C-Space";
         terminal = "kitty";
         keyMode = "vi";
+        disableConfirmationPrompt = true;
+        sensibleOnTop = true;
         extraConfig = ''
           bind-key | split-window -h -c "#{pane_current_path}"
           bind-key _ split-window -v -c "#{pane_current_path}"
@@ -66,11 +68,9 @@
         ];
       };
       #sessionizer
-      sesh = {
-        enable = true;
-        icons = true;
-        tmuxKey = "s";
-      };
     };
+    #home.packages = with pkgs; [
+    #  sesh
+    #];
   };
 }

@@ -1,4 +1,4 @@
-{
+{self, ...}: {
   flake.nixosModules.ssh = {config, ...}: {
     services.openssh = {
       enable = true;
@@ -13,5 +13,13 @@
     users.users.${config.preferences.username}.openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINQpgKiftVTzqkfu6zbRpvZFtWZH/HBQSj6DhuVvVRul vuk23urosevic@gmail.com"
     ];
+
+    home-manager.sharedModules = [self.homeModules.ssh];
+  };
+
+  flake.homeModules.ssh = {
+    programs.ssh = {
+      enable = true;
+    };
   };
 }

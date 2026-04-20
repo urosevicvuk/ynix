@@ -8,8 +8,10 @@
   flake.nixosModules.base = {config, ...}: {
     imports = [
       inputs.home-manager.nixosModules.default
+
       self.nixosModules.shell
       self.nixosModules.network
+
       self.nixosModules.boot
       self.nixosModules.locale
       self.nixosModules.nix
@@ -19,8 +21,6 @@
       self.nixosModules.direnv
       self.nixosModules.git
       self.nixosModules.jj
-      self.nixosModules.btop
-      self.nixosModules.yazi
     ];
 
     home-manager = {

@@ -6,6 +6,7 @@
   flake.homeModules.fzf = {lib, ...}: {
     programs.fzf = {
       enable = true;
+      tmux.enableShellIntegration = true;
       colors = lib.mkForce {
         "fg+" = self.theme.base0D;
         "bg+" = "-1";
@@ -24,7 +25,6 @@
         "-i"
         "--no-bold"
       ];
-      tmux.enableShellIntegration = true;
     };
   };
 }

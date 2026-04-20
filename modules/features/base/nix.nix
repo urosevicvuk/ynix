@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  self,
+  inputs,
+  ...
+}: {
   flake.nixosModules.nix = {config, ...}: {
     nixpkgs.config.allowUnfree = true;
     nix = {
@@ -44,6 +48,22 @@
         "--commit-lock-file"
       ];
       allowReboot = false;
+    };
+
+    home-manager.sharedModules = [self.homeModules.nix];
+  };
+
+  flake.homeModules.nix = {...}: {
+    programs = {
+      nix-search-tv = {
+        enable = true;
+      };
+
+      nix-index = {
+        enable = true;
+        enableNushellIntegration = true;
+        enableZshIntegration = true;
+      };
     };
   };
 }
