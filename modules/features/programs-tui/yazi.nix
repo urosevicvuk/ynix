@@ -8,6 +8,8 @@
 
     programs.yazi = {
       enable = true;
+      enableNushellIntegration = true;
+      enableZshIntegration = true;
       plugins = {
         inherit (pkgs.yaziPlugins) git;
         inherit (pkgs.yaziPlugins) diff;
