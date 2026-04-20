@@ -1,6 +1,6 @@
-{...}: {
+{self, ...}: {
   flake.nixosModules.bluetooth = {pkgs, ...}: {
-    environment.systemPackages = with pkgs; [blueman bluetuith];
+    #environment.systemPackages = with pkgs; [blueman];
 
     hardware.bluetooth = {
       enable = true;
@@ -10,5 +10,15 @@
 
     services.blueman.enable = true;
     hardware.xpadneo.enable = false;
+
+    home-manager.sharedModules = [self.homeModules.bluetooth];
+  };
+
+  flake.homeModules.bluetooth = {...}: {
+    programs = {
+      bluetuith = {
+        enable = true;
+      };
+    };
   };
 }

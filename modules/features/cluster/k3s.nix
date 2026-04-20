@@ -1,4 +1,4 @@
-{...}: {
+{self, ...}: {
   flake.nixosModules.k3s = {
     config,
     pkgs,
@@ -23,7 +23,6 @@
     environment.systemPackages = with pkgs; [
       kubectl
       kubernetes-helm
-      k9s
       stern
       kubectx
       k3s
@@ -31,5 +30,16 @@
     ];
 
     environment.sessionVariables.KUBECONFIG = "/etc/rancher/k3s/k3s.yaml";
+
+    home-manager.sharedModules = [self.homeModules.k3s];
+  };
+
+  flake.homeModules.k3s = {...}: {
+    programs.k9s = {
+      enable = true;
+      plugins = [
+        #we can add pluginsto k9s here
+      ];
+    };
   };
 }

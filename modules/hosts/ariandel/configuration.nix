@@ -14,10 +14,10 @@
   }: {
     imports = [
       self.nixosModules.base
-      self.nixosModules.core
       self.nixosModules.desktop
       self.nixosModules.dev
-      self.nixosModules.nvim
+      self.nixosModules.programs-gui
+      self.nixosModules.programs-tui
 
       self.nixosModules.stylix
       self.nixosModules.sops

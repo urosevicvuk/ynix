@@ -56,10 +56,4 @@
       defaultSopsFormat = "yaml";
     };
   };
-
-  flake.nixosModules.sops = {config, ...}: {
-    imports = [inputs.sops-nix.nixosModules.sops];
-
-    home-manager.sharedModules = [self.homeModules.sops];
-  };
 }

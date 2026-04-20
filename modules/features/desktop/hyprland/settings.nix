@@ -1,5 +1,9 @@
 {self, ...}: {
-  flake.homeModules.hyprland = {pkgs, ...}: let
+  flake.homeModules.hyprland = {
+    pkgs,
+    config,
+    ...
+  }: let
     inherit
       (self.theme)
       border-size
@@ -26,9 +30,13 @@
       dconf
       wayland-utils
       glib
-      hyprshot
       hyprpolkitagent
     ];
+
+    programs.hyprshot = {
+      enable = true;
+      saveLocation = "${config.home.homeDirectory}/Pictures/hyprshot";
+    };
 
     wayland.windowManager.hyprland = {
       enable = true;
