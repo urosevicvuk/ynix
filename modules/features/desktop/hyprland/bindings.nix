@@ -1,63 +1,111 @@
-{...}: {
-  flake.homeModules.hyprland = {pkgs, ...}: {
+{inputs, ...}: {
+  flake.homeModules.hyprland = {
+    pkgs,
+    lib,
+    ...
+  }: let
+    noct = "noctalia-shell ipc call ";
+
+    launcher = noct + "launcher toggle";
+    clipboard = noct + "launcher clipboard";
+    bar = noct + "bar toggle";
+    lock = noct + "lockScreen lock";
+    controlCenter = noct + "controlCenter toggle";
+    sessionMenu = noct + "sessionMenu toggle";
+    settings = noct + "settings toggle";
+
+    # Volume
+    outputUp = noct + "volume increase";
+    outputDown = noct + "volume decrease";
+    outputMute = noct + "volume muteOutput";
+    inputUp = noct + "volume increaseInput";
+    inputDown = noct + "volume decreaseInput";
+    inputMute = noct + "volume muteInput";
+
+    # Brightness
+    brightnessUp = noct + "brightness increase";
+    brightnessDown = noct + "brightness decrease";
+
+    # Media
+    playPause = noct + "media playPause";
+    next = noct + "media next";
+    previous = noct + "media previous";
+
+    mediaPanel = noct + "media toggle";
+    volumePanel = noct + "volume togglePanel";
+    volumeApp = terminal + " -e wiremix";
+    bluetoothPanel = noct + "bluetooth togglePanel";
+    bluetoothApp = terminal + " -e bluetuith";
+    networkPanel = noct + "network togglePanel";
+    networkApp = terminal + " -e nmtui";
+    tailscalePanel = noct + "plugin:tailscale togglePanel";
+    batteryPanel = noct + "battery togglePanel";
+    notificationsPanel = noct + "notifications toggleHistory";
+    notificationsDND = noct + "notifications toggleDND";
+
+    zen = lib.getExe inputs.zen-browser.packages.${pkgs.system}.default;
+    helium = lib.getExe inputs.helium-browser.packages.${pkgs.system}.default;
+
+    terminal = "kitty";
+  in {
     wayland.windowManager.hyprland.settings = {
       bind = [
-        # Basic things
-        "$mod, SPACE, exec, noctalia-shell ipc call launcher toggle"
-        "$shiftMod, SPACE, exec, noctalia-shell ipc call bar toggle"
-        "CTRL $shiftMod, SPACE, exec, noctalia-shell ipc call lockScreen lock"
+        "$mod, SPACE, exec, ${launcher}"
+        "$mod CTRL, SPACE, exec, ${clipboard}"
+        "$mod SHIFT, SPACE, exec, ${bar}"
+        "$mod SHIFT ALT CTRL, SPACE, exec, ${lock}"
 
         "$mod, Q, killactive,"
-        "$mod, T, togglefloating,"
-        "$mod, F, fullscreen"
+        "$mod, W, togglefloating,"
+        "$mod, E, fullscreen"
 
-        # CLI Apps
-        "$mod, RETURN, exec, kitty"
-        "$mod, G, exec, kitty -e lazygit"
-        "$mod, D, exec, kitty -e lazydocker"
-        "$mod, I, exec, kitty -e btop"
-        "$mod, Y, exec, kitty -e yazi"
+        "$mod, RETURN, exec, ${terminal}"
+        "$mod CTRL, D, exec, ${terminal} -e lazydocker"
+        "$mod CTRL, I, exec, ${terminal} -e btop"
+        "$mod CTRL, Y, exec, ${terminal} -e yazi"
+        "$mod CTRL, V, exec, ${volumeApp}"
+        "$mod CTRL, B, exec, ${bluetoothApp}"
+        "$mod CTRL, N, exec, ${networkApp}"
+        "$mod CTRL, H, exec, ${helium}"
+        "$mod CTRL, Z, exec, ${zen}"
 
-        "$mod, H, movefocus, l"
-        "$mod, L, movefocus, r"
+        "$mod, H, layoutmsg, focus l"
+        "$mod, L, layoutmsg, focus r"
         "$mod, K, movefocus, u"
         "$mod, J, movefocus, d"
 
-        "$shiftMod, H, movewindow, l"
-        "$shiftMod, L, movewindow, r"
-        "$shiftMod, K, movewindow, u"
-        "$shiftMod, J, movewindow, d"
+        "$mod SHIFT, H, movewindow, l"
+        "$mod SHIFT, L, movewindow, r"
+        "$mod SHIFT, K, movewindow, u"
+        "$mod SHIFT, J, movewindow, d"
 
-        "$shiftMod CTRL, h, movecurrentworkspacetomonitor, l"
-        "$shiftMod CTRL, l, movecurrentworkspacetomonitor, r"
-        "$shiftMod CTRL, k, movecurrentworkspacetomonitor, u"
-        "$shiftMod CTRL, j, movecurrentworkspacetomonitor, d"
+        "$mod SHIFT CTRL, h, movecurrentworkspacetomonitor, l"
+        "$mod SHIFT CTRL, l, movecurrentworkspacetomonitor, r"
+        "$mod SHIFT CTRL, k, movecurrentworkspacetomonitor, u"
+        "$mod SHIFT CTRL, j, movecurrentworkspacetomonitor, d"
 
-        "$mod, Escape, exec, noctalia-shell ipc call controlCenter toggle"
-        "$mod, Delete, exec, noctalia-shell ipc call sessionMenu toggle"
+        "$mod, grave, exec, ${controlCenter}"
+        "$mod, delete, exec, ${sessionMenu}"
 
-        "$mod, s, exec, noctalia-shell ipc call settings toggle"
-        "$mod, Backspace, exec, noctalia-shell ipc call plugin togglePanel notes-scratchpad "
+        # TODO: add this for the tailscale menu
+        # TODO: could prob also add one for docker, but docker could just be a custom module since the one from noctalia is ass
+        "$mod, V, exec, ${volumePanel}"
+        "$mod, M, exec, ${mediaPanel}"
+        "$mod, B, exec, ${bluetoothPanel}"
+        "$mod, N, exec, ${networkPanel}"
+        "$mod, T, exec, ${tailscalePanel}"
+        "$mod, D, exec, ${tailscalePanel}"
+        "$mod SHIFT, B, exec, ${batteryPanel}"
+        "$mod SHIFT, N, exec, ${notificationsPanel}"
+        "$mod SHIFT CTRL, N, exec, ${notificationsDND}"
 
-        "$mod, c, exec, noctalia-shell ipc call plugin:weekly-calendar togglePanel"
-        "$mod, v, exec, noctalia-shell ipc call volume togglePanel"
-        "$mod, b, exec, noctalia-shell ipc call battery togglePanel"
-        "$mod, n, exec, noctalia-shell ipc call notifications toggleHistory"
-        "$mod, m, exec, noctalia-shell ipc call media toggle"
-
-        "$mod ALT, b, exec, noctalia-shell ipc call bluetooth togglePanel"
-        "$mod ALT, n, exec, noctalia-shell ipc call network togglePanel"
+        #TODO change this to the f12 key (the cog/gear icon)
+        "$mod, s, exec, ${settings}"
 
         ",PRINT, exec, hyprshot -m region --freeze --clipboard-only"
         "SHIFT, PRINT, exec, hyprshot -m output --clipboard-only"
         "CTRL, PRINT, exec, hyprshot -m region --freeze --raw | ${pkgs.satty}/bin/satty -f -"
         "CTRL SHIFT, PRINT, exec, hyprshot -m output --raw | ${pkgs.satty}/bin/satty -f -"
-
-        "ALT, PRINT, exec, noctalia-shell ipc call plugin:screen-recorder toggle"
-
-        # Laptop display rotation (harmless no-ops on desktop)
-        "$mod, Prior, exec, hyprctl keyword monitor eDP-1,2880x1920@120,auto,1.5,transform,2"
-        "$mod, Next, exec, hyprctl keyword monitor eDP-1,2880x1920@120,auto,1.5,transform,0"
 
         "$mod, 1, workspace, 1"
         "$mod SHIFT, 1, movetoworkspace, 1"
@@ -79,14 +127,11 @@
         "$mod SHIFT, 9, movetoworkspace, 9"
         "$mod, 0, workspace, 10"
         "$mod SHIFT, 0, movetoworkspace, 10"
-
-        "$mod, TAB, togglespecialworkspace"
-        "$shiftMod, TAB, movetoworkspace, special"
       ];
 
       binde = [
-        "$shiftMod, period, layoutmsg, colresize +0.1"
-        "$shiftMod, comma, layoutmsg, colresize -0.1"
+        "$mod SHIFT, period, layoutmsg, colresize +0.1"
+        "$mod SHIFT, comma, layoutmsg, colresize -0.1"
       ];
 
       bindm = [
@@ -95,20 +140,20 @@
       ];
 
       bindl = [
-        ",XF86AudioMute, exec, sound-toggle"
-        "ALT,XF86AudioMute, exec, mic-toggle"
-        ",XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause"
-        ",XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
-        ",XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous"
+        ",XF86AudioMute, exec, ${outputMute}"
+        "ALT,XF86AudioMute, exec, ${inputMute}"
+        ",XF86AudioPlay, exec, ${playPause}"
+        ",XF86AudioNext, exec, ${next}"
+        ",XF86AudioPrev, exec, ${previous}"
       ];
 
       bindle = [
-        ",XF86AudioRaiseVolume, exec, sound-up"
-        ",XF86AudioLowerVolume, exec, sound-down"
-        "ALT,XF86AudioRaiseVolume, exec, mic-up"
-        "ALT,XF86AudioLowerVolume, exec, mic-down"
-        ",XF86MonBrightnessUp, exec, noctalia-shell ipc call brightness increase"
-        ",XF86MonBrightnessDown, exec, noctalia-shell ipc call brightness decrease"
+        ",XF86AudioRaiseVolume, exec, ${outputUp}"
+        ",XF86AudioLowerVolume, exec, ${outputDown}"
+        "ALT,XF86AudioRaiseVolume, exec, ${inputUp}"
+        "ALT,XF86AudioLowerVolume, exec, ${inputDown}"
+        ",XF86MonBrightnessUp, exec, ${brightnessUp}"
+        ",XF86MonBrightnessDown, exec, ${brightnessDown}"
       ];
     };
   };

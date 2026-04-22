@@ -98,7 +98,7 @@
           gaps_in = gaps-in;
           gaps_out = gaps-out;
           border_size = border-size;
-          layout = "dwindle";
+          layout = "scrolling";
         };
 
         dwindle = {
@@ -128,7 +128,7 @@
 
         misc = {
           vfr = true;
-          vrr = 1;
+          vrr = 2;
           disable_hyprland_logo = true;
           disable_splash_rendering = true;
           disable_autoreload = true;
@@ -153,7 +153,7 @@
         input = {
           kb_layout = "us,rs,rs";
           kb_variant = ",latinyz,yz";
-          kb_options = "grp:alt_space_toggle";
+          kb_options = "grp:alt_space_toggle,lv3:ralt_alt";
           follow_mouse = 1;
           accel_profile = "flat";
           repeat_delay = 300;
