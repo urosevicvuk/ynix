@@ -17,10 +17,10 @@
       self.nixosModules.base
       self.nixosModules.desktop
       self.nixosModules.dev
-      self.nixosModules.nvim
+      self.nixosModules.programs-gui
+      self.nixosModules.programs-tui
       self.nixosModules.gaming
-      self.nixosModules.core
-      self.nixosModules.creative
+      #self.nixosModules.creative
       self.nixosModules.work
 
       self.nixosModules.stylix
