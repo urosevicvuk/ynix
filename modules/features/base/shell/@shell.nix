@@ -4,6 +4,7 @@
       self.nixosModules.atuin
       self.nixosModules.carapace
       self.nixosModules.fzf
+      self.nixosModules.eza
       self.nixosModules.nushell
       self.nixosModules.sesh
       self.nixosModules.starship

@@ -12,7 +12,7 @@
       tmux = {
         enable = true;
         mouse = true;
-        shell = lib.getExe pkgs.nushell;
+        shell = lib.getExe pkgs.zsh;
         prefix = "C-Space";
         terminal = "kitty";
         keyMode = "vi";
@@ -29,8 +29,7 @@
           set -gq allow-passthrough on
           bind-key x kill-pane
           set -g detach-on-destroy off
-          bind-key "T" display-popup -E -w 80% -h 70% -d '#{pane_current_path}' -T 'Sesh' tv sesh
-          bind-key ` display-popup -E -w 80% -h 70% -d '#{pane_current_path}' -T 'Sesh' tv sesh
+          bind-key Enter display-popup -E -w 80% -h 70% -d '#{pane_current_path}' -T 'Sesh' tv sesh
           set-option -g @continuum-restore 'on'
           set -g automatic-rename on
         '';

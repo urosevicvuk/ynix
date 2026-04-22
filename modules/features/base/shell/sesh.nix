@@ -7,7 +7,7 @@
     programs.sesh = {
       enable = true;
       enableAlias = false;
-      enableTmuxIntegration = true;
+      enableTmuxIntegration = false;
       icons = true;
     };
   };
