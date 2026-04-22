@@ -29,7 +29,8 @@
           set -gq allow-passthrough on
           bind-key x kill-pane
           set -g detach-on-destroy off
-          bind-key ` run-shell "tv sesh"
+          bind-key "T" display-popup -E -w 80% -h 70% -d '#{pane_current_path}' -T 'Sesh' tv sesh
+          bind-key ` display-popup -E -w 80% -h 70% -d '#{pane_current_path}' -T 'Sesh' tv sesh
           set-option -g @continuum-restore 'on'
           set -g automatic-rename on
         '';

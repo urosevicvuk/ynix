@@ -20,6 +20,9 @@
       ripgrep = {
         enable = true;
       };
+      bat = {
+        enable = true;
+      };
     };
   };
 }

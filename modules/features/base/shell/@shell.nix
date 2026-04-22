@@ -2,9 +2,7 @@
   flake.nixosModules.shell = {...}: {
     imports = [
       self.nixosModules.atuin
-      self.nixosModules.bat
       self.nixosModules.carapace
-      self.nixosModules.eza
       self.nixosModules.fzf
       self.nixosModules.nushell
       self.nixosModules.sesh
