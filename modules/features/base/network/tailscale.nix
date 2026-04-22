@@ -1,8 +1,9 @@
 {
-  flake.nixosModules.tailscale = {...}: {
+  flake.nixosModules.tailscale = {config, ...}: {
     services.tailscale = {
       enable = true;
       openFirewall = true;
+      extraUpFlags = ["--operator=${config.preferences.username}"];
     };
     networking = {
       firewall = {

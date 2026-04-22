@@ -18,8 +18,8 @@
   };
 
   flake.homeModules.ssh = {
-    programs.ssh = {
-      enable = true;
-    };
+    #  programs.ssh = {
+    #    enable = true;
+    #  };
   };
 }
