@@ -6,7 +6,7 @@
   }: {
     programs.zsh.enable = true;
     users = {
-      defaultUserShell = pkgs.zsh;
+      defaultUserShell = pkgs.bash;
       users.${config.preferences.username} = {
         isNormalUser = true;
         description = "${config.preferences.username}";
