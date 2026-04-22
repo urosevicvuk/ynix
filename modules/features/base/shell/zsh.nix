@@ -20,9 +20,9 @@
     ];
     home.sessionPath = ["$HOME/go/bin"];
     programs.zsh = {
-      enable = true;
-      enableCompletion = true;
-      autosuggestion.enable = true;
+      enable = false;
+      enableCompletion = false;
+      #autosuggestion.enable = true;
       syntaxHighlighting = {
         enable = true;
         highlighters = [
