@@ -12,7 +12,11 @@
       enable = true;
 
       settings = {
+        show_banner = false;
         edit_mode = "vi";
+
+        rm.always_trash = true;
+
         cursor_shape = {
           vi_insert = "line";
           vi_normal = "block";
@@ -31,8 +35,8 @@
       ];
 
       shellAliases = {
-        #rm = lib.getExe pkgs.rmtrash;
-        #rmdir = lib.getExe pkgs.rmtrash;
+        lg = "lazygit";
+        nix-shell = "nix-shell --command nu";
       };
     };
 
