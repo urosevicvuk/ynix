@@ -7,6 +7,7 @@
     programs.direnv = {
       enable = true;
       silent = true;
+      enableNushellIntegration = true;
       stdlib = ''
         export SSH_AUTH_SOCK="$SSH_AUTH_SOCK"
         export GIT_CONFIG_GLOBAL="$HOME/.config/git/config"
