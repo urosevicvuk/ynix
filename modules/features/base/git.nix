@@ -20,18 +20,18 @@
       git = {
         enable = true;
         lfs.enable = true;
-        #ignores = [
-        #  ".cache/"
-        #  ".DS_Store"
-        #  ".idea/"
-        #  "*.swp"
-        #  "*.elc"
-        #  "auto-save-list"
-        #  ".direnv/"
-        #  "node_modules"
-        #  "result"
-        #  "result-*"
-        #];
+        ignores = [
+          ".cache/"
+          ".DS_Store"
+          ".idea/"
+          "*.swp"
+          "*.elc"
+          "auto-save-list"
+          ".direnv/"
+          "node_modules"
+          "result"
+          "result-*"
+        ];
         includes = [
           {
             condition = "gitdir:~/uni/";
