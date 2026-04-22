@@ -1,6 +1,11 @@
-{self, ...}: {
+{
+  self,
+  inputs,
+  ...
+}: {
   flake.homeModules.hyprland = {
     pkgs,
+    lib,
     config,
     ...
   }: let
@@ -50,21 +55,19 @@
 
       settings = {
         "$mod" = "SUPER";
-        "$shiftMod" = "SUPER_SHIFT";
 
         exec-once = [
           "systemctl --user start hyprpolkitagent"
-          "systemctl --user enable --now hypridle.service"
           "${pkgs.tailscale-systray}/bin/tailscale-systray"
           "noctalia-shell"
-          "opencloud-desktop"
 
-          "[workspace 1 silent] zen"
-          "[workspace 4 silent] kitty"
+          "[workspace 1 silent] ${lib.getExe inputs.zen-browser.packages.${pkgs.system}.default}"
+          "[workspace 4 silent] kitty -e tmux"
           "[workspace 5 silent] spotify"
           "[workspace 9 silent] discord"
           "[workspace 10 silent] obsidian"
           "kdeconnect-indicator"
+          "bitwarden-desktop"
         ];
 
         monitor = [];
