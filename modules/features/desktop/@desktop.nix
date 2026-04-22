@@ -3,6 +3,7 @@
     imports = [
       self.nixosModules.audio
       self.nixosModules.bluetooth
+      self.nixosModules.bitwarden
       self.nixosModules.clipboard
       self.nixosModules.dbus
       self.nixosModules.filesharing
@@ -19,11 +20,6 @@
       self.nixosModules.xdg
       self.nixosModules.zathura
       self.nixosModules.hyprland
-      self.nixosModules.scripts
-    ];
-
-    home-manager.sharedModules = [
-      self.homeModules.desktop
     ];
   };
 }
