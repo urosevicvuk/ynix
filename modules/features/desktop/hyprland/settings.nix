@@ -67,7 +67,7 @@
           "[workspace 9 silent] discord"
           "[workspace 10 silent] obsidian"
           "kdeconnect-indicator"
-          "${lib.getExe pkgs.bitwarden-desktop}"
+          "bitwarden"
         ];
 
         monitor = [];
