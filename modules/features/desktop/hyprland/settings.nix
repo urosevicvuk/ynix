@@ -62,12 +62,12 @@
           "noctalia-shell"
 
           "[workspace 1 silent] ${lib.getExe inputs.zen-browser.packages.${pkgs.system}.default}"
-          "[workspace 4 silent] kitty -e tmux"
+          "[workspace 4 silent] kitty -e tmux a"
           "[workspace 5 silent] spotify"
           "[workspace 9 silent] discord"
           "[workspace 10 silent] obsidian"
           "kdeconnect-indicator"
-          "bitwarden-desktop"
+          "${lib.getExe pkgs.bitwarden-desktop}"
         ];
 
         monitor = [];

@@ -7,9 +7,6 @@
   flake.homeModules.kitty = {...}: {
     programs.kitty = {
       enable = true;
-
-      shellIntegration.enableZshIntegration = true;
-
       settings = {
         shell = "nu";
         scrollback_lines = 10000;

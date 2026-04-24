@@ -17,7 +17,7 @@
       enable = true;
 
       discord.vencord.enable = true;
-      discord.openASAR.enable = false;
+      discord.openASAR.enable = true;
 
       vesktop.enable = true;
       config = {
