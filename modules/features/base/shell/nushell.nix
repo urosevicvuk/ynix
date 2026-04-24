@@ -42,7 +42,7 @@
       ];
 
       shellAliases = {
-        lg = "lazygit";
+        gitui = "lazygit";
         nix-shell = "nix-shell --command nu";
       };
     };

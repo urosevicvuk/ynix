@@ -210,6 +210,7 @@
         sql.enable = true;
         python.enable = true;
         clang.enable = true;
+        haskell.enable = true;
         bash.enable = true;
         nix.enable = true;
         yaml.enable = true;
