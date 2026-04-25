@@ -9,7 +9,6 @@
     launcher = noct + "launcher toggle";
     clipboard = noct + "launcher clipboard";
     bar = noct + "bar toggle";
-    lock = noct + "lockScreen lock";
     controlCenter = noct + "controlCenter toggle";
     sessionMenu = noct + "sessionMenu toggle";
     settings = noct + "settings toggle";
@@ -32,6 +31,8 @@
     previous = noct + "media previous";
 
     mediaPanel = noct + "media toggle";
+    calendar = noct + "plugin:weekly-calendar togglePanel";
+    caffeine = noct + "idleInhibitor toggle";
     volumePanel = noct + "volume togglePanel";
     volumeApp = terminal + " -e wiremix";
     bluetoothPanel = noct + "bluetooth togglePanel";
@@ -41,7 +42,7 @@
     tailscalePanel = noct + "plugin:tailscale togglePanel";
     batteryPanel = noct + "battery togglePanel";
     notificationsPanel = noct + "notifications toggleHistory";
-    notificationsDND = noct + "notifications toggleDND";
+    mute = noct + "notifications toggleDND";
 
     zen = lib.getExe inputs.zen-browser.packages.${pkgs.system}.default;
     helium = lib.getExe inputs.helium-browser.packages.${pkgs.system}.default;
@@ -50,17 +51,27 @@
   in {
     wayland.windowManager.hyprland.settings = {
       bind = [
+        #Mental model for keybinds is this:
+        #mod + key = OS/DE action
+        #mod + SHIFT + key = OS/DE action
+        #mod + CTRL + key = toggle shit on/off
+        #mod + ALT + key = launch apps
+        #mod + SHIFT + CTRL + key = action
+        #mod + SHIFT + ALT + key = action
+
         "$mod, SPACE, exec, ${launcher}"
-        "$mod CTRL, SPACE, exec, ${clipboard}"
-        "$mod SHIFT, SPACE, exec, ${bar}"
-        "$mod SHIFT ALT CTRL, SPACE, exec, ${lock}"
+        "$mod SHIFT, SPACE, exec, ${clipboard}"
+        "$mod CTRL, SPACE, exec, ${bar}"
+        "$mod, Delete, exec, ${sessionMenu}"
 
         "$mod, Q, killactive,"
         "$mod, W, togglefloating,"
         "$mod, E, fullscreen"
 
+        #TODO this should be mod + ALT but i can't because of hardware limitations...
         "$mod, RETURN, exec, ${terminal}"
         "$mod CTRL, D, exec, ${terminal} -e lazydocker"
+        "$mod CTRL, G, exec, ${terminal} -e gh-dash"
         "$mod CTRL, I, exec, ${terminal} -e btop"
         "$mod CTRL, Y, exec, ${terminal} -e yazi"
         "$mod CTRL, V, exec, ${volumeApp}"
@@ -84,20 +95,17 @@
         "$mod SHIFT CTRL, k, movecurrentworkspacetomonitor, u"
         "$mod SHIFT CTRL, j, movecurrentworkspacetomonitor, d"
 
-        "$mod, grave, exec, ${controlCenter}"
-        "$mod, delete, exec, ${sessionMenu}"
-
-        # TODO: add this for the tailscale menu
-        # TODO: could prob also add one for docker, but docker could just be a custom module since the one from noctalia is ass
-        "$mod, V, exec, ${volumePanel}"
-        "$mod, M, exec, ${mediaPanel}"
-        "$mod, B, exec, ${bluetoothPanel}"
-        "$mod, N, exec, ${networkPanel}"
         "$mod, T, exec, ${tailscalePanel}"
-        "$mod, D, exec, ${tailscalePanel}"
+        "$mod, X, exec, ${controlCenter}"
+        "$mod, C, exec, ${calendar}"
+        "$mod, V, exec, ${volumePanel}"
+        "$mod, B, exec, ${bluetoothPanel}" #TOGGLE
+        "$mod, N, exec, ${networkPanel}" #TOGGLE
+        "$mod, M, exec, ${mediaPanel}"
+        "$mod SHIFT, C, exec, ${caffeine}"
         "$mod SHIFT, B, exec, ${batteryPanel}"
-        "$mod SHIFT, N, exec, ${notificationsPanel}"
-        "$mod SHIFT CTRL, N, exec, ${notificationsDND}"
+        "$mod SHIFT, N, exec, ${notificationsPanel}" #TOGGLE
+        "$mod SHIFT, M, exec, ${mute}"
 
         #TODO change this to the f12 key (the cog/gear icon)
         "$mod, s, exec, ${settings}"

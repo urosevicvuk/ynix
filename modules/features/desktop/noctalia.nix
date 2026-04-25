@@ -48,7 +48,7 @@
 
       settings = builtins.fromJSON ''
         {
-          "settingsVersion": 57,
+          "settingsVersion": 59,
           "bar": {
             "barType": "simple",
             "position": "top",
@@ -79,6 +79,7 @@
                 {
                   "colorizeDistroLogo": false,
                   "colorizeSystemIcon": "none",
+                  "colorizeSystemText": "none",
                   "customIconPath": "",
                   "enableColorization": false,
                   "icon": "snowflake",
@@ -101,6 +102,7 @@
                   "occupiedColor": "secondary",
                   "pillSize": 0.6,
                   "showApplications": false,
+                  "showApplicationsHover": false,
                   "showBadge": true,
                   "showLabelsOnlyWhenOccupied": false,
                   "unfocusedIconsOpacity": 1
@@ -133,10 +135,6 @@
                   "textColor": "none"
                 },
                 {
-                  "defaultSettings": {},
-                  "id": "plugin:kde-connect"
-                },
-                {
                   "displayMode": "onhover",
                   "iconColor": "none",
                   "id": "Volume",
@@ -156,21 +154,15 @@
                   "textColor": "none"
                 },
                 {
+                  "defaultSettings": {},
+                  "id": "plugin:kde-connect"
+                },
+                {
                   "displayMode": "forceOpen",
                   "iconColor": "none",
                   "id": "KeyboardLayout",
                   "showIcon": false,
                   "textColor": "none"
-                },
-                {
-                  "defaultSettings": {
-                    "customColor": "none",
-                    "showConditionIcon": true,
-                    "showTempUnit": true,
-                    "showTempValue": true,
-                    "tooltipOption": "everything"
-                  },
-                  "id": "plugin:weather-indicator"
                 },
                 {
                   "deviceNativePath": "__default__",
@@ -707,7 +699,6 @@
             "monitorWidgets": []
           }
         }
-
       '';
     };
   };
