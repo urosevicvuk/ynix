@@ -7,6 +7,7 @@
       self.nixosModules.editorconfig
       self.nixosModules.jetbrains
       self.nixosModules.nvim
+      #self.nixosModules.radicle
       self.nixosModules.opencode
       self.nixosModules.zed-editor
     ];
