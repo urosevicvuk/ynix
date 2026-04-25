@@ -11,6 +11,7 @@
       self.nixosModules.graphics
       self.nixosModules.keyd
       self.nixosModules.kitty
+      self.nixosModules.ghostty
       self.nixosModules.mime
       self.nixosModules.noctalia
       self.nixosModules.printing
