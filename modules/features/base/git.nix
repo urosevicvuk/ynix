@@ -102,6 +102,11 @@
 
       gh-dash = {
         enable = true;
+        settings = {
+          repoPaths = {
+            "urosevicvuk/*" = "~/code/*";
+          };
+        };
       };
 
       delta = {

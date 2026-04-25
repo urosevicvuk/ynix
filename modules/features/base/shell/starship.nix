@@ -10,7 +10,7 @@
     programs.starship = {
       enable = true;
       enableNushellIntegration = true;
-      enableZshIntegration = true;
+      enableBashIntegration = true;
       settings = {
         add_newline = true;
         format = lib.concatStrings [

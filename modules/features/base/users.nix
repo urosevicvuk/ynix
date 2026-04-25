@@ -4,8 +4,6 @@
     config,
     ...
   }: {
-    programs.zsh.enable = true;
-    programs.bash.enable = true;
     users = {
       defaultUserShell = pkgs.bash;
       users.${config.preferences.username} = {

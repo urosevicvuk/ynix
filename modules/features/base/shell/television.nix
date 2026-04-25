@@ -7,7 +7,7 @@
     programs.television = {
       enable = true;
       enableNushellIntegration = true;
-      enableZshIntegration = true;
+      enableBashIntegration = true;
       settings = {
         ui = {
           use_nerd_font_icons = true;
