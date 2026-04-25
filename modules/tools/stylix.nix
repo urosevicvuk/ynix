@@ -29,7 +29,7 @@
         };
         sansSerif = {
           package = inputs.apple-fonts.packages.${pkgs.system}.sf-pro-nerd;
-          name = "SF Pro nerd font";
+          name = "SFProDisplay Nerd Font";
         };
         serif = config.stylix.fonts.sansSerif;
         emoji = {
