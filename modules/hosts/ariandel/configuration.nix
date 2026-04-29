@@ -16,8 +16,10 @@
       self.nixosModules.base
       self.nixosModules.desktop
       self.nixosModules.dev
+      self.nixosModules.gaming
       self.nixosModules.programs-gui
       self.nixosModules.programs-tui
+      self.nixosModules.work
 
       self.nixosModules.stylix
       self.nixosModules.sops

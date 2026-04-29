@@ -8,7 +8,11 @@
     home-manager.sharedModules = [self.homeModules.spotify];
   };
 
-  flake.homeModules.spotify = {pkgs, ...}: let
+  flake.homeModules.spotify = {
+    pkgs,
+    lib,
+    ...
+  }: let
     spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
     accent = self.theme.base0D;
     background = self.theme.base00;
@@ -17,6 +21,10 @@
 
     programs.spicetify = {
       enable = true;
+
+      alwaysEnableDevTools = true;
+      experimentalFeatures = true;
+      wayland = true;
 
       customColorScheme = {
         button = accent;
@@ -28,10 +36,6 @@
       };
 
       enabledExtensions = with spicePkgs.extensions; [
-        playlistIcons
-        historyShortcut
-        hidePodcasts
-        adblock
         fullAppDisplay
         keyboardShortcut
       ];

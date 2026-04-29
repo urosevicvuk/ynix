@@ -4,6 +4,7 @@
       self.nixosModules.btop
       self.nixosModules.yazi
       self.nixosModules.yt-dlp
+      self.nixosModules.trivy
     ];
 
     home-manager.sharedModules = [self.homeModules.programs-tui];
