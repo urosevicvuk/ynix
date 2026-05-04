@@ -80,18 +80,16 @@
     import-tree.url = "github:vic/import-tree";
   };
 
-  outputs =
-    inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
+  outputs = inputs @ {flake-parts, ...}:
+    flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
         (inputs.import-tree ./modules)
         ./theme.nix
       ];
-      perSystem =
-        { pkgs, ... }:
-        {
-          formatter = pkgs.nixfmt-rfc-style;
-        };
+      perSystem = {pkgs, ...}: {
+        formatter = pkgs.nixfmt-rfc-style;
+      };
     };
 }
 # TODO: fix all the eval warnings
+

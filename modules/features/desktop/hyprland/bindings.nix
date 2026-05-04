@@ -80,8 +80,8 @@
         "$mod CTRL, H, exec, ${helium}"
         "$mod CTRL, Z, exec, ${zen}"
 
-        "$mod, H, layoutmsg, focus l"
-        "$mod, L, layoutmsg, focus r"
+        "$mod, H, movefocus, l"
+        "$mod, L, movefocus, r"
         "$mod, K, movefocus, u"
         "$mod, J, movefocus, d"
 
@@ -135,6 +135,9 @@
         "$mod SHIFT, 9, movetoworkspace, 9"
         "$mod, 0, workspace, 10"
         "$mod SHIFT, 0, movetoworkspace, 10"
+
+        "$mod, grave, togglespecialworkspace, my_server"
+        "$mod SHIFT, grave, movetoworkspace, special:my_server"
       ];
 
       binde = [
