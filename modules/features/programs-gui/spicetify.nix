@@ -11,11 +11,13 @@
   flake.homeModules.spotify = {
     pkgs,
     lib,
+    config,
     ...
   }: let
     spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
-    accent = self.theme.base0D;
-    background = self.theme.base00;
+    theme = config.theme.active;
+    accent = theme.base0D;
+    background = theme.base00;
   in {
     imports = [inputs.spicetify-nix.homeManagerModules.default];
 

@@ -10,8 +10,11 @@
   flake.homeModules.tmux = {
     pkgs,
     lib,
+    config,
     ...
-  }: {
+  }: let
+    theme = config.theme.active;
+  in {
     programs = {
       tmux = {
         enable = true;
@@ -43,16 +46,11 @@
         plugins = with pkgs.tmuxPlugins; [
           vim-tmux-navigator
           sensible
-          tmux-which-key
-          #gruvbox
-          jump
-          tmux-fzf
-          tmux-thumbs
           {
             plugin = inputs.tmux-powerkit.packages.${pkgs.system}.default;
             extraConfig = ''
-              set -g @powerkit_theme "gruvbox"
-              set -g @powerkit_theme_variant "dark"
+              set -g @powerkit_theme "${theme.tmux-powerkit-theme}"
+              set -g @powerkit_theme_variant "${theme.tmux-powerkit-variant}"
 
               set -g @powerkit_separator_style "normal"
               set -g @powerkit_edge_separator_style "normal"

@@ -7,14 +7,17 @@
   flake.homeModules.btop = {
     pkgs,
     lib,
+    config,
     ...
-  }: {
+  }: let
+    theme = config.theme.active;
+  in {
     programs.btop = {
       enable = true;
       package = pkgs.btop-rocm;
       settings = {
         vim_keys = true;
-        color_theme = lib.mkForce "gruvbox_dark_v2";
+        color_theme = lib.mkForce theme.btop-theme;
       };
     };
   };

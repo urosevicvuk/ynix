@@ -3,9 +3,10 @@
     home-manager.sharedModules = [self.homeModules.starship];
   };
 
-  flake.homeModules.starship = {lib, ...}: let
-    accent = self.theme.base0D;
-    background-alt = self.theme.base01;
+  flake.homeModules.starship = {lib, config, ...}: let
+    theme = config.theme.active;
+    accent = theme.base0D;
+    background-alt = theme.base01;
   in {
     programs.starship = {
       enable = true;

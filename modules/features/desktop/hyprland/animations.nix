@@ -1,6 +1,7 @@
 {self, ...}: {
-  flake.homeModules.hyprland = {...}: let
-    animationSpeed = self.theme.animation-speed;
+  flake.homeModules.hyprland = {config, ...}: let
+    theme = config.theme.active;
+    animationSpeed = theme.animation-speed;
     animationDuration =
       if animationSpeed == "slow"
       then "4"

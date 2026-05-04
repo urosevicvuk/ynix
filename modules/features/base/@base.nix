@@ -21,6 +21,7 @@
       self.nixosModules.direnv
       self.nixosModules.git
       self.nixosModules.jj
+      self.nixosModules.theme
     ];
 
     home-manager = {

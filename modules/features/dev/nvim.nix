@@ -11,8 +11,11 @@
   flake.homeModules.nvim = {
     lib,
     pkgs,
+    config,
     ...
-  }: {
+  }: let
+    theme = config.theme.active;
+  in {
     imports = [inputs.nvf.homeManagerModules.default];
 
     programs.nvf.enable = true;
@@ -78,14 +81,14 @@
       # === UI ===
       theme = {
         enable = true;
-        name = lib.mkForce "gruvbox";
-        style = lib.mkForce "dark";
+        name = lib.mkForce theme.nvim-theme;
+        style = lib.mkForce theme.nvim-theme-style;
         transparent = lib.mkForce true;
       };
 
       statusline.lualine = {
         enable = true;
-        theme = lib.mkForce "gruvbox_dark";
+        theme = lib.mkForce theme.nvim-lualine-theme;
       };
 
       dashboard.alpha.enable = true;

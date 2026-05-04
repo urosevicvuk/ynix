@@ -11,8 +11,11 @@
   flake.homeModules.noctalia = {
     pkgs,
     lib,
+    config,
     ...
-  }: {
+  }: let
+    theme = config.theme.active;
+  in {
     imports = [inputs.noctalia.homeModules.default];
 
     home.packages = with pkgs; [
@@ -28,22 +31,22 @@
       package = inputs.noctalia.packages.${pkgs.system}.default;
 
       colors = {
-        mPrimary = self.theme.base0D;
-        mOnPrimary = self.theme.base00;
-        mSecondary = self.theme.base04;
-        mOnSecondary = self.theme.base00;
-        mTertiary = self.theme.base0C;
-        mOnTertiary = self.theme.base00;
-        mError = self.theme.base08;
-        mOnError = self.theme.base00;
-        mSurface = self.theme.base00;
-        mOnSurface = self.theme.base05;
-        mSurfaceVariant = self.theme.base01;
-        mOnSurfaceVariant = self.theme.base04;
-        mOutline = self.theme.base03;
-        mShadow = self.theme.base00;
-        mHover = self.theme.base0C;
-        mOnHover = self.theme.base00;
+        mPrimary = theme.base0D;
+        mOnPrimary = theme.base00;
+        mSecondary = theme.base04;
+        mOnSecondary = theme.base00;
+        mTertiary = theme.base0C;
+        mOnTertiary = theme.base00;
+        mError = theme.base08;
+        mOnError = theme.base00;
+        mSurface = theme.base00;
+        mOnSurface = theme.base05;
+        mSurfaceVariant = theme.base01;
+        mOnSurfaceVariant = theme.base04;
+        mOutline = theme.base03;
+        mShadow = theme.base00;
+        mHover = theme.base0C;
+        mOnHover = theme.base00;
       };
 
       settings = builtins.fromJSON ''
@@ -636,17 +639,6 @@
             "enforceMinimum": true,
             "enableDdcSupport": false,
             "backlightDeviceMappings": []
-          },
-          "colorSchemes": {
-            "useWallpaperColors": false,
-            "predefinedScheme": "Gruvbox",
-            "darkMode": true,
-            "schedulingMode": "off",
-            "manualSunrise": "06:30",
-            "manualSunset": "18:30",
-            "generationMethod": "content",
-            "monitorForColors": "",
-            "syncGsettings": true
           },
           "templates": {
             "activeTemplates": [],

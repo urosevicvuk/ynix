@@ -9,8 +9,9 @@
     config,
     ...
   }: let
+    theme = config.theme.active;
     inherit
-      (self.theme)
+      (theme)
       border-size
       gaps-in
       gaps-out

@@ -86,7 +86,6 @@
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
         (inputs.import-tree ./modules)
-        ./theme.nix
       ];
       perSystem = {pkgs, ...}: {
         formatter = pkgs.nixfmt-rfc-style;

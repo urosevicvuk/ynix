@@ -6,10 +6,12 @@
   flake.homeModules.git = {
     lib,
     pkgs,
+    config,
     ...
   }: let
-    accent = self.theme.base0D;
-    muted = self.theme.base03;
+    theme = config.theme.active;
+    accent = theme.base0D;
+    muted = theme.base03;
   in {
     home.file.".ssh/allowed_signers".text = "* ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINQpgKiftVTzqkfu6zbRpvZFtWZH/HBQSj6DhuVvVRul vuk23urosevic@gmail.com";
     home.packages = with pkgs; [

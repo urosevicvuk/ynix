@@ -17,6 +17,11 @@
         default = "kitty";
         description = "Default terminal emulator";
       };
+      theme = lib.mkOption {
+        type = lib.types.str;
+        default = "gruvbox";
+        description = "Active color theme (name of theme in modules/tools/themes/)";
+      };
       timeZone = lib.mkOption {
         type = lib.types.str;
         default = "Europe/Belgrade";
