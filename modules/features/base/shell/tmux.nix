@@ -55,9 +55,15 @@
               set -g @powerkit_theme_variant "dark"
 
               set -g @powerkit_separator_style "normal"
+              set -g @powerkit_edge_separator_style "normal"
+              set -g @powerkit_elements_spacing "true"
+
+              set -g @powerkit_status_interval "1"
 
               set -g @powerkit_plugins "git,github,kubernetes,terraform,datetime,hostname,ssh"
+
               set -g @powerkit_plugin_git_show_files "true"
+
               set -g @powerkit_plugin_kubernetes_show_namespace "true"
             '';
           }
