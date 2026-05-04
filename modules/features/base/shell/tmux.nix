@@ -1,4 +1,8 @@
-{self, ...}: {
+{
+  self,
+  inputs,
+  ...
+}: {
   flake.nixosModules.tmux = {...}: {
     home-manager.sharedModules = [self.homeModules.tmux];
   };
@@ -23,10 +27,13 @@
           bind-key _ split-window -v -c "#{pane_current_path}"
           bind-key -r < resize-pane -L 10
           bind-key -r > resize-pane -R 10
+
           setw -g pane-base-index 1
           set-option -g status-position top
           set -g base-index 1
+
           set -gq allow-passthrough on
+
           bind-key x kill-pane
           set -g detach-on-destroy off
           bind-key Enter display-popup -E -w 80% -h 70% -d '#{pane_current_path}' -T 'Sesh' tv sesh
@@ -37,10 +44,23 @@
           vim-tmux-navigator
           sensible
           tmux-which-key
-          gruvbox
+          #gruvbox
           jump
           tmux-fzf
           tmux-thumbs
+          {
+            plugin = inputs.tmux-powerkit.packages.${pkgs.system}.default;
+            extraConfig = ''
+              set -g @powerkit_theme "gruvbox"
+              set -g @powerkit_theme_variant "dark"
+
+              set -g @powerkit_separator_style "normal"
+
+              set -g @powerkit_plugins "git,github,kubernetes,terraform,datetime,hostname,ssh"
+              set -g @powerkit_plugin_git_show_files "true"
+              set -g @powerkit_plugin_kubernetes_show_namespace "true"
+            '';
+          }
           {
             plugin = yank;
             extraConfig = ''
