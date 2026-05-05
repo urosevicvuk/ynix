@@ -8,13 +8,15 @@
     pkgs,
     config,
     ...
-  }: {
+  }: let
+    theme = config.theme.active;
+  in {
     imports = [inputs.stylix.nixosModules.stylix];
 
     config.stylix = {
       enable = true;
 
-      base16Scheme = lib.filterAttrs (n: _: builtins.match "base0[0-9A-F]" n != null) self.theme;
+      base16Scheme = lib.filterAttrs (n: _: builtins.match "base0[0-9A-F]" n != null) theme;
 
       cursor = {
         package = pkgs.bibata-cursors;
@@ -47,17 +49,17 @@
         };
       };
 
-      polarity = "dark";
+      polarity = theme.stylix-polarity;
       image =
-        pkgs.runCommand "optimized-gruvbox-wallpaper.jpg"
+        pkgs.runCommand "optimized-wallpaper.jpg"
         {
           buildInputs = [pkgs.imagemagick];
         }
         ''
           ${pkgs.imagemagick}/bin/convert ${
             pkgs.fetchurl {
-              url = "https://gruvbox-wallpapers.pages.dev/wallpapers/mix/wall.jpg";
-              sha256 = "sha256-AyRt1FpaQR1hp9ERP+MRk4M58I0mzVsE7x9TtnBCSiw=";
+              url = theme.stylix-wallpaper-url;
+              sha256 = theme.stylix-wallpaper-hash;
             }
           } -resize 2880x1920^ -gravity center -extent 2880x1920 -quality 92 $out
         '';

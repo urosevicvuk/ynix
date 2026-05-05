@@ -3,17 +3,19 @@
     home-manager.sharedModules = [self.homeModules.fzf];
   };
 
-  flake.homeModules.fzf = {lib, ...}: {
+  flake.homeModules.fzf = {lib, config, ...}: let
+    theme = config.theme.active;
+  in {
     programs.fzf = {
       enable = true;
       tmux.enableShellIntegration = true;
       colors = lib.mkForce {
-        "fg+" = self.theme.base0D;
+        "fg+" = theme.base0D;
         "bg+" = "-1";
-        "fg" = self.theme.base05;
+        "fg" = theme.base05;
         "bg" = "-1";
-        "prompt" = self.theme.base03;
-        "pointer" = self.theme.base0D;
+        "prompt" = theme.base03;
+        "pointer" = theme.base0D;
       };
       defaultOptions = [
         "--margin=1"

@@ -11,8 +11,11 @@
   flake.homeModules.nvim = {
     lib,
     pkgs,
+    config,
     ...
-  }: {
+  }: let
+    theme = config.theme.active;
+  in {
     imports = [inputs.nvf.homeManagerModules.default];
 
     programs.nvf.enable = true;
@@ -21,7 +24,6 @@
       # === Core ===
       viAlias = false;
       vimAlias = true;
-      withNodeJs = true;
       syntaxHighlighting = true;
 
       options = {
@@ -54,38 +56,38 @@
         gitblame_display_virtual_text = true;
       };
 
-      #binds.whichKey = {
-      #  enable = true;
-      #  register = {
-      #    "<leader>b" = "+buffer";
-      #    "<leader>c" = "+code";
-      #    "<leader>d" = "+debug";
-      #    "<leader>f" = "+find/file";
-      #    "<leader>g" = "+git";
-      #    "<leader>m" = "+marks";
-      #    "<leader>o" = "+opencode";
-      #    "<leader>q" = "+quit";
-      #    "<leader>r" = "+refactor";
-      #    "<leader>s" = "+session";
-      #    "<leader>t" = "+test";
-      #    "<leader>u" = "+ui/toggle";
-      #    "<leader>w" = "+window";
-      #    "<leader>x" = "+trouble/diagnostics";
-      #    "<leader>9" = "+99 AI";
-      #  };
-      #};
+      binds.whichKey = {
+        enable = true;
+        #register = {
+        #  "<leader>b" = "+buffer";
+        #  "<leader>c" = "+code";
+        #  "<leader>d" = "+debug";
+        #  "<leader>f" = "+find/file";
+        #  "<leader>g" = "+git";
+        #  "<leader>m" = "+marks";
+        #  "<leader>o" = "+opencode";
+        #  "<leader>q" = "+quit";
+        #  "<leader>r" = "+refactor";
+        #  "<leader>s" = "+session";
+        #  "<leader>t" = "+test";
+        #  "<leader>u" = "+ui/toggle";
+        #  "<leader>w" = "+window";
+        #  "<leader>x" = "+trouble/diagnostics";
+        #  "<leader>9" = "+99 AI";
+        #};
+      };
 
       # === UI ===
       theme = {
         enable = true;
-        name = lib.mkForce "gruvbox";
-        style = lib.mkForce "dark";
+        name = lib.mkForce theme.nvim-theme;
+        style = lib.mkForce theme.nvim-theme-style;
         transparent = lib.mkForce true;
       };
 
       statusline.lualine = {
         enable = true;
-        theme = lib.mkForce "gruvbox_dark";
+        theme = lib.mkForce theme.nvim-lualine-theme;
       };
 
       dashboard.alpha.enable = true;
@@ -110,7 +112,7 @@
         starter.enable = true;
         comment.enable = true;
         cursorword.enable = true;
-        icons.enable = true;
+        #icons.enable = true;
         indentscope.enable = true;
         notify.enable = true;
         pairs.enable = true;
@@ -183,6 +185,7 @@
         enable = true;
         fold = true;
         highlight.enable = true;
+        indent.enable = false;
         context = {
           enable = true;
           setupOpts = {
@@ -332,6 +335,11 @@
         };
       };
       utility.oil-nvim.enable = true;
+      utility.yanky-nvim = {
+        enable = true;
+        setupOpts.ring.storage = "sqlite";
+      };
+      utility.undotree.enable = true;
 
       navigation.harpoon = {
         enable = true;
@@ -349,19 +357,9 @@
 
       # === Plugins ===
       startPlugins = with pkgs.vimPlugins; [
-        #nvim-surround
-        undotree
-        vim-highlightedyank
         opencode-nvim
-        persistence-nvim
-        git-blame-nvim
         vim-tmux-navigator
       ];
-
-      # === Lua config ===
-      #luaConfigRC.nvim-surround = ''
-      #  require("nvim-surround").setup({})
-      #'';
 
       luaConfigRC.rainbow-delimiters-config = ''
         local rainbow_delimiters = require('rainbow-delimiters')
@@ -371,17 +369,6 @@
           highlight = { 'RainbowDelimiterGray' },
         }
         vim.api.nvim_set_hl(0, 'RainbowDelimiterGray', { fg = '#928374' })
-      '';
-
-      luaConfigRC.highlightedyank = ''
-        vim.g.highlightedyank_highlight_duration = 200
-      '';
-
-      luaConfigRC.persistence = ''
-        require("persistence").setup({
-          dir = vim.fn.expand(vim.fn.stdpath("state") .. "/sessions/"),
-          options = { "buffers", "curdir", "tabpages", "winsize" },
-        })
       '';
 
       # === Keymaps ===

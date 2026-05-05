@@ -1,5 +1,5 @@
 {
-  flake.theme = {
+  flake.theme.gruvbox = {
     # Gruvbox dark medium
     base00 = "#282828";
     base01 = "#3c3836";
@@ -30,5 +30,18 @@
 
     # Shell
     fetch = "none";
+
+    # App-specific theme identifiers
+    btop-theme = "gruvbox_dark_v2";
+    discord-theme-url = "https://raw.githubusercontent.com/shvedes/discord-gruvbox/refs/heads/main/gruvbox-dark.theme.css";
+    nvim-theme = "gruvbox";
+    nvim-theme-style = "dark";
+    nvim-lualine-theme = "gruvbox_dark";
+    tmux-powerkit-theme = "gruvbox";
+    tmux-powerkit-variant = "dark";
+    opencode-theme = "gruvbox";
+    stylix-polarity = "dark";
+    stylix-wallpaper-url = "https://gruvbox-wallpapers.pages.dev/wallpapers/mix/wall.jpg";
+    stylix-wallpaper-hash = "sha256-AyRt1FpaQR1hp9ERP+MRk4M58I0mzVsE7x9TtnBCSiw=";
   };
 }

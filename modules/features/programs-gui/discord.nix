@@ -8,7 +8,9 @@
     home-manager.sharedModules = [self.homeModules.discord];
   };
 
-  flake.homeModules.discord = {...}: {
+  flake.homeModules.discord = {config, ...}: let
+    theme = config.theme.active;
+  in {
     imports = [inputs.nixcord.homeModules.nixcord];
 
     stylix.targets.nixcord.enable = false;
@@ -24,7 +26,7 @@
         useQuickCss = true;
         frameless = true;
         themeLinks = [
-          "https://raw.githubusercontent.com/shvedes/discord-gruvbox/refs/heads/main/gruvbox-dark.theme.css"
+          theme.discord-theme-url
         ];
       };
     };
