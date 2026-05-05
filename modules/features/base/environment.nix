@@ -1,7 +1,8 @@
-{
+{inputs, ...}: {
   flake.nixosModules.environment = {
     pkgs,
     config,
+    lib,
     ...
   }: {
     environment = {
@@ -10,8 +11,8 @@
         NH_FLAKE = config.preferences.configDirectory;
         PASSWORD_STORE_DIR = "$HOME/.local/share/password-store";
         EDITOR = "nvim";
-        TERMINAL = "kitty";
-        BROWSER = "zen";
+        TERMINAL = config.preferences.terminal;
+        BROWSER = lib.getExe inputs.zen-browser.packages.${pkgs.system}.default;
       };
       systemPackages = with pkgs; [
         fd
@@ -35,7 +36,6 @@
         moreutils
         wireguard-tools
       ];
-      pathsToLink = ["/share/zsh"];
     };
     documentation = {
       enable = true;

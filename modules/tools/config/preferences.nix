@@ -27,6 +27,14 @@
         default = "Europe/Belgrade";
         description = "System timezone";
       };
+      autostart = lib.mkOption {
+        type = lib.types.listOf (lib.types.either lib.types.str lib.types.package);
+        default = [];
+      };
+      keymap = lib.mkOption {
+        type = lib.types.lazyAttrsOf (lib.types.either lib.types.attrs lib.types.package);
+        default = {};
+      };
     };
   };
 }
