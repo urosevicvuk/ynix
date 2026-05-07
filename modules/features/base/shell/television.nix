@@ -18,11 +18,11 @@
         sesh = lib.fromTOML ''
           [metadata]
           name = "sesh"
-          description = "Session manager integrating tmux sessions, zoxide directories, and config paths"
+          description = "Sessions, zoxide directories, configured paths, and project dirs"
           requirements = [ "sesh", "fd",]
 
           [source]
-          command = [ "sesh list --icons", "sesh list -t --icons", "sesh list -c --icons", "sesh list -z --icons", "fd -H -d 2 -t d -E .Trash . ~",]
+          command = [ "sesh list --icons", "sesh list -t --icons", "fd -H -t d --min-depth 2 --max-depth 2 . ~/Projects | sed 's|^|󰉋 |'" ]
           ansi = true
           output = "{strip_ansi|split: :1..|join: }"
 

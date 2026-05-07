@@ -13,18 +13,11 @@
 
   flake.homeModules.programs-tui = {...}: {
     programs = {
-      jq = {
-        enable = true;
-      };
-      fd = {
-        enable = true;
-      };
-      ripgrep = {
-        enable = true;
-      };
-      bat = {
-        enable = true;
-      };
+      fastfetch.enable = true;
+      bat.enable = true;
+      fd.enable = true;
+      ripgrep.enable = true;
+      jq.enable = true;
     };
   };
 }

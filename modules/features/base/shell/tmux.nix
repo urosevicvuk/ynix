@@ -25,20 +25,21 @@
         terminal = "kitty";
         keyMode = "vi";
 
-        disableConfirmationPrompt = true;
-        sensibleOnTop = true;
         extraConfig = ''
-          bind-key -r < resize-pane -L 10
-          bind-key -r > resize-pane -R 10
-
           set-option -g status-position top
           set -g base-index 1
           set -g automatic-rename on
+          set -g detach-on-destroy off
           set -gq allow-passthrough on
+
+          bind-key -r < resize-pane -L 10
+          bind-key -r > resize-pane -R 10
 
           bind-key x kill-pane
           bind-key Enter display-popup -E -w 80% -h 70% -d '#{pane_current_path}' -T 'Sesh' tv sesh
+          #bind -N "last-session (via sesh) " L run-shell "sesh last"
         '';
+
         plugins = with pkgs.tmuxPlugins; [
           vim-tmux-navigator
           sensible
@@ -54,7 +55,7 @@
 
               set -g @powerkit_status_interval "1"
 
-              set -g @powerkit_plugins "git,github,kubernetes,terraform,datetime,hostname,ssh"
+              set -g @powerkit_plugins "git,kubernetes,terraform,datetime,hostname,ssh"
 
               set -g @powerkit_plugin_git_show_files "true"
 

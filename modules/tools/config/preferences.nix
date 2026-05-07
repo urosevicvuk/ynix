@@ -9,7 +9,7 @@
       };
       configDirectory = lib.mkOption {
         type = lib.types.str;
-        default = "/home/vyke/code/ynix";
+        default = "/home/vyke/Projects/personal/ynix";
         description = "Path to the NixOS configuration flake";
       };
       terminal = lib.mkOption {
