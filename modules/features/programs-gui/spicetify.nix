@@ -28,18 +28,23 @@
       experimentalFeatures = true;
       wayland = true;
 
-      customColorScheme = {
-        button = accent;
-        button-active = accent;
-        tab-active = accent;
-        player = background;
-        main = background;
-        sidebar = background;
-      };
+      #customColorScheme = {
+      #  button = accent;
+      #  button-active = accent;
+      #  tab-active = accent;
+      #  player = background;
+      #  main = background;
+      #  sidebar = background;
+      #};
+
+      theme = lib.mkForce spicePkgs.themes.text;
+      colorScheme = lib.mkForce "Gruvbox";
 
       enabledExtensions = with spicePkgs.extensions; [
+        adblock
         fullAppDisplay
         keyboardShortcut
+        shuffle
       ];
     };
   };

@@ -24,11 +24,12 @@
       self.nixosModules.sops
 
       inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
-      inputs.determinate.nixosModules.default
     ];
 
     networking.hostName = "ariandel";
     system.stateVersion = "26.05";
+
+    preferences.theme = "gruvbox";
 
     hardware.enableRedistributableFirmware = true;
     hardware.enableAllFirmware = true;
@@ -75,6 +76,7 @@
       echo '0000:c1:00.4' > /sys/bus/pci/drivers/xhci_hcd/bind 2>/dev/null || true
 
       # fprintd will auto-start when needed
+
     '';
   };
 }

@@ -104,9 +104,9 @@
                   "labelMode": "index",
                   "occupiedColor": "secondary",
                   "pillSize": 0.6,
-                  "showApplications": false,
-                  "showApplicationsHover": false,
-                  "showBadge": true,
+                  "showApplications": true,
+                  "showApplicationsHover": true,
+                  "showBadge": false,
                   "showLabelsOnlyWhenOccupied": false,
                   "unfocusedIconsOpacity": 1
                 }
@@ -123,6 +123,22 @@
                 }
               ],
               "right": [
+                {
+                  "defaultSettings": {
+                    "activeColor": "primary",
+                    "camFilterRegex": "",
+                    "enableToast": true,
+                    "hideInactive": false,
+                    "iconSpacing": 4,
+                    "inactiveColor": "none",
+                    "micFilterRegex": "",
+                    "removeMargins": false
+                  },
+                  "id": "plugin:privacy-indicator"
+                },
+                {
+                  "id": "plugin:mini-docker"
+                },
                 {
                   "blacklist": [],
                   "chevronColor": "none",
@@ -480,7 +496,21 @@
             "size": 1,
             "onlySameOutput": true,
             "monitors": [],
-            "pinnedApps": [],
+            "pinnedApps": [
+              "zen-beta",
+              "helium",
+              "LocalSend",
+              "kitty",
+              "bitwarden",
+              "spotify",
+              "signal",
+              "discord",
+              "obsidian",
+              "steam",
+              "dev.zed.Zed",
+              "idea",
+              "datagrip"
+            ],
             "colorizeIcons": false,
             "showLauncherIcon": false,
             "launcherPosition": "end",
@@ -640,6 +670,17 @@
             "enableDdcSupport": false,
             "backlightDeviceMappings": []
           },
+          "colorSchemes": {
+            "useWallpaperColors": false,
+            "predefinedScheme": "Noctalia (default)",
+            "darkMode": true,
+            "schedulingMode": "off",
+            "manualSunrise": "06:30",
+            "manualSunset": "18:30",
+            "generationMethod": "tonal-spot",
+            "monitorForColors": "",
+            "syncGsettings": true
+          },
           "templates": {
             "activeTemplates": [],
             "enableUserTheming": false
@@ -690,8 +731,7 @@
             "gridSnapScale": false,
             "monitorWidgets": []
           }
-        }
-      '';
+        }      '';
     };
   };
 }

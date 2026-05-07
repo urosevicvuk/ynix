@@ -14,8 +14,6 @@
       "nvme"
       "xhci_pci"
       "thunderbolt"
-      "usb_storage"
-      "sd_mod"
     ];
     boot.initrd.kernelModules = [];
     boot.kernelModules = ["kvm-amd"];
@@ -38,13 +36,6 @@
     swapDevices = [
       {device = "/dev/disk/by-uuid/41d98f99-d333-4118-8b80-a103a9ee6b4f";}
     ];
-
-    # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-    # (the default) this is the recommended approach. When using systemd-networkd it's
-    # still possible to use this option, but it's recommended to use it in conjunction
-    # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-    networking.useDHCP = lib.mkDefault true;
-    # networking.interfaces.wlp192s0.useDHCP = lib.mkDefault true;
 
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
     hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
