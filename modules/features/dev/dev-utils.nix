@@ -6,12 +6,7 @@
 
   flake.homeModules.dev-utils = {pkgs, ...}: {
     home.packages = with pkgs; [
-      #goat for api testing
       bruno
-
-      #some obscure editors i don't really use
-      code-cursor
-      vscode
     ];
   };
 }

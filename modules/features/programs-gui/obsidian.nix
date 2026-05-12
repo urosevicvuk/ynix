@@ -9,7 +9,7 @@
       vaults = {
         master = {
           enable = true;
-          target = "/obsidian/master";
+          target = "/Documents/obsidian/master";
         };
       };
       cli.enable = true;

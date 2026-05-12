@@ -36,7 +36,7 @@
         ];
         includes = [
           {
-            condition = "gitdir:~/uni/";
+            condition = "gitdir:~/Projects/uni/";
             contents = {
               user = {
                 name = "vurosevic6422rn";
@@ -106,7 +106,7 @@
         enable = true;
         settings = {
           repoPaths = {
-            "urosevicvuk/*" = "~/code/*";
+            "urosevicvuk/*" = "~/Projects/personal/*";
           };
         };
       };

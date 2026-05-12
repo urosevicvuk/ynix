@@ -137,9 +137,6 @@
                   "id": "plugin:privacy-indicator"
                 },
                 {
-                  "id": "plugin:mini-docker"
-                },
-                {
                   "blacklist": [],
                   "chevronColor": "none",
                   "colorizeIcons": false,

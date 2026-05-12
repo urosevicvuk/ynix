@@ -23,7 +23,7 @@
     ];
 
     # Declaratively manage .sops.yaml
-    home.file."${config.home.homeDirectory}/code/ynix/.sops.yaml".text = ''
+    home.file."${config.home.homeDirectory}/Projects/personal/ynix/.sops.yaml".text = ''
       creation_rules:
         - path_regex: secrets/shared/.*\.yaml$
           key_groups:
