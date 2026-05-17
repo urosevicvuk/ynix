@@ -490,7 +490,7 @@
             "dockType": "floating",
             "backgroundOpacity": 1,
             "floatingRatio": 1,
-            "size": 1,
+            "size": 1.25,
             "onlySameOutput": true,
             "monitors": [],
             "pinnedApps": [
@@ -526,7 +526,7 @@
             "showDockIndicator": true,
             "indicatorThickness": 3,
             "indicatorColor": "secondary",
-            "indicatorOpacity": 0.6
+            "indicatorOpacity": 0.30000000000000004
           },
           "network": {
             "bluetoothRssiPollingEnabled": true,
@@ -728,7 +728,8 @@
             "gridSnapScale": false,
             "monitorWidgets": []
           }
-        }      '';
+        }
+      '';
     };
   };
 }

@@ -3,6 +3,7 @@
     imports = [
       self.nixosModules.browsers
 
+      self.nixosModules.calibre
       self.nixosModules.discord
       self.nixosModules.spicetify
       self.nixosModules.obsidian

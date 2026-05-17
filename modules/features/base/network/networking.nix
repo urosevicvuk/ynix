@@ -7,6 +7,9 @@
       };
       networkmanager = {
         enable = true;
+        wifi = {
+          powersave = false;
+        };
       };
     };
     users.users.${config.preferences.username}.extraGroups = ["networkmanager"];
