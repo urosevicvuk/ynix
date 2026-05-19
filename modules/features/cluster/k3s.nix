@@ -31,6 +31,16 @@
       8472 # cilium VXLAN
     ];
 
+    # Trust traffic arriving from pod veths (all named `lxc*` by Cilium).
+    # Without this, the NixOS firewall drops packets that Cilium's TPROXY
+    # redirects to host ports — e.g. L7 LB proxy on 127.0.0.1:15744 (gateway
+    # API requests). Enumerating every host port Cilium uses is fragile; the
+    # interface-based trust is the load-bearing version of the per-port rules
+    # above.
+    networking.firewall.extraCommands = ''
+      iptables -A nixos-fw -i lxc+ -j nixos-fw-accept
+    '';
+
     environment.systemPackages = with pkgs; [
       kubectl
       kubernetes-helm

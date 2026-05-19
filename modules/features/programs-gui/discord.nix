@@ -31,4 +31,6 @@
       };
     };
   };
+
+  # TODO: add concord - the TUI for Discord
 }
