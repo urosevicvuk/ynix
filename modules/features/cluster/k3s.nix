@@ -11,11 +11,11 @@
       role = "server";
       extraFlags =
         toString [
-          "--disable=traefik"          # Gateway API + Cilium Gateway instead
-          "--disable=servicelb"        # Cilium L2 announces LB IPs
-          "--flannel-backend=none"     # Cilium replaces the CNI
-          "--disable-network-policy"   # Cilium enforces NetworkPolicies + CiliumNetworkPolicies
-          "--disable-kube-proxy"       # Cilium replaces kube-proxy
+          "--disable=traefik" # Gateway API + Cilium Gateway instead
+          "--disable=servicelb" # Cilium L2 announces LB IPs
+          "--flannel-backend=none" # Cilium replaces the CNI
+          "--disable-network-policy" # Cilium enforces NetworkPolicies + CiliumNetworkPolicies
+          "--disable-kube-proxy" # Cilium replaces kube-proxy
           "--write-kubeconfig-mode=644"
         ]
         + " --tls-san=${config.networking.hostName}";
@@ -24,6 +24,11 @@
     networking.firewall.allowedTCPPorts = [
       6443
       10250
+      4240 # cilium-health
+      4244 # hubble peer
+    ];
+    networking.firewall.allowedUDPPorts = [
+      8472 # cilium VXLAN
     ];
 
     environment.systemPackages = with pkgs; [
