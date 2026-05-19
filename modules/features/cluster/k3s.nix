@@ -24,6 +24,12 @@
     networking.firewall.allowedTCPPorts = [
       6443
       10250
+      4240 # cilium-health
+      4244 # hubble peer (pod -> agent on host network)
+    ];
+
+    networking.firewall.allowedUDPPorts = [
+      8472 # cilium VXLAN tunnel
     ];
 
     environment.systemPackages = with pkgs; [
