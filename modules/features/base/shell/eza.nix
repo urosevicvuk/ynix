@@ -12,6 +12,7 @@
         "--group-directories-first"
         "--no-quotes"
         "--icons=always"
+        "--long"
       ];
     };
   };

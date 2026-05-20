@@ -163,6 +163,36 @@
           [ui.preview_panel]
           header = "{0}"
         '';
+
+        kubectx = lib.fromTOML ''
+          [metadata]
+          name = "k8s-contexts"
+          description = "List and switch kubectl contexts"
+          requirements = [ "kubectl",]
+
+          [source]
+          command = "kubectl config get-contexts -o name"
+
+          [preview]
+          command = "kubectl config view --minify --context='{}' -o yaml"
+
+          [ui]
+          layout = "portrait"
+
+          [keybindings]
+          enter = "actions:use"
+          ctrl-d = "actions:delete"
+
+          [actions.use]
+          description = "Switch to the selected context"
+          command = "kubectl config use-context '{}'"
+          mode = "execute"
+
+          [actions.delete]
+          description = "Delete the selected context"
+          command = "kubectl config delete-context '{}'"
+          mode = "execute"
+        '';
       };
     };
   };

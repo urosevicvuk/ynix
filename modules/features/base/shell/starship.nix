@@ -3,7 +3,11 @@
     home-manager.sharedModules = [self.homeModules.starship];
   };
 
-  flake.homeModules.starship = {lib, config, ...}: let
+  flake.homeModules.starship = {
+    lib,
+    config,
+    ...
+  }: let
     theme = config.theme.active;
     accent = theme.base0D;
     background-alt = theme.base01;
@@ -21,7 +25,6 @@
           "$git_branch"
           "$git_state"
           "$git_status"
-          "$character"
         ];
         directory.style = accent;
         character = {
@@ -40,7 +43,7 @@
           format = "on [$symbol$branch]($style)[](${background-alt}) ";
         };
         git_status = {
-          format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218)($ahead_behind$stashed)]($style)";
+          format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218)($ahead_behind$stashed)]($style) ";
           style = "cyan";
           conflicted = "";
           renamed = "";
