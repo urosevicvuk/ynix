@@ -44,6 +44,7 @@
       shellAliases = {
         gitui = "lazygit";
         nix-shell = "nix-shell --command nu";
+        ssh = "kitten ssh";
       };
     };
 
