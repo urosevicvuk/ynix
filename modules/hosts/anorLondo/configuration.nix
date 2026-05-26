@@ -43,22 +43,11 @@
         piper
       ];
 
-      wayland.windowManager.hyprland.settings = {
-        monitor = [
-          "DP-2, 1920x1080@144, 0x0, 1"
-          "DP-3, preferred, auto, 1, transform, 1"
-          "HDMI-A-1, preferred, auto, 1, mirror, DP-2"
-          ",preferred,auto,1"
-        ];
-        input = {
-          sensitivity = "-0.5";
-          kb_variant = lib.mkForce ",latin,";
-        };
-        cursor.default_monitor = "DP-2";
-        env = [
-          "GDK_SCALE,1"
-        ];
-      };
+      programs.niri.settings.input.keyboard.xkb.variant = lib.mkForce ",latin,";
+
+      # TODO: niri outputs for DP-2 (1920x1080@144, primary), DP-3 (rotated 90°),
+      # HDMI-A-1 (mirror of DP-2). Old hyprland config removed during cleanup;
+      # niri uses programs.niri.settings.outputs with a different schema.
     };
 
     # Hardware peripherals support - gaming mice, RGB controllers, Logitech devices

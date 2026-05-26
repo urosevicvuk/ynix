@@ -6,8 +6,6 @@
       self.nixosModules.bitwarden
       self.nixosModules.clipboard
       self.nixosModules.dbus
-      self.nixosModules.dank
-      self.nixosModules.dolphin
       self.nixosModules.filesharing
       self.nixosModules.fonts
       self.nixosModules.graphics
@@ -15,14 +13,14 @@
       self.nixosModules.kitty
       self.nixosModules.ghostty
       self.nixosModules.mime
+      self.nixosModules.niri
       self.nixosModules.noctalia
-      self.nixosModules.okular
       self.nixosModules.printing
+      self.nixosModules.thunar
       self.nixosModules.tuigreet
       self.nixosModules.udiskie
       self.nixosModules.xdg
-      self.nixosModules.hyprland
-      self.nixosModules.niri
+      self.nixosModules.zathura
     ];
   };
 }

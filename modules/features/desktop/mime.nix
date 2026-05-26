@@ -7,16 +7,16 @@
     with lib; let
       defaultApps = {
         browser = ["zen-beta.desktop"];
-        text = ["org.kde.kate.desktop"];
+        text = ["dev.zed.Zed.desktop"];
         image = ["imv-dir.desktop"];
         audio = ["mpv.desktop"];
         video = ["mpv.desktop"];
-        directory = ["org.kde.dolphin.desktop"];
+        directory = ["thunar.desktop"];
         office = ["libreoffice.desktop"];
-        pdf = ["org.kde.okular.desktop"];
+        pdf = ["org.pwmt.zathura.desktop"];
         terminal = ["kitty.desktop"];
         discord = ["discord.desktop"];
-        archive = ["org.kde.ark.desktop"];
+        archive = ["org.gnome.FileRoller.desktop"];
       };
 
       mimeMap = {

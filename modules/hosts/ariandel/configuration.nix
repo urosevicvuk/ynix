@@ -47,21 +47,6 @@
         radeontop
       ];
 
-      wayland.windowManager.hyprland.settings = {
-        monitor = [
-          "eDP-1,2880x1920@120,0x0,1.5"
-          "DP-2,1920x1080@144,0x-1080,1"
-          ",preferred,auto,1"
-        ];
-        input = {
-          sensitivity = "0.2";
-        };
-        cursor.default_monitor = "eDP-1";
-        env = [
-          "GDK_SCALE,1.5"
-        ];
-      };
-
       programs.niri.settings.outputs = {
         "eDP-1" = {
           scale = 1.5;

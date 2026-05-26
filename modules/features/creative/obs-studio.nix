@@ -18,7 +18,7 @@
       QT_ENABLE_HIGHDPI_SCALING = "1";
     };
 
-    xdg.configFile."xdg-desktop-portal/hyprland.conf".text = ''
+    xdg.configFile."xdg-desktop-portal/niri.conf".text = ''
       [screencast]
       output_name=eDP-1
       max_fps=60

@@ -4,21 +4,19 @@
       enable = true;
       xdgOpenUsePortal = true;
       config = {
-        common.default = ["kde"];
-        hyprland.default = [
-          "kde"
-          "hyprland"
-        ];
-        niri.default = [
-          "gnome"
-          "kde"
-        ];
+        common.default = ["gtk"];
+        niri = {
+          default = ["gnome" "gtk"];
+          "org.freedesktop.impl.portal.ScreenCast" = ["gnome"];
+          "org.freedesktop.impl.portal.RemoteDesktop" = ["gnome"];
+          "org.freedesktop.impl.portal.Access" = ["gnome"];
+          "org.freedesktop.impl.portal.FileChooser" = ["gtk"];
+        };
       };
 
       extraPortals = [
-        pkgs.kdePackages.xdg-desktop-portal-kde
-        pkgs.xdg-desktop-portal-gnome
         pkgs.xdg-desktop-portal-gtk
+        pkgs.xdg-desktop-portal-gnome
       ];
     };
   };

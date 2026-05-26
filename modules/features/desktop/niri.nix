@@ -10,6 +10,8 @@
 
     programs.niri.enable = true;
 
+    # polkit-kde-agent crashes when rendering dialogs on niri (KCrash / SIGSEGV).
+    # Use hyprpolkitagent instead — started via spawn-at-startup in the home module below.
     systemd.user.services.niri-flake-polkit.enable = false;
 
     environment.systemPackages = with pkgs; [
@@ -88,7 +90,7 @@
       dconf
       wayland-utils
       glib
-      hyprpolkitagent
+      polkit_gnome
       satty
     ];
 
@@ -116,8 +118,8 @@
       };
 
       spawn-at-startup = [
-        {command = ["systemctl" "--user" "start" "hyprpolkitagent"];}
         {command = ["xwayland-satellite"];}
+        {command = ["${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"];}
         {command = ["noctalia-shell"];}
         {command = ["${pkgs.tailscale-systray}/bin/tailscale-systray"];}
         {command = ["kdeconnect-indicator"];}
