@@ -16,6 +16,11 @@
     config.stylix = {
       enable = true;
 
+      targets.qt = {
+        enable = true;
+        platform = "qtct";
+      };
+
       base16Scheme = lib.filterAttrs (n: _: builtins.match "base0[0-9A-F]" n != null) theme;
 
       cursor = {

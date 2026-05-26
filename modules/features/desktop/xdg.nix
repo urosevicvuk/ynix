@@ -4,14 +4,22 @@
       enable = true;
       xdgOpenUsePortal = true;
       config = {
-        common.default = ["gtk"];
+        common.default = ["kde"];
         hyprland.default = [
-          "gtk"
+          "kde"
           "hyprland"
+        ];
+        niri.default = [
+          "gnome"
+          "kde"
         ];
       };
 
-      extraPortals = [pkgs.xdg-desktop-portal-gtk];
+      extraPortals = [
+        pkgs.kdePackages.xdg-desktop-portal-kde
+        pkgs.xdg-desktop-portal-gnome
+        pkgs.xdg-desktop-portal-gtk
+      ];
     };
   };
 }

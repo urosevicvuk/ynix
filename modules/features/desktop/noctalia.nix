@@ -322,7 +322,7 @@
             ]
           },
           "wallpaper": {
-            "enabled": false,
+            "enabled": true,
             "overviewEnabled": false,
             "directory": "/home/vyke/Pictures/Wallpapers",
             "monitorDirectories": [],

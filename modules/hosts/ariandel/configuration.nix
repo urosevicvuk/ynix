@@ -61,6 +61,33 @@
           "GDK_SCALE,1.5"
         ];
       };
+
+      programs.niri.settings.outputs = {
+        "eDP-1" = {
+          scale = 1.5;
+          mode = {
+            width = 2880;
+            height = 1920;
+            refresh = 120.0;
+          };
+          position = {
+            x = 0;
+            y = 0;
+          };
+        };
+        "DP-2" = {
+          scale = 1.0;
+          mode = {
+            width = 1920;
+            height = 1080;
+            refresh = 144.0;
+          };
+          position = {
+            x = 0;
+            y = -1080;
+          };
+        };
+      };
     };
 
     # Fix fingerprint reader after suspend/resume

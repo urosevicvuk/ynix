@@ -109,7 +109,6 @@
       wlr-randr
       wl-clipboard
       brightnessctl
-      gnome-themes-extra
       libva
       dconf
       wayland-utils
@@ -162,6 +161,7 @@
           "NIXOS_OZONE_WL,1"
           "QT_AUTO_SCREEN_SCALE_FACTOR,1"
           "QT_QPA_PLATFORM=wayland,xcb"
+          "QT_QPA_PLATFORMTHEME,qt6ct"
           "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
           "DISABLE_QT5_COMPAT,0"
           "ELECTRON_OZONE_PLATFORM_HINT,auto"

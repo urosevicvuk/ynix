@@ -1,13 +1,18 @@
-# greetd + tuigreet display manager
 {...}: {
   flake.nixosModules.tuigreet = {pkgs, ...}: let
-    sessionDir = "${pkgs.hyprland}/share/wayland-sessions";
+    sessions = pkgs.symlinkJoin {
+      name = "wayland-sessions";
+      paths = [
+        "${pkgs.hyprland}/share/wayland-sessions"
+        "${pkgs.niri}/share/wayland-sessions"
+      ];
+    };
   in {
     services.greetd = {
       enable = true;
       settings = {
         default_session = {
-          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --remember-session --asterisks --sessions ${sessionDir}";
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --remember-session --asterisks --sessions ${sessions}";
           user = "greeter";
         };
       };
