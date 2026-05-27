@@ -266,7 +266,7 @@
         }
 
         {
-          matches = [{app-id = "^bitwarden$";}];
+          matches = [{app-id = "^Bitwarden$";}];
           block-out-from = "screencast";
         }
 
