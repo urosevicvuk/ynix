@@ -118,12 +118,14 @@
       };
 
       spawn-at-startup = [
+        {command = ["noctalia-shell"];}
         {command = ["xwayland-satellite"];}
         {command = ["${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"];}
-        {command = ["noctalia-shell"];}
+
         {command = ["${pkgs.tailscale-systray}/bin/tailscale-systray"];}
         {command = ["kdeconnect-indicator"];}
         {command = ["bitwarden"];}
+
         {command = [zen];}
         {command = ["kitty" "-e" "tmux" "a"];}
         {command = ["spotify"];}
@@ -142,11 +144,11 @@
           width = border-size;
         };
         focus-ring.enable = false;
-        default-column-width.proportion = 0.5;
+        default-column-width.proportion = 0.67;
         preset-column-widths = [
-          {proportion = 0.33333;}
+          {proportion = 0.33;}
           {proportion = 0.5;}
-          {proportion = 0.66667;}
+          {proportion = 0.67;}
           {proportion = 1.0;}
         ];
         always-center-single-column = true;
@@ -186,17 +188,14 @@
         enable = !animationsDisabled;
       };
 
+      gestures.hot-corners.enable = false;
+
       workspaces = {
-        "01" = {name = "1";};
-        "02" = {name = "2";};
-        "03" = {name = "3";};
-        "04" = {name = "4";};
-        "05" = {name = "5";};
-        "06" = {name = "6";};
-        "07" = {name = "7";};
-        "08" = {name = "8";};
-        "09" = {name = "9";};
-        "10" = {name = "10";};
+        "01" = {name = "media";};
+        "02" = {name = "comms";};
+        "03" = {name = "browser";};
+        "04" = {name = "terminal";};
+        "05" = {name = "obsidian";};
       };
 
       window-rules = [
@@ -216,13 +215,40 @@
         }
 
         {
+          matches = [{app-id = "^spotify$";}];
+          open-on-workspace = "media";
+        }
+        {
+          matches = [{app-id = "^steam$";}];
+          open-on-workspace = "media";
+        }
+        {
+          matches = [{app-id = "^signal$";}];
+          open-on-workspace = "comms";
+          block-out-from = "screencast";
+        }
+        {
+          matches = [{app-id = "discord";}];
+          open-on-workspace = "comms";
+          block-out-from = "screencast";
+        }
+        {
           matches = [
             {
               app-id = "^zen";
               at-startup = true;
             }
           ];
-          open-on-workspace = "1";
+          open-on-workspace = "browser";
+        }
+        {
+          matches = [
+            {
+              app-id = "^helium";
+              at-startup = true;
+            }
+          ];
+          open-on-workspace = "browser";
         }
         {
           matches = [
@@ -231,36 +257,43 @@
               at-startup = true;
             }
           ];
-          open-on-workspace = "2";
-        }
-        {
-          matches = [{app-id = "^spotify$";}];
-          open-on-workspace = "3";
-        }
-        {
-          matches = [{app-id = "discord";}];
-          open-on-workspace = "9";
+          open-on-workspace = "terminal";
         }
         {
           matches = [{app-id = "obsidian";}];
-          open-on-workspace = "10";
+          open-on-workspace = "obsidian";
+          block-out-from = "screencast";
         }
+
+        {
+          matches = [{app-id = "^bitwarden$";}];
+          block-out-from = "screencast";
+        }
+
+        #{
+        #  matches = [{title = "^Picture-in-Picture$";}];
+        #  open-floating = true;
+        #}
+        #{
+        #  matches = [{app-id = "^satty$";}];
+        #  open-floating = true;
+        #}
+        #{
+        #  matches = [{app-id = "^polkit-gnome-authentication-agent-1$";}];
+        #  open-floating = true;
+        #}
       ];
 
       binds = {
-        # mod + key = OS/DE action
-        # mod + SHIFT + key = action
-        # mod + CTRL + key = toggle shit on/off
-        # mod + ALT + key = launch apps
-
-        "Mod+Space".action = spawn "sh" "-c" launcher;
-        "Mod+Shift+Space".action = spawn "sh" "-c" clipboard;
-        "Mod+Ctrl+Space".action = spawn "sh" "-c" bar;
-        "Mod+Delete".action = spawn "sh" "-c" sessionMenu;
+        "Mod+Space".action = spawn-sh launcher;
+        "Mod+Shift+Space".action = spawn-sh clipboard;
+        "Mod+Ctrl+Space".action = spawn-sh bar;
+        "Mod+Delete".action = spawn-sh sessionMenu;
 
         "Mod+Q".action = close-window;
         "Mod+W".action = toggle-window-floating;
         "Mod+E".action = maximize-column;
+        "Mod+R".action = switch-preset-column-width;
         "Mod+F".action = fullscreen-window;
 
         "Mod+Return".action = spawn terminal;
@@ -276,67 +309,68 @@
 
         "Mod+H".action = focus-column-left;
         "Mod+L".action = focus-column-right;
-        "Mod+K".action = focus-window-up;
-        "Mod+J".action = focus-window-down;
+        "Mod+J".action = focus-window-or-workspace-down;
+        "Mod+K".action = focus-window-or-workspace-up;
 
         "Mod+Shift+H".action = move-column-left;
         "Mod+Shift+L".action = move-column-right;
-        "Mod+Shift+K".action = move-window-up;
-        "Mod+Shift+J".action = move-window-down;
+        "Mod+Shift+J".action = move-window-down-or-to-workspace-down;
+        "Mod+Shift+K".action = move-window-up-or-to-workspace-up;
 
-        "Mod+Shift+Ctrl+H".action = move-workspace-to-monitor-left;
-        "Mod+Shift+Ctrl+L".action = move-workspace-to-monitor-right;
-        "Mod+Shift+Ctrl+K".action = move-workspace-to-monitor-up;
-        "Mod+Shift+Ctrl+J".action = move-workspace-to-monitor-down;
+        "Mod+Ctrl+Shift+J".action = move-workspace-down;
+        "Mod+Ctrl+Shift+K".action = move-workspace-up;
 
-        "Mod+T".action = spawn "sh" "-c" tailscalePanel;
-        "Mod+X".action = spawn "sh" "-c" controlCenter;
-        "Mod+C".action = spawn "sh" "-c" calendar;
-        "Mod+V".action = spawn "sh" "-c" volumePanel;
-        "Mod+B".action = spawn "sh" "-c" bluetoothPanel;
-        "Mod+N".action = spawn "sh" "-c" networkPanel;
-        "Mod+M".action = spawn "sh" "-c" mediaPanel;
-        "Mod+Shift+C".action = spawn "sh" "-c" caffeine;
-        "Mod+Shift+B".action = spawn "sh" "-c" batteryPanel;
-        "Mod+Shift+N".action = spawn "sh" "-c" notificationsPanel;
-        "Mod+Shift+M".action = spawn "sh" "-c" mute;
+        #"Mod+Shift+Ctrl+H".action = move-workspace-to-monitor-left;
+        #"Mod+Shift+Ctrl+L".action = move-workspace-to-monitor-right;
+        #"Mod+Shift+Ctrl+K".action = move-workspace-to-monitor-up;
+        #"Mod+Shift+Ctrl+J".action = move-workspace-to-monitor-down;
 
-        "Mod+S".action = spawn "sh" "-c" settings;
+        "Mod+T".action = spawn-sh tailscalePanel;
+        "Mod+X".action = spawn-sh controlCenter;
+        "Mod+C".action = spawn-sh calendar;
+        "Mod+V".action = spawn-sh volumePanel;
+        "Mod+B".action = spawn-sh bluetoothPanel;
+        "Mod+M".action = spawn-sh mediaPanel;
+        "Mod+Shift+C".action = spawn-sh caffeine;
+        "Mod+Shift+B".action = spawn-sh batteryPanel;
+        "Mod+Shift+M".action = spawn-sh mute;
+
+        "Mod+S".action = spawn-sh settings;
 
         "Print".action.screenshot = {};
         "Shift+Print".action.screenshot-screen = {};
-        "Ctrl+Print".action = spawn "sh" "-c" "grim -g \"$(slurp)\" - | satty -f -";
-        "Ctrl+Shift+Print".action = spawn "sh" "-c" "grim - | satty -f -";
 
-        "Mod+1".action = focus-workspace "1";
-        "Mod+Shift+1".action.move-column-to-workspace = "1";
-        "Mod+2".action = focus-workspace "2";
-        "Mod+Shift+2".action.move-column-to-workspace = "2";
-        "Mod+3".action = focus-workspace "3";
-        "Mod+Shift+3".action.move-column-to-workspace = "3";
-        "Mod+4".action = focus-workspace "4";
-        "Mod+Shift+4".action.move-column-to-workspace = "4";
-        "Mod+5".action = focus-workspace "5";
-        "Mod+Shift+5".action.move-column-to-workspace = "5";
-        "Mod+6".action = focus-workspace "6";
-        "Mod+Shift+6".action.move-column-to-workspace = "6";
-        "Mod+7".action = focus-workspace "7";
-        "Mod+Shift+7".action.move-column-to-workspace = "7";
-        "Mod+8".action = focus-workspace "8";
-        "Mod+Shift+8".action.move-column-to-workspace = "8";
-        "Mod+9".action = focus-workspace "9";
-        "Mod+Shift+9".action.move-column-to-workspace = "9";
-        "Mod+0".action = focus-workspace "10";
-        "Mod+Shift+0".action.move-column-to-workspace = "10";
+        "Mod+1".action = focus-workspace 1;
+        "Mod+Shift+1".action.move-column-to-workspace = 1;
+        "Mod+2".action = focus-workspace 2;
+        "Mod+Shift+2".action.move-column-to-workspace = 2;
+        "Mod+3".action = focus-workspace 3;
+        "Mod+Shift+3".action.move-column-to-workspace = 3;
+        "Mod+4".action = focus-workspace 4;
+        "Mod+Shift+4".action.move-column-to-workspace = 4;
+        "Mod+5".action = focus-workspace 5;
+        "Mod+Shift+5".action.move-column-to-workspace = 5;
+        "Mod+6".action = focus-workspace 6;
+        "Mod+Shift+6".action.move-column-to-workspace = 6;
+        "Mod+7".action = focus-workspace 7;
+        "Mod+Shift+7".action.move-column-to-workspace = 7;
+        "Mod+8".action = focus-workspace 8;
+        "Mod+Shift+8".action.move-column-to-workspace = 8;
+        "Mod+9".action = focus-workspace 9;
+        "Mod+Shift+9".action.move-column-to-workspace = 9;
+        "Mod+0".action = focus-workspace 10;
+        "Mod+Shift+0".action.move-column-to-workspace = 10;
 
-        "Mod+Tab".action = toggle-overview;
+        "Mod+Grave".action = toggle-overview;
+        "Mod+Tab".action = focus-workspace-previous;
+        "Alt+Tab".action = focus-window-previous;
 
         "Mod+Shift+period" = {
-          action = set-column-width "+10%";
+          action = set-column-width "+5%";
           repeat = true;
         };
         "Mod+Shift+comma" = {
-          action = set-column-width "-10%";
+          action = set-column-width "-5%";
           repeat = true;
         };
 
@@ -360,7 +394,6 @@
           action = spawn "sh" "-c" previous;
           allow-when-locked = true;
         };
-
         "XF86AudioRaiseVolume" = {
           action = spawn "sh" "-c" outputUp;
           allow-when-locked = true;

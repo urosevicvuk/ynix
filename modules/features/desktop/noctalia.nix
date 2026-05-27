@@ -4,8 +4,26 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.noctalia = {...}: {
+  flake.nixosModules.noctalia = {pkgs, ...}: {
     home-manager.sharedModules = [self.homeModules.noctalia];
+
+    environment.systemPackages = with pkgs; [
+      grim
+      slurp
+      hyprpicker
+      wl-clipboard
+      tesseract
+      imagemagick
+      zbar
+      curl
+      translate-shell
+      wl-screenrec
+      ffmpeg
+      gifski
+      jq
+      python3
+      xdg-desktop-portal
+    ];
   };
 
   flake.homeModules.noctalia = {
@@ -98,14 +116,14 @@
                   "followFocusedScreen": false,
                   "fontWeight": "bold",
                   "groupedBorderOpacity": 1,
-                  "hideUnoccupied": false,
+                  "hideUnoccupied": true,
                   "iconScale": 0.8,
                   "id": "Workspace",
-                  "labelMode": "index",
+                  "labelMode": "none",
                   "occupiedColor": "secondary",
                   "pillSize": 0.6,
                   "showApplications": true,
-                  "showApplicationsHover": true,
+                  "showApplicationsHover": false,
                   "showBadge": false,
                   "showLabelsOnlyWhenOccupied": false,
                   "unfocusedIconsOpacity": 1
@@ -144,6 +162,25 @@
                   "hidePassive": false,
                   "id": "Tray",
                   "pinned": []
+                },
+                {
+                  "defaultSettings": {
+                    "colorHistory": [],
+                    "detectedRecorder": "",
+                    "filenameFormat": "",
+                    "gifMaxSeconds": 30,
+                    "installedLangs": [
+                      "eng"
+                    ],
+                    "paletteColors": [],
+                    "recordCopyToClipboard": false,
+                    "recordSkipConfirmation": false,
+                    "screenshotPath": "",
+                    "selectedOcrLang": "eng",
+                    "transAvailable": false,
+                    "videoPath": ""
+                  },
+                  "id": "plugin:screen-toolkit"
                 },
                 {
                   "iconColor": "none",
@@ -728,8 +765,7 @@
             "gridSnapScale": false,
             "monitorWidgets": []
           }
-        }
-      '';
+        }      '';
     };
   };
 }

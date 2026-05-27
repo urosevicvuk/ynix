@@ -12,6 +12,6 @@
       kubectl
       kubectx
     ];
-    home.sessionVariables.KUBECONFIG = "${config.home.homeDirectory}/.kube/firelink.yaml";
+    #home.sessionVariables.KUBECONFIG = "${config.home.homeDirectory}/.kube/firelink.yaml";
   };
 }
