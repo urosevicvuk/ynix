@@ -1,20 +1,18 @@
 {self, ...}: {
-  flake.nixosModules.thunar = {pkgs, ...}: {
-    programs.thunar = {
-      enable = true;
-      plugins = with pkgs; [
-        thunar-archive-plugin
-        xfce.thunar-volman
-        xfce.thunar-media-tags-plugin
-      ];
-    };
+  flake.nixosModules.nautilus = {pkgs, ...}: {
+    environment.systemPackages = with pkgs; [
+      nautilus
+      sushi
+    ];
+
     services.gvfs.enable = true;
     services.tumbler.enable = true;
+    programs.dconf.enable = true;
 
-    home-manager.sharedModules = [self.homeModules.thunar];
+    home-manager.sharedModules = [self.homeModules.nautilus];
   };
 
-  flake.homeModules.thunar = {pkgs, ...}: {
+  flake.homeModules.nautilus = {pkgs, ...}: {
     home.packages = with pkgs; [
       file-roller
       p7zip

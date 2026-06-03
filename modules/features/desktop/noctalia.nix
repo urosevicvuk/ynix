@@ -12,16 +12,17 @@
       slurp
       hyprpicker
       wl-clipboard
+      wl-screenrec
       tesseract
       imagemagick
       zbar
       curl
       translate-shell
-      wl-screenrec
       ffmpeg
       gifski
       jq
       python3
+      python313Packages.pygobject3
       xdg-desktop-portal
     ];
   };
@@ -116,7 +117,7 @@
                   "followFocusedScreen": false,
                   "fontWeight": "bold",
                   "groupedBorderOpacity": 1,
-                  "hideUnoccupied": true,
+                  "hideUnoccupied": false,
                   "iconScale": 0.8,
                   "id": "Workspace",
                   "labelMode": "none",
@@ -533,17 +534,17 @@
             "pinnedApps": [
               "zen-beta",
               "helium",
-              "LocalSend",
               "kitty",
-              "bitwarden",
               "spotify",
-              "signal",
               "discord",
+              "signal",
               "obsidian",
               "steam",
               "dev.zed.Zed",
               "idea",
-              "datagrip"
+              "datagrip",
+              "LocalSend",
+              "bitwarden"
             ],
             "colorizeIcons": false,
             "showLauncherIcon": false,
@@ -765,7 +766,7 @@
             "gridSnapScale": false,
             "monitorWidgets": []
           }
-        }      '';
+        } '';
     };
   };
 }

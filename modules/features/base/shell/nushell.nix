@@ -8,6 +8,7 @@
     lib,
     ...
   }: {
+    home.shell.enableNushellIntegration = true;
     programs.nushell = {
       enable = true;
 
@@ -35,10 +36,6 @@
       '';
 
       plugins = with pkgs.nushellPlugins; [
-        polars
-        gstat
-        query
-        formats
       ];
 
       shellAliases = {

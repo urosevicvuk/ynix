@@ -11,7 +11,7 @@
         image = ["imv-dir.desktop"];
         audio = ["mpv.desktop"];
         video = ["mpv.desktop"];
-        directory = ["thunar.desktop"];
+        directory = ["org.gnome.Nautilus.desktop"];
         office = ["libreoffice.desktop"];
         pdf = ["org.pwmt.zathura.desktop"];
         terminal = ["kitty.desktop"];

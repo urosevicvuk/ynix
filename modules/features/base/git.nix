@@ -56,6 +56,7 @@
           init.defaultBranch = "master";
           pull.rebase = "false";
           push.autoSetupRemote = true;
+          push.followTags = true;
           color.ui = "1";
           commit.gpgsign = true;
           gpg = {

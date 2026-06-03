@@ -16,7 +16,7 @@
       self.nixosModules.niri
       self.nixosModules.noctalia
       self.nixosModules.printing
-      self.nixosModules.thunar
+      self.nixosModules.nautilus
       self.nixosModules.tuigreet
       self.nixosModules.udiskie
       self.nixosModules.xdg

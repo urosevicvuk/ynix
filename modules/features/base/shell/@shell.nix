@@ -12,6 +12,7 @@
       self.nixosModules.television
       self.nixosModules.tmux
       self.nixosModules.zoxide
+      self.nixosModules.zsh
     ];
   };
 }

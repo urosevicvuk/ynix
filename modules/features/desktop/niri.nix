@@ -63,14 +63,24 @@
 
     mediaPanel = "${noct} media toggle";
     calendar = "${noct} plugin:weekly-calendar togglePanel";
-    caffeine = "${noct} idleInhibitor toggle";
+    screenToolkit = "${noct} plugin:screen-toolkit toggle";
     volumePanel = "${noct} volume togglePanel";
     bluetoothPanel = "${noct} bluetooth togglePanel";
     networkPanel = "${noct} network togglePanel";
     tailscalePanel = "${noct} plugin:tailscale togglePanel";
     batteryPanel = "${noct} battery togglePanel";
     notificationsPanel = "${noct} notifications toggleHistory";
+
+    caffeine = "${noct} idleInhibitor toggle";
+    volumeToggle = "${noct} volume toggle";
+    bluetoothToggle = "${noct} bluetooth toggle";
+    networkToggle = "${noct} network toggle";
     mute = "${noct} notifications toggleDND";
+
+    screenshotArea = "${noct} plugin:screen-toolkit annotate";
+    screenshotFullscreen = "${noct} plugin:screen-toolkit annotateFullscreen";
+    recordArea = "${noct} plugin:screen-toolkit recordMp4";
+    recordFullscreen = "${noct} plugin:screen-toolkit recordFullscreenMp4";
 
     zen = lib.getExe inputs.zen-browser.packages.${pkgs.system}.default;
     helium = lib.getExe inputs.helium-browser.packages.${pkgs.system}.default;
@@ -267,7 +277,7 @@
 
         {
           matches = [{app-id = "^Bitwarden$";}];
-          block-out-from = "screencast";
+          block-out-from = "screencast"; # mozda moze da se stavi i "screen-capture"
         }
 
         #{
@@ -285,10 +295,12 @@
       ];
 
       binds = {
+        #Core nav
         "Mod+Space".action = spawn-sh launcher;
         "Mod+Shift+Space".action = spawn-sh clipboard;
         "Mod+Ctrl+Space".action = spawn-sh bar;
         "Mod+Delete".action = spawn-sh sessionMenu;
+        "Mod+Escape".action = spawn-sh controlCenter;
 
         "Mod+Q".action = close-window;
         "Mod+W".action = toggle-window-floating;
@@ -297,15 +309,15 @@
         "Mod+F".action = fullscreen-window;
 
         "Mod+Return".action = spawn terminal;
-        "Mod+Ctrl+D".action = spawn terminal "-e" "lazydocker";
-        "Mod+Ctrl+G".action = spawn terminal "-e" "gh-dash";
-        "Mod+Ctrl+I".action = spawn terminal "-e" "btop";
-        "Mod+Ctrl+Y".action = spawn terminal "-e" "yazi";
-        "Mod+Ctrl+V".action = spawn terminal "-e" "wiremix";
-        "Mod+Ctrl+B".action = spawn terminal "-e" "bluetuith";
-        "Mod+Ctrl+N".action = spawn terminal "-e" "nmtui";
-        "Mod+Ctrl+H".action = spawn helium;
-        "Mod+Ctrl+Z".action = spawn zen;
+        "Mod+Alt+D".action = spawn terminal "-e" "lazydocker";
+        "Mod+Alt+G".action = spawn terminal "-e" "gh-dash";
+        "Mod+Alt+I".action = spawn terminal "-e" "btop";
+        "Mod+Alt+Y".action = spawn terminal "-e" "yazi";
+        "Mod+Alt+V".action = spawn terminal "-e" "wiremix";
+        "Mod+Alt+B".action = spawn terminal "-e" "bluetuith";
+        "Mod+Alt+N".action = spawn terminal "-e" "nmtui";
+        "Mod+Alt+H".action = spawn helium;
+        "Mod+Alt+Z".action = spawn zen;
 
         "Mod+H".action = focus-column-left;
         "Mod+L".action = focus-column-right;
@@ -317,8 +329,8 @@
         "Mod+Shift+J".action = move-window-down-or-to-workspace-down;
         "Mod+Shift+K".action = move-window-up-or-to-workspace-up;
 
-        "Mod+Ctrl+Shift+J".action = move-workspace-down;
-        "Mod+Ctrl+Shift+K".action = move-workspace-up;
+        "Mod+Ctrl+Alt+J".action = move-workspace-down;
+        "Mod+Ctrl+Alt+K".action = move-workspace-up;
 
         #"Mod+Shift+Ctrl+H".action = move-workspace-to-monitor-left;
         #"Mod+Shift+Ctrl+L".action = move-workspace-to-monitor-right;
@@ -326,19 +338,27 @@
         #"Mod+Shift+Ctrl+J".action = move-workspace-to-monitor-down;
 
         "Mod+T".action = spawn-sh tailscalePanel;
-        "Mod+X".action = spawn-sh controlCenter;
+        "Mod+X".action = spawn-sh screenToolkit;
         "Mod+C".action = spawn-sh calendar;
         "Mod+V".action = spawn-sh volumePanel;
         "Mod+B".action = spawn-sh bluetoothPanel;
+        "Mod+N".action = spawn-sh networkPanel;
         "Mod+M".action = spawn-sh mediaPanel;
-        "Mod+Shift+C".action = spawn-sh caffeine;
         "Mod+Shift+B".action = spawn-sh batteryPanel;
-        "Mod+Shift+M".action = spawn-sh mute;
+        "Mod+Shift+N".action = spawn-sh notificationsPanel;
+
+        "Mod+Ctrl+C".action = spawn-sh caffeine;
+        "Mod+Ctrl+V".action = spawn-sh volumeToggle;
+        "Mod+Ctrl+B".action = spawn-sh bluetoothToggle;
+        "Mod+Ctrl+N".action = spawn-sh networkToggle;
+        "Mod+Ctrl+M".action = spawn-sh mute;
 
         "Mod+S".action = spawn-sh settings;
 
-        "Print".action.screenshot = {};
-        "Shift+Print".action.screenshot-screen = {};
+        "Print".action = spawn-sh screenshotArea;
+        "Shift+Print".action = spawn-sh screenshotFullscreen;
+        "Alt+Print".action = spawn-sh recordArea;
+        "Alt+Shift+Print".action = spawn-sh recordFullscreen;
 
         "Mod+1".action = focus-workspace 1;
         "Mod+Shift+1".action.move-column-to-workspace = 1;

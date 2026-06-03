@@ -16,26 +16,30 @@
       enable = true;
       enableNushellIntegration = true;
       enableBashIntegration = true;
+      enableZshIntegration = true;
       settings = {
         add_newline = true;
         format = lib.concatStrings [
           "$nix_shell"
+          "$kubernetes"
           "$hostname"
           "$directory"
           "$git_branch"
           "$git_state"
           "$git_status"
+          "$line_break"
+          "$character"
         ];
         directory.style = accent;
-        character = {
-          success_symbol = "[❯](${accent})";
-          error_symbol = "[❯](red)";
-          vimcmd_symbol = "[❮](cyan)";
-        };
         nix_shell = {
           format = "[$symbol]($style) ";
           symbol = "🐚";
           style = "";
+        };
+        kubernetes = {
+          disabled = false;
+          format = "[$symbol$context( \($namespace\))]($style) in ";
+          detect_env_vars = ["KUBECONFIG"];
         };
         git_branch = {
           symbol = "[](${background-alt}) ";
@@ -53,6 +57,14 @@
         git_state = {
           format = "([$state( $progress_current/$progress_total)]($style)) ";
           style = "bright-black";
+        };
+        cmd_duration = {
+          format = "[$duration]($style)";
+        };
+        character = {
+          success_symbol = "[❯](${accent})";
+          error_symbol = "[❯](red)";
+          vimcmd_symbol = "[❮](cyan)";
         };
       };
     };

@@ -1,13 +1,24 @@
 {self, ...}: {
   flake.nixosModules.bash = {...}: {
-    home-manager.sharedModules = [self.homeModules.bash];
     programs.bash = {
       enable = true;
-      completion.enable = true;
     };
+
+    home-manager.sharedModules = [self.homeModules.bash];
   };
 
   flake.homeModules.bash = {pkgs, ...}: {
-    programs.bash.enable = true;
+    home.shell.enableBashIntegration = true;
+    programs.bash = {
+      enable = true;
+
+      historySize = 100000;
+      historyFileSize = 100000;
+
+      shellAliases = {
+        gitui = "lazygit";
+        ssh = "kitten ssh";
+      };
+    };
   };
 }

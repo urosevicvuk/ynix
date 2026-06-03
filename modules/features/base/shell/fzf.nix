@@ -3,12 +3,15 @@
     home-manager.sharedModules = [self.homeModules.fzf];
   };
 
-  flake.homeModules.fzf = {lib, config, ...}: let
+  flake.homeModules.fzf = {
+    lib,
+    config,
+    ...
+  }: let
     theme = config.theme.active;
   in {
     programs.fzf = {
       enable = true;
-      tmux.enableShellIntegration = true;
       colors = lib.mkForce {
         "fg+" = theme.base0D;
         "bg+" = "-1";
