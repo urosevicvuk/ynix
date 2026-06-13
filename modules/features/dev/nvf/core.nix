@@ -45,6 +45,20 @@
         # Auto-loaded lua/ files (see above).
         inherit luaConfigRC;
 
+        # Runs before everything else. Silence nvim-lspconfig's one-time
+        # "require('lspconfig') framework is deprecated" notice - nvf still
+        # uses that framework internally, so it fires on every startup.
+        # Remove once nvf migrates to vim.lsp.config.
+        luaConfigPre = ''
+          local _deprecate = vim.deprecate
+          vim.deprecate = function(name, ...)
+            if type(name) == "string" and name:find("lspconfig", 1, true) then
+              return
+            end
+            return _deprecate(name, ...)
+          end
+        '';
+
         theme = {
           enable = true;
           name = lib.mkForce theme.nvim-theme;

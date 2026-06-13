@@ -17,8 +17,6 @@
         surround.enable = true;
         ai.enable = true;
         move.enable = true;
-        cursorword.enable = true;
-        trailspace.enable = true;
       };
 
       utility = {

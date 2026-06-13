@@ -33,15 +33,9 @@
       (km "<Right>" "<Nop>" "Disable Right")
 
       # === UI toggles (<leader>u) ===
+      # The set!-style toggles now live in lua/toggles.lua via Snacks.toggle
+      # (state-aware + which-key integrated). Undotree isn't a snacks toggle.
       (km "<leader>uu" "<cmd>UndotreeToggle<cr>" "Undotree")
-      (km "<leader>uw" "<cmd>set wrap!<cr>" "Toggle wrap")
-      (km "<leader>ul" "<cmd>set linebreak!<cr>" "Toggle linebreak")
-      (km "<leader>us" "<cmd>set spell!<cr>" "Toggle spellcheck")
-      (km "<leader>uc" "<cmd>set cursorline!<cr>" "Toggle cursorline")
-      (km "<leader>un" "<cmd>set number!<cr>" "Toggle line numbers")
-      (km "<leader>ur" "<cmd>set relativenumber!<cr>" "Toggle relative numbers")
-      (km "<leader>ut" "<cmd>set showtabline=2<cr>" "Show tabline")
-      (km "<leader>uT" "<cmd>set showtabline=0<cr>" "Hide tabline")
 
       # === Motion ===
       (km "s" "<cmd>lua require('flash').jump()<cr>" "Flash jump")

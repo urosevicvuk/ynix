@@ -10,8 +10,30 @@
     ...
   }: let
     theme = config.theme.active;
+    luaInline = expr: {
+      _type = "lua-inline";
+      inherit expr;
+    };
   in {
     programs.nvf.settings.vim = {
+      highlight = {
+        # Single-color (gray) rainbow delimiters instead of multi-color.
+        RainbowDelimiterGray.fg = "#928374";
+        # snacks.words: underline references instead of the slow-feeling bg.
+        LspReferenceText = {
+          bg = "NONE";
+          underline = true;
+        };
+        LspReferenceRead = {
+          bg = "NONE";
+          underline = true;
+        };
+        LspReferenceWrite = {
+          bg = "NONE";
+          underline = true;
+        };
+      };
+
       statusline.lualine = {
         enable = true;
         theme = lib.mkForce theme.nvim-lualine-theme;
@@ -30,7 +52,31 @@
       utility.snacks-nvim = {
         enable = true;
         setupOpts = {
-          dashboard.enabled = true;
+          dashboard = {
+            enabled = true;
+            # Custom sections: the default set includes a "startup" section that
+            # require()s lazy.nvim's stats, which nvf doesn't ship (it uses lz.n).
+            sections = [
+              {section = "header";}
+              {
+                section = "keys";
+                gap = 1;
+                padding = 1;
+              }
+              {
+                section = "recent_files";
+                icon = " ";
+                title = "Recent Files";
+                padding = 1;
+              }
+              {
+                section = "projects";
+                icon = " ";
+                title = "Projects";
+                padding = 1;
+              }
+            ];
+          };
           picker.enabled = true;
           explorer.enabled = true;
           notifier.enabled = true;
@@ -42,21 +88,33 @@
           zen.enabled = true;
           image.enabled = true;
           scratch.enabled = true;
+          # Consolidated into the snacks pillar (replacing indent-blankline +
+          # mini.indentscope, cinnamon-nvim, and mini.cursorword respectively).
+          indent.enabled = true;
+          scroll.enabled = true;
+          words = {
+            enabled = true;
+            debounce = 100;
+          };
         };
       };
 
       visuals = {
-        rainbow-delimiters.enable = true;
+        rainbow-delimiters = {
+          enable = true;
+          setupOpts = {
+            strategy."" = luaInline "require('rainbow-delimiters').strategy['global']";
+            query."" = "rainbow-delimiters";
+            highlight = ["RainbowDelimiterGray"];
+          };
+        };
         highlight-undo.enable = true;
-        cinnamon-nvim.enable = true;
-        indent-blankline.enable = true;
         # mini.icons is the icon provider; don't pull in web-devicons too.
         nvim-web-devicons.enable = false;
       };
 
       mini = {
         icons.enable = true;
-        indentscope.enable = true;
         hipatterns.enable = true;
       };
     };

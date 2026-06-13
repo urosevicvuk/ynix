@@ -4,8 +4,36 @@
     home-manager.sharedModules = [self.homeModules.nvf-lsp];
   };
 
-  flake.homeModules.nvf-lsp = {pkgs, ...}: {
+  flake.homeModules.nvf-lsp = {pkgs, ...}: let
+    # Raw-lua marker understood by nvf's toLuaObject (no lib extension needed).
+    luaInline = expr: {
+      _type = "lua-inline";
+      inherit expr;
+    };
+  in {
     programs.nvf.settings.vim = {
+      # Diagnostics: custom gutter icons + inline virtual text, no insert-update.
+      diagnostics = {
+        enable = true;
+        config = {
+          severity_sort = true;
+          underline = true;
+          update_in_insert = false;
+          virtual_text = {
+            spacing = 2;
+            source = "if_many";
+          };
+          signs.text = luaInline ''
+            {
+              [vim.diagnostic.severity.ERROR] = " ",
+              [vim.diagnostic.severity.WARN] = " ",
+              [vim.diagnostic.severity.HINT] = " ",
+              [vim.diagnostic.severity.INFO] = " ",
+            }
+          '';
+        };
+      };
+
       lsp = {
         enable = true;
         lspconfig.enable = true;
