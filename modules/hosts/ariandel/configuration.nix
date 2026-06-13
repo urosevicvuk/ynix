@@ -13,12 +13,14 @@
     ...
   }: {
     imports = [
-      self.nixosModules.base
+      self.nixosModules.system
+      self.nixosModules.shell
+      self.nixosModules.terminal
       self.nixosModules.desktop
+      self.nixosModules.editors
       self.nixosModules.dev
       self.nixosModules.steam
-      self.nixosModules.programs-gui
-      self.nixosModules.programs-tui
+      self.nixosModules.apps
       self.nixosModules.work
 
       self.nixosModules.stylix

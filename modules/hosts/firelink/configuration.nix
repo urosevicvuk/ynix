@@ -13,7 +13,8 @@
     ...
   }: {
     imports = [
-      self.nixosModules.base
+      self.nixosModules.system
+      self.nixosModules.shell
       self.nixosModules.neovim
       self.nixosModules.cluster
 

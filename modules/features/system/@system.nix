@@ -1,15 +1,15 @@
-# Base group — foundation for every host.
-# Sets up home-manager and composes all base sub-modules.
+# System group — foundation for every host.
+# Sets up home-manager and composes the core system sub-modules.
+# (shell/ is now its own importable domain — hosts add it alongside system.)
 {
   self,
   inputs,
   ...
 }: {
-  flake.nixosModules.base = {config, ...}: {
+  flake.nixosModules.system = {config, ...}: {
     imports = [
       inputs.home-manager.nixosModules.default
 
-      self.nixosModules.shell
       self.nixosModules.network
 
       self.nixosModules.boot
