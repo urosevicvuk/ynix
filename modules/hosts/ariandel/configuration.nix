@@ -19,6 +19,7 @@
       self.nixosModules.steam
       self.nixosModules.programs-gui
       self.nixosModules.programs-tui
+      self.nixosModules.work
 
       self.nixosModules.stylix
       self.nixosModules.sops
