@@ -8,7 +8,6 @@
   flake.homeModules.nvf-keymaps = {...}: let
     mk = mode: key: action: desc: {inherit mode key action desc;};
     km = mk "n";
-    kmv = mk "v";
     kmx = mk "x";
     kmi = mk "i";
     kmnv = mk ["n" "v"];
@@ -44,12 +43,11 @@
       (km "<leader>uh" "<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<cr>" "Toggle inlay hints")
       (km "<leader>ut" "<cmd>lua vim.o.showtabline = vim.o.showtabline == 2 and 0 or 2<cr>" "Toggle tabline")
 
-      # === Motion ===
-      (km "s" "<cmd>lua require('flash').jump()<cr>" "Flash jump")
-      (kmx "s" "<cmd>lua require('flash').jump()<cr>" "Flash jump")
+      # Motion: flash's s/S/r mappings (n/o/x) are provided by nvf's flash
+      # module itself, so they're not redefined here.
 
       # === LSP / code ===
-      (km "K" "<cmd>lua vim.lsp.buf.hover()<cr>" "Hover")
+      (km "K" "<cmd>Lspsaga hover_doc<cr>" "Hover")
       (kmnv "<M-CR>" "<cmd>Lspsaga code_action<cr>" "Code actions")
       (kmi "<C-s>" "<cmd>lua vim.lsp.buf.signature_help()<cr>" "Signature help")
       (km "<leader>rn" "<cmd>lua vim.lsp.buf.rename()<cr>" "Rename")
@@ -69,6 +67,17 @@
       (km "<leader>xd" "<cmd>Trouble diagnostics toggle filter.buf=0<cr>" "Diagnostics (document)")
       (km "<leader>xq" "<cmd>Trouble qflist toggle<cr>" "Quickfix list")
       (km "<leader>xl" "<cmd>Trouble loclist toggle<cr>" "Location list")
+
+      # === Debug (DAP) ===
+      (km "<leader>db" "<cmd>lua require('dap').toggle_breakpoint()<cr>" "Toggle breakpoint")
+      (km "<leader>dB" "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Condition: '))<cr>" "Conditional breakpoint")
+      (km "<leader>dc" "<cmd>lua require('dap').continue()<cr>" "Continue")
+      (km "<leader>di" "<cmd>lua require('dap').step_into()<cr>" "Step into")
+      (km "<leader>do" "<cmd>lua require('dap').step_over()<cr>" "Step over")
+      (km "<leader>dO" "<cmd>lua require('dap').step_out()<cr>" "Step out")
+      (km "<leader>dr" "<cmd>lua require('dap').repl.toggle()<cr>" "Toggle REPL")
+      (km "<leader>du" "<cmd>lua require('dapui').toggle()<cr>" "Toggle DAP UI")
+      (km "<leader>dt" "<cmd>lua require('dap').terminate()<cr>" "Terminate")
 
       # === Git ===
       (km "<leader>gg" "<cmd>lua Snacks.lazygit()<cr>" "Lazygit")
@@ -104,7 +113,6 @@
       (km "<leader>fW" "<cmd>lua Snacks.picker.grep_word()<cr>" "Grep word under cursor")
       (km "<leader>fl" "<cmd>lua Snacks.picker.lines()<cr>" "Search buffer lines")
       (km "<leader>ft" "<cmd>lua Snacks.picker.todo_comments()<cr>" "Find todos")
-      (km "<leader>fc" "<cmd>lua Snacks.picker.files({ cwd = vim.fn.stdpath('config') })<cr>" "Find config files")
       (km "<leader>fp" "<cmd>lua Snacks.picker.projects()<cr>" "Find projects")
       (km "<leader>fn" "<cmd>lua Snacks.picker.notifications()<cr>" "Notification history")
       (km "<leader>fB" "<cmd>lua Snacks.picker.grep_buffers()<cr>" "Grep open buffers")

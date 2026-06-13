@@ -7,7 +7,6 @@
       self.nixosModules.jetbrains
       self.nixosModules.kube
       self.nixosModules.neovim
-      #self.nixosModules.nvim  # old monolithic config, kept for reference
       #self.nixosModules.radicle
       self.nixosModules.opencode
       self.nixosModules.zed-editor

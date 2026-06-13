@@ -4,13 +4,8 @@
     home-manager.sharedModules = [self.homeModules.nvf-lsp];
   };
 
-  flake.homeModules.nvf-lsp = {pkgs, ...}: let
-    # Raw-lua marker understood by nvf's toLuaObject (no lib extension needed).
-    luaInline = expr: {
-      _type = "lua-inline";
-      inherit expr;
-    };
-  in {
+  flake.homeModules.nvf-lsp = {pkgs, ...}: 
+  {
     programs.nvf.settings.vim = {
       # Diagnostics: custom gutter icons + inline virtual text, no insert-update.
       diagnostics = {
@@ -23,14 +18,6 @@
             spacing = 2;
             source = "if_many";
           };
-          signs.text = luaInline ''
-            {
-              [vim.diagnostic.severity.ERROR] = " ",
-              [vim.diagnostic.severity.WARN] = " ",
-              [vim.diagnostic.severity.HINT] = " ",
-              [vim.diagnostic.severity.INFO] = " ",
-            }
-          '';
         };
       };
 
@@ -49,8 +36,6 @@
               sign = false;
               virtual_text = true;
             };
-            # lspsaga's own winbar breadcrumbs (this is the real key; the old
-            # `breadcrumbs.enable` was a no-op, so it was silently always on).
             symbol_in_winbar.enable = true;
           };
         };
@@ -62,13 +47,6 @@
             lsp.diagnostic_update_event = ["BufWritePost" "InsertLeave"];
           };
         };
-
-        # Protobuf has no nvf language module: wire its LSP by hand.
-        lspconfig.sources.protols = ''
-          lspconfig.protols.setup({
-            cmd = { "${pkgs.protols}/bin/protols" },
-          })
-        '';
       };
 
       treesitter = {

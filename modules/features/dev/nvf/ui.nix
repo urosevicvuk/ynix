@@ -90,7 +90,7 @@
           scratch.enabled = true;
           # snacks.scroll (was cinnamon-nvim) + snacks.words (was mini.cursorword).
           # Indent guides/scope stay on indent-blankline + mini.indentscope below.
-          scroll.enabled = true;
+          #scroll.enabled = true;
           words = {
             enabled = true;
             debounce = 100;
@@ -115,7 +115,11 @@
       mini = {
         icons.enable = true;
         indentscope.enable = true;
-        hipatterns.enable = true;
+        hipatterns = {
+          enable = true;
+          # Without highlighters mini.hipatterns does nothing; render #rrggbb.
+          setupOpts.highlighters.hex_color = luaInline "require('mini.hipatterns').gen_highlighter.hex_color()";
+        };
       };
     };
   };

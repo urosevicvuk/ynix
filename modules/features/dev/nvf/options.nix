@@ -85,10 +85,10 @@
         wrap = false;
         scrolloff = 9;
 
-        # Folding: treesitter folds, everything open on load, fancy fold column.
+        # Folding: treesitter folds, everything open on load. Fold icons are
+        # rendered by snacks.statuscolumn, so no native foldcolumn here.
         foldlevel = 99;
-        foldcolumn = "auto:1";
-        fillchars = "eob:‿,fold: ,foldopen:▼,foldsep:⸽,foldclose:⏵";
+        fillchars = "eob:‿";
       };
 
       globals = {

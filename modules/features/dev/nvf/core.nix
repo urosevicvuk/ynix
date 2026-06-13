@@ -27,24 +27,6 @@
         vimAlias = true;
         syntaxHighlighting = true;
 
-        # The one piece of raw lua with no nvf-option equivalent: runs before
-        # everything else to silence nvim-lspconfig's one-time "require(
-        # 'lspconfig') framework is deprecated" notice - nvf still uses that
-        # framework internally, so it fires on every startup. Remove once nvf
-        # migrates to vim.lsp.config.
-        # "require('lspconfig') framework is deprecated" notice - nvf still
-        # uses that framework internally, so it fires on every startup.
-        # Remove once nvf migrates to vim.lsp.config.
-        luaConfigPre = ''
-          local _deprecate = vim.deprecate
-          vim.deprecate = function(name, ...)
-            if type(name) == "string" and name:find("lspconfig", 1, true) then
-              return
-            end
-            return _deprecate(name, ...)
-          end
-        '';
-
         theme = {
           enable = true;
           name = lib.mkForce theme.nvim-theme;
