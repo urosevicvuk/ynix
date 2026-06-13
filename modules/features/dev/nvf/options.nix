@@ -94,7 +94,6 @@
       globals = {
         mapleader = " ";
         maplocalleader = " ";
-        navic_silence = true;
         suda_smart_edit = 1;
       };
 

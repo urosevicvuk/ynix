@@ -1,15 +1,11 @@
-# AI: Supermaven inline completion (nvf-managed) + opencode agent bridge.
-# opencode is not an nvf module, so it's a startPlugin configured in
-# lua/opencode.lua (escape hatch); supermaven keeps Tab/Shift-Tab for inline.
+# AI: Supermaven inline completion (Tab/Shift-Tab).
 {self, ...}: {
   flake.nixosModules.nvf-ai = {...}: {
     home-manager.sharedModules = [self.homeModules.nvf-ai];
   };
 
-  flake.homeModules.nvf-ai = {pkgs, ...}: {
+  flake.homeModules.nvf-ai = {...}: {
     programs.nvf.settings.vim = {
-      startPlugins = [pkgs.vimPlugins.opencode-nvim];
-
       assistant.supermaven-nvim = {
         enable = true;
         setupOpts = {

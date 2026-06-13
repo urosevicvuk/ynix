@@ -88,9 +88,8 @@
           zen.enabled = true;
           image.enabled = true;
           scratch.enabled = true;
-          # Consolidated into the snacks pillar (replacing indent-blankline +
-          # mini.indentscope, cinnamon-nvim, and mini.cursorword respectively).
-          indent.enabled = true;
+          # snacks.scroll (was cinnamon-nvim) + snacks.words (was mini.cursorword).
+          # Indent guides/scope stay on indent-blankline + mini.indentscope below.
           scroll.enabled = true;
           words = {
             enabled = true;
@@ -109,12 +108,13 @@
           };
         };
         highlight-undo.enable = true;
-        # mini.icons is the icon provider; don't pull in web-devicons too.
-        nvim-web-devicons.enable = false;
+        indent-blankline.enable = true;
+        nvim-web-devicons.enable = true;
       };
 
       mini = {
         icons.enable = true;
+        indentscope.enable = true;
         hipatterns.enable = true;
       };
     };

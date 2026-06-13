@@ -49,7 +49,9 @@
               sign = false;
               virtual_text = true;
             };
-            breadcrumbs.enable = false; # using vim.ui.breadcrumbs (navic) instead
+            # lspsaga's own winbar breadcrumbs (this is the real key; the old
+            # `breadcrumbs.enable` was a no-op, so it was silently always on).
+            symbol_in_winbar.enable = true;
           };
         };
 
@@ -67,12 +69,6 @@
             cmd = { "${pkgs.protols}/bin/protols" },
           })
         '';
-      };
-
-      # Winbar breadcrumbs via nvim-navic.
-      ui.breadcrumbs = {
-        enable = true;
-        source = "nvim-navic";
       };
 
       treesitter = {
@@ -126,16 +122,6 @@
         enable = true;
         ui.enable = true;
       };
-
-      # neotest is not an nvf module; install it + adapters here and configure
-      # it in lua/neotest.lua (escape hatch).
-      startPlugins = with pkgs.vimPlugins; [
-        neotest
-        neotest-go
-        neotest-python
-        neotest-rust
-        nvim-nio
-      ];
     };
   };
 }

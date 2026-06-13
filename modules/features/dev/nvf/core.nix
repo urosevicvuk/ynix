@@ -1,4 +1,4 @@
-# Core: enables nvf, theme, which-key, and auto-loads every lua/*.lua file.
+# Core: enables nvf, theme, and which-key.
 # This is the only module that imports the nvf option module + sets enable;
 # the sibling modules just set `programs.nvf.settings.vim.*` and rely on this.
 {
@@ -16,21 +16,6 @@
     ...
   }: let
     theme = config.theme.active;
-
-    # Escape hatch: drop a real .lua file in ./lua and it auto-loads as a
-    # luaConfigRC DAG entry (full syntax highlighting, easy copy-paste).
-    luaDir = ./lua;
-    luaFiles =
-      lib.filterAttrs
-      (name: type: type == "regular" && lib.hasSuffix ".lua" name)
-      (builtins.readDir luaDir);
-    luaConfigRC =
-      lib.mapAttrs'
-      (name: _:
-        lib.nameValuePair
-        (lib.removeSuffix ".lua" name)
-        (builtins.readFile (luaDir + "/${name}")))
-      luaFiles;
   in {
     imports = [inputs.nvf.homeManagerModules.default];
 
@@ -42,10 +27,11 @@
         vimAlias = true;
         syntaxHighlighting = true;
 
-        # Auto-loaded lua/ files (see above).
-        inherit luaConfigRC;
-
-        # Runs before everything else. Silence nvim-lspconfig's one-time
+        # The one piece of raw lua with no nvf-option equivalent: runs before
+        # everything else to silence nvim-lspconfig's one-time "require(
+        # 'lspconfig') framework is deprecated" notice - nvf still uses that
+        # framework internally, so it fires on every startup. Remove once nvf
+        # migrates to vim.lsp.config.
         # "require('lspconfig') framework is deprecated" notice - nvf still
         # uses that framework internally, so it fires on every startup.
         # Remove once nvf migrates to vim.lsp.config.
@@ -75,9 +61,7 @@
             "<leader>f" = "+find/file";
             "<leader>g" = "+git";
             "<leader>gh" = "+hunk";
-            "<leader>o" = "+opencode";
             "<leader>r" = "+rename";
-            "<leader>t" = "+test";
             "<leader>u" = "+ui/toggle";
             "<leader>x" = "+trouble";
           };
