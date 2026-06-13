@@ -14,7 +14,7 @@
   }: {
     imports = [
       self.nixosModules.base
-      self.nixosModules.nvim
+      self.nixosModules.neovim
       self.nixosModules.cluster
 
       self.nixosModules.sops

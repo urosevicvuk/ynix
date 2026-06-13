@@ -13,6 +13,11 @@
         initial_window_width = 1200;
         initial_window_height = 600;
         update_check_interval = 0;
+        # Disable config auto-reload (negative = off). The watcher follows the
+        # nix-store symlinked kitty.conf and recursively watches /nix/store,
+        # exhausting the inotify limit (starves nvim/snacks etc.). Pointless for
+        # a Nix-managed config anyway - it only changes on rebuild + restart.
+        auto_reload_config = -1;
         enable_audio_bell = false;
         confirm_os_window_close = 0;
         disable_ligatures = "never";

@@ -45,9 +45,6 @@
 
       programs.niri.settings.input.keyboard.xkb.variant = lib.mkForce ",latin,";
 
-      # TODO: niri outputs for DP-2 (1920x1080@144, primary), DP-3 (rotated 90°),
-      # HDMI-A-1 (mirror of DP-2). Old hyprland config removed during cleanup;
-      # niri uses programs.niri.settings.outputs with a different schema.
     };
 
     # Hardware peripherals support - gaming mice, RGB controllers, Logitech devices
