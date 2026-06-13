@@ -332,10 +332,10 @@
         "Mod+Ctrl+Alt+J".action = move-workspace-down;
         "Mod+Ctrl+Alt+K".action = move-workspace-up;
 
-        #"Mod+Shift+Ctrl+H".action = move-workspace-to-monitor-left;
-        #"Mod+Shift+Ctrl+L".action = move-workspace-to-monitor-right;
-        #"Mod+Shift+Ctrl+K".action = move-workspace-to-monitor-up;
-        #"Mod+Shift+Ctrl+J".action = move-workspace-to-monitor-down;
+        "Mod+Shift+Ctrl+H".action = move-workspace-to-monitor-left;
+        "Mod+Shift+Ctrl+L".action = move-workspace-to-monitor-right;
+        "Mod+Shift+Ctrl+K".action = move-workspace-to-monitor-up;
+        "Mod+Shift+Ctrl+J".action = move-workspace-to-monitor-down;
 
         "Mod+T".action = spawn-sh tailscalePanel;
         "Mod+X".action = spawn-sh screenToolkit;

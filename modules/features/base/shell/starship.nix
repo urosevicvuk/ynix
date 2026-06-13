@@ -39,7 +39,6 @@
         kubernetes = {
           disabled = false;
           format = "[$symbol$context( \($namespace\))]($style) in ";
-          detect_env_vars = ["KUBECONFIG"];
         };
         git_branch = {
           symbol = "[](${background-alt}) ";
@@ -49,17 +48,14 @@
         git_status = {
           format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218)($ahead_behind$stashed)]($style)";
           style = "cyan";
-          conflicted = "";
-          renamed = "";
-          deleted = "";
+          #conflicted = "";
+          #renamed = "";
+          #deleted = "";
           stashed = "≡";
         };
         git_state = {
           format = "([$state( $progress_current/$progress_total)]($style)) ";
           style = "bright-black";
-        };
-        cmd_duration = {
-          format = "[$duration]($style)";
         };
         character = {
           success_symbol = "[❯](${accent})";

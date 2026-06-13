@@ -4,7 +4,14 @@
   ...
 }: {
   flake.nixosModules.nix = {config, ...}: {
-    nixpkgs.config.allowUnfree = true;
+    nixpkgs.config = {
+      allowUnfree = true;
+
+      permittedInsecurePackages = [
+        "electron-39.8.10"
+      ];
+    };
+
     nix = {
       nixPath = ["nixpkgs=${inputs.nixpkgs}"];
       channel.enable = false;
