@@ -16,7 +16,7 @@
       self.nixosModules.system
       self.nixosModules.shell
       self.nixosModules.neovim
-      self.nixosModules.cluster
+      self.nixosModules.server
 
       self.nixosModules.sops
     ];

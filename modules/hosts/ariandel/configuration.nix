@@ -15,9 +15,7 @@
     imports = [
       self.nixosModules.system
       self.nixosModules.shell
-      self.nixosModules.terminal
       self.nixosModules.desktop
-      self.nixosModules.editors
       self.nixosModules.dev
       self.nixosModules.steam
       self.nixosModules.apps
