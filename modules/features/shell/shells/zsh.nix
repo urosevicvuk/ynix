@@ -11,10 +11,25 @@
   }: let
     theme = config.theme.active;
   in {
+    # Mirror the bash module: lets fzf/zoxide/carapace install their zsh
+    # keybindings (Ctrl-T files, Alt-C cd) and completion hooks.
+    home.shell.enableZshIntegration = true;
+
     programs.zsh = {
       enable = true;
       autocd = true;
       defaultKeymap = "viins";
+
+      # fzf-tab renders the completion menu through fzf. As a plugin it is
+      # sourced after compinit and before autosuggestions/syntax-highlighting,
+      # which is exactly the load order fzf-tab requires.
+      plugins = [
+        {
+          name = "fzf-tab";
+          src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
+          file = "fzf-tab.plugin.zsh";
+        }
+      ];
 
       history = {
         size = 100000;
@@ -30,8 +45,10 @@
         ssh = "kitten ssh";
       };
 
+      # Fish-style grey ghost-text prediction. EXPERIMENT: flip `enable` to
+      # false for a truly minimal feel (syntax highlighting + fzf-tab only).
       autosuggestion = {
-        enable = true;
+        enable = false; # toggle me
         strategy = ["history" "completion"];
         highlight = "fg=${theme.base03}";
       };
@@ -84,6 +101,10 @@
         setopt EXTENDED_GLOB
 
         KEYTIMEOUT=1
+
+        # fzf-tab uses the fzf binary but ignores FZF_DEFAULT_OPTS unless told
+        # to — this makes its popup reuse my fzf theme/layout (see fzf.nix).
+        zstyle ':fzf-tab:*' use-fzf-default-opts yes
       '';
     };
   };

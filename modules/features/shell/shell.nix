@@ -9,6 +9,7 @@
       # Tools
       self.nixosModules.atuin
       self.nixosModules.carapace
+      self.nixosModules.cli
       self.nixosModules.eza
       self.nixosModules.fzf
       self.nixosModules.sesh

@@ -6,23 +6,25 @@
       self.nixosModules.jetbrains
       self.nixosModules.zed-editor
 
-      # Tools
+      # AI
       self.nixosModules.claude-code
       self.nixosModules.opencode
+
+      # Tools
+      self.nixosModules.bruno
       self.nixosModules.editorconfig
-      self.nixosModules.jj
+      self.nixosModules.hunk
       #self.nixosModules.radicle
       self.nixosModules.trivy
 
       # Containers
       self.nixosModules.docker
       self.nixosModules.kube
-    ];
-  };
 
-  flake.homeModules.dev = {pkgs, ...}: {
-    home.packages = with pkgs; [
-      bruno
+      # VCS
+      self.nixosModules.git
+      self.nixosModules.jj
+
     ];
   };
 }

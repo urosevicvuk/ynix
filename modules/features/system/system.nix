@@ -1,39 +1,28 @@
-# System group — foundation for every host.
-# Sets up home-manager and composes the core system sub-modules.
-# (shell/ is now its own importable domain — hosts add it alongside system.)
-{
-  self,
-  inputs,
-  ...
-}: {
-  flake.nixosModules.system = {config, ...}: {
+# System group — universal foundation for every host. Pure aggregation.
+# Home-manager wiring lives in infra/home-manager.nix; shell/ is its own
+# importable domain that hosts add alongside system.
+{self, ...}: {
+  flake.nixosModules.system = {...}: {
     imports = [
-      inputs.home-manager.nixosModules.default
+      self.nixosModules.home-manager
 
-      self.nixosModules.network
-      self.nixosModules.ssh
-      self.nixosModules.tailscale
+      # Core
       self.nixosModules.boot
       self.nixosModules.locale
       self.nixosModules.nix
-      self.nixosModules.security
-      self.nixosModules.users
       self.nixosModules.environment
       self.nixosModules.direnv
-      self.nixosModules.git
+
+      # Network
+      self.nixosModules.network
+      self.nixosModules.ssh
+      self.nixosModules.tailscale
+
+      # Security
+      self.nixosModules.security
+      self.nixosModules.users
+
       self.nixosModules.theme
     ];
-
-    home-manager = {
-      useGlobalPkgs = true;
-      useUserPackages = true;
-      backupFileExtension = "hm-backup";
-      users.${config.preferences.username} = {
-        home.stateVersion = "26.05";
-        home.username = config.preferences.username;
-        home.homeDirectory = "/home/${config.preferences.username}";
-        programs.home-manager.enable = true;
-      };
-    };
   };
 }

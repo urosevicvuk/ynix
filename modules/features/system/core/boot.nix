@@ -17,8 +17,8 @@
       };
       tmp.cleanOnBoot = true;
       kernelPackages = pkgs.linuxPackages_latest;
-
     };
+
     powerManagement.cpuFreqGovernor = "schedutil";
   };
 }

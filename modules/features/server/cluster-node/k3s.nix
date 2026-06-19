@@ -17,6 +17,7 @@
           "--disable-network-policy" # Cilium enforces NetworkPolicies + CiliumNetworkPolicies
           "--disable-kube-proxy" # Cilium replaces kube-proxy
           "--write-kubeconfig-mode=644"
+          "--kubelet-arg=max-pods=250" # default 110 is too tight for this homelab's pod density
         ]
         + " --tls-san=${config.networking.hostName}";
     };
@@ -31,12 +32,6 @@
       8472 # cilium VXLAN
     ];
 
-    # Trust traffic arriving from pod veths (all named `lxc*` by Cilium).
-    # Without this, the NixOS firewall drops packets that Cilium's TPROXY
-    # redirects to host ports — e.g. L7 LB proxy on 127.0.0.1:15744 (gateway
-    # API requests). Enumerating every host port Cilium uses is fragile; the
-    # interface-based trust is the load-bearing version of the per-port rules
-    # above.
     networking.firewall.extraCommands = ''
       iptables -A nixos-fw -i lxc+ -j nixos-fw-accept
     '';

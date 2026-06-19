@@ -12,7 +12,7 @@
     themeName = config.preferences.theme;
     activeTheme =
       self.theme.${themeName}
-      or (throw "Unknown theme '${themeName}' - add it to modules/tools/themes/");
+      or (throw "Unknown theme '${themeName}' - add it to modules/config/themes/");
   in {
     options.theme.active = lib.mkOption {
       type = lib.types.attrs;
