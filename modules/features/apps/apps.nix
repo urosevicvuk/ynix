@@ -29,6 +29,7 @@
       self.nixosModules.bitwarden
       self.nixosModules.btop
       self.nixosModules.nautilus
+      self.nixosModules.opencloud
       self.nixosModules.yazi
     ];
   };

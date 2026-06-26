@@ -17,7 +17,7 @@
       self.nixosModules.shell
       self.nixosModules.desktop
       self.nixosModules.dev
-      self.nixosModules.steam
+      self.nixosModules.gaming
       self.nixosModules.apps
       self.nixosModules.work
 

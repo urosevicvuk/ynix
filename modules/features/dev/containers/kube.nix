@@ -18,8 +18,18 @@
       };
       k9s = {
         enable = true;
+
+        # Tell k9s which skin to load (-> ~/.config/k9s/config.yaml)
+        settings.k9s.ui.skin = "gruvbox-dark";
+
+        # Each key -> ~/.config/k9s/skins/<key>.yaml
+        skins = {
+          gruvbox-dark = ./skins/gruvbox-dark.yaml;
+          # add more skins here, then point ui.skin above at one to switch
+        };
+
         plugins = [
-          #we can add pluginsto k9s here
+          #we can add plugins to k9s here
         ];
       };
     };
