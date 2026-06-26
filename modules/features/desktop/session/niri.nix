@@ -188,6 +188,7 @@
 
         mouse = {
           accel-profile = "flat";
+          accel-speed = -0.5;
         };
 
         focus-follows-mouse.enable = true;
