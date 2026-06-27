@@ -18,8 +18,9 @@
       };
       k9s = {
         enable = true;
+
         plugins = [
-          #we can add pluginsto k9s here
+          #we can add plugins to k9s here
         ];
       };
     };

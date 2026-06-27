@@ -13,6 +13,7 @@
         toString [
           "--disable=traefik" # Gateway API + Cilium Gateway instead
           "--disable=servicelb" # Cilium L2 announces LB IPs
+          "--disable=local-storage" # Longhorn is the cluster's only StorageClass
           "--flannel-backend=none" # Cilium replaces the CNI
           "--disable-network-policy" # Cilium enforces NetworkPolicies + CiliumNetworkPolicies
           "--disable-kube-proxy" # Cilium replaces kube-proxy
