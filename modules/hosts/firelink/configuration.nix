@@ -15,6 +15,7 @@
     imports = [
       self.nixosModules.system
       self.nixosModules.shell
+      self.nixosModules.git
       self.nixosModules.neovim
       self.nixosModules.server
 
