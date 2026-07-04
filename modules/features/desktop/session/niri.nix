@@ -356,10 +356,12 @@
 
         "Mod+S".action = spawn-sh settings;
 
-        "Print".action = spawn-sh screenshotArea;
-        "Shift+Print".action = spawn-sh screenshotFullscreen;
-        "Alt+Print".action = spawn-sh recordArea;
-        "Alt+Shift+Print".action = spawn-sh recordFullscreen;
+        "Print".action.screenshot = { };
+        "Alt+Print".action.screenshot-window = { };
+        "Shift+Print".action.screenshot-screen = { };
+
+        "Mod+Print".action = spawn-sh screenshotArea;
+        "Mod+Shift+Print".action = spawn-sh screenshotFullscreen;
 
         "Mod+1".action = focus-workspace 1;
         "Mod+Shift+1".action.move-column-to-workspace = 1;
