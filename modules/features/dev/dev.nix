@@ -3,6 +3,7 @@
     imports = [
       # Editors
       self.nixosModules.neovim
+      self.nixosModules.cursor
       self.nixosModules.jetbrains
       self.nixosModules.zed-editor
 
