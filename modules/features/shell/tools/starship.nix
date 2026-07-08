@@ -37,7 +37,7 @@
           style = "";
         };
         kubernetes = {
-          disabled = false;
+          disabled = true;
           format = "[$symbol$context( \($namespace\))]($style) in ";
         };
         git_branch = {
