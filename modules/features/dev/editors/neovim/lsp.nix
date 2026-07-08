@@ -1,6 +1,10 @@
 # LSP, treesitter, completion, diagnostics UI, debugging, and testing.
 {self, ...}: {
-  flake.homeModules.neovim = {pkgs, ...}: {
+  flake.homeModules.neovim = {
+    pkgs,
+    lib,
+    ...
+  }: {
     programs.nvf.settings.vim = {
       # Diagnostics: custom gutter icons + inline virtual text, no insert-update.
       diagnostics = {
@@ -40,6 +44,21 @@
           setupOpts = {
             buffers.set_filetype = true;
             lsp.diagnostic_update_event = ["BufWritePost" "InsertLeave"];
+          };
+        };
+
+        servers = {
+          # nvf's clang module registers clangd for proto too, but open-source
+          # clangd can't parse protobuf ("invalid AST"); upstream lspconfig
+          # reverted the proto filetype in 2025 (nvim-lspconfig#3959).
+          clangd.filetypes = lib.mkForce ["c" "cpp" "objc" "objcpp" "cuda"];
+
+          # Protobuf has no nvf language module: wire its LSP by hand.
+          protols = {
+            enable = true;
+            cmd = ["${pkgs.protols}/bin/protols"];
+            filetypes = ["proto"];
+            root_markers = ["protols.toml" ".git"];
           };
         };
       };
