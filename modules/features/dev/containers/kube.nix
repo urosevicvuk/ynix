@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.nixosModules.kube = {...}: {
+  flake.nixosModules.kube = { config, ...}: {
     home-manager.sharedModules = [self.homeModules.kube];
   };
 
@@ -29,5 +29,9 @@
       kubectl
       kubectx
     ];
+
+    home.sessionVariables = {
+      KUBECONFIG = "~/.kube/firelink.kubeconfig";
+    };
   };
 }
