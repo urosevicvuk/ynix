@@ -17,7 +17,6 @@
 
     programs.zsh = {
       enable = true;
-      autocd = true;
       defaultKeymap = "viins";
 
       # fzf-tab renders the completion menu through fzf. As a plugin it is
@@ -43,12 +42,14 @@
       shellAliases = {
         gitui = "lazygit";
         ssh = "kitten ssh";
+        nix-shell = "nix-shell --command nu";
       };
 
-      # Fish-style grey ghost-text prediction. EXPERIMENT: flip `enable` to
-      # false for a truly minimal feel (syntax highlighting + fzf-tab only).
+      # Fish-style grey ghost-text prediction, history-first to match
+      # nushell's reedline hinter. EXPERIMENT: flip `enable` to false for a
+      # truly minimal feel (syntax highlighting + fzf-tab only).
       autosuggestion = {
-        enable = false; # toggle me
+        enable = true; # toggle me
         strategy = ["history" "completion"];
         highlight = "fg=${theme.base03}";
       };
@@ -98,13 +99,18 @@
       initContent = ''
         setopt INTERACTIVE_COMMENTS
         setopt NO_BEEP
-        setopt EXTENDED_GLOB
 
         KEYTIMEOUT=1
 
         # fzf-tab uses the fzf binary but ignores FZF_DEFAULT_OPTS unless told
         # to — this makes its popup reuse my fzf theme/layout (see fzf.nix).
         zstyle ':fzf-tab:*' use-fzf-default-opts yes
+
+        # This can't live in base fzf: fzf-tab passes --bind=tab:down on the
+        # fzf command line, which overrides FZF_DEFAULT_OPTS. This zstyle is
+        # appended after fzf-tab's defaults, so it wins: Tab accepts the
+        # selection, moving is Ctrl-N/Ctrl-P (fzf's built-in down/up).
+        zstyle ':fzf-tab:*' fzf-bindings 'tab:accept'
       '';
     };
   };

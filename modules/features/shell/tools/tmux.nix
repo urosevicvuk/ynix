@@ -46,7 +46,7 @@
 
               set -g @powerkit_separator_style "normal"
               set -g @powerkit_edge_separator_style "normal"
-              set -g @powerkit_elements_spacing "true"
+              set -g @powerkit_elements_spacing "both"
 
               set -g @powerkit_status_interval "1"
 

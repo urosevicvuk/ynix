@@ -30,9 +30,6 @@
       extraEnv = ''
         $env.PROMPT_INDICATOR_VI_INSERT = "❯ "
         $env.PROMPT_INDICATOR_VI_NORMAL = "❮ "
-        $env.MANPAGER = "sh -c 'col -bx | bat -l man -p'"
-        $env.PAGER = "bat --plain"
-        $env.MANROFFOPT = "-c"
       '';
 
       plugins = with pkgs.nushellPlugins; [

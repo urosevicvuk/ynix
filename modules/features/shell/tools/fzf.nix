@@ -29,6 +29,10 @@
         "--prompt='/ '"
         "-i"
         "--no-bold"
+        # Tab accepts the selection instead of toggling multi-select
+        # (Shift-Tab still toggles); moving is Ctrl-N/Ctrl-P. fzf-tab doesn't
+        # inherit this — it sets its own binds on the CLI, see zsh.nix.
+        "--bind=tab:accept"
       ];
     };
   };
