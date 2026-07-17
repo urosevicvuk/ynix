@@ -10,6 +10,7 @@
       self.nixosModules.boot
       self.nixosModules.locale
       self.nixosModules.nix
+      self.nixosModules.buildFarm
       self.nixosModules.environment
       self.nixosModules.direnv
 

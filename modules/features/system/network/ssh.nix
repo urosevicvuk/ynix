@@ -1,5 +1,6 @@
 {self, ...}: {
   flake.nixosModules.ssh = {config, ...}: {
+    programs.mosh.enable = true;
     services.openssh = {
       enable = true;
       ports = [22];
@@ -19,8 +20,6 @@
 
   flake.homeModules.ssh = {
     services.ssh-agent.enable = true;
-    programs.ssh = {
-      enable = true;
-    };
+    programs.ssh.enable = true;
   };
 }
