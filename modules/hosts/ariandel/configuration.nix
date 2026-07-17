@@ -20,7 +20,6 @@
       self.nixosModules.gaming
       self.nixosModules.apps
       self.nixosModules.work
-      self.nixosModules.lan-mouse
 
       self.nixosModules.stylix
       self.nixosModules.sops
