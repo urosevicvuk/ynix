@@ -22,6 +22,7 @@
       self.nixosModules.gaming
       #self.nixosModules.creative
       self.nixosModules.work
+      self.nixosModules.lan-mouse
 
       self.nixosModules.stylix
       self.nixosModules.sops
