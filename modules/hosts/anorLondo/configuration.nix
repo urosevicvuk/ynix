@@ -17,6 +17,7 @@
       self.nixosModules.system
       self.nixosModules.shell
       self.nixosModules.desktop
+      self.nixosModules.sunshine # GPU stream host -> Moonlight on ariandel
       self.nixosModules.dev
       self.nixosModules.apps
       self.nixosModules.gaming
@@ -33,6 +34,12 @@
     hardware.enableAllFirmware = true;
     boot.supportedFilesystems = ["ntfs"];
     boot.loader.grub.useOSProber = true;
+
+    # Wake-on-LAN: let ariandel wake this box off the LAN before streaming.
+    # Wake it with: `wol 04:42:1a:22:80:f9` (broadcast a magic packet on the LAN).
+    # ethtool ships so you can confirm support:  ethtool enp10s0 | grep Wake-on
+    networking.interfaces.enp10s0.wakeOnLan.enable = true;
+    environment.systemPackages = [pkgs.ethtool];
 
     home-manager.users.${config.preferences.username} = {
       # home.file.".face.icon".source = ./_assets/anorLondo-profile.png;

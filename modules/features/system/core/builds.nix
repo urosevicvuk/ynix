@@ -1,8 +1,6 @@
-# Nix build farm — offload compilation to firelink's Xeons.
-#
-# One module, two roles, gated on hostname (this evaluates per-host):
-#   firelink  -> BUILDER: trusts the user so it accepts incoming remote builds.
-#   everyone  -> CLIENT : ships Nix builds to firelink over ssh-ng.
+# Remote builders — CLIENT half. Every host offloads Nix builds to firelink's
+# Xeons; firelink's accepting half is server/build-server.nix (and it opts back
+# out of being a client there, so it never builds on itself).
 #
 # All hosts are x86_64-linux, so these are NATIVE builds — no emulation.
 #
@@ -11,19 +9,12 @@
 # already used by sops there. `accept-new` lets root's daemon trust firelink's
 # host key on first contact without an interactive prompt.
 {...}: {
-  flake.nixosModules.buildFarm = {
-    config,
-    lib,
-    ...
-  }: let
+  flake.nixosModules.remoteBuilders = {config, ...}: let
     user = config.preferences.username;
-    isBuilder = config.networking.hostName == "firelink";
-    isClient = !isBuilder;
   in {
-    # ---- CLIENT: offload to firelink ----
-    nix.distributedBuilds = lib.mkIf isClient true;
+    nix.distributedBuilds = true;
 
-    nix.buildMachines = lib.mkIf isClient [
+    nix.buildMachines = [
       {
         hostName = "firelink"; # resolved via networking.hosts / the tailnet
         protocol = "ssh-ng";
@@ -37,17 +28,12 @@
     ];
 
     # Let root's build daemon trust firelink's host key on first connect.
-    programs.ssh.extraConfig = lib.mkIf isClient ''
+    programs.ssh.extraConfig = ''
       Host firelink
         StrictHostKeyChecking accept-new
     '';
 
-    nix.settings = {
-      # Client: firelink pulls deps from its own caches, not shipped from us.
-      builders-use-substitutes = lib.mkIf isClient true;
-      # Builder: trust the user so its daemon accepts our remote builds.
-      # (root is trusted implicitly and already declared elsewhere.)
-      trusted-users = lib.mkIf isBuilder [user];
-    };
+    # firelink pulls deps from its own caches, not shipped from us.
+    nix.settings.builders-use-substitutes = true;
   };
 }

@@ -18,8 +18,12 @@
     home-manager.sharedModules = [self.homeModules.ssh];
   };
 
-  flake.homeModules.ssh = {
+  flake.homeModules.ssh = {pkgs, ...}: {
     services.ssh-agent.enable = true;
     programs.ssh.enable = true;
+
+    # waypipe rides over ssh (`waypipe ssh anorlondo blender`) — kept here rather
+    # than as a standalone one-package module. Harmless dead weight on firelink.
+    home.packages = [pkgs.waypipe];
   };
 }
