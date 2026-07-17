@@ -77,9 +77,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # linux-only system list, used to stop inputs from evaluating darwin outputs
+    systems.url = "github:nix-systems/default-linux";
+
     hunk = {
       url = "github:modem-dev/hunk";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.bun2nix.inputs.systems.follows = "systems";
     };
 
     import-tree.url = "github:vic/import-tree";

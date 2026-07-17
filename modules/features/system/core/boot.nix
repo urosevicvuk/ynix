@@ -6,7 +6,6 @@
   }: {
     boot = {
       initrd.kernelModules = ["amdgpu"];
-      bootspec.enable = true;
       loader = {
         efi.canTouchEfiVariables = true;
         grub = {
