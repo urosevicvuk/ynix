@@ -8,6 +8,9 @@
     };
   };
 
+  # Self-registers into the `system` group (merged with the other system modules).
+  flake.nixosModules.system.imports = [self.nixosModules.theme];
+
   flake.nixosModules.theme = {config, lib, ...}: let
     themeName = config.preferences.theme;
     activeTheme =
