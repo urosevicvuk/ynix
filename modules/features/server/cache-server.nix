@@ -16,7 +16,7 @@
     };
 
     sops.secrets."harmonia-signing-key" = {
-      sopsFile = ../secrets/firelink/harmonia.yaml;
+      sopsFile = ../../../secrets/firelink/harmonia.yaml;
       key = "signing_key";
       mode = "0400";
     };
