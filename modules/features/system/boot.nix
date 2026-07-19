@@ -21,6 +21,7 @@
       kernelPackages = pkgs.linuxPackages_latest;
     };
 
-    powerManagement.cpuFreqGovernor = "schedutil";
+    # Shared default; hosts may override (e.g. anorLondo pins "performance").
+    powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
   };
 }

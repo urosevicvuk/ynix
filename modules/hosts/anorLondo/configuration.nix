@@ -31,6 +31,11 @@
     networking.hostName = "anorLondo";
     system.stateVersion = "26.05";
 
+    # CPU is amd-pstate-epp ("active" mode), which only exposes performance/powersave
+    # governors — the shared "schedutil" default silently falls back to powersave here.
+    # Pin performance for max clocks on this machine only.
+    powerManagement.cpuFreqGovernor = "performance";
+
     hardware.enableAllFirmware = true;
     boot.supportedFilesystems = ["ntfs"];
     boot.loader.grub.useOSProber = true;
