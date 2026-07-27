@@ -2,8 +2,13 @@
   # Self-registers into the `dev` group (merged with the other dev modules).
   flake.nixosModules.dev.imports = [self.nixosModules.opencode];
 
-  flake.nixosModules.opencode = {...}: {
+  flake.nixosModules.opencode = {pkgs, ...}: {
     home-manager.sharedModules = [self.homeModules.opencode];
+
+    environment.systemPackages = with pkgs; [
+      opencode
+      opencode-desktop
+    ];
   };
 
   flake.homeModules.opencode = {
@@ -23,7 +28,6 @@
       };
 
       web.enable = true;
-
     };
   };
 }
