@@ -3,6 +3,8 @@
   flake.nixosModules.system.imports = [self.nixosModules.security];
 
   flake.nixosModules.security = {config, ...}: {
+    security.pam.services.login.fprintAuth = false;
+
     security.sudo = {
       wheelNeedsPassword = true;
       extraRules = [

@@ -18,7 +18,5 @@
         };
       };
     };
-
-    security.pam.services.greetd.fprintAuth = false;
   };
 }
