@@ -33,6 +33,8 @@
       extraEnv = ''
         $env.PROMPT_INDICATOR_VI_INSERT = "❯ "
         $env.PROMPT_INDICATOR_VI_NORMAL = "❮ "
+
+        $env.KUBECONFIG = ($env.HOME + "/.kube/firelink.kubeconfig")
       '';
 
       plugins = with pkgs.nushellPlugins; [

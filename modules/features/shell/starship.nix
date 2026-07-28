@@ -23,8 +23,8 @@
       settings = {
         add_newline = true;
         format = lib.concatStrings [
-          "$nix_shell"
           "$kubernetes"
+          "$nix_shell"
           "$hostname"
           "$directory"
           "$git_branch"
@@ -40,7 +40,7 @@
           style = "";
         };
         kubernetes = {
-          disabled = true;
+          disabled = false;
           format = "[$symbol$context( \($namespace\))]($style) in ";
         };
         git_branch = {
@@ -51,9 +51,9 @@
         git_status = {
           format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218)($ahead_behind$stashed)]($style)";
           style = "cyan";
-          #conflicted = "";
-          #renamed = "";
-          #deleted = "";
+          conflicted = "";
+          renamed = "";
+          deleted = "";
           stashed = "≡";
         };
         git_state = {

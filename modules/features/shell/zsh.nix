@@ -105,6 +105,8 @@
 
         KEYTIMEOUT=1
 
+        KUBECONFIG=~/.kube/firelink.kubeconfig
+
         # fzf-tab uses the fzf binary but ignores FZF_DEFAULT_OPTS unless told
         # to — this makes its popup reuse my fzf theme/layout (see fzf.nix).
         zstyle ':fzf-tab:*' use-fzf-default-opts yes

@@ -33,8 +33,5 @@
       kubectx
     ];
 
-    home.sessionVariables = {
-      KUBECONFIG = "~/.kube/firelink.kubeconfig";
-    };
   };
 }
