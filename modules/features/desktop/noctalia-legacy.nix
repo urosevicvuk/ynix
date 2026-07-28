@@ -5,10 +5,10 @@
   ...
 }: {
   # Self-registers into the `desktop` group (merged with the other desktop modules).
-  flake.nixosModules.desktop.imports = [self.nixosModules.noctalia];
+  flake.nixosModules.desktop.imports = [self.nixosModules.noctalia-legacy];
 
-  flake.nixosModules.noctalia = {pkgs, ...}: {
-    home-manager.sharedModules = [self.homeModules.noctalia];
+  flake.nixosModules.noctalia-legacy = {pkgs, ...}: {
+    home-manager.sharedModules = [self.homeModules.noctalia-legacy];
 
     environment.systemPackages = with pkgs; [
       grim
@@ -30,7 +30,7 @@
     ];
   };
 
-  flake.homeModules.noctalia = {
+  flake.homeModules.noctalia-legacy = {
     pkgs,
     lib,
     config,
@@ -38,7 +38,7 @@
   }: let
     theme = config.theme.active;
   in {
-    imports = [inputs.noctalia.homeModules.default];
+    imports = [inputs.noctalia-legacy.homeModules.default];
 
     home.packages = with pkgs; [
       brightnessctl
@@ -50,7 +50,7 @@
 
     programs.noctalia-shell = lib.mkForce {
       enable = true;
-      package = inputs.noctalia.packages.${pkgs.system}.default;
+      package = inputs.noctalia-legacy.packages.${pkgs.system}.default;
 
       colors = {
         mPrimary = theme.base0D;
