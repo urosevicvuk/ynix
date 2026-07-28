@@ -251,6 +251,26 @@
         "type": "github"
       }
     },
+    "dms-plugin-registry": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1785168088,
+        "narHash": "sha256-MuLl43IAwKZDIW+Wxx7dpQNtuBUbkCmAl36PHDMxEAc=",
+        "owner": "AvengeMedia",
+        "repo": "dms-plugin-registry",
+        "rev": "be7ed3fdc5772ff9b6e6d43f80b8d66f377c3ab9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AvengeMedia",
+        "repo": "dms-plugin-registry",
+        "type": "github"
+      }
+    },
     "fenix": {
       "inputs": {
         "nixpkgs": [
@@ -1086,6 +1106,7 @@
         "affinity-nix": "affinity-nix",
         "apple-fonts": "apple-fonts",
         "disko": "disko",
+        "dms-plugin-registry": "dms-plugin-registry",
         "flake-parts": "flake-parts_2",
         "helium-browser": "helium-browser",
         "home-manager": "home-manager",
