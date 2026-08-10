@@ -46,9 +46,6 @@
         powertop
         figlet
         radeontop
-
-        moonlight-qt # stream anorlondo's GPU desktop / games here
-        wakeonlan # `wakeonlan 04:42:1a:22:80:f9` to wake anorlondo before streaming
       ];
 
       programs.niri.settings.outputs = {
