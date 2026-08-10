@@ -1,9 +1,11 @@
+# k3s cluster node: control plane, Longhorn storage prerequisites, firewall
 {self, ...}: {
   # Self-registers into the `server` group (merged with the other server modules).
-  flake.nixosModules.server.imports = [self.nixosModules.k3s];
+  flake.nixosModules.server.imports = [self.nixosModules.cluster];
 
-  flake.nixosModules.k3s = {
+  flake.nixosModules.cluster = {
     config,
+    lib,
     pkgs,
     ...
   }: {
@@ -26,19 +28,49 @@
         + " --tls-san=${config.networking.hostName}";
     };
 
-    networking.firewall.allowedTCPPorts = [
-      6443
-      10250
-      4240 # cilium-health
-      4244 # hubble peer
-    ];
-    networking.firewall.allowedUDPPorts = [
-      8472 # cilium VXLAN
+    # Storage prerequisites for Longhorn distributed storage
+    services.openiscsi = {
+      enable = true;
+      name = "iqn.2024-01.org.nixos:initiator";
+    };
+
+    systemd.services.iscsid.serviceConfig = {
+      PrivateMounts = "yes";
+      BindPaths = "/run/current-system/sw/bin:/bin";
+    };
+
+    boot.kernelModules = ["iscsi_tcp"];
+    boot.supportedFilesystems = ["nfs"];
+
+    services.rpcbind.enable = true;
+
+    systemd.tmpfiles.rules = [
+      "L+ /usr/sbin/iscsiadm - - - - /run/current-system/sw/bin/iscsiadm"
     ];
 
-    networking.firewall.extraCommands = ''
-      iptables -A nixos-fw -i lxc+ -j nixos-fw-accept
-    '';
+    networking.firewall = {
+      enable = true;
+
+      allowedTCPPorts = [
+        80
+        443
+        6443
+        10250
+        4240 # cilium-health
+        4244 # hubble peer
+      ];
+
+      allowedUDPPorts = [
+        8472 # cilium VXLAN
+      ];
+
+      extraCommands = ''
+        iptables -A nixos-fw -i lxc+ -j nixos-fw-accept
+      '';
+
+      allowPing = lib.mkForce true;
+      logRefusedConnections = false;
+    };
 
     environment.systemPackages = with pkgs; [
       kubectl
@@ -48,19 +80,10 @@
       k3s
       cilium-cli
       hubble
+      nfs-utils
+      openiscsi
     ];
 
     environment.sessionVariables.KUBECONFIG = "/etc/rancher/k3s/k3s.yaml";
-
-    home-manager.sharedModules = [self.homeModules.k3s];
-  };
-
-  flake.homeModules.k3s = {...}: {
-    programs.k9s = {
-      enable = true;
-      plugins = [
-        #we can add pluginsto k9s here
-      ];
-    };
   };
 }
