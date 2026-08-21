@@ -13,9 +13,9 @@
     boot.extraModprobeConfig = "options mt7925e disable_aspm=1";
 
     networking = {
-      wireless.iwd = {
-        enable = true;
-      };
+      #wireless.iwd = {
+      #  enable = true;
+      #};
       firewall = {
         enable = true;
         allowPing = false;
@@ -23,7 +23,7 @@
       networkmanager = {
         enable = true;
         wifi = {
-          backend = "iwd";
+          #backend = "iwd";
           powersave = false;
         };
       };
