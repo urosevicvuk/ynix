@@ -7,8 +7,12 @@
   # Self-registers into the `apps` group (merged with the other apps modules).
   flake.nixosModules.apps.imports = [self.nixosModules.spicetify];
 
-  flake.nixosModules.spicetify = {...}: {
+  flake.nixosModules.spicetify = {pkgs, ...}: {
     home-manager.sharedModules = [self.homeModules.spotify];
+
+    environment.systemPackages = with pkgs; [
+      cliamp
+      ];
   };
 
   flake.homeModules.spotify = {

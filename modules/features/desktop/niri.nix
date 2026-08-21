@@ -13,6 +13,8 @@
 
     programs.niri.enable = true;
 
+    programs.niri.package = pkgs.niri;
+
     # polkit-kde-agent crashes when rendering dialogs on niri (KCrash / SIGSEGV).
     # Use hyprpolkitagent instead — started via spawn-at-startup in the home module below.
     systemd.user.services.niri-flake-polkit.enable = false;
