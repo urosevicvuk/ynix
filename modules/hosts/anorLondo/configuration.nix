@@ -42,6 +42,8 @@
       home.packages = with pkgs; [
         solaar
         piper
+
+        deadlock-mod-manager
       ];
 
       programs.niri.settings.input.keyboard.xkb.variant = lib.mkForce ",latin,";
