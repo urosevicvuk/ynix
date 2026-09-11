@@ -76,6 +76,9 @@
       };
     };
 
+    # wifi fix?
+    boot.extraModprobeConfig = "options mt7925e disable_aspm=1";
+
     # Fix fingerprint reader after suspend/resume
     powerManagement.powerDownCommands = ''
       ${pkgs.systemd}/bin/systemctl stop fprintd.service 2>/dev/null || true
