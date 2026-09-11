@@ -9,7 +9,7 @@
 
   flake.homeModules.office = {pkgs, ...}: {
     home.packages = with pkgs; [
-      libreoffice-fresh
+      libreoffice-stable
       onlyoffice-desktopeditors
       slack
     ];

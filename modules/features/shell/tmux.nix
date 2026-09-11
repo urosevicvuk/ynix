@@ -42,7 +42,7 @@
           vim-tmux-navigator
           sensible
           {
-            plugin = inputs.tmux-powerkit.packages.${pkgs.system}.default;
+            plugin = inputs.tmux-powerkit.packages.${pkgs.stdenv.hostPlatform.system}.default;
             extraConfig = ''
               set -g @powerkit_theme "${theme.tmux-powerkit-theme}"
               set -g @powerkit_theme_variant "${theme.tmux-powerkit-variant}"

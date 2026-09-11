@@ -15,6 +15,10 @@
   in {
     programs.fzf = {
       enable = true;
+      # Atuin is the history manager and is sourced after fzf, so it already
+      # won Ctrl-R in practice; dropping fzf's binding makes that explicit.
+      # fzf keeps Ctrl-T (files) and Alt-C (cd), plus fzf-tab in zsh.
+      historyWidget.command = "";
       colors = lib.mkForce {
         "fg+" = theme.base0D;
         "bg+" = "-1";

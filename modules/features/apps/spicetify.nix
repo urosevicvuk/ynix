@@ -21,7 +21,7 @@
     config,
     ...
   }: let
-    spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
+    spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
     theme = config.theme.active;
     accent = theme.base0D;
     background = theme.base00;

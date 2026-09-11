@@ -87,8 +87,8 @@
     recordArea = "${noct} plugin:screen-toolkit recordMp4";
     recordFullscreen = "${noct} plugin:screen-toolkit recordFullscreenMp4";
 
-    zen = lib.getExe inputs.zen-browser.packages.${pkgs.system}.default;
-    helium = lib.getExe inputs.helium-browser.packages.${pkgs.system}.default;
+    zen = lib.getExe inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    helium = lib.getExe inputs.helium-browser.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
     terminal = "kitty";
   in {

@@ -50,7 +50,7 @@
 
     programs.noctalia-shell = lib.mkForce {
       enable = true;
-      package = inputs.noctalia-legacy.packages.${pkgs.system}.default;
+      package = inputs.noctalia-legacy.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
       colors = {
         mPrimary = theme.base0D;

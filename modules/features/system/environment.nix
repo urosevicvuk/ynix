@@ -19,7 +19,7 @@
         PASSWORD_STORE_DIR = "$HOME/.local/share/password-store";
         EDITOR = "nvim";
         TERMINAL = config.preferences.terminal;
-        BROWSER = lib.getExe inputs.zen-browser.packages.${pkgs.system}.default;
+        BROWSER = lib.getExe inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default;
       };
       systemPackages = with pkgs; [
         fd

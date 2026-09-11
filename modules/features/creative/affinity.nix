@@ -12,7 +12,7 @@
 
   flake.homeModules.affinity = {pkgs, ...}: {
     home.packages = [
-      inputs.affinity-nix.packages.${pkgs.system}.v3
+      inputs.affinity-nix.packages.${pkgs.stdenv.hostPlatform.system}.v3
     ];
   };
 }

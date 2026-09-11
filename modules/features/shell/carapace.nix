@@ -12,7 +12,7 @@
       enableNushellIntegration = true;
       enableBashIntegration = true;
       enableZshIntegration = true;
-      ignoreCase = true;
+      environment.CARAPACE_MATCH = true;
     };
   };
 }
