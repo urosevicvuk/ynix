@@ -2,7 +2,7 @@
   flake.nixosModules.system.imports = [self.nixosModules.ssh];
 
   flake.nixosModules.ssh = {config, ...}: {
-    programs.mosh.enable = true;
+    #programs.mosh.enable = true;
     services.openssh = {
       enable = true;
       ports = [22];

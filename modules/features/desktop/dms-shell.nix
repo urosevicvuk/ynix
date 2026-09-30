@@ -19,17 +19,6 @@
         restartIfChanged = true;
       };
 
-      enableSystemMonitoring = true;
-      enableVPN = true;
-      enableDynamicTheming = true;
-      enableAudioWavelength = true;
-      enableCalendarEvents = true;
-
-      plugins = {
-        dankBatteryAlerts.enable = true;
-        dockerManager.enable = true;
-      };
-
     };
 
     home-manager.sharedModules = [self.homeModules.dms-shell];

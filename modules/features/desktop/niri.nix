@@ -43,49 +43,82 @@
     animationSpeed = theme.animation-speed;
     animationsDisabled = animationSpeed == "none";
 
-    noct = "noctalia-shell ipc call";
+    # --- noctalia (off) --- uncomment this block + the noctalia-only binds below to switch back
+    # noct = "noctalia-shell ipc call";
+    #
+    # launcher = "${noct} launcher toggle";
+    # clipboard = "${noct} launcher clipboard";
+    # bar = "${noct} bar toggle";
+    # controlCenter = "${noct} controlCenter toggle";
+    # sessionMenu = "${noct} sessionMenu toggle";
+    # settings = "${noct} settings toggle";
+    #
+    # outputUp = "${noct} volume increase";
+    # outputDown = "${noct} volume decrease";
+    # outputMute = "${noct} volume muteOutput";
+    # inputUp = "${noct} volume increaseInput";
+    # inputDown = "${noct} volume decreaseInput";
+    # inputMute = "${noct} volume muteInput";
+    #
+    # brightnessUp = "${noct} brightness increase";
+    # brightnessDown = "${noct} brightness decrease";
+    #
+    # playPause = "${noct} media playPause";
+    # next = "${noct} media next";
+    # previous = "${noct} media previous";
+    #
+    # mediaPanel = "${noct} media toggle";
+    # calendar = "${noct} plugin:weekly-calendar togglePanel";
+    # screenToolkit = "${noct} plugin:screen-toolkit toggle";
+    # volumePanel = "${noct} volume togglePanel";
+    # bluetoothPanel = "${noct} bluetooth togglePanel";
+    # networkPanel = "${noct} network togglePanel";
+    # tailscalePanel = "${noct} plugin:tailscale togglePanel";
+    # batteryPanel = "${noct} battery togglePanel";
+    # notificationsPanel = "${noct} notifications toggleHistory";
+    #
+    # caffeine = "${noct} idleInhibitor toggle";
+    # volumeToggle = "${noct} volume toggle";
+    # bluetoothToggle = "${noct} bluetooth toggle";
+    # networkToggle = "${noct} network toggle";
+    # mute = "${noct} notifications toggleDND";
+    #
+    # screenshotArea = "${noct} plugin:screen-toolkit annotate";
+    # screenshotFullscreen = "${noct} plugin:screen-toolkit annotateFullscreen";
+    # recordArea = "${noct} plugin:screen-toolkit recordMp4";
+    # recordFullscreen = "${noct} plugin:screen-toolkit recordFullscreenMp4";
 
-    launcher = "${noct} launcher toggle";
-    clipboard = "${noct} launcher clipboard";
-    bar = "${noct} bar toggle";
-    controlCenter = "${noct} controlCenter toggle";
-    sessionMenu = "${noct} sessionMenu toggle";
-    settings = "${noct} settings toggle";
+    # --- dms (on) --- `dms ipc call` with no args lists every target/function
+    dms = "dms ipc call";
 
-    outputUp = "${noct} volume increase";
-    outputDown = "${noct} volume decrease";
-    outputMute = "${noct} volume muteOutput";
-    inputUp = "${noct} volume increaseInput";
-    inputDown = "${noct} volume decreaseInput";
-    inputMute = "${noct} volume muteInput";
+    launcher = "${dms} launcher toggle";
+    clipboard = "${dms} clipboard toggle";
+    bar = "${dms} bar toggle index 0";
+    controlCenter = "${dms} control-center toggle";
+    sessionMenu = "${dms} powermenu toggle";
+    settings = "${dms} settings focusOrToggle";
 
-    brightnessUp = "${noct} brightness increase";
-    brightnessDown = "${noct} brightness decrease";
+    outputUp = "${dms} audio increment 5";
+    outputDown = "${dms} audio decrement 5";
+    outputMute = "${dms} audio mute";
+    inputUp = "${dms} mic increment 5";
+    inputDown = "${dms} mic decrement 5";
+    inputMute = "${dms} mic mute";
 
-    playPause = "${noct} media playPause";
-    next = "${noct} media next";
-    previous = "${noct} media previous";
+    # trailing "" = default backlight device
+    brightnessUp = "${dms} brightness increment 5 ''";
+    brightnessDown = "${dms} brightness decrement 5 ''";
 
-    mediaPanel = "${noct} media toggle";
-    calendar = "${noct} plugin:weekly-calendar togglePanel";
-    screenToolkit = "${noct} plugin:screen-toolkit toggle";
-    volumePanel = "${noct} volume togglePanel";
-    bluetoothPanel = "${noct} bluetooth togglePanel";
-    networkPanel = "${noct} network togglePanel";
-    tailscalePanel = "${noct} plugin:tailscale togglePanel";
-    batteryPanel = "${noct} battery togglePanel";
-    notificationsPanel = "${noct} notifications toggleHistory";
+    playPause = "${dms} mpris playPause";
+    next = "${dms} mpris next";
+    previous = "${dms} mpris previous";
 
-    caffeine = "${noct} idleInhibitor toggle";
-    volumeToggle = "${noct} volume toggle";
-    bluetoothToggle = "${noct} bluetooth toggle";
-    networkToggle = "${noct} network toggle";
-    mute = "${noct} notifications toggleDND";
+    mediaPanel = "${dms} dash toggle media";
+    batteryPanel = "${dms} widget toggle battery";
+    notificationsPanel = "${dms} notifications toggle";
 
-    screenshotArea = "${noct} plugin:screen-toolkit annotate";
-    screenshotFullscreen = "${noct} plugin:screen-toolkit annotateFullscreen";
-    recordArea = "${noct} plugin:screen-toolkit recordMp4";
-    recordFullscreen = "${noct} plugin:screen-toolkit recordFullscreenMp4";
+    caffeine = "${dms} inhibit toggle";
+    mute = "${dms} notifications toggleDoNotDisturb";
 
     zen = lib.getExe inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default;
     helium = lib.getExe inputs.helium-browser.packages.${pkgs.stdenv.hostPlatform.system}.default;
@@ -133,7 +166,8 @@
       };
 
       spawn-at-startup = [
-        {command = ["noctalia-shell"];}
+        # noctalia (off) — dms is started by its systemd user service instead
+        # {command = ["noctalia-shell"];}
         {command = ["xwayland-satellite"];}
         {command = ["${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"];}
 
@@ -343,20 +377,11 @@
         "Mod+Shift+Ctrl+K".action = move-workspace-to-monitor-up;
         "Mod+Shift+Ctrl+J".action = move-workspace-to-monitor-down;
 
-        "Mod+T".action = spawn-sh tailscalePanel;
-        "Mod+X".action = spawn-sh screenToolkit;
-        "Mod+C".action = spawn-sh calendar;
-        "Mod+V".action = spawn-sh volumePanel;
-        "Mod+B".action = spawn-sh bluetoothPanel;
-        "Mod+N".action = spawn-sh networkPanel;
         "Mod+M".action = spawn-sh mediaPanel;
         "Mod+Shift+B".action = spawn-sh batteryPanel;
         "Mod+Shift+N".action = spawn-sh notificationsPanel;
 
         "Mod+Ctrl+C".action = spawn-sh caffeine;
-        "Mod+Ctrl+V".action = spawn-sh volumeToggle;
-        "Mod+Ctrl+B".action = spawn-sh bluetoothToggle;
-        "Mod+Ctrl+N".action = spawn-sh networkToggle;
         "Mod+Ctrl+M".action = spawn-sh mute;
 
         "Mod+S".action = spawn-sh settings;
@@ -365,8 +390,18 @@
         "Alt+Print".action.screenshot-window = { };
         "Shift+Print".action.screenshot-screen = { };
 
-        "Mod+Print".action = spawn-sh screenshotArea;
-        "Mod+Shift+Print".action = spawn-sh screenshotFullscreen;
+        # --- noctalia-only (off) --- no DMS equivalent
+        # "Mod+T".action = spawn-sh tailscalePanel;
+        # "Mod+X".action = spawn-sh screenToolkit;
+        # "Mod+C".action = spawn-sh calendar;
+        # "Mod+V".action = spawn-sh volumePanel;
+        # "Mod+B".action = spawn-sh bluetoothPanel;
+        # "Mod+N".action = spawn-sh networkPanel;
+        # "Mod+Ctrl+V".action = spawn-sh volumeToggle;
+        # "Mod+Ctrl+B".action = spawn-sh bluetoothToggle;
+        # "Mod+Ctrl+N".action = spawn-sh networkToggle;
+        # "Mod+Print".action = spawn-sh screenshotArea;
+        # "Mod+Shift+Print".action = spawn-sh screenshotFullscreen;
 
         "Mod+1".action = focus-workspace 1;
         "Mod+Shift+1".action.move-column-to-workspace = 1;

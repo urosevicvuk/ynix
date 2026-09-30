@@ -7,7 +7,7 @@
       dbus = {
         enable = true;
         implementation = "broker";
-        packages = with pkgs; [gcr];
+        packages = with pkgs; [gcr_4];
       };
 
       upower.enable = true;
