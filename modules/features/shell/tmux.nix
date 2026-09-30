@@ -22,7 +22,7 @@
       tmux = {
         enable = true;
         mouse = true;
-        shell = lib.getExe pkgs.nushell;
+        shell = lib.getExe pkgs.zsh;
         prefix = "C-Space";
 
         terminal = "kitty";

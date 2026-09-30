@@ -11,7 +11,7 @@
     programs.kitty = {
       enable = true;
       settings = {
-        shell = "nu";
+        shell = "zsh";
         scrollback_lines = 10000;
         initial_window_width = 1200;
         initial_window_height = 600;
