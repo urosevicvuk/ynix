@@ -1,6 +1,7 @@
 {self, ...}: {
-  # Self-registers into the `desktop` group (merged with the other desktop modules).
-  flake.nixosModules.desktop.imports = [self.nixosModules.tuigreet];
+  # --- tuigreet (off) --- dms-shell.nix runs dms-greeter; to switch back,
+  # uncomment this line and comment the dms-greeter block in dms-shell.nix
+  # flake.nixosModules.desktop.imports = [self.nixosModules.tuigreet];
 
   flake.nixosModules.tuigreet = {
     pkgs,
