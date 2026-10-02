@@ -127,7 +127,8 @@ in {
     users.motd = ''
       DevOps lab -- student / student, passwordless sudo
 
-        ssh from your host:  ssh -p 2222 student@localhost
+        ssh from your host:  ssh -p 2222 student@localhost   (VirtualBox)
+                             ssh student@<vm-ip>             (UTM, see `ip -4 addr`)
         kind cluster:        kind create cluster --config /etc/devops/kind.yaml
         work in ~/work; materials are on the course Drive
 
@@ -231,7 +232,7 @@ in {
 
     image.modules = {
       virtualbox = {
-        image.baseName = "devops-lab";
+        image.baseName = "devops-x86_64";
         virtualisation.diskSize = "auto";
         virtualbox = {
           vmName = "DevOps Lab";
@@ -266,7 +267,7 @@ in {
       # UTM on Apple Silicon: a bare qcow2, so the student creates the VM, picks
       # RAM and forwards the ports themselves.
       qemu-efi = {
-        image.baseName = "devops-lab";
+        image.baseName = "devops-aarch64";
         virtualisation.diskSize = 25 * 1024;
         # This one boots via systemd-boot off the ESP.
         boot.loader.grub.enable = false;
