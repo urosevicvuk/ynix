@@ -51,6 +51,7 @@
       programs.niri.settings.outputs = {
         "eDP-1" = {
           scale = 1.5;
+          variable-refresh-rate = true; # or "on-demand"
           mode = {
             width = 2880;
             height = 1920;
@@ -78,6 +79,8 @@
 
     # wifi fix?
     boot.extraModprobeConfig = "options mt7925e disable_aspm=1";
+
+    boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
     # Fix fingerprint reader after suspend/resume
     #powerManagement.powerDownCommands = ''

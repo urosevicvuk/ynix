@@ -26,7 +26,7 @@
         calculator.enable = true;
         claudeCodeUsage.enable = true;
         dankBitwarden.enable = true;
-        dankCalendarAgenda.enable = true; 
+        dankCalendarAgenda.enable = true;
         dankKDEConnect.enable = true;
         dankscale.enable = true;
         dockerManager.enable = true;
@@ -72,7 +72,7 @@
       {
         "currentThemeName": "custom",
         "currentThemeCategory": "registry",
-        "customThemeFile": "${config.xdg.configHome}/DankMaterialShell/themes/gruvboxMulti/theme.json",
+        "customThemeFile": "/home/vyke/.config/DankMaterialShell/themes/gruvboxMulti/theme.json",
         "registryThemeVariants": {
           "gruvboxMulti": {
             "dark": {
@@ -176,6 +176,11 @@
         "launcherLogoColorOverride": "primary",
         "soundNewNotification": false,
         "soundVolumeChanged": false,
+        "acProfileName": "2",
+        "batteryLockTimeout": 300,
+        "batterySuspendTimeout": 600,
+        "batteryProfileName": "1",
+        "batteryPostLockMonitorTimeout": 15,
         "lockBeforeSuspend": true,
         "showDock": true,
         "dockSmartAutoHide": true,
@@ -189,7 +194,7 @@
         "osdAlwaysShowValue": true,
         "osdPosition": 4,
         "osdPowerProfileEnabled": true,
-        "powerMenuDefaultAction": "reboot",
+        "powerMenuDefaultAction": "suspend",
         "screenPreferences": {
           "wallpaper": [
             "all"
@@ -260,7 +265,7 @@
                 "showBatteryTimeOnlyOnBattery": false,
                 "showBatteryPowerCharging": false,
                 "showBatteryPowerDischarging": false,
-                "batteryStyle": "ring",
+                "batteryStyle": "icon",
                 "showBatteryPercentOnlyOnBattery": false
               },
               {
