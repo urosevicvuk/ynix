@@ -208,7 +208,7 @@
         keyboard = {
           xkb = {
             layout = "us,rs,rs";
-            variant = ",latinyz,yz";
+            variant = ",latin,";
             options = "grp:alt_space_toggle,lv3:ralt_alt";
           };
           numlock = true;
@@ -231,7 +231,7 @@
         };
 
         focus-follows-mouse.enable = true;
-        warp-mouse-to-focus.enable = false;
+        warp-mouse-to-focus.enable = true; # cursor follows keyboard focus across monitors
       };
 
       animations = {
@@ -359,6 +359,11 @@
         "Mod+Alt+H".action = spawn helium;
         "Mod+Alt+Z".action = spawn zen;
 
+        # Modifiers stack, keys are always HJKL:
+        #   Shift = move (no Shift = focus)
+        #   Alt   = the whole workspace instead of the window
+        #   Ctrl  = across monitors
+
         "Mod+H".action = focus-column-left;
         "Mod+L".action = focus-column-right;
         "Mod+J".action = focus-window-or-workspace-down;
@@ -369,13 +374,26 @@
         "Mod+Shift+J".action = move-window-down-or-to-workspace-down;
         "Mod+Shift+K".action = move-window-up-or-to-workspace-up;
 
-        "Mod+Ctrl+Alt+J".action = move-workspace-down;
-        "Mod+Ctrl+Alt+K".action = move-workspace-up;
+        "Mod+Alt+J".action = focus-workspace-down;
+        "Mod+Alt+K".action = focus-workspace-up;
 
-        "Mod+Shift+Ctrl+H".action = move-workspace-to-monitor-left;
-        "Mod+Shift+Ctrl+L".action = move-workspace-to-monitor-right;
-        "Mod+Shift+Ctrl+K".action = move-workspace-to-monitor-up;
-        "Mod+Shift+Ctrl+J".action = move-workspace-to-monitor-down;
+        "Mod+Shift+Alt+J".action = move-workspace-down;
+        "Mod+Shift+Alt+K".action = move-workspace-up;
+
+        "Mod+Ctrl+H".action = focus-monitor-left;
+        "Mod+Ctrl+L".action = focus-monitor-right;
+        "Mod+Ctrl+K".action = focus-monitor-up;
+        "Mod+Ctrl+J".action = focus-monitor-down;
+
+        "Mod+Shift+Ctrl+H".action = move-column-to-monitor-left;
+        "Mod+Shift+Ctrl+L".action = move-column-to-monitor-right;
+        "Mod+Shift+Ctrl+K".action = move-column-to-monitor-up;
+        "Mod+Shift+Ctrl+J".action = move-column-to-monitor-down;
+
+        "Mod+Shift+Ctrl+Alt+H".action = move-workspace-to-monitor-left;
+        "Mod+Shift+Ctrl+Alt+L".action = move-workspace-to-monitor-right;
+        "Mod+Shift+Ctrl+Alt+K".action = move-workspace-to-monitor-up;
+        "Mod+Shift+Ctrl+Alt+J".action = move-workspace-to-monitor-down;
 
         "Mod+M".action = spawn-sh mediaPanel;
         "Mod+Shift+B".action = spawn-sh batteryPanel;

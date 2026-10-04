@@ -6,7 +6,11 @@
   # Self-registers into the `desktop` group (merged with the other desktop modules).
   flake.nixosModules.desktop.imports = [self.nixosModules.dms-shell];
 
-  flake.nixosModules.dms-shell = {config, ...}: {
+  flake.nixosModules.dms-shell = {
+    config,
+    pkgs,
+    ...
+  }: {
     imports = [
       inputs.dms-plugin-registry.nixosModules.default
       inputs.dcal.nixosModules.default
@@ -36,6 +40,24 @@
         quickCapture.enable = true;
       };
     };
+
+    # Runtime tools the plugins shell out to. The registry module doesn't install
+    # a plugin's "requires", and a missing one usually fails silently.
+    environment.systemPackages = with pkgs; [
+      jq # claudeCodeUsage, dankCalendarAgenda, nixPackageRunner
+      rbw # dankBitwarden backend
+      wtype # dankBitwarden + emojiLauncher auto-paste
+      sshfs # dankKDEConnect file browsing
+      # quickCapture: exports, OCR, QR, CPU recording fallback
+      imagemagick
+      img2pdf
+      tesseract
+      zbar
+      wf-recorder
+    ];
+
+    # quickCapture's preferred recorder; the module adds the cap_sys_admin wrapper KMS capture needs
+    programs.gpu-screen-recorder.enable = true;
 
     # DankCalendar - backend for the calendar plugins, runs `dcal run --session --hidden`
     programs.dank-calendar = {
@@ -119,22 +141,27 @@
             "width": 25
           },
           {
-            "id": "nightMode",
+            "id": "plugin_dankKDEConnect",
             "enabled": true,
             "width": 50
           },
           {
-            "id": "darkMode",
+            "id": "nightMode",
             "enabled": true,
-            "width": 50
+            "width": 25
           },
           {
             "id": "idleInhibitor",
             "enabled": true,
-            "width": 50
+            "width": 25
           },
           {
             "id": "doNotDisturb",
+            "enabled": true,
+            "width": 50
+          },
+          {
+            "id": "plugin_quickCapture",
             "enabled": true,
             "width": 50
           }
@@ -180,7 +207,7 @@
         "batteryLockTimeout": 300,
         "batterySuspendTimeout": 600,
         "batteryProfileName": "1",
-        "batteryPostLockMonitorTimeout": 15,
+        "batteryPostLockMonitorTimeout": 30,
         "lockBeforeSuspend": true,
         "showDock": true,
         "dockSmartAutoHide": true,
@@ -222,6 +249,10 @@
               {
                 "id": "workspaceSwitcher",
                 "enabled": true
+              },
+              {
+                "id": "dockerManager",
+                "enabled": true
               }
             ],
             "centerWidgets": [
@@ -239,24 +270,22 @@
               {
                 "id": "systemTray",
                 "enabled": true,
-                "trayUseInlineExpansion": true,
+                "trayUseInlineExpansion": false,
                 "trayAutoOverflow": true
-              },
-              {
-                "id": "dankCalendarAgenda",
-                "enabled": true
               },
               {
                 "id": "claudeCodeUsage",
                 "enabled": true
               },
               {
-                "id": "dockerManager",
+                "id": "dankCalendarAgenda",
                 "enabled": true
               },
               {
-                "id": "dankKDEConnect",
-                "enabled": true
+                "id": "keyboard_layout_name",
+                "enabled": true,
+                "keyboardLayoutNameShowIcon": false,
+                "keyboardLayoutNameCompactMode": false
               },
               {
                 "id": "battery",
