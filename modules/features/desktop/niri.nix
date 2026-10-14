@@ -404,9 +404,9 @@
 
         "Mod+S".action = spawn-sh settings;
 
-        "Print".action.screenshot = { };
-        "Alt+Print".action.screenshot-window = { };
-        "Shift+Print".action.screenshot-screen = { };
+        "Print".action.screenshot = {};
+        "Alt+Print".action.screenshot-window = {};
+        "Shift+Print".action.screenshot-screen = {};
 
         # --- noctalia-only (off) --- no DMS equivalent
         # "Mod+T".action = spawn-sh tailscalePanel;

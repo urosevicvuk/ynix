@@ -11,35 +11,13 @@
     pkgs,
     ...
   }: {
-    imports = [
-      inputs.dms-plugin-registry.nixosModules.default
-      inputs.dcal.nixosModules.default
-    ];
+    imports = [inputs.dcal.nixosModules.default];
 
-    programs.dms-shell = {
-      enable = true;
-
-      systemd = {
-        enable = true;
-        restartIfChanged = true;
-      };
-
-      # Installed to /etc/xdg/quickshell/dms-plugins. A same-named copy in
-      # ~/.config/DankMaterialShell/plugins wins over these, so clear those out.
-      plugins = {
-        calculator.enable = true;
-        claudeCodeUsage.enable = true;
-        dankBitwarden.enable = true;
-        dankCalendarAgenda.enable = true;
-        dankKDEConnect.enable = true;
-        dankscale.enable = true;
-        dockerManager.enable = true;
-        emojiLauncher.enable = true;
-        nixMonitor.enable = true;
-        nixPackageRunner.enable = true;
-        quickCapture.enable = true;
-      };
-    };
+    # The shell itself (service, plugins, settings) lives in the home-manager module
+    # below. These are the system-side defaults the NixOS module used to set.
+    services.accounts-daemon.enable = true;
+    hardware.i2c.enable = true;
+    hardware.graphics.enable = true;
 
     # Runtime tools the plugins shell out to. The registry module doesn't install
     # a plugin's "requires", and a missing one usually fails silently.
@@ -84,13 +62,43 @@
     home-manager.sharedModules = [self.homeModules.dms-shell];
   };
 
-  flake.homeModules.dms-shell = {config, ...}: {
+  flake.homeModules.dms-shell = {
+    imports = [
+      inputs.dms.homeModules.dank-material-shell
+      inputs.dms-plugin-registry.homeModules.default
+    ];
+
+    programs.dank-material-shell.enable = true;
+    programs.dank-material-shell.systemd.enable = true;
+
+    # Themed via the registry's gruvboxMulti below; stylix's target would also
+    # take over fonts/transparency and make session.json (wallpaper) read-only.
+    stylix.targets.dank-material-shell.enable = false;
+
+    # Linked into ~/.config/DankMaterialShell/plugins only. Don't also install them
+    # system-wide (/etc/xdg/quickshell/dms-plugins): a plugin present in both dirs
+    # races on startup and can end up unloaded but flagged as loaded, so it can't be
+    # enabled. Some plugins also resolve their scripts relative to the user dir.
+    programs.dank-material-shell.plugins = {
+      calculator.enable = true;
+      claudeCodeUsage.enable = true;
+      dankBitwarden.enable = true;
+      dankCalendarAgenda.enable = true;
+      dankKDEConnect.enable = true;
+      dankscale.enable = true;
+      dockerManager.enable = true;
+      emojiLauncher.enable = true;
+      nixMonitor.enable = true;
+      nixPackageRunner.enable = true;
+      quickCapture.enable = true;
+    };
+
     xdg.configFile."DankMaterialShell/themes/gruvboxMulti".source = "${inputs.dms-plugin-registry}/themes/gruvbox-multi";
 
     # Read-only on purpose: GUI changes still apply live, and Settings shows an
     # "unsaved changes" banner with a copy-settings.json button — paste that here.
     # (or: dms ipc call settings dump | wl-copy)
-    xdg.configFile."DankMaterialShell/settings.json".text = ''
+    programs.dank-material-shell.settings = builtins.fromJSON ''
       {
         "currentThemeName": "custom",
         "currentThemeCategory": "registry",
