@@ -3,7 +3,7 @@
   flake.nixosModules.desktop.imports = [self.nixosModules.audio];
 
   flake.nixosModules.audio = {pkgs, ...}: {
-    environment.systemPackages = with pkgs; [wiremix];
+    environment.systemPackages = with pkgs; [wiremix headsetcontrol];
 
     services.pulseaudio.enable = false;
 
