@@ -19,6 +19,9 @@
       # won Ctrl-R in practice; dropping fzf's binding makes that explicit.
       # fzf keeps Ctrl-T (files) and Alt-C (cd), plus fzf-tab in zsh.
       historyWidget.command = "";
+      # Nushell is tv + carapace + atuin territory; fzf's integration would
+      # steal Ctrl-T from television's smart autocomplete.
+      enableNushellIntegration = false;
       colors = lib.mkForce {
         "fg+" = theme.base0D;
         "bg+" = "-1";

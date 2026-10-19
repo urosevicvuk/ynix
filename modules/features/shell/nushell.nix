@@ -31,10 +31,22 @@
         };
       };
       extraEnv = ''
-        #$env.PROMPT_INDICATOR_VI_INSERT = "❯ "
-        #$env.PROMPT_INDICATOR_VI_NORMAL = "❮ "
-
         $env.KUBECONFIG = ($env.HOME + "/.kube/firelink.kubeconfig")
+      '';
+
+      extraConfig = ''
+        # Ctrl-B: run the current (pasted) line through bash verbatim, so
+        # POSIX snippets work without translating them to nushell.
+        def __bash_escape [] {
+          commandline edit --replace --accept $"bash -c r#'(commandline)'#"
+        }
+        $env.config.keybindings ++= [{
+          name: bash_escape
+          modifier: control
+          keycode: char_b
+          mode: [vi_insert vi_normal emacs]
+          event: {send: executehostcommand, cmd: "__bash_escape"}
+        }]
       '';
 
       plugins = with pkgs.nushellPlugins; [
