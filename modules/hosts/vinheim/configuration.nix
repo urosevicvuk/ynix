@@ -163,6 +163,12 @@ in {
       "fs.inotify.max_user_instances" = 512;
     };
 
+    # The OVA's VMSVGA adapter pulls in vmwgfx, which on VirtualBox complains
+    # about an "unsupported hypervisor" and intermittently wedges the console
+    # mid-boot (stuck at "Starting Virtual Console Setup..."). Nobody needs KMS
+    # on an SSH-first text box; without it the console stays on plain VGA text.
+    boot.blacklistedKernelModules = ["vmwgfx"];
+
     # kind needs these forwarded into the VM for NodePorts to be reachable from
     # the host browser; the OVA's NAT rules below carry them the rest of the way.
     environment.etc."devops/kind.yaml".text = ''
@@ -229,6 +235,17 @@ in {
       enable = lib.mkDefault true;
       device = lib.mkDefault "/dev/sda";
     };
+    # Same swap the virtualbox image module adds, so a rebuild from inside the
+    # VM doesn't quietly take it away (and the qcow2 gets it too).
+    swapDevices = lib.mkDefault [
+      {
+        device = "/var/swap";
+        size = 2048;
+      }
+    ];
+    # Likewise the guest additions: the OVA has them, so the bare config must
+    # too. x86 only -- there is no VirtualBox on Apple Silicon.
+    virtualisation.virtualbox.guest.enable = pkgs.stdenv.hostPlatform.isx86_64;
 
     image.modules = {
       virtualbox = {
@@ -271,12 +288,6 @@ in {
         virtualisation.diskSize = 25 * 1024;
         # This one boots via systemd-boot off the ESP.
         boot.loader.grub.enable = false;
-        swapDevices = [
-          {
-            device = "/var/swap";
-            size = 2048;
-          }
-        ];
       };
     };
   };
