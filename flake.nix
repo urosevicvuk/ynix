@@ -114,6 +114,13 @@
     };
 
     import-tree.url = "github:vic/import-tree";
+
+    # Tracks upstream's default branch, i.e. the nightly channel (installed on anorLondo).
+    # No nixpkgs follows: the build must use upstream's own pin to hit their cachix cache.
+    deadlock-mod-manager = {
+      url = "github:deadlock-mod-manager/deadlock-mod-manager";
+      inputs.flake-utils.inputs.systems.follows = "systems";
+    };
   };
 
   outputs = inputs @ {flake-parts, ...}:

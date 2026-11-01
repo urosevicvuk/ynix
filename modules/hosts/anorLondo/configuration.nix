@@ -43,7 +43,8 @@
         solaar
         piper
 
-        deadlock-mod-manager
+        # Nightly build from upstream's flake; bump with `nix flake update deadlock-mod-manager`.
+        inputs.deadlock-mod-manager.packages.${pkgs.stdenv.hostPlatform.system}.nightly
       ];
 
       programs.niri.settings.input.keyboard.xkb.variant = lib.mkForce ",latin,";
