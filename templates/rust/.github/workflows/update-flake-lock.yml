@@ -1,0 +1,27 @@
+# Bumps flake.lock and opens a PR. Manual only: run it from the Actions tab when
+# you mean to move the pins, never on a schedule.
+#
+# Needs "Allow GitHub Actions to create and approve pull requests" under
+# Settings → Actions → General. A PR opened with the default token doesn't
+# trigger other workflows, so start CI on the update branch by hand (CI has a
+# "Run workflow" button too), or close and reopen the PR.
+name: Update flake.lock
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+      - uses: DeterminateSystems/update-flake-lock@v29
+        with:
+          commit-msg: "chore(flake): update flake.lock"
+          pr-title: "chore(flake): update flake.lock"
+          pr-labels: dependencies

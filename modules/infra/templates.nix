@@ -9,49 +9,55 @@
   flake.templates = {
     python = {
       path = ../../templates/python;
-      description = "Python: flake-parts devshell, Nix-pinned interpreter, uv-managed dependencies";
+      description = "Python: Nix-pinned interpreter, uv-managed dependencies, uv2nix build and checks";
       welcomeText = ''
         # => Python project
 
         Next steps:
 
-            git init      # flakes only see git-tracked files
-            uv init       # creates pyproject.toml
-            direnv allow  # or: nix develop
+            git init && git add -A  # flakes only see git-tracked files
+            direnv allow            # or: nix develop
+            uv init --package       # creates pyproject.toml
+            uv lock                 # creates uv.lock
+            git add -A
 
-        See README.md for where each kind of dependency belongs.
+        Then `nix flake check` builds, tests and lints it. See README.md.
       '';
     };
 
     rust = {
       path = ../../templates/rust;
-      description = "Rust: flake-parts devshell, Nix-pinned toolchain, cargo-managed crates";
+      description = "Rust: Nix-pinned toolchain, cargo-managed crates, crane build and checks";
       welcomeText = ''
         # => Rust project
 
         Next steps:
 
-            git init      # flakes only see git-tracked files
-            cargo init    # creates Cargo.toml
-            direnv allow  # or: nix develop
+            git init && git add -A   # flakes only see git-tracked files
+            direnv allow             # or: nix develop
+            cargo init               # creates Cargo.toml
+            cargo generate-lockfile  # creates Cargo.lock
+            git add -A
 
-        See README.md for where each kind of dependency belongs.
+        Then `nix flake check` builds, tests and lints it. See README.md.
       '';
     };
 
     go = {
       path = ../../templates/go;
-      description = "Go: flake-parts devshell, Nix-pinned toolchain, go-module dependencies";
+      description = "Go: Nix-pinned toolchain, go-module dependencies, buildGoModule build and checks";
       welcomeText = ''
         # => Go project
 
         Next steps:
 
-            git init                  # flakes only see git-tracked files
-            go mod init <module path> # creates go.mod
-            direnv allow              # or: nix develop
+            git init && git add -A     # flakes only see git-tracked files
+            direnv allow               # or: nix develop
+            go mod init <module path>  # creates go.mod
+            git add -A
 
-        See README.md for where each kind of dependency belongs.
+        Then `nix flake check` builds, tests and lints it. After the first
+        `go get`, see README.md about vendorHash.
       '';
     };
   };

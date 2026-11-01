@@ -1,11 +1,16 @@
 {
-  perSystem = {pkgs, ...}: {
+  perSystem = {
+    config,
+    pkgs,
+    ...
+  }: {
     devShells.default = pkgs.mkShell {
       packages = with pkgs; [
         go
         gopls
         gotools # goimports, among others
         delve
+        golangci-lint
 
         # Standalone binaries belong here. Anything the code *imports* goes in
         # go.mod instead.
@@ -20,12 +25,10 @@
         # downloading the one a go.mod's `toolchain` line asks for.
         GOTOOLCHAIN = "local";
       };
-
-      shellHook = ''
-        if [ ! -f go.mod ]; then
-          echo "No go.mod yet — run 'go mod init <module path>', then re-enter the shell."
-        fi
-      '';
     };
+
+    # nixbot builds only .#checks, while `nix flake check` also builds the
+    # devshell. Exporting it keeps the two equivalent.
+    checks.devshell = config.devShells.default;
   };
 }

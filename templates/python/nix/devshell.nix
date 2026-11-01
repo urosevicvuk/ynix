@@ -1,10 +1,12 @@
 {
   perSystem = {
+    config,
     pkgs,
     lib,
+    uv2nix,
     ...
   }: let
-    python = pkgs.python313;
+    inherit (uv2nix) python;
 
     # Wheels installed by uv dlopen these at runtime. A Nix-provided interpreter
     # is already linked correctly, so it bypasses the nix-ld shim entirely — the
@@ -20,6 +22,7 @@
       packages = [
         python
         pkgs.uv
+        pkgs.ruff # also what nix fmt runs; here for the editor
 
         # Standalone binaries belong here. Anything the project *imports* goes
         # in pyproject.toml instead, so it lands in the venv.
@@ -33,15 +36,10 @@
 
         LD_LIBRARY_PATH = lib.makeLibraryPath wheelLibs;
       };
-
-      shellHook = ''
-        if [ -f pyproject.toml ]; then
-          uv sync --quiet
-          source .venv/bin/activate
-        else
-          echo "No pyproject.toml yet — run 'uv init', then re-enter the shell."
-        fi
-      '';
     };
+
+    # nixbot builds only .#checks, while `nix flake check` also builds the
+    # devshell. Exporting it keeps the two equivalent.
+    checks.devshell = config.devShells.default;
   };
 }

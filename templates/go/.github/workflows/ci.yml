@@ -1,0 +1,42 @@
+# Only for pull requests from forks: nixbot on firelink builds pushes and the
+# owner's own PRs, and holds everyone else's until approved. This runs
+# meanwhile on GitHub's machines, so an outsider's code never touches ours.
+# workflow_dispatch runs it by hand on any branch.
+#
+# It runs exactly what nixbot runs: every check in nix/checks.nix, plus
+# formatting and the devshell, each built in the Nix sandbox from flake.lock
+# and go.sum.
+name: CI
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+# A newer push to the same branch or PR cancels the run it supersedes.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name != github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: cachix/install-nix-action@v31
+
+      # The Nix store, kept in the GitHub Actions cache (10GB per repo, free;
+      # GitHub evicts the least recently used entries past that). Dependencies
+      # are built in the store too, so their lock file is part of the key.
+      - uses: nix-community/cache-nix-action@v7
+        with:
+          primary-key: nix-${{ runner.os }}-${{ hashFiles('**/*.nix', '**/flake.lock', 'go.sum') }}
+          restore-prefixes-first-match: nix-${{ runner.os }}-
+          gc-max-store-size-linux: 3G
+
+      - name: nix flake check
+        run: nix flake check -L
