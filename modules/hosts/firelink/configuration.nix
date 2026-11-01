@@ -20,6 +20,11 @@
       self.nixosModules.server
 
       self.nixosModules.sops
+
+      # Off for now. Before enabling: add the `nixbot` flake input, fill in the
+      # IDs in modules/features/server/nixbot.nix, create
+      # secrets/firelink/nixbot.yaml, and write docs/nixbot.md.
+      # self.nixosModules.nixbot
     ];
 
     networking.hostName = "firelink";
