@@ -18,6 +18,7 @@
       self.nixosModules.git
       self.nixosModules.neovim
       self.nixosModules.server
+      self.nixosModules.llm-agents
 
       self.nixosModules.sops
 

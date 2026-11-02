@@ -39,6 +39,9 @@
       BindPaths = "/run/current-system/sw/bin:/bin";
     };
 
+    boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_12;
+
+
     boot.kernelModules = ["iscsi_tcp"];
     boot.supportedFilesystems = ["nfs"];
 
