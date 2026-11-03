@@ -106,8 +106,8 @@
           "gruvboxMaterial": "hard",
           "gruvboxMulti": {
             "dark": {
-              "flavor": "classic-medium-dark",
-              "accent": "blue"
+              "accent": "blue",
+              "flavor": "classic-medium-dark"
             }
           }
         },
@@ -173,19 +173,19 @@
             "order": [],
             "widgets": [
               {
+                "enabled": true,
                 "id": "dock_launcher",
-                "widgetId": "dockLauncher",
-                "enabled": true
+                "widgetId": "dockLauncher"
               },
               {
+                "enabled": true,
                 "id": "dock_apps",
-                "widgetId": "appsDock",
-                "enabled": true
+                "widgetId": "appsDock"
               },
               {
+                "enabled": true,
                 "id": "dock_trash",
-                "widgetId": "dockTrash",
-                "enabled": true
+                "widgetId": "dockTrash"
               }
             ]
           }
@@ -199,155 +199,164 @@
         "blurWallpaperOnOverview": true,
         "controlCenterWidgets": [
           {
+            "background": true,
+            "col": 0,
+            "enabled": true,
+            "h": 1,
             "id": "user",
-            "enabled": true,
-            "w": 4,
-            "h": 1,
-            "col": 0,
             "row": 0,
-            "background": true
+            "w": 4
           },
           {
+            "col": 5,
+            "enabled": true,
+            "h": 1,
             "id": "settings",
-            "enabled": true,
-            "w": 1,
-            "h": 1,
+            "row": 0,
             "small": true,
-            "col": 5,
-            "row": 0
+            "w": 1
           },
           {
-            "id": "lock",
-            "enabled": true,
-            "w": 1,
-            "h": 1,
-            "small": true,
             "col": 6,
-            "row": 0
+            "enabled": true,
+            "h": 1,
+            "id": "lock",
+            "row": 0,
+            "small": true,
+            "w": 1
           },
           {
-            "id": "power",
-            "enabled": true,
-            "w": 1,
-            "h": 1,
-            "small": true,
             "col": 7,
-            "row": 0
+            "enabled": true,
+            "h": 1,
+            "id": "power",
+            "row": 0,
+            "small": true,
+            "w": 1
           },
           {
+            "col": 0,
             "enabled": true,
+            "h": 1,
             "id": "volumeSlider",
-            "w": 4,
-            "h": 1,
-            "col": 0,
-            "row": 1
+            "row": 1,
+            "w": 4
           },
           {
+            "col": 4,
             "enabled": true,
+            "h": 1,
             "id": "brightnessSlider",
-            "w": 4,
-            "h": 1,
-            "col": 4,
-            "row": 1
+            "row": 1,
+            "w": 4
           },
           {
+            "col": 0,
             "enabled": true,
+            "h": 1,
             "id": "wifi",
-            "w": 1.5,
-            "h": 1,
-            "col": 0,
             "row": 2,
-            "small": true
+            "small": true,
+            "w": 4
           },
           {
+            "col": 4,
             "enabled": true,
+            "h": 1,
             "id": "bluetooth",
-            "w": 1.5,
-            "h": 1,
-            "col": 1.5,
             "row": 2,
-            "small": true
+            "small": true,
+            "w": 4
           },
           {
-            "enabled": true,
-            "id": "audioOutput",
-            "w": 1,
-            "h": 1,
-            "col": 3,
-            "row": 2,
-            "small": true
-          },
-          {
-            "enabled": true,
-            "id": "audioInput",
-            "w": 1,
-            "h": 1,
-            "col": 4,
-            "row": 2,
-            "small": true
-          },
-          {
-            "enabled": true,
-            "id": "plugin_dankKDEConnect",
-            "w": 3,
-            "h": 1,
-            "col": 5,
-            "row": 2,
-            "small": true
-          },
-          {
-            "enabled": true,
-            "id": "nightMode",
-            "w": 1,
-            "h": 1,
-            "col": 2,
-            "row": 3,
-            "small": true
-          },
-          {
-            "enabled": true,
-            "id": "idleInhibitor",
-            "w": 1,
-            "h": 1,
-            "col": 1,
-            "row": 3,
-            "small": true
-          },
-          {
-            "enabled": true,
-            "id": "doNotDisturb",
-            "w": 1,
-            "h": 1,
             "col": 0,
+            "enabled": true,
+            "h": 1,
+            "id": "audioOutput",
             "row": 3,
-            "small": true
+            "small": true,
+            "w": 4
           },
           {
+            "col": 4,
             "enabled": true,
+            "h": 1,
+            "id": "audioInput",
+            "row": 3,
+            "small": true,
+            "w": 4
+          },
+          {
+            "col": 0,
+            "enabled": true,
+            "h": 1,
+            "id": "plugin_dankKDEConnect",
+            "row": 5,
+            "small": true,
+            "w": 4
+          },
+          {
+            "col": 2,
+            "enabled": true,
+            "h": 1,
+            "id": "nightMode",
+            "row": 4,
+            "small": true,
+            "w": 2
+          },
+          {
+            "col": 0,
+            "enabled": true,
+            "h": 1,
+            "id": "idleInhibitor",
+            "row": 4,
+            "small": true,
+            "w": 2
+          },
+          {
+            "col": 4,
+            "enabled": true,
+            "h": 1,
+            "id": "doNotDisturb",
+            "row": 4,
+            "small": true,
+            "w": 2
+          },
+          {
+            "col": 6,
+            "enabled": true,
+            "h": 1,
             "id": "plugin_quickCapture",
-            "w": 1,
-            "h": 1,
-            "col": 3,
-            "row": 3,
-            "small": true
+            "row": 4,
+            "small": true,
+            "w": 2
           },
           {
+            "col": 4,
+            "enabled": true,
+            "h": 1,
             "id": "edit",
-            "enabled": true,
-            "w": 1,
-            "h": 1,
+            "row": 0,
             "small": true,
-            "col": 4,
-            "row": 0
+            "w": 1
           },
           {
-            "id": "runningApps",
+            "col": 0,
             "enabled": true,
-            "w": 4,
             "h": 1,
+            "id": "runningApps",
+            "row": 7,
             "small": true,
+            "w": 8
+          },
+          {
             "col": 4,
-            "row": 3
+            "enabled": true,
+            "h": 1,
+            "id": "builtin_cups",
+            "row": 5,
+            "small": true,
+            "w": 4
           }
         ],
         "appIdSubstitutions": [],
@@ -359,97 +368,46 @@
         "avatarRing": "primary",
         "dashCards": [
           {
+            "col": 0,
+            "h": 1,
             "id": "clock",
-            "w": 1,
-            "h": 1,
-            "col": 0,
-            "row": 0
+            "row": 0,
+            "w": 1
           },
           {
-            "id": "weather",
-            "w": 2,
-            "h": 1,
             "col": 1,
-            "row": 0
+            "h": 1,
+            "id": "weather",
+            "row": 0,
+            "w": 2
           },
           {
+            "col": 3,
+            "h": 6,
             "id": "notifications",
-            "w": 3,
-            "h": 5,
-            "col": 3,
-            "row": 0
+            "row": 0,
+            "w": 3
           },
           {
-            "id": "calendar",
-            "w": 3,
+            "col": 0,
             "h": 3,
-            "col": 0,
-            "row": 1
+            "id": "calendar",
+            "row": 1,
+            "w": 3
           },
           {
+            "col": 0,
+            "h": 2,
             "id": "media",
-            "w": 3,
-            "h": 1,
-            "col": 0,
-            "row": 4
-          },
-          {
-            "id": "wellbeing",
-            "w": 1,
-            "h": 1,
-            "col": 3,
-            "row": 5
-          },
-          {
-            "id": "sysmon",
-            "w": 2,
-            "h": 1,
-            "col": 0,
-            "row": 6
-          },
-          {
-            "id": "battery",
-            "w": 1,
-            "h": 1,
-            "col": 5,
-            "row": 6
-          },
-          {
-            "id": "network",
-            "w": 2,
-            "h": 1,
-            "col": 4,
-            "row": 5
-          },
-          {
-            "id": "memory",
-            "w": 1,
-            "h": 1,
-            "col": 3,
-            "row": 6
-          },
-          {
-            "id": "cpu",
-            "w": 1,
-            "h": 1,
-            "col": 2,
-            "row": 6
-          },
-          {
-            "id": "user",
-            "w": 3,
-            "h": 1,
-            "col": 0,
-            "row": 5
-          },
-          {
-            "id": "disk",
-            "w": 1,
-            "h": 1,
-            "col": 4,
-            "row": 6
+            "row": 4,
+            "w": 3
           }
         ],
+        "dashOptions": {
+          "overview": {
+            "panelRows": 6
+          }
+        },
         "networkPreference": "wifi",
         "cursorSettings": {
           "hyprland": {
@@ -485,6 +443,7 @@
             "all"
           ]
         },
+        "displayProfileAutoSelect": false,
         "barConfigs": [
           {
             "attachToScreenEdge": false,
@@ -507,6 +466,7 @@
             ],
             "clickThrough": false,
             "enabled": true,
+            "followInterfaceStyle": true,
             "fontScale": 1,
             "gothCornerRadiusOverride": false,
             "gothCornerRadiusValue": 12,
@@ -526,53 +486,60 @@
             "islandHomeCompactTight": false,
             "islandHomeLayout": [
               {
-                "id": "media",
-                "enabled": true
+                "enabled": true,
+                "id": "media"
               },
               {
-                "id": "clock",
-                "enabled": true
+                "enabled": true,
+                "id": "clock"
               },
               {
-                "id": "weather",
-                "enabled": true
+                "enabled": true,
+                "id": "weather"
               },
               {
-                "id": "notifications",
-                "enabled": true
+                "enabled": true,
+                "id": "notifications"
               },
               {
-                "id": "status",
-                "enabled": false
+                "enabled": false,
+                "id": "status"
               },
               {
-                "id": "volume",
-                "enabled": false
+                "enabled": false,
+                "id": "volume"
               },
               {
-                "id": "brightness",
-                "enabled": false
+                "enabled": false,
+                "id": "brightness"
               },
               {
-                "id": "workspaces",
-                "enabled": false
+                "enabled": false,
+                "id": "workspaces"
               },
               {
-                "id": "privacy",
-                "enabled": true
+                "enabled": true,
+                "id": "privacy"
               },
               {
-                "id": "tray",
-                "enabled": false
+                "enabled": false,
+                "id": "tray"
               }
             ],
             "islandInteractionMode": "hybrid",
             "islandMediaClockVisible": true,
+            "islandNotch": false,
             "islandNotificationBadgeClearOnOpen": false,
             "islandNotificationExpand": true,
+            "islandNotificationPopups": false,
             "islandOuterGap": 4,
             "islandPalette": "default",
             "islandReserveThickness": 34,
+            "islandRouteClipboard": "island",
+            "islandRouteControlCenter": "island",
+            "islandRouteLauncher": "island",
+            "islandRouteNotificationCenter": "island",
+            "islandRoutePowerMenu": "island",
             "islandSatelliteBackground": false,
             "islandSatelliteGothCorners": false,
             "islandSatellitePosition": "edges",
@@ -583,32 +550,38 @@
               {
                 "enabled": true,
                 "id": "launcherButton",
-                "launcherLogoMode": "os",
-                "launcherLogoColorOverride": "primary"
+                "launcherLogoColorOverride": "primary",
+                "launcherLogoMode": "os"
               },
               {
-                "enabled": true,
+                "enabled": false,
                 "id": "nixMonitor"
               },
               {
                 "enabled": true,
-                "id": "workspaceSwitcher",
-                "showWorkspaceApps": true,
-                "maxWorkspaceIcons": 10,
-                "workspaceAppIconSizeOffset": 2,
                 "groupWorkspaceApps": false,
+                "id": "workspaceSwitcher",
+                "maxWorkspaceIcons": 10,
                 "showOccupiedWorkspacesOnly": false,
+                "showWorkspaceApps": true,
+                "workspaceAppIconSizeOffset": 2,
                 "workspaceColorMode": "s",
-                "workspaceOccupiedColorMode": "s",
-                "workspaceUnfocusedColorMode": "s",
                 "workspaceFocusedBorderEnabled": true,
                 "workspaceFocusedBorderThickness": 1,
-                "workspaceIndicatorStyle": "dots",
-                "workspaceIndicatorCompact": false,
                 "workspaceFocusedCustomColor": "#6750A4",
+                "workspaceIndicatorCompact": false,
+                "workspaceIndicatorStyle": "dots",
+                "workspaceOccupiedColorMode": "s",
                 "workspaceOccupiedCustomColor": "#625B71",
+                "workspaceUnfocusedColorMode": "s",
                 "workspaceUnfocusedCustomColor": "#49454E",
                 "workspaceUrgentColorMode": "secondary"
+              },
+              {
+                "enabled": true,
+                "id": "systemTray",
+                "trayAutoOverflow": true,
+                "trayUseInlineExpansion": false
               },
               {
                 "enabled": true,
@@ -628,12 +601,6 @@
               {
                 "enabled": false,
                 "id": "privacyIndicator"
-              },
-              {
-                "enabled": true,
-                "id": "systemTray",
-                "trayAutoOverflow": true,
-                "trayUseInlineExpansion": false
               },
               {
                 "enabled": true,
@@ -703,22 +670,14 @@
             "transparency": 1,
             "useOverlayLayer": true,
             "visible": true,
+            "widgetFollowInterfaceStyle": true,
             "widgetOutlineColor": "primary",
             "widgetOutlineEnabled": false,
             "widgetOutlineOpacity": 1,
             "widgetOutlineThickness": 1,
             "widgetPadding": 8,
-            "widgetTransparency": 1,
-            "followInterfaceStyle": true,
-            "widgetFollowInterfaceStyle": true,
-            "islandNotch": false,
-            "islandRouteLauncher": "island",
-            "islandRouteControlCenter": "island",
-            "islandRouteClipboard": "island",
-            "islandRoutePowerMenu": "island",
-            "islandRouteNotificationCenter": "island",
-            "islandNotificationPopups": false,
-            "widgetStyle": "pills"
+            "widgetStyle": "pills",
+            "widgetTransparency": 1
           }
         ],
         "builtInPluginSettings": {
