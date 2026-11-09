@@ -9,9 +9,9 @@
   flake.nixosModules.server.imports = [self.nixosModules.cacheServer];
 
   flake.nixosModules.cacheServer = {config, ...}: {
-    services.harmonia = {
+    services.harmonia.cache = {
       enable = true;
-      cache.signKeyPaths = [config.sops.secrets."harmonia-signing-key".path];
+      signKeyPaths = [config.sops.secrets."harmonia-signing-key".path];
       settings.bind = "[::]:5000";
     };
 
