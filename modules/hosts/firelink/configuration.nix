@@ -16,6 +16,8 @@
       self.nixosModules.system
       self.nixosModules.shell
       self.nixosModules.git
+      self.nixosModules.llm-agents
+      self.nixosModules.docker
       self.nixosModules.neovim
       self.nixosModules.server
       self.nixosModules.llm-agents
