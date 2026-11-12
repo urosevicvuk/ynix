@@ -69,6 +69,12 @@
         format.enable = true;
         extensions.markview-nvim.enable = true;
       };
+      typst = {
+        enable = true;
+        lsp.enable = true;
+        format.enable = true;
+        extensions.typst-preview-nvim.enable = true;
+      };
 
       # Web.
       typescript = {

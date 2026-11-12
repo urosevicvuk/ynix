@@ -30,6 +30,7 @@
         wget
         curl
         vim
+        typst
         nixfmt
         sops
         age
