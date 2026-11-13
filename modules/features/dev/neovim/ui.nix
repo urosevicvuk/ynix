@@ -82,7 +82,13 @@
           bufdelete.enabled = true;
           terminal.enabled = true;
           zen.enabled = true;
-          image.enabled = true;
+          image = {
+            enabled = true;
+            # No inline math images: typst is edited raw and viewed in
+            # zathura/browser (and with no LaTeX installed, typst was the only
+            # filetype this rendered for anyway). Image previews stay on.
+            math.enabled = false;
+          };
           scratch.enabled = true;
           # snacks.scroll (was cinnamon-nvim) + snacks.words (was mini.cursorword).
           # Indent guides/scope stay on indent-blankline + mini.indentscope below.

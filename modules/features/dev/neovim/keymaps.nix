@@ -43,7 +43,7 @@
       # module itself, so they're not redefined here.
 
       # === LSP / code ===
-      (km "K" "<cmd>Lspsaga hover_doc<cr>" "Hover")
+      (km "K" "<cmd>lua vim.lsp.buf.hover()<cr>" "Hover") # rendered by noice; lspsaga hover gets garbled by markview
       (kmnv "<M-CR>" "<cmd>Lspsaga code_action<cr>" "Code actions")
       (kmi "<C-s>" "<cmd>lua vim.lsp.buf.signature_help()<cr>" "Signature help")
       (km "<leader>rn" "<cmd>lua vim.lsp.buf.rename()<cr>" "Rename")
