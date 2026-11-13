@@ -201,7 +201,7 @@
           {proportion = 1.0;}
         ];
         always-center-single-column = true;
-        center-focused-column = "always";
+        center-focused-column = "on-overflow";
       };
 
       input = {
