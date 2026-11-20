@@ -167,7 +167,42 @@ in {
     # about an "unsupported hypervisor" and intermittently wedges the console
     # mid-boot (stuck at "Starting Virtual Console Setup..."). Nobody needs KMS
     # on an SSH-first text box; without it the console stays on plain VGA text.
-    boot.blacklistedKernelModules = ["vmwgfx"];
+    #
+    # vboxguest and vboxsf go too. Some lab machines hang at boot right after
+    # "Finished Coldplug All udev Devices" with "rcu_preempt detected expedited
+    # stalls on CPUs/tasks". That is VirtualBox/virtualbox#940: the Guest
+    # Additions vboxguest (7.2.8 here) calls pte_unmap() without the matching
+    # RCU lock on kernels >= 6.6, the CPU's RCU nesting goes to -1, and if an
+    # expedited grace period lands at that moment it never completes. Check:
+    # `nm -u vboxguest.ko | grep rcu_read` lists only __rcu_read_unlock. The
+    # Guest Additions are off below; the in-kernel vboxguest is blacklisted as
+    # well, since nothing on an SSH-only box uses it (no shared folders, no
+    # clipboard, timesyncd keeps the clock).
+    boot.blacklistedKernelModules = ["vmwgfx" "vboxguest" "vboxsf"];
+
+    # The same stall has a second, host-side report (VirtualBox/virtualbox#861,
+    # a lost IPI to an idle vCPU in VirtualBox's APIC emulation), and that one
+    # does not go away with the Guest Additions. Its reporter's fix, on three
+    # labs of ~37 machines with no hang since: no x2APIC, and normal instead of
+    # expedited RCU grace periods, so no grace period waits on an IPI to an
+    # idle CPU.
+    boot.kernelParams = ["nox2apic" "rcupdate.rcu_normal=1"];
+
+    # The kind node has its own containerd, which does not see dockerd's
+    # registry-mirrors: without this, every node pull of a Docker Hub image
+    # (postgres, nginx, busybox) goes straight to Docker Hub from the lab's one
+    # IP. containerd 2 in kind >= 0.27 reads /etc/containerd/certs.d with no
+    # config patch; kind.yaml mounts this directory there. A copy, not the
+    # usual /etc/static symlink, since the store doesn't exist inside the node.
+    environment.etc."devops/certs.d/docker.io/hosts.toml" = {
+      mode = "0444";
+      text = ''
+        server = "https://registry-1.docker.io"
+
+        [host."https://mirror.gcr.io"]
+          capabilities = ["pull", "resolve"]
+      '';
+    };
 
     # kind needs these forwarded into the VM for NodePorts to be reachable from
     # the host browser; the OVA's NAT rules below carry them the rest of the way.
@@ -177,6 +212,10 @@ in {
       name: devops
       nodes:
         - role: control-plane
+          extraMounts:
+            - hostPath: /etc/devops/certs.d
+              containerPath: /etc/containerd/certs.d
+              readOnly: true
           extraPortMappings:
             - { containerPort: 30080, hostPort: 30080 }  # app
             - { containerPort: 30300, hostPort: 30300 }  # Grafana
@@ -243,9 +282,11 @@ in {
         size = 2048;
       }
     ];
-    # Likewise the guest additions: the OVA has them, so the bare config must
-    # too. x86 only -- there is no VirtualBox on Apple Silicon.
-    virtualisation.virtualbox.guest.enable = pkgs.stdenv.hostPlatform.isx86_64;
+    # No Guest Additions, in the OVA or in a rebuild from inside the VM: their
+    # vboxguest hangs the boot on some machines (see the blacklist above). The
+    # virtualbox image module turns them on with a plain definition, hence
+    # mkForce.
+    virtualisation.virtualbox.guest.enable = lib.mkForce false;
 
     image.modules = {
       virtualbox = {
