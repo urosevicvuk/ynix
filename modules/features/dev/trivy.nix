@@ -9,7 +9,7 @@
   flake.homeModules.trivy = {pkgs, ...}: {
     home.packages = with pkgs; [
       trivy
-      lazytrivy
+      #lazytrivy
     ];
   };
 }
