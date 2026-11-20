@@ -208,7 +208,7 @@
         keyboard = {
           xkb = {
             layout = "us,rs,rs";
-            variant = ",latin,";
+            variant = ",latinyz,yz";
             options = "grp:alt_space_toggle,lv3:ralt_alt";
           };
           numlock = true;

@@ -47,7 +47,7 @@
         inputs.deadlock-mod-manager.packages.${pkgs.stdenv.hostPlatform.system}.nightly
       ];
 
-      programs.niri.settings.input.keyboard.xkb.variant = lib.mkForce ",latin,";
+      programs.niri.settings.input.keyboard.xkb.variant = lib.mkForce ",latinyz,yz";
 
     };
 
