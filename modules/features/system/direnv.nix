@@ -1,5 +1,4 @@
 {self, ...}: {
-  # Self-registers into the `system` group (merged with the other system modules).
   flake.nixosModules.system.imports = [self.nixosModules.direnv];
 
   flake.nixosModules.direnv = {...}: {

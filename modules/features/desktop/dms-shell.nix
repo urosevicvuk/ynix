@@ -3,7 +3,6 @@
   inputs,
   ...
 }: {
-  # Self-registers into the `desktop` group (merged with the other desktop modules).
   flake.nixosModules.desktop.imports = [self.nixosModules.dms-shell];
 
   flake.nixosModules.dms-shell = {
@@ -13,20 +12,15 @@
   }: {
     imports = [inputs.dcal.nixosModules.default];
 
-    # The shell itself (service, plugins, settings) lives in the home-manager module
-    # below. These are the system-side defaults the NixOS module used to set.
     services.accounts-daemon.enable = true;
     hardware.i2c.enable = true;
     hardware.graphics.enable = true;
 
-    # Runtime tools the plugins shell out to. The registry module doesn't install
-    # a plugin's "requires", and a missing one usually fails silently.
     environment.systemPackages = with pkgs; [
-      jq # claudeCodeUsage, dankCalendarAgenda, nixPackageRunner
-      rbw # dankBitwarden backend
-      wtype # dankBitwarden + emojiLauncher auto-paste
-      sshfs # dankKDEConnect file browsing
-      # quickCapture: exports, OCR, QR, CPU recording fallback
+      jq
+      rbw
+      wtype
+      sshfs
       imagemagick
       img2pdf
       tesseract
@@ -34,10 +28,8 @@
       wf-recorder
     ];
 
-    # quickCapture's preferred recorder; the module adds the cap_sys_admin wrapper KMS capture needs
     programs.gpu-screen-recorder.enable = true;
 
-    # DankCalendar - backend for the calendar plugins, runs `dcal run --session --hidden`
     programs.dank-calendar = {
       enable = true;
       systemd = {
@@ -46,16 +38,12 @@
       };
     };
 
-    # DankSearch - file results in the launcher, runs `dsearch serve` (systemd on by default)
     programs.dsearch.enable = true;
 
-    # --- dms-greeter (on) --- only one greeter may be active; to switch back,
-    # comment this block and uncomment the registration in tuigreet.nix
     services.displayManager.dms-greeter = {
       enable = true;
       compositor.name = "niri";
 
-      # copies DMS settings, session (wallpaper) and theme into the greeter on boot
       configHome = "/home/${config.preferences.username}";
     };
 
@@ -71,14 +59,8 @@
     programs.dank-material-shell.enable = true;
     programs.dank-material-shell.systemd.enable = true;
 
-    # Themed via the registry's gruvboxMulti below; stylix's target would also
-    # take over fonts/transparency and make session.json (wallpaper) read-only.
     stylix.targets.dank-material-shell.enable = false;
 
-    # Linked into ~/.config/DankMaterialShell/plugins only. Don't also install them
-    # system-wide (/etc/xdg/quickshell/dms-plugins): a plugin present in both dirs
-    # races on startup and can end up unloaded but flagged as loaded, so it can't be
-    # enabled. Some plugins also resolve their scripts relative to the user dir.
     programs.dank-material-shell.plugins = {
       calculator.enable = true;
       claudeCodeUsage.enable = true;
@@ -95,9 +77,6 @@
 
     xdg.configFile."DankMaterialShell/themes/gruvboxMulti".source = "${inputs.dms-plugin-registry}/themes/gruvbox-multi";
 
-    # Read-only on purpose: GUI changes still apply live, and Settings shows an
-    # "unsaved changes" banner with a copy-settings.json button — paste that here.
-    # (or: dms ipc call settings dump | wl-copy)
     programs.dank-material-shell.settings = builtins.fromJSON ''
       {
         "currentThemeName": "custom",

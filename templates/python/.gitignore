@@ -9,5 +9,4 @@ __pycache__/
 result
 result-*
 
-# git-hooks.nix generates this, pointing into the Nix store
 .pre-commit-config.yaml

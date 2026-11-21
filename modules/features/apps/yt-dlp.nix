@@ -1,5 +1,4 @@
 {self, ...}: {
-  # Self-registers into the `apps` group (merged with the other apps modules).
   flake.nixosModules.apps.imports = [self.nixosModules.yt-dlp];
 
   flake.nixosModules.yt-dlp = {...}: {

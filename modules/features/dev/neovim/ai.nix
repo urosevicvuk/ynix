@@ -1,4 +1,3 @@
-# AI: Supermaven inline completion (Tab/Shift-Tab).
 {self, ...}: {
   flake.homeModules.neovim = {...}: {
     programs.nvf.settings.vim = {

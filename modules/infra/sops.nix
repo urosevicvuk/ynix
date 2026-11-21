@@ -22,7 +22,6 @@
       ssh-to-age
     ];
 
-    # Declaratively manage .sops.yaml
     home.file."${config.home.homeDirectory}/Projects/personal/ynix/.sops.yaml".text = ''
       creation_rules:
         - path_regex: secrets/shared/.*\.yaml$

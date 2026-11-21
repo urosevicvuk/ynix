@@ -1,5 +1,4 @@
 {self, ...}: {
-  # Self-registers into the `creative` group (merged with the other creative modules).
   flake.nixosModules.creative.imports = [self.nixosModules.figma];
 
   flake.nixosModules.figma = {...}: {

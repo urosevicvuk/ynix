@@ -1,6 +1,4 @@
-# k3s cluster node: control plane, Longhorn storage prerequisites, firewall
 {self, ...}: {
-  # Self-registers into the `server` group (merged with the other server modules).
   flake.nixosModules.server.imports = [self.nixosModules.cluster];
 
   flake.nixosModules.cluster = {
@@ -9,26 +7,23 @@
     pkgs,
     ...
   }: {
-    # k3s tuned to hand networking + LB + policy over to Cilium.
-    # See apps/system/networking/cilium/values.yaml in ykube for the matching Helm values.
     services.k3s = {
       enable = true;
       role = "server";
       extraFlags =
         toString [
-          "--disable=traefik" # Gateway API + Cilium Gateway instead
-          "--disable=servicelb" # Cilium L2 announces LB IPs
-          "--disable=local-storage" # Longhorn is the cluster's only StorageClass
-          "--flannel-backend=none" # Cilium replaces the CNI
-          "--disable-network-policy" # Cilium enforces NetworkPolicies + CiliumNetworkPolicies
-          "--disable-kube-proxy" # Cilium replaces kube-proxy
+          "--disable=traefik"
+          "--disable=servicelb"
+          "--disable=local-storage"
+          "--flannel-backend=none"
+          "--disable-network-policy"
+          "--disable-kube-proxy"
           "--write-kubeconfig-mode=644"
-          "--kubelet-arg=max-pods=250" # default 110 is too tight for this homelab's pod density
+          "--kubelet-arg=max-pods=250"
         ]
         + " --tls-san=${config.networking.hostName}";
     };
 
-    # Storage prerequisites for Longhorn distributed storage
     services.openiscsi = {
       enable = true;
       name = "iqn.2024-01.org.nixos:initiator";
@@ -59,12 +54,12 @@
         443
         6443
         10250
-        4240 # cilium-health
-        4244 # hubble peer
+        4240
+        4244
       ];
 
       allowedUDPPorts = [
-        8472 # cilium VXLAN
+        8472
       ];
 
       extraCommands = ''

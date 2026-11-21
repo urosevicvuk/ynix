@@ -1,5 +1,4 @@
 {self, ...}: {
-  # Self-registers into the `shell` group (merged with the other shell modules).
   flake.nixosModules.shell.imports = [self.nixosModules.starship];
 
   flake.nixosModules.starship = {...}: {
@@ -76,9 +75,6 @@
       };
     };
 
-    # Nushell never redraws the starship prompt on a vi mode switch, only its
-    # own PROMPT_INDICATOR_VI_* — so there $character is dropped and those
-    # indicators take over, mirroring success/error/vimcmd above.
     programs.nushell = {
       environmentVariables.STARSHIP_CONFIG = toString ((pkgs.formats.toml {}).generate "starship-nushell.toml" (
         cfg.settings // {format = lib.removeSuffix "$character" cfg.settings.format;}
@@ -89,8 +85,6 @@
         }
         $env.PROMPT_INDICATOR_VI_NORMAL = {|| $"(ansi cyan)❮(ansi reset) " }
       '';
-      # Nushell trims the final newline off captured external output, which
-      # eats the trailing $line_break; put it back after starship's init.
       extraConfig = lib.mkAfter ''
         let starship_prompt = $env.PROMPT_COMMAND
         $env.PROMPT_COMMAND = {|| (do $starship_prompt) + "\n" }

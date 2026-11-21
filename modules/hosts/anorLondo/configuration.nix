@@ -43,7 +43,6 @@
         solaar
         piper
 
-        # Nightly build from upstream's flake; bump with `nix flake update deadlock-mod-manager`.
         inputs.deadlock-mod-manager.packages.${pkgs.stdenv.hostPlatform.system}.nightly
       ];
 
@@ -51,7 +50,6 @@
 
     };
 
-    # Hardware peripherals support - gaming mice, RGB controllers, Logitech devices
     services = {
       ratbagd.enable = true;
       hardware.openrgb.enable = true;

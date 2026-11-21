@@ -1,11 +1,8 @@
-# Home-manager integration plumbing — sibling to sops/stylix.
-# Composed by the universal `system` group (HM is mandatory, not opt-in per host).
 {
   self,
   inputs,
   ...
 }: {
-  # Self-registers into the `system` group (merged with the other system modules).
   flake.nixosModules.system.imports = [self.nixosModules.home-manager];
 
   flake.nixosModules.home-manager = {config, ...}: {

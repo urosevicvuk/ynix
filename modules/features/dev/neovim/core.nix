@@ -1,12 +1,8 @@
-# Core: enables nvf, theme, and which-key.
-# This is the only module that imports the nvf option module + sets enable;
-# the sibling modules just set `programs.nvf.settings.vim.*` and rely on this.
 {
   self,
   inputs,
   ...
 }: {
-  # Self-registers into the `dev` group (merged with the other dev modules).
   flake.nixosModules.dev.imports = [self.nixosModules.neovim];
 
   flake.nixosModules.neovim = {...}: {

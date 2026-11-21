@@ -1,9 +1,3 @@
-# Language support. nvf wires LSP + treesitter + formatters per language.
-# format.enable turns on conform with each language's dedicated formatter
-# (stylua, black, prettier, alejandra, gofmt, ...) for manual <leader>cf;
-# auto-format on save stays off (vim.lsp.formatOnSave = false in lsp.nix).
-# yaml/helm have no nvf formatter, so they're enable-only.
-# Protobuf has no nvf module - it's handled in lsp.nix (protols + grammar).
 {self, ...}: {
   flake.homeModules.neovim = {...}: let
     luaInline = expr: {
@@ -15,7 +9,6 @@
       enableFormat = true;
       enableTreesitter = true;
 
-      # Compiled / systems (DAP-enabled).
       go = {
         enable = true;
         format.enable = true;
@@ -41,7 +34,6 @@
         format.enable = true;
       };
 
-      # Scripting.
       lua = {
         enable = true;
         format.enable = true;
@@ -55,12 +47,11 @@
         format.enable = true;
       };
 
-      # Config / markup.
       nix = {
         enable = true;
         format.enable = true;
       };
-      yaml.enable = true; # no nvf formatter
+      yaml.enable = true;
       json = {
         enable = true;
         format.enable = true;
@@ -74,15 +65,9 @@
         format.enable = true;
         extensions.markview-nvim = {
           enable = true;
-          # markview also claims typst/quarto/rmd/asciidoc by default; its typst
-          # renderer is rough (garbled code blocks). Typst is edited raw and
-          # viewed in zathura / the browser preview instead.
           setupOpts.preview.filetypes = ["markdown"];
         };
       };
-      # Typst: tinymist (LSP + lint) and typstyle (<leader>cf). Output is viewed
-      # in zathura (live PDF, see tinymist settings below) or the browser
-      # (typst-preview.nvim). Buffer-local <leader>t keymaps are set further down.
       typst = {
         enable = true;
         lsp.enable = true;
@@ -90,7 +75,6 @@
         extensions.typst-preview-nvim.enable = true;
       };
 
-      # Web.
       typescript = {
         enable = true;
         format.enable = true;
@@ -104,7 +88,6 @@
         format.enable = true;
       };
 
-      # DevOps / infra.
       docker = {
         enable = true;
         format.enable = true;
@@ -117,9 +100,8 @@
         enable = true;
         format.enable = true;
       };
-      helm.enable = true; # no nvf formatter
+      helm.enable = true;
 
-      # CS / tooling.
       tex = {
         enable = true;
         format.enable = true;
@@ -134,10 +116,6 @@
       };
     };
 
-    # tinymist (settings are read flat, not under a "tinymist" key):
-    # - exportPdf onType writes <file>.pdf next to the source on every edit;
-    #   zathura watches the file and reloads, so it works as a live preview.
-    # - lint: tinymist's built-in checks, on top of compiler diagnostics.
     programs.nvf.settings.vim.lsp.servers.tinymist.settings = {
       exportPdf = "onType";
       lint.enabled = true;
@@ -151,7 +129,6 @@
       }
     ];
 
-    # Typst buffers: soft-wrapped prose + a buffer-local <leader>t group.
     programs.nvf.settings.vim.autocmds = [
       {
         enable = true;

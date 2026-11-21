@@ -21,8 +21,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Builds the project from Cargo.lock, with dependencies cached apart from
-    # your own code.
     crane.url = "github:ipetkov/crane";
   };
 

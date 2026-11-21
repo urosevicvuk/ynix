@@ -3,7 +3,6 @@
   inputs,
   ...
 }: {
-  # Self-registers into the `apps` group (merged with the other apps modules).
   flake.nixosModules.apps.imports = [self.nixosModules.helium];
 
   flake.nixosModules.helium = {...}: {

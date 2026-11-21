@@ -1,6 +1,4 @@
-# Udiskie - automatic mounting of removable storage devices
 {self, ...}: {
-  # Self-registers into the `desktop` group (merged with the other desktop modules).
   flake.nixosModules.desktop.imports = [self.nixosModules.udiskie];
 
   flake.nixosModules.udiskie = {...}: {

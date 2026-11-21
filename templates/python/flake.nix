@@ -21,7 +21,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Builds the project from uv.lock, every package pinned by its hash.
     pyproject-nix = {
       url = "github:pyproject-nix/pyproject.nix";
       inputs.nixpkgs.follows = "nixpkgs";

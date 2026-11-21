@@ -1,6 +1,4 @@
-# Kitty is a fast, featureful, GPU based terminal emulator
 {self, ...}: {
-  # Self-registers into the `apps` group (merged with the other apps modules).
   flake.nixosModules.apps.imports = [self.nixosModules.kitty];
 
   flake.nixosModules.kitty = {...}: {
@@ -16,10 +14,6 @@
         initial_window_width = 1200;
         initial_window_height = 600;
         update_check_interval = 0;
-        # Disable config auto-reload (negative = off). The watcher follows the
-        # nix-store symlinked kitty.conf and recursively watches /nix/store,
-        # exhausting the inotify limit (starves nvim/snacks etc.). Pointless for
-        # a Nix-managed config anyway - it only changes on rebuild + restart.
         auto_reload_config = -1;
         enable_audio_bell = false;
         confirm_os_window_close = 0;

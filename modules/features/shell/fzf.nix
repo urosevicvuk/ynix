@@ -1,5 +1,4 @@
 {self, ...}: {
-  # Self-registers into the `shell` group (merged with the other shell modules).
   flake.nixosModules.shell.imports = [self.nixosModules.fzf];
 
   flake.nixosModules.fzf = {...}: {
@@ -15,12 +14,7 @@
   in {
     programs.fzf = {
       enable = true;
-      # Atuin is the history manager and is sourced after fzf, so it already
-      # won Ctrl-R in practice; dropping fzf's binding makes that explicit.
-      # fzf keeps Ctrl-T (files) and Alt-C (cd), plus fzf-tab in zsh.
       historyWidget.command = "";
-      # Nushell is tv + carapace + atuin territory; fzf's integration would
-      # steal Ctrl-T from television's smart autocomplete.
       enableNushellIntegration = false;
       colors = lib.mkForce {
         "fg+" = theme.base0D;
@@ -39,9 +33,6 @@
         "--prompt='/ '"
         "-i"
         "--no-bold"
-        # Tab accepts the selection instead of toggling multi-select
-        # (Shift-Tab still toggles); moving is Ctrl-N/Ctrl-P. fzf-tab doesn't
-        # inherit this — it sets its own binds on the CLI, see zsh.nix.
         "--bind=tab:accept"
       ];
     };

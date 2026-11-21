@@ -1,8 +1,6 @@
-# Editing: motion, editing mini modules, file navigation, marks, sessions.
 {self, ...}: {
   flake.homeModules.neovim = {pkgs, ...}: {
     programs.nvf.settings.vim = {
-      # Seamless <C-hjkl> across nvim splits and tmux panes + sudo writes.
       startPlugins = with pkgs.vimPlugins; [
         vim-tmux-navigator
         vim-suda

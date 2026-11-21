@@ -1,4 +1,3 @@
-# Preferences - shared option definitions for all hosts
 {
   flake.nixosModules.system = {lib, ...}: {
     options.preferences = {

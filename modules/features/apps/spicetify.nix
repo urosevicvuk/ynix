@@ -1,10 +1,8 @@
-# Spicetify - Spotify client customizer
 {
   self,
   inputs,
   ...
 }: {
-  # Self-registers into the `apps` group (merged with the other apps modules).
   flake.nixosModules.apps.imports = [self.nixosModules.spicetify];
 
   flake.nixosModules.spicetify = {pkgs, ...}: {

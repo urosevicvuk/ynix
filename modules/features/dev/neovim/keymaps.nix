@@ -1,5 +1,3 @@
-# All keymaps. The km/kmv/... helpers kill the mode/silent boilerplate so
-# each binding is a single line.
 {self, ...}: {
   flake.homeModules.neovim = {...}: let
     mk = mode: key: action: desc: {inherit mode key action desc;};
@@ -9,7 +7,6 @@
     kmnv = mk ["n" "v"];
   in {
     programs.nvf.settings.vim.keymaps = [
-      # === Core ===
       (km "<leader>w" "<cmd>w<cr>" "Save")
       (km "<leader>q" "<cmd>q<cr>" "Quit")
       (km "Q" "<nop>" "Disable Q")
@@ -21,13 +18,11 @@
       (km "J" "mzJ`z" "Join lines, keep cursor")
       (km "<leader><BS>" "<cmd>nohlsearch<cr>" "Clear search highlight")
 
-      # Force hjkl: disable arrows in normal mode.
       (km "<Up>" "<Nop>" "Disable Up")
       (km "<Down>" "<Nop>" "Disable Down")
       (km "<Left>" "<Nop>" "Disable Left")
       (km "<Right>" "<Nop>" "Disable Right")
 
-      # === UI toggles (<leader>u) ===
       (km "<leader>uu" "<cmd>UndotreeToggle<cr>" "Undotree")
       (km "<leader>uw" "<cmd>set wrap!<cr>" "Toggle wrap")
       (km "<leader>ul" "<cmd>set linebreak!<cr>" "Toggle linebreak")
@@ -39,11 +34,7 @@
       (km "<leader>uh" "<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<cr>" "Toggle inlay hints")
       (km "<leader>ut" "<cmd>lua vim.o.showtabline = vim.o.showtabline == 2 and 0 or 2<cr>" "Toggle tabline")
 
-      # Motion: flash's s/S/r mappings (n/o/x) are provided by nvf's flash
-      # module itself, so they're not redefined here.
-
-      # === LSP / code ===
-      (km "K" "<cmd>lua vim.lsp.buf.hover()<cr>" "Hover") # rendered by noice; lspsaga hover gets garbled by markview
+      (km "K" "<cmd>lua vim.lsp.buf.hover()<cr>" "Hover")
       (kmnv "<M-CR>" "<cmd>Lspsaga code_action<cr>" "Code actions")
       (kmi "<C-s>" "<cmd>lua vim.lsp.buf.signature_help()<cr>" "Signature help")
       (km "<leader>rn" "<cmd>lua vim.lsp.buf.rename()<cr>" "Rename")
@@ -58,13 +49,11 @@
       (km "]w" "<cmd>lua vim.diagnostic.goto_next({severity = vim.diagnostic.severity.WARN})<cr>" "Next warning")
       (km "[w" "<cmd>lua vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.WARN})<cr>" "Prev warning")
 
-      # Trouble
       (km "<leader>xx" "<cmd>Trouble diagnostics toggle<cr>" "Diagnostics (workspace)")
       (km "<leader>xd" "<cmd>Trouble diagnostics toggle filter.buf=0<cr>" "Diagnostics (document)")
       (km "<leader>xq" "<cmd>Trouble qflist toggle<cr>" "Quickfix list")
       (km "<leader>xl" "<cmd>Trouble loclist toggle<cr>" "Location list")
 
-      # === Debug (DAP) ===
       (km "<leader>db" "<cmd>lua require('dap').toggle_breakpoint()<cr>" "Toggle breakpoint")
       (km "<leader>dB" "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Condition: '))<cr>" "Conditional breakpoint")
       (km "<leader>dc" "<cmd>lua require('dap').continue()<cr>" "Continue")
@@ -75,7 +64,6 @@
       (km "<leader>du" "<cmd>lua require('dapui').toggle()<cr>" "Toggle DAP UI")
       (km "<leader>dt" "<cmd>lua require('dap').terminate()<cr>" "Terminate")
 
-      # === Git ===
       (km "<leader>gg" "<cmd>lua Snacks.lazygit()<cr>" "Lazygit")
       (km "<leader>gv" "<cmd>DiffviewOpen<cr>" "Diffview")
       (km "<leader>gV" "<cmd>DiffviewFileHistory %<cr>" "File history")
@@ -92,7 +80,6 @@
       (km "<leader>gs" "<cmd>lua Snacks.picker.git_status()<cr>" "Git status")
       (km "<leader>gd" "<cmd>lua Snacks.picker.git_diff()<cr>" "Git diff")
 
-      # === Find / navigation (snacks) ===
       (km "<leader><space>" "<cmd>lua Snacks.picker.files()<cr>" "Find files")
       (km "<leader>/" "<cmd>lua Snacks.picker.grep()<cr>" "Grep")
       (km "<leader>," "<cmd>lua Snacks.picker.buffers()<cr>" "Buffers")
@@ -116,7 +103,6 @@
       (km "<leader>fs" "<cmd>lua Snacks.picker.lsp_symbols()<cr>" "Symbols (file)")
       (km "<leader>fS" "<cmd>lua Snacks.picker.lsp_workspace_symbols()<cr>" "Symbols (workspace)")
 
-      # === Buffers ===
       (km "<leader>bd" "<cmd>lua Snacks.bufdelete()<cr>" "Delete buffer")
       (km "<leader>bD" "<cmd>lua Snacks.bufdelete.all()<cr>" "Delete all buffers")
       (km "<leader>bo" "<cmd>lua Snacks.bufdelete.other()<cr>" "Delete other buffers")

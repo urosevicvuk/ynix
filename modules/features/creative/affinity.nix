@@ -3,7 +3,6 @@
   inputs,
   ...
 }: {
-  # Self-registers into the `creative` group (merged with the other creative modules).
   flake.nixosModules.creative.imports = [self.nixosModules.affinity];
 
   flake.nixosModules.affinity = {...}: {

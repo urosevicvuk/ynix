@@ -1,26 +1,9 @@
-# vinheim -- the DevOps (RAF) lab VM.
-#
-# A plain NixOS box students SSH into during class: the tools they need, docker,
-# and a `student` account. Nothing clever. Images are built with nixpkgs' own
-# `system.build.images` (the upstream replacement for nixos-generators, retired
-# since 25.05), so there are no extra flake inputs.
-#
-# Outputs:
-#   nixosConfigurations.vinheim / vinheim-aarch64
-#   packages.x86_64-linux.vinheim-ova        VirtualBox appliance for the lab
-#   packages.aarch64-linux.vinheim-qcow2     UTM image for Apple Silicon
-#   devShells.<system>.devops                same tools, no VM
-#
-# Fixing the VM mid-semester, from inside the VM:
-#   sudo nixos-rebuild switch --flake github:urosevicvuk/ynix#vinheim
 {
   self,
   inputs,
   lib,
   ...
 }: let
-  # The VM tracks nixpkgs *stable*, frozen by flake.lock for the semester, while
-  # the rest of ynix rides unstable. Handouts must not go stale mid-course.
   stable = inputs.nixpkgs-stable;
 
   mkSystem = system:
@@ -31,12 +14,8 @@
       ];
     };
 
-  # One list, used by the VM and the devShell, so the versions can't drift.
-  # Rule: if it wouldn't be on a stock Ubuntu server, or it teaches a habit that
-  # doesn't transfer off this VM, it doesn't go in.
   tools = pkgs:
     with pkgs; [
-      # V1 -- terminal
       git
       gh
       nano
@@ -52,27 +31,21 @@
       iproute2
       dnsutils
 
-      # V2-V3 -- Go and CI. gcc because cgo is on by default, so `go build` of
-      # anything importing net (i.e. glasnik) fails without a C compiler.
       go
       gcc
       gnumake
       golangci-lint
 
-      # V4-V7 -- containers. The docker CLI already ships compose and buildx as
-      # plugins, so `docker compose` works without adding anything.
       dive
       trivy
       oha
 
-      # V8-V10 -- Kubernetes
       kind
       kubectl
       kubernetes-helm
       k9s
       hurl
 
-      # V11-V12 -- optional topics
       argocd
     ];
 in {
@@ -91,15 +64,8 @@ in {
 
     nix.settings.experimental-features = ["nix-command" "flakes"];
 
-    # Off on purpose: a disposable single-user lab behind VM NAT, and the
-    # syllabus is git/CI/docker/k8s, not iptables. Leaving it on turns every
-    # NodePort exercise into a firewall debugging session.
     networking.firewall.enable = false;
 
-    # --- getting in ---------------------------------------------------------
-    # SSH from the host terminal is the way in (copy-paste works, several
-    # terminals at once, and it's how they'll meet a real server). The
-    # autologin console is the fallback.
     services.openssh = {
       enable = true;
       settings = {
@@ -112,14 +78,11 @@ in {
 
     users.mutableUsers = false;
     users.defaultUserShell = pkgs.bash;
-    users.users.root.hashedPassword = "!"; # no root login, use sudo
+    users.users.root.hashedPassword = "!";
 
     users.users.student = {
       isNormalUser = true;
       extraGroups = ["wheel" "docker"];
-      # Plaintext on purpose: world-readable in the Nix store is irrelevant for
-      # a throwaway lab image, and it saves thirty students a detour on minute
-      # one. Passwordless sudo for the same reason.
       password = "student";
     };
     security.sudo.wheelNeedsPassword = false;
@@ -135,19 +98,11 @@ in {
       This VM is disposable -- your GitHub repo is the source of truth.
     '';
 
-    # --- docker -------------------------------------------------------------
     virtualisation.docker = {
       enable = true;
-      # No background prune: an image vanishing mid-exercise is a confusing
-      # failure to debug in front of a class.
       autoPrune.enable = false;
       daemon.settings = {
-        # The whole lab leaves through one IP, and Docker Hub rate-limits
-        # anonymous pulls per IP. The mirror takes most of that pressure off.
         registry-mirrors = ["https://mirror.gcr.io"];
-        # NixOS defaults to journald; json-file is what a stock server uses (and
-        # what `docker logs` docs assume). The opts below are json-file's, and
-        # dockerd refuses to start if they're set on journald.
         log-driver = "json-file";
         log-opts = {
           max-size = "10m";
@@ -156,44 +111,15 @@ in {
       };
     };
 
-    # kind's control plane opens a lot of watches; the defaults give a confusing
-    # "too many open files" instead of a working cluster.
     boot.kernel.sysctl = {
       "fs.inotify.max_user_watches" = 524288;
       "fs.inotify.max_user_instances" = 512;
     };
 
-    # The OVA's VMSVGA adapter pulls in vmwgfx, which on VirtualBox complains
-    # about an "unsupported hypervisor" and intermittently wedges the console
-    # mid-boot (stuck at "Starting Virtual Console Setup..."). Nobody needs KMS
-    # on an SSH-first text box; without it the console stays on plain VGA text.
-    #
-    # vboxguest and vboxsf go too. Some lab machines hang at boot right after
-    # "Finished Coldplug All udev Devices" with "rcu_preempt detected expedited
-    # stalls on CPUs/tasks". That is VirtualBox/virtualbox#940: the Guest
-    # Additions vboxguest (7.2.8 here) calls pte_unmap() without the matching
-    # RCU lock on kernels >= 6.6, the CPU's RCU nesting goes to -1, and if an
-    # expedited grace period lands at that moment it never completes. Check:
-    # `nm -u vboxguest.ko | grep rcu_read` lists only __rcu_read_unlock. The
-    # Guest Additions are off below; the in-kernel vboxguest is blacklisted as
-    # well, since nothing on an SSH-only box uses it (no shared folders, no
-    # clipboard, timesyncd keeps the clock).
     boot.blacklistedKernelModules = ["vmwgfx" "vboxguest" "vboxsf"];
 
-    # The same stall has a second, host-side report (VirtualBox/virtualbox#861,
-    # a lost IPI to an idle vCPU in VirtualBox's APIC emulation), and that one
-    # does not go away with the Guest Additions. Its reporter's fix, on three
-    # labs of ~37 machines with no hang since: no x2APIC, and normal instead of
-    # expedited RCU grace periods, so no grace period waits on an IPI to an
-    # idle CPU.
     boot.kernelParams = ["nox2apic" "rcupdate.rcu_normal=1"];
 
-    # The kind node has its own containerd, which does not see dockerd's
-    # registry-mirrors: without this, every node pull of a Docker Hub image
-    # (postgres, nginx, busybox) goes straight to Docker Hub from the lab's one
-    # IP. containerd 2 in kind >= 0.27 reads /etc/containerd/certs.d with no
-    # config patch; kind.yaml mounts this directory there. A copy, not the
-    # usual /etc/static symlink, since the store doesn't exist inside the node.
     environment.etc."devops/certs.d/docker.io/hosts.toml" = {
       mode = "0444";
       text = ''
@@ -204,8 +130,6 @@ in {
       '';
     };
 
-    # kind needs these forwarded into the VM for NodePorts to be reachable from
-    # the host browser; the OVA's NAT rules below carry them the rest of the way.
     environment.etc."devops/kind.yaml".text = ''
       kind: Cluster
       apiVersion: kind.x-k8s.io/v1alpha4
@@ -217,14 +141,13 @@ in {
               containerPath: /etc/containerd/certs.d
               readOnly: true
           extraPortMappings:
-            - { containerPort: 30080, hostPort: 30080 }  # app
-            - { containerPort: 30300, hostPort: 30300 }  # Grafana
-            - { containerPort: 30900, hostPort: 30900 }  # Prometheus
-            - { containerPort: 30930, hostPort: 30930 }  # Alertmanager
-            - { containerPort: 30443, hostPort: 30443 }  # Argo CD
+            - { containerPort: 30080, hostPort: 30080 }
+            - { containerPort: 30300, hostPort: 30300 }
+            - { containerPort: 30900, hostPort: 30900 }
+            - { containerPort: 30930, hostPort: 30930 }
+            - { containerPort: 30443, hostPort: 30443 }
     '';
 
-    # --- tools and shell ----------------------------------------------------
     environment.systemPackages = tools pkgs;
 
     environment.variables = {
@@ -234,7 +157,6 @@ in {
 
     programs.git = {
       enable = true;
-      # Name and email they set themselves on V2.
       config.init.defaultBranch = "main";
     };
 
@@ -249,21 +171,12 @@ in {
       '';
     };
 
-    # Without the cache `man -k` silently returns nothing, which is exactly when
-    # a student gives up and opens a browser.
     documentation.man.cache.enable = true;
 
-    # Broken under flakes without a channel; every typo would otherwise produce
-    # a confusing Nix error instead of "command not found".
     programs.command-not-found.enable = false;
 
     systemd.tmpfiles.rules = ["d /home/student/work 0755 student users -"];
 
-    # --- images -------------------------------------------------------------
-    # The disk and bootloader, as defaults -- each image variant sets its own,
-    # and a plain definition beats mkDefault. Having them here is what lets the
-    # bare configuration evaluate, which is what `nixos-rebuild switch` uses
-    # from inside a booted VM.
     fileSystems."/" = lib.mkDefault {
       device = "/dev/disk/by-label/nixos";
       fsType = "ext4";
@@ -274,18 +187,12 @@ in {
       enable = lib.mkDefault true;
       device = lib.mkDefault "/dev/sda";
     };
-    # Same swap the virtualbox image module adds, so a rebuild from inside the
-    # VM doesn't quietly take it away (and the qcow2 gets it too).
     swapDevices = lib.mkDefault [
       {
         device = "/var/swap";
         size = 2048;
       }
     ];
-    # No Guest Additions, in the OVA or in a rebuild from inside the VM: their
-    # vboxguest hangs the boot on some machines (see the blacklist above). The
-    # virtualbox image module turns them on with a plain definition, hence
-    # mkForce.
     virtualisation.virtualbox.guest.enable = lib.mkForce false;
 
     image.modules = {
@@ -295,20 +202,10 @@ in {
         virtualbox = {
           vmName = "DevOps Lab";
           vmDerivationName = "devops-lab-ova";
-          # 4 GB is enough through V10; the V11 handout says to raise it.
           memorySize = 4096;
-          # ~25 GB total, not the 40 GB in the course doc: measured on this
-          # closure, the store-to-ext4 copy takes ~6 min at 24 GB of free space
-          # and then falls off a cliff (at 35 GB it spun for an hour without
-          # finishing). Students who need more run
-          # `VBoxManage modifyhd ... --resize 40960` and reboot -- growPartition
-          # and autoResize above pick it up.
           baseImageFreeSpace = 20 * 1024;
           params = {
             cpus = 2;
-            # So a double-clicked appliance already answers on localhost, with
-            # no VBoxManage step for the student. VBoxManage takes one --natpf1
-            # per rule and the OVF export carries them.
             natpf1 = [
               "ssh,tcp,,2222,,22"
               "app,tcp,,8080,,8080"
@@ -322,12 +219,9 @@ in {
         };
       };
 
-      # UTM on Apple Silicon: a bare qcow2, so the student creates the VM, picks
-      # RAM and forwards the ports themselves.
       qemu-efi = {
         image.baseName = "devops-aarch64";
         virtualisation.diskSize = 25 * 1024;
-        # This one boots via systemd-boot off the ESP.
         boot.loader.grub.enable = false;
       };
     };
@@ -352,8 +246,6 @@ in {
         vinheim-qcow2 = self.nixosConfigurations.vinheim-aarch64.config.system.build.images.qemu-efi;
       };
 
-    # For students on their own Linux or Mac. Allowed, but unsupported in class:
-    # the handouts assume the VM.
     devShells.devops = pkgs.mkShell {packages = tools pkgs;};
   };
 }

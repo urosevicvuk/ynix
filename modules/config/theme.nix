@@ -1,5 +1,3 @@
-# Theme selector - wires preferences.theme into config.theme.active
-# and propagates it to home-manager configs.
 {self, ...}: {
   flake.homeModules.theme = {lib, ...}: {
     options.theme.active = lib.mkOption {
@@ -8,7 +6,6 @@
     };
   };
 
-  # Self-registers into the `system` group (merged with the other system modules).
   flake.nixosModules.system.imports = [self.nixosModules.theme];
 
   flake.nixosModules.theme = {config, lib, ...}: let

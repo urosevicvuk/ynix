@@ -3,7 +3,6 @@
   inputs,
   ...
 }: {
-  # Self-registers into the `desktop` group (merged with the other desktop modules).
   flake.nixosModules.desktop.imports = [self.nixosModules.niri];
 
   flake.nixosModules.niri = {pkgs, ...}: {
@@ -15,8 +14,6 @@
 
     programs.niri.package = pkgs.niri;
 
-    # polkit-kde-agent crashes when rendering dialogs on niri (KCrash / SIGSEGV).
-    # Use hyprpolkitagent instead — started via spawn-at-startup in the home module below.
     systemd.user.services.niri-flake-polkit.enable = false;
 
     environment.systemPackages = with pkgs; [
@@ -43,30 +40,24 @@
     animationSpeed = theme.animation-speed;
     animationsDisabled = animationSpeed == "none";
 
-    # --- noctalia (off) --- uncomment this block + the noctalia-only binds below to switch back
     # noct = "noctalia-shell ipc call";
-    #
     # launcher = "${noct} launcher toggle";
     # clipboard = "${noct} launcher clipboard";
     # bar = "${noct} bar toggle";
     # controlCenter = "${noct} controlCenter toggle";
     # sessionMenu = "${noct} sessionMenu toggle";
     # settings = "${noct} settings toggle";
-    #
     # outputUp = "${noct} volume increase";
     # outputDown = "${noct} volume decrease";
     # outputMute = "${noct} volume muteOutput";
     # inputUp = "${noct} volume increaseInput";
     # inputDown = "${noct} volume decreaseInput";
     # inputMute = "${noct} volume muteInput";
-    #
     # brightnessUp = "${noct} brightness increase";
     # brightnessDown = "${noct} brightness decrease";
-    #
     # playPause = "${noct} media playPause";
     # next = "${noct} media next";
     # previous = "${noct} media previous";
-    #
     # mediaPanel = "${noct} media toggle";
     # calendar = "${noct} plugin:weekly-calendar togglePanel";
     # screenToolkit = "${noct} plugin:screen-toolkit toggle";
@@ -76,19 +67,16 @@
     # tailscalePanel = "${noct} plugin:tailscale togglePanel";
     # batteryPanel = "${noct} battery togglePanel";
     # notificationsPanel = "${noct} notifications toggleHistory";
-    #
     # caffeine = "${noct} idleInhibitor toggle";
     # volumeToggle = "${noct} volume toggle";
     # bluetoothToggle = "${noct} bluetooth toggle";
     # networkToggle = "${noct} network toggle";
     # mute = "${noct} notifications toggleDND";
-    #
     # screenshotArea = "${noct} plugin:screen-toolkit annotate";
     # screenshotFullscreen = "${noct} plugin:screen-toolkit annotateFullscreen";
     # recordArea = "${noct} plugin:screen-toolkit recordMp4";
     # recordFullscreen = "${noct} plugin:screen-toolkit recordFullscreenMp4";
 
-    # --- dms (on) --- `dms ipc call` with no args lists every target/function
     dms = "dms ipc call";
 
     launcher = "${dms} launcher toggle";
@@ -105,7 +93,6 @@
     inputDown = "${dms} mic decrement 5";
     inputMute = "${dms} mic mute";
 
-    # trailing "" = default backlight device
     brightnessUp = "${dms} brightness increment 5 ''";
     brightnessDown = "${dms} brightness decrement 5 ''";
 
@@ -166,7 +153,6 @@
       };
 
       spawn-at-startup = [
-        # noctalia (off) — dms is started by its systemd user service instead
         # {command = ["noctalia-shell"];}
         {command = ["xwayland-satellite"];}
         {command = ["${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"];}
@@ -348,7 +334,7 @@
         "Mod+F".action = fullscreen-window;
 
         "Mod+Return".action = spawn terminal;
-        "Mod+Alt+D".action = spawn terminal "-e" "lazydocker";
+        "Mod+Alt+D".action = spawn terminal "-e" "podman-tui";
         "Mod+Alt+G".action = spawn terminal "-e" "gh-dash";
         "Mod+Alt+I".action = spawn terminal "-e" "btop";
         "Mod+Alt+Y".action = spawn terminal "-e" "yazi";
@@ -357,11 +343,6 @@
         "Mod+Alt+N".action = spawn terminal "-e" "nmtui";
         "Mod+Alt+H".action = spawn helium;
         "Mod+Alt+Z".action = spawn zen;
-
-        # Modifiers stack, keys are always HJKL:
-        #   Shift = move (no Shift = focus)
-        #   Alt   = the whole workspace instead of the window
-        #   Ctrl  = across monitors
 
         "Mod+H".action = focus-column-left;
         "Mod+L".action = focus-column-right;
@@ -407,7 +388,6 @@
         "Alt+Print".action.screenshot-window = {};
         "Shift+Print".action.screenshot-screen = {};
 
-        # --- noctalia-only (off) --- no DMS equivalent
         # "Mod+T".action = spawn-sh tailscalePanel;
         # "Mod+X".action = spawn-sh screenToolkit;
         # "Mod+C".action = spawn-sh calendar;

@@ -3,7 +3,6 @@
   inputs,
   ...
 }: {
-  # Self-registers into the `shell` group (merged with the other shell modules).
   flake.nixosModules.shell.imports = [self.nixosModules.tmux];
 
   flake.nixosModules.tmux = {...}: {

@@ -1,4 +1,3 @@
-# Editor options, globals, and clipboard.
 {self, ...}: {
   flake.homeModules.neovim = {...}: let
     luaInline = expr: {
@@ -50,12 +49,9 @@
       ];
 
       options = {
-        # Line numbers (hybrid: absolute current line, relative elsewhere).
         number = true;
         relativenumber = true;
 
-        # Indentation: Neovim reads .editorconfig automatically; these are the
-        # 2-space fallback for files/languages that don't specify their own.
         expandtab = true;
         shiftwidth = 2;
         tabstop = 2;
@@ -63,26 +59,20 @@
         autoindent = true;
         smartindent = true;
 
-        # Search.
         ignorecase = true;
         smartcase = true;
 
-        # Splits open to the right / below.
         splitright = true;
         splitbelow = true;
 
-        # Persistent undo (pairs with undotree).
         undofile = true;
 
-        # Mouse disabled (keyboard-only).
         mouse = "";
 
         signcolumn = "yes";
         wrap = false;
         scrolloff = 9;
 
-        # Folding: treesitter folds, everything open on load. Fold icons are
-        # rendered by snacks.statuscolumn, so no native foldcolumn here.
         foldlevel = 99;
         fillchars = "eob:‿";
       };

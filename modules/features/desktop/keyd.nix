@@ -1,5 +1,4 @@
 {self, ...}: {
-  # Self-registers into the `desktop` group (merged with the other desktop modules).
   flake.nixosModules.desktop.imports = [self.nixosModules.keyd];
 
   flake.nixosModules.keyd = {...}: {
@@ -18,7 +17,6 @@
               leftmeta = "leftalt";
             };
 
-            # Tapping both shift keys together activates capslock
             shift = {
               leftshift = "capslock";
               rightshift = "capslock";

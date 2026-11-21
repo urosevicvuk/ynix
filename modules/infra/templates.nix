@@ -1,11 +1,4 @@
 {...}: {
-  # Project starters, usable from anywhere:
-  #   nix flake init -t ~/Projects/urosevicvuk/ynix#python
-  #   nix flake init -t github:urosevicvuk/ynix#python
-  #
-  # Add a new one by dropping a directory under ../../templates and listing it
-  # here. Note that `nix flake init` evaluates this whole flake, so a cold run on
-  # a machine without the lock cached pulls the full input closure.
   flake.templates = {
     python = {
       path = ../../templates/python;

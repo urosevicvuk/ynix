@@ -1,4 +1,3 @@
-# UI layer: statusline, snacks suite, noice, visuals, and visual mini modules.
 {self, ...}: {
   flake.homeModules.neovim = {
     lib,
@@ -13,9 +12,7 @@
   in {
     programs.nvf.settings.vim = {
       highlight = {
-        # Single-color (gray) rainbow delimiters instead of multi-color.
         RainbowDelimiterGray.fg = "#928374";
-        # snacks.words: underline references instead of the slow-feeling bg.
         LspReferenceText = {
           bg = "NONE";
           underline = true;
@@ -39,8 +36,6 @@
         borders.enable = true;
         noice = {
           enable = true;
-          # snacks.notifier owns vim.notify toasts; noice handles the
-          # cmdline/messages/LSP-progress only.
           setupOpts.notify.enabled = false;
         };
       };
@@ -50,8 +45,6 @@
         setupOpts = {
           dashboard = {
             enabled = true;
-            # Custom sections: the default set includes a "startup" section that
-            # require()s lazy.nvim's stats, which nvf doesn't ship (it uses lz.n).
             sections = [
               {section = "header";}
               {
@@ -84,14 +77,9 @@
           zen.enabled = true;
           image = {
             enabled = true;
-            # No inline math images: typst is edited raw and viewed in
-            # zathura/browser (and with no LaTeX installed, typst was the only
-            # filetype this rendered for anyway). Image previews stay on.
             math.enabled = false;
           };
           scratch.enabled = true;
-          # snacks.scroll (was cinnamon-nvim) + snacks.words (was mini.cursorword).
-          # Indent guides/scope stay on indent-blankline + mini.indentscope below.
           #scroll.enabled = true;
           words = {
             enabled = true;
@@ -119,7 +107,6 @@
         indentscope.enable = true;
         hipatterns = {
           enable = true;
-          # Without highlighters mini.hipatterns does nothing; render #rrggbb.
           setupOpts.highlighters.hex_color = luaInline "require('mini.hipatterns').gen_highlighter.hex_color()";
         };
       };

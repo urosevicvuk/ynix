@@ -1,10 +1,8 @@
-# Discord via nixcord
 {
   self,
   inputs,
   ...
 }: {
-  # Self-registers into the `apps` group (merged with the other apps modules).
   flake.nixosModules.apps.imports = [self.nixosModules.discord];
 
   flake.nixosModules.discord = {...}: {
@@ -24,10 +22,6 @@
       discord.vencord.enable = true;
       discord.openASAR.enable = false;
 
-      # Route screen-share capture through the PipeWire portal stream.
-      # Without this the official client falls back to its native (X11)
-      # capturer on Wayland, which yields no frames and Discord drops the
-      # stream with "4022 Call terminated" right after capture starts.
       discord.commandLineArgs = [
         "--enable-features=WebRTCPipeWireCapturer"
       ];

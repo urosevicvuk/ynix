@@ -1,5 +1,4 @@
 {self, ...}: {
-  # Self-registers into the `shell` group (merged with the other shell modules).
   flake.nixosModules.shell.imports = [self.nixosModules.nushell];
 
   flake.nixosModules.nushell = {...}: {
@@ -35,8 +34,6 @@
       '';
 
       extraConfig = ''
-        # Ctrl-B: run the current (pasted) line through bash verbatim, so
-        # POSIX snippets work without translating them to nushell.
         def __bash_escape [] {
           commandline edit --replace --accept $"bash -c r#'(commandline)'#"
         }
