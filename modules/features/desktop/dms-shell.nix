@@ -113,7 +113,7 @@
         },
         "radiusStrength": 50,
         "radiusMode": "scale",
-        "wallpaperFillMode": "Tile",
+        "wallpaperFillMode": "Fill",
         "wallpaperBackgroundColorMode": "black",
         "lockDateFormat": "dddd, MMMM d",
         "useAutoLocation": true,
@@ -129,6 +129,7 @@
             "showOnLastDisplay": true,
             "position": 1,
             "mode": "compact",
+            "middleClickAction": "close",
             "taskbarAlign": "center",
             "widgetExpansion": "popout",
             "iconSize": 50,
@@ -554,10 +555,6 @@
                 "launcherLogoMode": "os"
               },
               {
-                "enabled": false,
-                "id": "nixMonitor"
-              },
-              {
                 "enabled": true,
                 "groupWorkspaceApps": false,
                 "id": "workspaceSwitcher",
@@ -599,10 +596,6 @@
             "position": 0,
             "rightWidgets": [
               {
-                "enabled": false,
-                "id": "privacyIndicator"
-              },
-              {
                 "enabled": true,
                 "id": "claudeCodeUsage"
               },
@@ -614,7 +607,11 @@
                 "enabled": true,
                 "id": "keyboard_layout_name",
                 "keyboardLayoutNameCompactMode": false,
-                "keyboardLayoutNameShowIcon": false
+                "keyboardLayoutNameShowIcon": false,
+                "keyboardLayoutNameLabelOverrides": {
+                  "Serbian (Latin, QWERTY)": "Serbian (Lat)",
+                  "Serbian (Cyrillic, ZE and ZHE swapped)": "Српски (Ћир)"
+                }
               },
               {
                 "batteryStyle": "icon",
@@ -700,6 +697,7 @@
         "barInsetPaddingSyncAll": true,
         "configVersion": 42
       }
+          
     '';
   };
 }
