@@ -10,17 +10,9 @@
           ids = ["*"];
           settings = {
             main = {
-              # Tap/hold keys use overloadt2 instead of overload: plain overload
-              # presses Control the instant the key goes down (so a tap sends
-              # Ctrl+Enter / Ctrl+Esc to apps, which breaks games). overloadt2
-              # only becomes Control if held >200ms or another key is tapped
-              # while held; a quick tap sends just the key.
+              capslock = "overload(control, esc)";
 
-              # Caps Lock acts as Escape when tapped, Control when held
-              capslock = "overloadt2(control, esc, 200)";
-
-              # Enter acts as Control when held, Enter when tapped
-              enter = "overloadt2(control, enter, 200)";
+              enter = "overload(control, enter)";
 
               leftalt = "leftmeta";
               leftmeta = "leftalt";
