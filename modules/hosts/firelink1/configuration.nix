@@ -43,7 +43,7 @@
 
     networking.hostName = "firelink1";
     # Must match the installer's /etc/nixos/configuration.nix.
-    system.stateVersion = "25.05";
+    system.stateVersion = "26.05";
 
     # Keep the bootloader the installer put on the disk (proven to boot here)
     # instead of ynix's default GRUB.
@@ -73,9 +73,14 @@
 
     environment.systemPackages = [pkgs.ipmitool];
 
+    # The old firelink's nix cache (harmonia, from the `server` features) needs
+    # your personal SSH key on the host to decrypt its signing key. Not wanted
+    # on the cluster nodes, and its failing secret blocked activation.
+    services.harmonia.cache.enable = lib.mkForce false;
     sops = {
       age.sshKeyPaths = ["/home/vyke/.ssh/id_ed25519"];
       defaultSopsFormat = "yaml";
+      secrets = lib.mkForce {};
     };
   };
 }

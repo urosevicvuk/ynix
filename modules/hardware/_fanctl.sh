@@ -23,8 +23,10 @@ IPMITOOL="${IPMITOOL:-ipmitool}"
 INTERVAL="${FANCTL_INTERVAL:-10}"
 
 # CPU package temp (°C) -> raw speed, linear between points.
-CURVE_T=(40 50 60 70 78)
-CURVE_S=(32 48 80 144 255) # 0x20 0x30 0x50 0x90 0xFF
+CURVE_T=(45 55 65 72 78)
+CURVE_S=(8 32 80 144 255) # 0x08 0x20 0x50 0x90 0xFF
+# Floor measured on firelink1 2026-11-26: 0x08 = ~1,200 RPM, the fans' minimum
+# (0x04 gave the same); idle CPUs stay in the low 40s C there.
 CPU_FULL=78
 # Emergency thresholds for non-CPU sensors (°C). Only real heat counts.
 NVME_HOT=70
