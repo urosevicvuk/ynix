@@ -9,6 +9,7 @@
 
   flake.nixosModules.firelink = {
     config,
+    lib,
     pkgs,
     ...
   }: {
@@ -38,8 +39,8 @@
     };
 
     boot.kernel.sysctl = {
-      "kernel.panic" = 10;
-      "kernel.panic_on_oops" = 1;
+      "kernel.panic" = lib.mkDefault 10;
+      "kernel.panic_on_oops" = lib.mkDefault 1;
       "kernel.hardlockup_panic" = 1;
     };
 

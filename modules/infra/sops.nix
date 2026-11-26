@@ -22,7 +22,7 @@
       ssh-to-age
     ];
 
-    home.file."${config.home.homeDirectory}/Projects/personal/ynix/.sops.yaml".text = ''
+    home.file."${config.home.homeDirectory}/Projects/urosevicvuk/ynix/.sops.yaml".text = ''
       creation_rules:
         - path_regex: secrets/shared/.*\.yaml$
           key_groups:
@@ -37,6 +37,13 @@
             - age:
                 - age18nfkzf6c32fnysaeuh64ryqj5dhm8j5f84rl50dc6yuevl87v9esn7nzqu
         - path_regex: secrets/(firelink|server)/.*\.yaml$
+          key_groups:
+            - age:
+                - age18nfkzf6c32fnysaeuh64ryqj5dhm8j5f84rl50dc6yuevl87v9esn7nzqu
+        # firelink1-3: add each host's age key (ssh-to-age of its SSH host key)
+        # here, then `sops updatekeys secrets/cluster/rke2.yaml`. See
+        # secrets/cluster/README.md.
+        - path_regex: secrets/cluster/.*\.yaml$
           key_groups:
             - age:
                 - age18nfkzf6c32fnysaeuh64ryqj5dhm8j5f84rl50dc6yuevl87v9esn7nzqu
