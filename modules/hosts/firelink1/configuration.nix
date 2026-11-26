@@ -55,6 +55,13 @@
     boot.loader.efi.canTouchEfiVariables = true;
 
     # Same as the old firelink: IPMI, hardware watchdog, panic -> reboot.
+    # Remote console: kernel messages + a login prompt on COM2 (ttyS1), which
+    # the IMM2 / iLO 4 expose as IPMI serial-over-LAN:
+    #   ipmitool -I lanplus -H <bmc-ip> -U <user> -P <pass> sol activate
+    # tty0 last = the screen stays the main console.
+    # intel_iommu: VT-d for VMs / device passthrough later (KubeVirt).
+    boot.kernelParams = ["console=ttyS1,115200n8" "console=tty0" "intel_iommu=on" "iommu=pt"];
+
     boot.kernelModules = ["ipmi_si" "ipmi_devintf" "ipmi_watchdog"];
     boot.extraModprobeConfig = "options ipmi_watchdog action=reset";
     systemd.settings.Manager = {
@@ -71,7 +78,7 @@
 
     hardware.rasdaemon.enable = true;
 
-    environment.systemPackages = [pkgs.ipmitool];
+    environment.systemPackages = [pkgs.ipmitool pkgs.pciutils];
 
     # The old firelink's nix cache (harmonia, from the `server` features) needs
     # your personal SSH key on the host to decrypt its signing key. Not wanted
