@@ -36,6 +36,7 @@
       self.nixosModules.neovim
       self.nixosModules.server
       self.nixosModules.sops
+      self.nixosModules.mesh
     ];
 
     networking.hostName = "firelink3";
@@ -47,6 +48,13 @@
     #   services.rke2.tokenFile = "/var/lib/rancher/rke2/token";
     # Started on its own it would create a separate one-node cluster.
     services.rke2.enable = lib.mkForce false;
+
+    ynix.mesh = {
+      address = "10.10.0.3";
+      ports = ["ens3f0np0" "ens3f1np1"];
+      # No LAN cable yet: out through firelink2.
+      gateway = "10.10.0.2";
+    };
     # Must match the installer's /etc/nixos/configuration.nix.
     system.stateVersion = "26.05";
 

@@ -37,11 +37,24 @@
       self.nixosModules.neovim
       self.nixosModules.server
       self.nixosModules.sops
+      self.nixosModules.mesh
 
       self.nixosModules.x3650m5
     ];
 
     networking.hostName = "firelink1";
+
+    # RKE2 parked until the network is final (mesh0 + node-ip). It bootstrapped
+    # once on 192.168.0.38 and etcd broke when the IP changed: wipe
+    # /var/lib/rancher/rke2/server before turning it back on.
+    services.rke2.enable = lib.mkForce false;
+
+    ynix.mesh = {
+      address = "10.10.0.1";
+      ports = ["ens4f0np0" "ens4f1np1"];
+      # No LAN cable yet: out through firelink2.
+      gateway = "10.10.0.2";
+    };
     # Must match the installer's /etc/nixos/configuration.nix.
     system.stateVersion = "26.05";
 

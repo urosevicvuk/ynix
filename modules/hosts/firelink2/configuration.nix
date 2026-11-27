@@ -37,11 +37,21 @@
       self.nixosModules.neovim
       self.nixosModules.server
       self.nixosModules.sops
+      self.nixosModules.mesh
 
       self.nixosModules.x3650m5
     ];
 
     networking.hostName = "firelink2";
+
+    # RKE2 stays off until this node joins firelink1 (remote, over Tailscale):
+    # copy firelink1:/var/lib/rancher/rke2/server/token to
+    # /var/lib/rancher/rke2/token here, then replace these lines with
+    #   services.rke2.serverAddr = "https://firelink1:9345";
+    #   services.rke2.tokenFile = "/var/lib/rancher/rke2/token";
+    # Started on its own it creates a separate one-node cluster (it did once,
+    # on 192.168.0.39: wipe /var/lib/rancher/rke2/server before joining).
+    services.rke2.enable = lib.mkForce false;
     # Must match the installer's /etc/nixos/configuration.nix.
     system.stateVersion = "26.05";
 
@@ -77,6 +87,15 @@
     };
 
     hardware.rasdaemon.enable = true;
+
+    # The only node cabled to the router (until the switch): the mesh's
+    # gateway and STP root.
+    ynix.mesh = {
+      address = "10.10.0.2";
+      ports = ["ens4f0np0" "ens4f1np1"];
+      uplink = "eno1";
+      stpPriority = 4096;
+    };
 
     environment.systemPackages = [pkgs.ipmitool pkgs.pciutils];
 
